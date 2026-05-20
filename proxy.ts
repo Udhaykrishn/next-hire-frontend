@@ -88,16 +88,21 @@ export async function proxy(request: NextRequest) {
           },
         );
 
+        let isBlocked = false;
+
         if (!checkBlock.ok) {
           console.log(`Block check failed with status ${checkBlock.status}`);
-          const text = await checkBlock.text();
-          console.log("Response text:", text.substring(0, 100));
-          return NextResponse.next();
+          if (checkBlock.status === 403) {
+             isBlocked = true;
+          } else {
+            return NextResponse.next();
+          }
+        } else {
+          const data = await checkBlock.json();
+          isBlocked = data.blocked;
         }
 
-        const data = await checkBlock.json();
-
-        if (data.blocked) {
+        if (isBlocked) {
           const loginUrl = getLoginUrl(inferredPrefix);
           loginUrl.searchParams.set("error", "blocked");
           const response = NextResponse.redirect(loginUrl);

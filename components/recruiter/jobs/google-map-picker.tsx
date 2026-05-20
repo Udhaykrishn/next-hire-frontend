@@ -50,6 +50,21 @@ export const GoogleMapPicker: React.FC<GoogleMapPickerProps> = ({
     }
   }, [isLoaded, defaultValue, hasLocated]);
 
+  const handleGeocode = useCallback(async (pos: { lat: number; lng: number }) => {
+    if (typeof window === "undefined" || !window.google) return;
+    setLoading(true);
+    try {
+      const results = await getGeocode({ location: pos });
+      if (results?.[0]) {
+        onLocationChange(results[0].formatted_address, pos);
+      }
+    } catch (error) {
+      console.error("Geocoding error:", error);
+    } finally {
+      setLoading(false);
+    }
+  }, [onLocationChange]);
+
   // GPS Fallback
   useEffect(() => {
     if (isLoaded && !defaultValue && !hasLocated && navigator.geolocation) {
@@ -70,21 +85,6 @@ export const GoogleMapPicker: React.FC<GoogleMapPickerProps> = ({
       );
     }
   }, [isLoaded, defaultValue, hasLocated, handleGeocode]);
-
-  const handleGeocode = async (pos: { lat: number; lng: number }) => {
-    if (typeof window === "undefined" || !window.google) return;
-    setLoading(true);
-    try {
-      const results = await getGeocode({ location: pos });
-      if (results?.[0]) {
-        onLocationChange(results[0].formatted_address, pos);
-      }
-    } catch (error) {
-      console.error("Geocoding error:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleMapClick = useCallback(
     (e: MapMouseEvent) => {
