@@ -40,10 +40,10 @@ export const useAuth = () => {
   const loginMutation = useMutation<
     AuthResponse,
     Error,
-    { email: string; password?: string; isAdmin?: boolean }
+    { email: string; password?: string; role?: "admin" | "recruiter" | "user" }
   >({
-    mutationFn: ({ email, password = "", isAdmin = false }) =>
-      authService.login(email, password, isAdmin),
+    mutationFn: ({ email, password = "", role = "user" }) =>
+      authService.login(email, password, role),
   });
 
   const signupMutation = useMutation<AuthResponse, Error, SignupData>({
@@ -54,8 +54,8 @@ export const useAuth = () => {
     mutationFn: (idToken) => authService.googleLogin(idToken),
   });
 
-  const logoutMutation = useMutation<void, Error, { isAdmin?: boolean }>({
-    mutationFn: ({ isAdmin = false }) => authService.logout(isAdmin),
+  const logoutMutation = useMutation<void, Error, { role?: "admin" | "recruiter" | "user" }>({
+    mutationFn: ({ role = "user" }) => authService.logout(role),
   });
 
   const forgotPasswordMutation = useMutation<
@@ -84,9 +84,9 @@ export const useAuth = () => {
   const login = async (
     email: string,
     password: string,
-    isAdmin: boolean = false,
+    role: "admin" | "recruiter" | "user" = "user",
   ) => {
-    return loginMutation.mutateAsync({ email, password, isAdmin });
+    return loginMutation.mutateAsync({ email, password, role });
   };
 
   const signup = async (data: SignupData) => {
@@ -97,8 +97,8 @@ export const useAuth = () => {
     return googleAuthMutation.mutateAsync(idToken);
   };
 
-  const logout = async (isAdmin: boolean = false) => {
-    await logoutMutation.mutateAsync({ isAdmin });
+  const logout = async (role: "admin" | "recruiter" | "user" = "user") => {
+    await logoutMutation.mutateAsync({ role });
   };
 
   const forgotPassword = async (email: string, role: "recruiter" | "user") => {

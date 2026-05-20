@@ -40,8 +40,8 @@ export default function AdminLoginPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      // Pass 'true' for isAdmin flag to hit /auth/admin/login
-      const response = await login(formData.email, formData.password, true);
+      // Pass 'admin' role to hit /auth/admin/login
+      const response = await login(formData.email, formData.password, "admin");
       setUser(response.user);
       router.push("/admin/dashboard");
     } catch (_err) {

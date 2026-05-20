@@ -44,8 +44,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = async (redirectTo?: string) => {
     try {
-      const isAdmin = user?.role === "ADMIN";
-      await authService.logout(isAdmin);
+      let role: "admin" | "recruiter" | "user" = "user";
+      if (user?.role === "ADMIN") role = "admin";
+      else if (user?.role === "RECRUITER") role = "recruiter";
+      await authService.logout(role);
       setUserState(null);
       router.push(redirectTo || "/login");
     } catch (error) {

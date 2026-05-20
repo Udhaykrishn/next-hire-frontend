@@ -12,9 +12,11 @@ export const authService = {
   login: async (
     email: string,
     password: string,
-    isAdmin: boolean = false,
+    role: "admin" | "recruiter" | "user" = "user",
   ): Promise<AuthResponse> => {
-    const endpoint = isAdmin ? "/auth/admin/login" : "/auth/user/login";
+    let endpoint = "/auth/user/login";
+    if (role === "admin") endpoint = "/auth/admin/login";
+    else if (role === "recruiter") endpoint = "/auth/recruiter/login";
 
     const res = (await apiClient.post(endpoint, {
       email,
@@ -23,11 +25,15 @@ export const authService = {
 
     const response = res.data;
 
+    let defaultRole: UserRole = "CANDIDATE";
+    if (role === "admin") defaultRole = "ADMIN";
+    else if (role === "recruiter") defaultRole = "RECRUITER";
+
     return {
       user: response?.user || {
         id: "current",
         email,
-        role: isAdmin ? "ADMIN" : "CANDIDATE",
+        role: defaultRole,
       },
       token: response?.accessToken || "",
     };
@@ -135,8 +141,10 @@ export const authService = {
     }
   },
 
-  logout: async (isAdmin: boolean = false): Promise<void> => {
-    const endpoint = isAdmin ? "/auth/admin/logout" : "/auth/user/logout";
+  logout: async (role: "admin" | "recruiter" | "user" = "user"): Promise<void> => {
+    let endpoint = "/auth/user/logout";
+    if (role === "admin") endpoint = "/auth/admin/logout";
+    else if (role === "recruiter") endpoint = "/auth/recruiter/logout";
     await apiClient.post(endpoint);
   },
 
