@@ -1,0 +1,166 @@
+@import url("https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap");
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --font-satoshi: "Satoshi", "Satoshi Fallback", sans-serif;
+
+  /* Typography Hierarchy (New Professional Sizes) */
+  --text-display: 48px;
+  --text-heading: 32px;
+  --text-subheading: 20px;
+  --text-paragraph: 15px;
+  --text-nav: 16px;
+  --text-card: 16px;
+  --text-footer: 14px;
+  --text-description: 14px;
+
+  /* Wise Color Palette (Restored) */
+  --color-near-black: #0e0f0c;
+  --color-wise-green: #9fe870;
+  --color-dark-green: #163300;
+  --color-light-mint: #e2f6d5;
+  --color-pastel-green: #cdffad;
+
+  --color-positive-green: #054d28;
+  --color-danger-red: #d03238;
+  --color-warning-yellow: #ffd11a;
+  --color-background-cyan: rgba(56, 200, 255, 0.1);
+  --color-bright-orange: #ffc091;
+
+  --color-warm-dark: #454745;
+  --color-gray: #868685;
+  --color-light-surface: #e8ebe6;
+
+  /* Shadcn Variables mapping to Wise Palette */
+  --color-background: white;
+  --color-foreground: #0e110e;
+  --color-card: white;
+  --color-card-foreground: #0e110e;
+  --color-popover: white;
+  --color-popover-foreground: #0e110e;
+  --color-primary: #9fe870;
+  --color-primary-foreground: #001a00;
+  --color-secondary: #f0f7eb;
+  --color-secondary-foreground: #001a00;
+  --color-muted: #f4f5f4;
+  --color-muted-foreground: #717571;
+  --color-accent: #9fe870;
+  --color-accent-foreground: #001a00;
+  --color-destructive: #ef4444;
+  --color-destructive-foreground: #f8fafc;
+  --color-border: #e2e8f0;
+  --color-input: #e2e8f0;
+  --color-ring: #9fe870;
+  --radius: 1rem;
+}
+
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+/* TipTap Editor Styles */
+.ProseMirror {
+  outline: none;
+  min-height: 200px;
+}
+
+.ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: #adb5bd;
+  pointer-events: none;
+  height: 0;
+}
+
+.ProseMirror ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin: 1rem 0;
+}
+
+.ProseMirror ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin: 1rem 0;
+}
+
+.ProseMirror blockquote {
+  border-left: 4px solid #9fe870;
+  padding-left: 1rem;
+  font-style: italic;
+  margin: 1.5rem 0;
+  color: #454745;
+}
+
+.ProseMirror a {
+  color: var(--color-positive-green);
+  text-decoration: underline;
+  font-weight: 700;
+}
+
+/* Base Styles */
+@layer base {
+  body {
+    font-family: var(--font-satoshi);
+    color: var(--color-near-black);
+    background-color: white;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Sub Heading */
+  h2,
+  .text-subheading {
+    font-size: 20px;
+    font-weight: 900;
+    line-height: 23px;
+  }
+
+  /* Paragraph */
+  p,
+  .text-paragraph {
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 19.2px;
+  }
+
+  /* Footer Menus */
+  .footer-menu-text {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+  }
+
+  /* Navbar Menus */
+  .nav-link-text {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20px;
+  }
+
+  /* Card Title */
+  .card-title {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 20px;
+  }
+
+  /* Descriptions */
+  .description-text {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+  }
+
+  /* Display Hero (Reduced as per request) */
+  h1,
+  .text-hero {
+    font-size: 48px;
+    font-weight: 900;
+    line-height: 56px;
+  }
+}

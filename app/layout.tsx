@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import { Providers } from "@/components/providers";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Next Hire | Elite Fintech & Crypto Careers",
+  title: "Next Hire | AI-Powered Career Ecosystem",
   description:
-    "Experience the future of hiring. Kraken-inspired precision meeting global fintech recruitment.",
+    "The intelligent platform for job seekers and recruiters. AI-driven screening, automated workflows, and career growth management.",
 };
 
 export default function RootLayout({
@@ -13,8 +14,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="antialiased">
-      <body>{children}</body>
+    <html lang="en" className="antialiased scroll-smooth">
+      <body className="min-h-screen bg-white">
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
