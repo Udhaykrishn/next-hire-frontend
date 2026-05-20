@@ -1,173 +1,137 @@
-# Design System Inspired by Wise
+# Design System - Next Hire (Satoshi Edition)
 
 ## 1. Visual Theme & Atmosphere
 
-Wise's website is a bold, confident fintech platform that communicates "money without borders" through massive typography and a distinctive lime-green accent. The design operates on a warm off-white canvas with near-black text (`#0e0f0c`) and a signature Wise Green (`#9fe870`) — a fresh, lime-bright color that feels alive and optimistic, unlike the corporate blues of traditional banking.
+The design system has been refined for a professional, high-end corporate aesthetic using the **Wise color palette**. We have moved away from the "over-designed" massive typography to a more balanced, legible, and sophisticated layout suitable for professional laptop viewing. 
 
-The typography uses Wise Sans — a proprietary font used at extreme weight 900 (black) for display headings with a remarkably tight line-height of 0.85 and OpenType `"calt"` (contextual alternates). At 126px, the text is so dense it feels like a protest sign — bold, urgent, and impossible to ignore. Inter serves as the body font with weight 600 as the default for emphasis, creating a consistently confident voice.
-
-What distinguishes Wise is its green-on-white-on-black material palette. Lime Green (`#9fe870`) appears on buttons with dark green text (`#163300`), creating a nature-inspired CTA that feels fresh. Hover states use `scale(1.05)` expansion rather than color changes — buttons physically grow on interaction. The border-radius system uses 9999px for buttons (pill), 30px–40px for cards, and the shadow system is minimal — just `rgba(14,15,12,0.12) 0px 0px 0px 1px` ring shadows.
+The typography now utilizes **Satoshi**, a modern grotesque typeface that offers clean lines and exceptional readability. The palette remains anchored in the distinctive Wise Green and near-black scheme, ensuring the interface feels fresh and alive while maintaining professional restraint.
 
 **Key Characteristics:**
-- Wise Sans at weight 900, 0.85 line-height — billboard-scale bold headlines
-- Lime Green (`#9fe870`) accent with dark green text (`#163300`) — nature-inspired fintech
-- Inter body at weight 600 as default — confident, not light
-- Near-black (`#0e0f0c`) primary with warm green undertone
-- Scale(1.05) hover animations — buttons physically grow
-- OpenType `"calt"` on all text
-- Pill buttons (9999px) and large rounded cards (30px–40px)
-- Semantic color system with comprehensive state management
+- **Satoshi** as the primary typeface family.
+- **Wise Green** (`#9fe870`) as the signature accent.
+- Professional, restrained font sizes (no more 100px+ headlines).
+- High-contrast hierarchy for clear information architecture.
+- Smooth transitions and subtle micro-animations (scale 1.02 on hover).
+- Pill-shaped components and soft rounded cards (12px–16px).
 
 ## 2. Color Palette & Roles
-
+c
 ### Primary Brand
-- **Near Black** (`#0e0f0c`): Primary text, background for dark sections
-- **Wise Green** (`#9fe870`): Primary CTA button, brand accent
-- **Dark Green** (`#163300`): Button text on green, deep green accent
-- **Light Mint** (`#e2f6d5`): Soft green surface, badge backgrounds
-- **Pastel Green** (`#cdffad`): `--color-interactive-contrast-hover`, hover accent
+- **Wise Green** (`#9fe870`): Primary CTA buttons, brand accent.
+- **Near Black** (`#0e0f0c`): Primary text, background for dark sections.
+- **Dark Green** (`#163300`): Button text on green, deep green accent.
+- **Light Mint** (`#e2f6d5`): Soft green surface, badge backgrounds.
+- **Pastel Green** (`#cdffad`): Hover states and interactive contrast.
 
 ### Semantic
-- **Positive Green** (`#054d28`): `--color-sentiment-positive-primary`, success
-- **Danger Red** (`#d03238`): `--color-interactive-negative-hover`, error/destructive
-- **Warning Yellow** (`#ffd11a`): `--color-sentiment-warning-hover`, warnings
-- **Background Cyan** (`rgba(56,200,255,0.10)`): `--color-background-accent`, info tint
-- **Bright Orange** (`#ffc091`): `--color-bright-orange`, warm accent
+- **Positive Green** (`#054d28`): Success states.
+- **Danger Red** (`#d03238`): Error/Destructive states.
+- **Warning Yellow** (`#ffd11a`): Warning states.
+- **Background Cyan** (`rgba(56,200,255,0.10)`): Info tints.
+- **Bright Orange** (`#ffc091`): Warm accents.
 
 ### Neutral
-- **Warm Dark** (`#454745`): Secondary text, borders
-- **Gray** (`#868685`): Muted text, tertiary
-- **Light Surface** (`#e8ebe6`): Subtle green-tinted light surface
+- **Pure White** (`#ffffff`): Main background.
+- **Warm Dark** (`#454745`): Secondary text, borders.
+- **Gray** (`#868685`): Muted text, tertiary.
+- **Light Surface** (`#e8ebe6`): Subtle green-tinted light surface.
 
 ## 3. Typography Rules
 
 ### Font Families
-- **Display**: `Wise Sans`, fallback: `Inter` — OpenType `"calt"` on all text
-- **Body / UI**: `Inter`, fallbacks: `Helvetica, Arial`
+- **Primary**: `Satoshi`, `"Satoshi Fallback"`, `sans-serif`.
 
 ### Hierarchy
 
-| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes |
-|------|------|------|--------|-------------|----------------|-------|
-| Display Mega | Wise Sans | 126px (7.88rem) | 900 | 0.85 (ultra-tight) | normal | `"calt"` |
-| Display Hero | Wise Sans | 96px (6.00rem) | 900 | 0.85 | normal | `"calt"` |
-| Section Heading | Wise Sans | 64px (4.00rem) | 900 | 0.85 | normal | `"calt"` |
-| Sub-heading | Wise Sans | 40px (2.50rem) | 900 | 0.85 | normal | `"calt"` |
-| Alt Heading | Inter | 78px (4.88rem) | 600 | 1.10 (tight) | -2.34px | `"calt"` |
-| Card Title | Inter | 26px (1.62rem) | 600 | 1.23 (tight) | -0.39px | `"calt"` |
-| Feature Title | Inter | 22px (1.38rem) | 600 | 1.25 (tight) | -0.396px | `"calt"` |
-| Body | Inter | 18px (1.13rem) | 400 | 1.44 | 0.18px | `"calt"` |
-| Body Semibold | Inter | 18px (1.13rem) | 600 | 1.44 | -0.108px | `"calt"` |
-| Button | Inter | 18px–22px | 600 | 1.00–1.44 | -0.108px | `"calt"` |
-| Caption | Inter | 14px (0.88rem) | 400–600 | 1.50–1.86 | -0.084px to -0.108px | `"calt"` |
-| Small | Inter | 12px (0.75rem) | 400–600 | 1.00–2.17 | -0.084px to -0.108px | `"calt"` |
+| Role | Font | Size | Weight | Line Height | Notes |
+|------|------|------|--------|-------------|-------|
+| Display Hero | Satoshi | 48px | 900 | 56px | For main landing page headers. |
+| Section Heading | Satoshi | 32px | 800 | 40px | For major content sections. |
+| Sub-heading | Satoshi | 20px | 900 | 23px | Secondary headings. |
+| Navbar Link | Satoshi | 16px | 500 | 20px | Navigation menu items. |
+| Card Title | Satoshi | 16px | 700 | 20px | For interactive cards. |
+| Paragraph | Satoshi | 15px | 400 | 19.2px | Standard body content. |
+| Footer Menu | Satoshi | 14px | 500 | 18px | Footer navigation links. |
+| Description | Satoshi | 14px | 500 | 20px | Secondary/Muted descriptions. |
+| Small / Label | Satoshi | 12px | 500 | 16px | Metadata and tags. |
 
 ### Principles
-- **Weight 900 as identity**: Wise Sans Black (900) is used exclusively for display — the heaviest weight in any analyzed system. It creates text that feels stamped, pressed, physical.
-- **0.85 line-height**: The tightest display line-height analyzed. Letters overlap vertically, creating dense, billboard-like text blocks.
-- **"calt" everywhere**: Contextual alternates enabled on ALL text — both Wise Sans and Inter.
-- **Weight 600 as body default**: Inter Semibold is the standard reading weight — confident, not light.
+- **Professionalism over Scale**: Headlines are capped to ensure they don't dominate the viewport on laptops.
+- **Legibility**: Generous line-heights (1.2 to 1.5 ratio) for long-form reading.
+- **Weight Contrast**: Using 900 for headings vs 400/500 for body creates a clear visual path.
 
 ## 4. Component Stylings
 
 ### Buttons
-
-**Primary Green Pill**
+**Primary Wise Action**
 - Background: `#9fe870` (Wise Green)
 - Text: `#163300` (Dark Green)
-- Padding: 5px 16px
-- Radius: 9999px
-- Hover: scale(1.05) — button physically grows
-- Active: scale(0.95) — button compresses
-- Focus: inset ring + outline
+- Font: Satoshi 16px, Weight 600
+- Radius: 9999px (Pill)
+- Hover: scale(1.02)
 
-**Secondary Subtle Pill**
-- Background: `rgba(22, 51, 0, 0.08)` (dark green at 8% opacity)
+**Secondary Subtle**
+- Background: `rgba(22, 51, 0, 0.08)`
 - Text: `#0e0f0c`
-- Padding: 8px 12px 8px 16px
 - Radius: 9999px
-- Same scale hover/active behavior
 
-### Cards & Containers
-- Radius: 16px (small), 30px (medium), 40px (large cards/tables)
-- Border: `1px solid rgba(14,15,12,0.12)` or `1px solid #9fe870` (green accent)
-- Shadow: `rgba(14,15,12,0.12) 0px 0px 0px 1px` (ring shadow)
+### Cards
+- Radius: 16px
+- Border: 1px solid rgba(14,15,12,0.12)
+- Padding: 24px
 
-### Navigation
-- Green-tinted navigation hover: `rgba(211,242,192,0.4)`
-- Clean header with Wise wordmark
-- Pill CTAs right-aligned
+## 5. Spacing System
+- Base unit: 4px
+- Standard increments: 4, 8, 12, 16, 24, 32, 48, 64.
 
-## 5. Layout Principles
+## 7. Job Portal Layout Structure (Naukri Inspired)
 
-### Spacing System
-- Base unit: 8px
-- Scale: 1px, 2px, 3px, 4px, 5px, 8px, 10px, 11px, 12px, 16px, 18px, 19px, 20px, 22px, 24px
+This layout is optimized for high-volume information discovery and a streamlined "search-to-apply" workflow.
 
-### Border Radius Scale
-- Minimal (2px): Links, inputs
-- Standard (10px): Comboboxes, inputs
-- Card (16px): Small cards, buttons, radio
-- Medium (20px): Links, medium cards
-- Large (30px): Feature cards
-- Section (40px): Tables, large cards
-- Mega (1000px): Presentation elements
-- Pill (9999px): All buttons, images
-- Circle (50%): Icons, badges
+### 7.1 Global Navigation (Header)
+- **Position**: Sticky to top, high z-index.
+- **Background**: Pure White (`#ffffff`) with a subtle bottom border (`1px solid #e2e2e2`).
+- **Structure**:
+    - **Left**: Logo + Primary Links (Jobs, Companies, Services) using **Navbar Link** style.
+    - **Center**: Compact Search Bar (visible on scroll) or "Quick Search" trigger.
+    - **Right**: Secondary Actions (Login, Register) + **"For Employers"** CTA using a **Secondary Subtle** pill button.
 
-## 6. Depth & Elevation
+### 7.2 Search-First Landing (Hero Section)
+- **Layout**: Centered content on a clean white background.
+- **Headline**: **Display Hero** (48px, 900) positioned centrally.
+- **Search Box**: A large, elevated pill-shaped container (9999px radius).
+    - **Inputs**: Two distinct fields separated by a vertical divider ("Skills, Designation" and "Location").
+    - **Action**: A prominent **Primary Wise Action** button labeled "Search".
+- **Quick Discovery**: A row of **Pastel Green** badges below the search box for popular categories (e.g., Remote, MNC, Software).
 
-| Level | Treatment | Use |
-|-------|-----------|-----|
-| Flat (Level 0) | No shadow | Default |
-| Ring (Level 1) | `rgba(14,15,12,0.12) 0px 0px 0px 1px` | Card borders |
-| Inset (Level 2) | `rgb(134,134,133) 0px 0px 0px 1px inset` | Input focus |
+### 7.3 Job Search Results (SERP)
+- **Layout**: Three-column grid for professional desktop viewing.
+    - **Left Sidebar (20%)**: Filter Facets (Salary, Department, Experience) using accordion menus.
+    - **Center Content (55%)**: A vertical feed of Job Listing Cards.
+    - **Right Widget (25%)**: "Recommended for You" or "Jobs in High Demand" side-cards.
 
-**Shadow Philosophy**: Wise uses minimal shadows — ring shadows only. Depth comes from the bold green accent against the neutral canvas.
+### 7.4 Job Listing Card Anatomy
+- **Structure**:
+    - **Header**: **Card Title** (16px, 700) for the Job Role, followed by the Company Name in **Description** style.
+    - **Meta Row**: A horizontal list of labels (Experience, Salary, Location) using **Small / Label** style with subtle Lucide icons.
+    - **Description Snippet**: 2 lines of text in **Paragraph** style (15px, 400).
+    - **Footer**: "Posted X days ago" on the left; **Primary Wise Action** (Apply) on the right.
 
-## 7. Do's and Don'ts
+### 7.5 Candidate / Recruiter Dashboard
+- **Vertical Navigation**: A left-aligned nav-rail for "Applied Jobs", "Saved", "Interviews", and "Profile".
+- **Status Trackers**: Progress steps for applications using **Wise Green** to indicate completed stages (Shortlisted, Viewed, etc.).
+
+## 8. Do's and Don'ts
 
 ### Do
-- Use Wise Sans weight 900 for display — the extreme boldness IS the brand
-- Apply line-height 0.85 on Wise Sans display — ultra-tight is intentional
-- Use Lime Green (#9fe870) for primary CTAs with Dark Green (#163300) text
-- Apply scale(1.05) hover and scale(0.95) active on buttons
-- Enable "calt" on all text
-- Use Inter weight 600 as the body default
+- Use Satoshi for all text.
+- Use Wise Green for primary CTAs and brand accents.
+- Maintain the defined hierarchy for consistency.
+- Implement sticky headers for easy navigation during long scrolls.
+- Use information-dense cards to reduce scrolling on laptop screens.
 
 ### Don't
-- Don't use light font weights for Wise Sans — only 900
-- Don't relax the 0.85 line-height on display — the density is the identity
-- Don't use the Wise Green as background for large surfaces — it's for buttons and accents
-- Don't skip the scale animation on buttons
-- Don't use traditional shadows — ring shadows only
-
-## 8. Responsive Behavior
-
-### Breakpoints
-| Name | Width | Key Changes |
-|------|-------|-------------|
-| Mobile | <576px | Single column |
-| Tablet | 576–992px | 2-column |
-| Desktop | 992–1440px | Full layout |
-| Large | >1440px | Expanded |
-
-## 9. Agent Prompt Guide
-
-### Quick Color Reference
-- Text: Near Black (`#0e0f0c`)
-- Background: White (`#ffffff` / off-white)
-- Accent: Wise Green (`#9fe870`)
-- Button text: Dark Green (`#163300`)
-- Secondary: Gray (`#868685`)
-
-### Example Component Prompts
-- "Create hero: white background. Headline at 96px Wise Sans weight 900, line-height 0.85, 'calt' enabled, #0e0f0c text. Green pill CTA (#9fe870, 9999px radius, 5px 16px padding, #163300 text). Hover: scale(1.05)."
-- "Build a card: 30px radius, 1px solid rgba(14,15,12,0.12). Title at 22px Inter weight 600, body at 18px weight 400."
-
-### Iteration Guide
-1. Wise Sans 900 at 0.85 line-height — the extreme weight IS the brand
-2. Lime Green for buttons only — dark green text on green background
-3. Scale animations (1.05 hover, 0.95 active) on all interactive elements
-4. "calt" on everything — contextual alternates are mandatory
-5. Inter 600 for body — confident reading weight
+- Don't exceed 48px for display text on standard desktop views.
+- Don't use Wise Green as a background for large text-heavy surfaces.
+- Don't use "over-designed" massive typography that hides content.
+- Avoid multi-column text layouts for job descriptions; stick to a single, readable column.
