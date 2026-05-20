@@ -61,17 +61,16 @@ apiClient.interceptors.response.use(
       } catch (err: any) {
         if (typeof window !== "undefined") {
           const pathname = window.location.pathname;
-          let target = "/login";
-          if (pathname.startsWith("/admin")) target = "/admin/login";
-          else if (pathname.startsWith("/recruiter"))
-            target = "/recruiter/login";
+          let targetPath = "/login";
+          if (pathname.startsWith("/admin")) targetPath = "/admin/login";
+          else if (pathname.startsWith("/recruiter")) targetPath = "/recruiter/login";
 
-          if (err.message === "blocked" || err?.response?.data?.blocked) {
-            target += "?error=blocked";
-          }
-
-          if (pathname !== target && !pathname.startsWith(target)) {
-            window.location.href = target;
+          if (pathname !== targetPath) {
+            let redirectUrl = targetPath;
+            if (err.message === "blocked" || err?.response?.data?.blocked) {
+              redirectUrl += "?error=blocked";
+            }
+            window.location.href = redirectUrl;
           }
         }
         return Promise.reject(err);
@@ -81,13 +80,12 @@ apiClient.interceptors.response.use(
     if (isBlockedError) {
       if (typeof window !== "undefined") {
         const pathname = window.location.pathname;
-        let target = "/login";
-        if (pathname.startsWith("/admin")) target = "/admin/login";
-        else if (pathname.startsWith("/recruiter")) target = "/recruiter/login";
+        let targetPath = "/login";
+        if (pathname.startsWith("/admin")) targetPath = "/admin/login";
+        else if (pathname.startsWith("/recruiter")) targetPath = "/recruiter/login";
 
-        target += "?error=blocked";
-        if (pathname !== target && !pathname.startsWith(target)) {
-          window.location.href = target;
+        if (pathname !== targetPath) {
+          window.location.href = targetPath + "?error=blocked";
         }
       }
     } else {
