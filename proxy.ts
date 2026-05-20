@@ -147,15 +147,23 @@ export async function proxy(request: NextRequest) {
             return NextResponse.redirect(getDashboardUrl(inferredPrefix));
           }
 
-          // Redirect to the same URL to pick up the new cookies
-          const response = NextResponse.redirect(request.nextUrl);
+          // Use NextResponse.next() — NOT redirect — so the browser stays on the
+          // current page while the new accessToken cookie is applied inline.
+          // A redirect re-runs the proxy before the cookie lands → infinite loop.
+          const response = NextResponse.next();
 
-          // Correctly handle Set-Cookie headers for Next.js 16
-          const setCookieHeaders = refreshResponse.headers.get("set-cookie");
-          if (setCookieHeaders) {
-            // For multiple cookies, we might need to split them or use append
-            // But usually it's one accessToken
-            response.headers.append("Set-Cookie", setCookieHeaders);
+          // Copy ALL Set-Cookie headers. getSetCookie() correctly handles multiple
+          // separate cookies; fall back to splitting the raw combined header.
+          const setCookieHeaders =
+            typeof refreshResponse.headers.getSetCookie === "function"
+              ? refreshResponse.headers.getSetCookie()
+              : (refreshResponse.headers.get("set-cookie") ?? "")
+                  .split(/,(?=[^;])/)
+                  .map((s) => s.trim())
+                  .filter(Boolean);
+
+          for (const cookieStr of setCookieHeaders) {
+            response.headers.append("Set-Cookie", cookieStr);
           }
 
           return response;

@@ -1,15 +1,13 @@
-/* We cannot use type `unknown` instead of `any` here because it will break the type assertion `isReactComponent` function is providing. */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import type React from "react";
 
-type ReactComponent = React.FC<any> | React.ComponentClass<any, any>;
+type ReactComponent = React.ComponentType | React.ForwardRefExoticComponent<unknown>;
 
 /**
  * Checks if a given value is a function component.
  */
 export const isFunctionComponent = (
-  component: any,
-): component is React.FC<any> => {
+  component: unknown,
+): component is React.FC => {
   return typeof component === "function";
 };
 
@@ -17,12 +15,13 @@ export const isFunctionComponent = (
  * Checks if a given value is a class component.
  */
 export const isClassComponent = (
-  component: any,
-): component is React.ComponentClass<any, any> => {
+  component: unknown,
+): component is React.ComponentClass => {
   return (
     typeof component === "function" &&
     component.prototype &&
-    (!!component.prototype.isReactComponent || !!component.prototype.render)
+    (!!(component.prototype as Record<string, unknown>).isReactComponent || 
+     !!(component.prototype as Record<string, unknown>).render)
   );
 };
 
@@ -30,12 +29,13 @@ export const isClassComponent = (
  * Checks if a given value is a forward ref component.
  */
 export const isForwardRefComponent = (
-  component: any,
-): component is React.ForwardRefExoticComponent<any> => {
+  component: unknown,
+): component is React.ForwardRefExoticComponent<unknown> => {
+  const comp = component as { $$typeof?: { toString(): string } } | null;
   return (
-    typeof component === "object" &&
-    component !== null &&
-    component.$$typeof.toString() === "Symbol(react.forward_ref)"
+    typeof comp === "object" &&
+    comp !== null &&
+    comp.$$typeof?.toString() === "Symbol(react.forward_ref)"
   );
 };
 
@@ -43,7 +43,7 @@ export const isForwardRefComponent = (
  * Checks if a given value is a valid React component.
  */
 export const isReactComponent = (
-  component: any,
+  component: unknown,
 ): component is ReactComponent => {
   return (
     isFunctionComponent(component) ||

@@ -31,11 +31,12 @@ export async function GET(request: Request) {
     const isBlocked = user.status === "Blocked";
 
     return NextResponse.json({ blocked: isBlocked });
-  } catch (error: any) {
+  } catch (error) {
+    const axiosError = error as { response?: { status?: number; data?: { message?: string; error?: { message?: string } } } };
     if (
-      error.response?.status === 403 ||
-      error.response?.data?.message?.toLowerCase().includes("blocked") ||
-      error.response?.data?.error?.message?.toLowerCase().includes("blocked")
+      axiosError.response?.status === 403 ||
+      axiosError.response?.data?.message?.toLowerCase().includes("blocked") ||
+      axiosError.response?.data?.error?.message?.toLowerCase().includes("blocked")
     ) {
       return NextResponse.json({ blocked: true });
     }

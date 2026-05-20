@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 type AnyProps = Record<string, unknown>;
 
 type DOMMotionProps<T extends HTMLElement = HTMLElement> = Omit<
-  HTMLMotionProps<any>,
+  HTMLMotionProps<"div">,
   "ref"
 > & { ref?: React.Ref<T> };
 
@@ -17,7 +17,7 @@ type WithAsChild<Base extends object> =
 
 type SlotProps<T extends HTMLElement = HTMLElement> = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  children?: any;
+  children?: React.ReactNode;
 } & DOMMotionProps<T>;
 
 function mergeRefs<T>(

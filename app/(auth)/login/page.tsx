@@ -75,10 +75,11 @@ function LoginContent() {
       if (authResult.isProfileComplete === false) {
         router.push("/profile/setup");
       }
-    } catch (err: any) {
+    } catch (err) {
       console.error("Google Auth failed:", err);
+      const errorObj = err as { message?: string };
       toast.error(
-        err?.message || "Google authentication failed. Please try again.",
+        errorObj.message || "Google authentication failed. Please try again.",
       );
     }
   };

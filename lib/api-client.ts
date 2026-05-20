@@ -40,7 +40,11 @@ apiClient.interceptors.response.use(
     const isBlockedError =
       error.response?.status === 403;
 
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    // Do NOT attempt a token refresh if the failing request IS the refresh endpoint.
+    // That would cause an infinite retry loop and an unwarranted logout redirect.
+    const isRefreshRequest = (originalRequest.url as string | undefined)?.includes("/api/auth/refresh");
+
+    if (error.response?.status === 401 && !originalRequest._retry && !isRefreshRequest) {
       originalRequest._retry = true;
 
       try {
@@ -51,14 +55,27 @@ apiClient.interceptors.response.use(
           else if (pathname.startsWith("/recruiter")) role = "recruiter";
         }
 
-        const refreshRes = await axios.post(`/api/auth/refresh?role=${role}`);
+        // Use fetch() with a root-relative path so the request always hits the
+        // Next.js API route at /api/auth/refresh — NOT the backend via apiClient's
+        // baseURL (which would resolve to http://backend-host/api/v1/api/auth/refresh).
+        const refreshRes = await fetch(`/api/auth/refresh?role=${role}`, {
+          method: "POST",
+          credentials: "include",
+        });
 
-        if (refreshRes.data.blocked) {
-          throw new Error("blocked");
+        if (!refreshRes.ok) {
+          const body = await refreshRes.json().catch(() => ({})) as { blocked?: boolean };
+          if (body.blocked) throw new Error("blocked");
+          throw new Error("refresh_failed");
         }
 
+        const body = await refreshRes.json() as { success: boolean; blocked?: boolean };
+
+        if (body.blocked) throw new Error("blocked");
+
+        // New accessToken cookie is now set — retry the original request.
         return apiClient(originalRequest);
-      } catch (err: any) {
+      } catch (err) {
         if (typeof window !== "undefined") {
           const pathname = window.location.pathname;
           let targetPath = "/login";
@@ -67,7 +84,8 @@ apiClient.interceptors.response.use(
 
           if (pathname !== targetPath) {
             let redirectUrl = targetPath;
-            if (err.message === "blocked" || err?.response?.data?.blocked) {
+            const errorObj = err as { message?: string };
+            if (errorObj.message === "blocked") {
               redirectUrl += "?error=blocked";
             }
             window.location.href = redirectUrl;
