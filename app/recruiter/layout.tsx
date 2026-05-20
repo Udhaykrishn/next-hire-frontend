@@ -131,27 +131,27 @@ export default function RecruiterLayout({
               <SidebarItem
                 icon={<Database className="w-4 h-4" />}
                 label="Database"
-                onClick={() => {}}
+                onClick={() => { }}
               />
               <SidebarItem
                 icon={<TrendingUp className="w-4 h-4" />}
                 label="Reports"
-                onClick={() => {}}
+                onClick={() => { }}
               />
               <SidebarItem
                 icon={<Wallet className="w-4 h-4" />}
                 label="Credits & usage"
-                onClick={() => {}}
+                onClick={() => { }}
               />
               <SidebarItem
                 icon={<Receipt className="w-4 h-4" />}
                 label="Billing"
-                onClick={() => {}}
+                onClick={() => { }}
               />
               <SidebarItem
                 icon={<Gift className="w-4 h-4" />}
                 label="Refer & Earn"
-                onClick={() => {}}
+                onClick={() => { }}
               />
               <div className="pt-2">
                 <SidebarItem
