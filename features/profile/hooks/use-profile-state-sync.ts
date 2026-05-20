@@ -58,8 +58,8 @@ export function useProfileStateSync({
         avatar: p.profile_url?.url || "",
         email: p.email || "",
         phone: p.phone || "",
-        cinNumber: p.cinNumber || "",
-        isCompanyVerified: p.isCompanyVerified || false,
+        cinNumber: p.cinNumber || p.CIN || "",
+        isCompanyVerified: p.isCompanyVerified || p.is_verified_company || false,
       });
       setSocialLinks({
         linkedin: p.social_link?.linkedin || "",

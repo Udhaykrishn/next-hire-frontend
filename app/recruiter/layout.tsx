@@ -10,6 +10,7 @@ import {
   Menu,
   PhoneCall,
   Receipt,
+  Settings,
   ShoppingBag,
   Sparkles,
   TrendingUp,
@@ -127,6 +128,12 @@ export default function RecruiterLayout({
                 label="Profile"
                 active={pathname === "/recruiter/profile"}
                 onClick={() => router.push("/recruiter/profile")}
+              />
+              <SidebarItem
+                icon={<Settings className="w-4 h-4" />}
+                label="Settings"
+                active={pathname === "/recruiter/settings"}
+                onClick={() => router.push("/recruiter/settings")}
               />
               <SidebarItem
                 icon={<Database className="w-4 h-4" />}

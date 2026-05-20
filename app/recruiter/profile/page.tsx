@@ -11,42 +11,26 @@ import {
   User,
   X,
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useProfile } from "@/hooks/use-profile";
+import { useRecruiterProfile } from "@/features/recruiter/hooks/use-recruiter-profile";
 import { cn } from "@/lib/utils";
 
 export default function ProfilePage() {
-  const { basicInfo, handleUpdateProfile, handleUpdateCin, isLoading } =
-    useProfile();
-  const [isEditing, setIsEditing] = useState(false);
-  const [formData, setFormData] = useState({
-    name: basicInfo.name,
-    email: basicInfo.email,
-    phone: basicInfo.phone,
-    cinNumber: basicInfo.cinNumber || "",
-  });
-
-  const handleSave = async () => {
-    try {
-      const profileFormData = new FormData();
-      profileFormData.append("name", formData.name);
-      profileFormData.append("phone", formData.phone);
-      handleUpdateProfile(profileFormData);
-
-      if (formData.cinNumber !== basicInfo.cinNumber) {
-        handleUpdateCin(formData.cinNumber);
-      }
-
-      setIsEditing(false);
-      toast.success("Profile updated successfully");
-    } catch (_error) {
-      toast.error("Failed to update profile");
-    }
-  };
+  const {
+    recruiterProfile,
+    isLoading,
+    isEditing,
+    setIsEditing,
+    formData,
+    setFormData,
+    handleSave,
+    handleCancel,
+    isUpdating,
+  } = useRecruiterProfile();
 
   if (isLoading) {
     return (
@@ -85,16 +69,18 @@ export default function ProfilePage() {
                 >
                   <Button
                     variant="outline"
-                    onClick={() => setIsEditing(false)}
+                    onClick={handleCancel}
+                    disabled={isUpdating}
                     className="h-12 px-6 rounded-2xl font-bold border-gray-100 hover:bg-gray-50 gap-2"
                   >
                     <X className="w-4 h-4" /> Cancel
                   </Button>
                   <Button
                     onClick={handleSave}
+                    disabled={isUpdating}
                     className="h-12 px-6 rounded-2xl font-bold bg-near-black text-white hover:bg-near-black/90 gap-2 shadow-xl shadow-near-black/10"
                   >
-                    <Save className="w-4 h-4" /> Save Changes
+                    <Save className="w-4 h-4" /> {isUpdating ? "Saving..." : "Save Changes"}
                   </Button>
                 </motion.div>
               ) : (
@@ -233,7 +219,7 @@ export default function ProfilePage() {
                 </div>
               </div>
               <div className="self-start sm:self-center px-4 py-2 rounded-full bg-wise-green text-near-black text-[10px] font-black uppercase tracking-widest flex items-center gap-2">
-                {basicInfo.isCompanyVerified ? (
+                {recruiterProfile?.is_verified_company ? (
                   <>
                     <ShieldCheck className="w-4 h-4" /> Company Verified
                   </>
@@ -267,14 +253,14 @@ export default function ProfilePage() {
                       isEditing &&
                         "bg-white border-wise-green focus:ring-4 ring-wise-green/5",
                       !isEditing &&
-                        basicInfo.isCompanyVerified &&
+                        recruiterProfile?.is_verified_company &&
                         "text-wise-green",
                     )}
                   />
                   {!isEditing && (
                     <div className="absolute inset-0 cursor-not-allowed" />
                   )}
-                  {!isEditing && basicInfo.isCompanyVerified && (
+                  {!isEditing && recruiterProfile?.is_verified_company && (
                     <div className="absolute right-4 top-1/2 -translate-y-1/2">
                       <CheckCircle2 className="w-5 h-5 text-wise-green" />
                     </div>

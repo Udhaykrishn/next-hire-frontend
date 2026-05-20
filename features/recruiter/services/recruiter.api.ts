@@ -73,3 +73,29 @@ export const getRecruiterJobListings = async (): Promise<JobListing[]> => {
     postedBy: job.posted_by || "Recruiter",
   }));
 };
+
+import { apiClient } from "@/lib/api-client";
+import type { ApiResponse } from "@/features/profile/types/profile.types";
+import type {
+  ChangePasswordData,
+  RecruiterProfile,
+  UpdateRecruiterProfileDto,
+} from "../types/recruiter.types";
+
+export const changeRecruiterPassword = async (
+  id: string,
+  data: ChangePasswordData
+): Promise<void> => {
+  await apiClient.patch(`/recruiter/${id}/change-password`, data);
+};
+
+export const getRecruiterProfile = async (): Promise<ApiResponse<RecruiterProfile>> => {
+  return await apiClient.get("/recruiter/profile");
+};
+
+export const updateRecruiterProfile = async (
+  userId: string,
+  data: UpdateRecruiterProfileDto
+): Promise<ApiResponse<RecruiterProfile>> => {
+  return await apiClient.patch(`/recruiter/${userId}`, data);
+};

@@ -46,6 +46,8 @@ export interface UserProfile {
   };
   cinNumber?: string;
   isCompanyVerified?: boolean;
+  CIN?: string;
+  is_verified_company?: boolean;
 }
 
 export interface UpdateProfileDto {
@@ -65,6 +67,7 @@ export interface UpdateProfileDto {
     github?: string;
   };
   cinNumber?: string;
+  CIN?: string;
 }
 
 export interface Education {
