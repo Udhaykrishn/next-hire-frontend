@@ -93,9 +93,7 @@ export const ConfirmationModal = ({
               {description}
             </DialogDescription>
             {children && (
-              <div className="pt-4 text-left w-full">
-                {children}
-              </div>
+              <div className="pt-4 text-left w-full">{children}</div>
             )}
           </DialogHeader>
 

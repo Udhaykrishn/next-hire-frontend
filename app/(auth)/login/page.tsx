@@ -38,9 +38,12 @@ export default function UserLoginPage() {
 
   useEffect(() => {
     if (urlError === "blocked") {
-      toast.error("Your account has been blocked by an administrator. You do not have access.", {
-        duration: 5000,
-      });
+      toast.error(
+        "Your account has been blocked by an administrator. You do not have access.",
+        {
+          duration: 5000,
+        },
+      );
       // Optionally clean up the URL to prevent showing toast repeatedly on refresh
       const url = new URL(window.location.href);
       url.searchParams.delete("error");
@@ -74,7 +77,9 @@ export default function UserLoginPage() {
       }
     } catch (err: any) {
       console.error("Google Auth failed:", err);
-      toast.error(err?.message || "Google authentication failed. Please try again.");
+      toast.error(
+        err?.message || "Google authentication failed. Please try again.",
+      );
     }
   };
 

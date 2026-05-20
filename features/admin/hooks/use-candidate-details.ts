@@ -1,6 +1,11 @@
-import { useQuery, useMutation, useQueryClient, useQueries } from "@tanstack/react-query";
-import { adminService } from "../services/admin.api";
+import {
+  useMutation,
+  useQueries,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { toast } from "sonner";
+import { adminService } from "../services/admin.api";
 
 export const useCandidateDetails = (id: string) => {
   const queryClient = useQueryClient();
@@ -32,19 +37,30 @@ export const useCandidateDetails = (id: string) => {
   });
 
   const statusMutation = useMutation({
-    mutationFn: ({ status, description }: { status: string; description: string }) =>
-      adminService.updateCandidateStatus(id, status, description),
+    mutationFn: ({
+      status,
+      description,
+    }: {
+      status: string;
+      description: string;
+    }) => adminService.updateCandidateStatus(id, status, description),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["candidate-details", id] });
       queryClient.invalidateQueries({ queryKey: ["admin-candidates"] });
       queryClient.invalidateQueries({ queryKey: ["candidate-education", id] });
       queryClient.invalidateQueries({ queryKey: ["candidate-experience", id] });
-      queryClient.invalidateQueries({ queryKey: ["candidate-certificates", id] });
+      queryClient.invalidateQueries({
+        queryKey: ["candidate-certificates", id],
+      });
       toast.success("Candidate status updated successfully");
     },
   });
 
-  const isPending = isCandidatePending || eduQuery.isPending || expQuery.isPending || certQuery.isPending;
+  const isPending =
+    isCandidatePending ||
+    eduQuery.isPending ||
+    expQuery.isPending ||
+    certQuery.isPending;
 
   return {
     data,

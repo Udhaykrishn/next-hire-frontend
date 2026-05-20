@@ -1,10 +1,10 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-import { useState, useEffect, Suspense } from "react";
-import { ArrowLeft, LockKeyhole, AlertTriangle } from "lucide-react";
+import { AlertTriangle, ArrowLeft, LockKeyhole } from "lucide-react";
 import { motion } from "motion/react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 import { ResetPasswordForm } from "@/components/auth/reset-password-form";
 import { Logo } from "@/components/logo";
 import {
@@ -23,13 +23,12 @@ function ResetPasswordContent() {
   const typeParam = searchParams.get("type");
   const role = typeParam === "recruiter" ? "recruiter" : "user";
 
-  const { data: isValid = false, isLoading: isValidating } = useVerifyResetTokenQuery(
-    token || "",
-    role,
-  );
+  const { data: isValid = false, isLoading: isValidating } =
+    useVerifyResetTokenQuery(token || "", role);
 
   const loginLink = role === "recruiter" ? "/recruiter/login" : "/login";
-  const forgotLink = role === "recruiter" ? "/recruiter/forgot-password" : "/forgot-password";
+  const forgotLink =
+    role === "recruiter" ? "/recruiter/forgot-password" : "/forgot-password";
 
   return (
     <Card className="border-gray-200 shadow-2xl shadow-gray-200/50 rounded-[2rem] overflow-hidden bg-white/80 backdrop-blur-xl">
@@ -48,7 +47,11 @@ function ResetPasswordContent() {
         </motion.div>
 
         <CardTitle className="text-3xl font-black leading-tight text-gray-900 tracking-tight mt-2">
-          {isValidating ? "Validating..." : isValid ? "Create New Password" : "Reset Link Expired"}
+          {isValidating
+            ? "Validating..."
+            : isValid
+              ? "Create New Password"
+              : "Reset Link Expired"}
         </CardTitle>
         <CardDescription className="text-base text-gray-500 font-medium px-4">
           {isValidating
@@ -63,17 +66,23 @@ function ResetPasswordContent() {
         {isValidating ? (
           <div className="flex flex-col items-center justify-center py-10 space-y-4">
             <div className="w-10 h-10 border-4 border-wise-green border-t-transparent rounded-full animate-spin" />
-            <p className="text-sm font-bold text-gray-500 uppercase tracking-widest">Checking Link Security</p>
+            <p className="text-sm font-bold text-gray-500 uppercase tracking-widest">
+              Checking Link Security
+            </p>
           </div>
         ) : isValid && token ? (
           <ResetPasswordForm token={token} role={role} />
         ) : (
           <div className="space-y-4 text-center py-6">
             <p className="text-sm text-gray-500 font-medium max-w-sm mx-auto leading-relaxed">
-              Please request a new password reset link. Security tokens expire quickly to protect your account.
+              Please request a new password reset link. Security tokens expire
+              quickly to protect your account.
             </p>
             <div className="pt-2">
-              <Link href={forgotLink} className="inline-flex items-center justify-center h-12 px-6 bg-wise-green text-dark-green font-black rounded-xl hover:bg-wise-green/90 transition-all text-base shadow-[0_0_20px_rgba(159,232,112,0.2)]">
+              <Link
+                href={forgotLink}
+                className="inline-flex items-center justify-center h-12 px-6 bg-wise-green text-dark-green font-black rounded-xl hover:bg-wise-green/90 transition-all text-base shadow-[0_0_20px_rgba(159,232,112,0.2)]"
+              >
                 Request New Link
               </Link>
             </div>
@@ -110,18 +119,20 @@ export default function ResetPasswordPage() {
           <Logo size="lg" />
         </div>
 
-        <Suspense fallback={
-          <Card className="border-gray-200 shadow-2xl shadow-gray-200/50 rounded-[2rem] overflow-hidden bg-white/80 backdrop-blur-xl">
-            <CardHeader className="space-y-2 pb-8 pt-10 text-center relative border-b border-gray-100">
-              <CardTitle className="text-3xl font-black leading-tight text-gray-900 tracking-tight mt-2">
-                Loading...
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="flex justify-center py-12">
-              <div className="w-10 h-10 border-4 border-wise-green border-t-transparent rounded-full animate-spin" />
-            </CardContent>
-          </Card>
-        }>
+        <Suspense
+          fallback={
+            <Card className="border-gray-200 shadow-2xl shadow-gray-200/50 rounded-[2rem] overflow-hidden bg-white/80 backdrop-blur-xl">
+              <CardHeader className="space-y-2 pb-8 pt-10 text-center relative border-b border-gray-100">
+                <CardTitle className="text-3xl font-black leading-tight text-gray-900 tracking-tight mt-2">
+                  Loading...
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="flex justify-center py-12">
+                <div className="w-10 h-10 border-4 border-wise-green border-t-transparent rounded-full animate-spin" />
+              </CardContent>
+            </Card>
+          }
+        >
           <ResetPasswordContent />
         </Suspense>
       </motion.div>

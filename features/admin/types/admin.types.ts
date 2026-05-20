@@ -120,7 +120,6 @@ export interface BackendRecruiter {
   createdAt: string;
   updatedAt: string | null;
   company_name?: string; // Some endpoints might return this
-
 }
 
 export interface PaginatedResponse<T> {

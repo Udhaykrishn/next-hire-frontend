@@ -3,17 +3,17 @@
 import { APIProvider } from "@vis.gl/react-google-maps";
 import { AnimatePresence } from "framer-motion";
 import { ChevronLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { toast } from "sonner";
 import { Step1Details } from "@/components/recruiter/jobs/create/steps/step1-details";
 import { Step2Requirements } from "@/components/recruiter/jobs/create/steps/step2-requirements";
 import { Step3Logistics } from "@/components/recruiter/jobs/create/steps/step3-logistics";
 import { Step4Preview } from "@/components/recruiter/jobs/create/steps/step4-preview";
 import { Button } from "@/components/ui/button";
 import { useJobForm } from "@/hooks/use-job-form";
-import { cn } from "@/lib/utils";
 import { useProfile } from "@/hooks/use-profile";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 
 import { STEPS } from "./constants";
 import type { JobFormData } from "./types";

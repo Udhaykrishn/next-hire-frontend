@@ -45,7 +45,9 @@ export default function RecruiterSignupPage() {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
-      import("sonner").then(({ toast }) => toast.error("Passwords do not match!"));
+      import("sonner").then(({ toast }) =>
+        toast.error("Passwords do not match!"),
+      );
       return;
     }
 
@@ -53,7 +55,7 @@ export default function RecruiterSignupPage() {
       const response = await signup({ ...formData, role: "RECRUITER" });
 
       // Update global context with the user from response
-      if (response && 'user' in response) {
+      if (response && "user" in response) {
         setUser(response.user);
         router.push("/recruiter/dashboard");
       } else {

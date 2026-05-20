@@ -1,18 +1,18 @@
-import { apiClient } from "@/lib/api-client";
 import type {
+  ApiResponse,
+  Certificate,
   Education,
   Experience,
-  Certificate,
-  ApiResponse,
 } from "@/features/profile/types/profile.types";
+import { apiClient } from "@/lib/api-client";
 import type {
+  AdminJobDetail,
+  BackendJob,
   BackendRecruiter,
   BackendUser,
   CandidateDetail,
   PaginatedResponse,
   RecruiterDetail,
-  AdminJobDetail,
-  BackendJob,
 } from "../types/admin.types";
 
 interface BackendResponse<T> {
@@ -54,14 +54,15 @@ export const adminService = {
     search = "",
     status = "",
   ): Promise<PaginatedResponse<RecruiterDetail>> => {
-    const response = await apiClient.get<BackendResponse<BackendPaginationResponse<BackendRecruiter>>>(
-      "/recruiter",
-      {
-        params: { page, limit, search, status: mapStatusToBackend(status) },
-      },
-    );
+    const response = await apiClient.get<
+      BackendResponse<BackendPaginationResponse<BackendRecruiter>>
+    >("/recruiter", {
+      params: { page, limit, search, status: mapStatusToBackend(status) },
+    });
 
-    const paginated = response as unknown as BackendResponse<BackendPaginationResponse<BackendRecruiter>>;
+    const paginated = response as unknown as BackendResponse<
+      BackendPaginationResponse<BackendRecruiter>
+    >;
     const { data, total } = paginated.data;
 
     return {
@@ -88,14 +89,15 @@ export const adminService = {
     search = "",
     status = "",
   ): Promise<PaginatedResponse<CandidateDetail>> => {
-    const response = await apiClient.get<BackendResponse<BackendPaginationResponse<BackendUser>>>(
-      "/user",
-      {
-        params: { page, limit, search, status: mapStatusToBackend(status) },
-      },
-    );
+    const response = await apiClient.get<
+      BackendResponse<BackendPaginationResponse<BackendUser>>
+    >("/user", {
+      params: { page, limit, search, status: mapStatusToBackend(status) },
+    });
 
-    const paginated = response as unknown as BackendResponse<BackendPaginationResponse<BackendUser>>;
+    const paginated = response as unknown as BackendResponse<
+      BackendPaginationResponse<BackendUser>
+    >;
     const { data, total } = paginated.data;
 
     return {
@@ -126,14 +128,15 @@ export const adminService = {
     search = "",
     status = "",
   ): Promise<PaginatedResponse<AdminJobDetail>> => {
-    const response = await apiClient.get<BackendResponse<BackendPaginationResponse<BackendJob>>>(
-      "/job/all",
-      {
-        params: { page, limit, search, status },
-      },
-    );
+    const response = await apiClient.get<
+      BackendResponse<BackendPaginationResponse<BackendJob>>
+    >("/job/all", {
+      params: { page, limit, search, status },
+    });
 
-    const paginated = response as unknown as BackendResponse<BackendPaginationResponse<BackendJob>>;
+    const paginated = response as unknown as BackendResponse<
+      BackendPaginationResponse<BackendJob>
+    >;
     const { data, total } = paginated.data;
 
     return {
@@ -157,7 +160,9 @@ export const adminService = {
   },
 
   getRecruiterById: async (id: string): Promise<RecruiterDetail> => {
-    const response = await apiClient.get<BackendResponse<BackendRecruiter>>(`/recruiter/${id}`);
+    const response = await apiClient.get<BackendResponse<BackendRecruiter>>(
+      `/recruiter/${id}`,
+    );
     const paginated = response as unknown as BackendResponse<BackendRecruiter>;
     const r = paginated.data;
 
@@ -190,7 +195,9 @@ export const adminService = {
   },
 
   getRecruiterJobs: async (id: string): Promise<AdminJobDetail[]> => {
-    const response = await apiClient.get<BackendResponse<BackendJob[]>>(`/job/recruiter/${id}`);
+    const response = await apiClient.get<BackendResponse<BackendJob[]>>(
+      `/job/recruiter/${id}`,
+    );
     const paginated = response as unknown as BackendResponse<BackendJob[]>;
     const jobs = paginated.data;
 
@@ -212,7 +219,9 @@ export const adminService = {
   },
 
   getCandidateById: async (id: string): Promise<CandidateDetail> => {
-    const response = await apiClient.get<BackendResponse<BackendUser>>(`/user/${id}`);
+    const response = await apiClient.get<BackendResponse<BackendUser>>(
+      `/user/${id}`,
+    );
     const paginated = response as unknown as BackendResponse<BackendUser>;
     const c = paginated.data;
 
@@ -245,15 +254,27 @@ export const adminService = {
     };
   },
 
-  updateRecruiterStatus: async (id: string, _status: string, description?: string): Promise<void> => {
+  updateRecruiterStatus: async (
+    id: string,
+    _status: string,
+    description?: string,
+  ): Promise<void> => {
     await apiClient.patch(`/recruiter/${id}/block`, { description });
   },
 
-  updateCandidateStatus: async (id: string, _status: string, description?: string): Promise<void> => {
+  updateCandidateStatus: async (
+    id: string,
+    _status: string,
+    description?: string,
+  ): Promise<void> => {
     await apiClient.patch(`/user/${id}/block`, { description });
   },
 
-  updateJobStatus: async (id: string, _status: string, description?: string): Promise<void> => {
+  updateJobStatus: async (
+    id: string,
+    _status: string,
+    description?: string,
+  ): Promise<void> => {
     await apiClient.patch(`/job/block/${id}`, { description });
   },
 

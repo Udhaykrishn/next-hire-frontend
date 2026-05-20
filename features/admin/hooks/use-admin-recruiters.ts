@@ -1,11 +1,7 @@
-import {
-  useMutation,
-  useQueryClient,
-  useQuery,
-} from "@tanstack/react-query";
+import { useDebouncedValue } from "@tanstack/react-pacer";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { toast } from "sonner";
-import { useDebouncedValue } from "@tanstack/react-pacer";
 import { adminService } from "../services/admin.api";
 
 export const useAdminRecruiters = () => {
@@ -19,7 +15,12 @@ export const useAdminRecruiters = () => {
   const [debouncedSearchQuery] = useDebouncedValue(searchQuery, { wait: 400 });
 
   const { data, isPending } = useQuery({
-    queryKey: ["admin-recruiters", debouncedSearchQuery, selectedStatuses, currentPage],
+    queryKey: [
+      "admin-recruiters",
+      debouncedSearchQuery,
+      selectedStatuses,
+      currentPage,
+    ],
     queryFn: () =>
       adminService.getRecruiters(
         currentPage,
@@ -39,9 +40,7 @@ export const useAdminRecruiters = () => {
   });
 
   const handleStatusToggle = (status: string) => {
-    setSelectedStatuses((prev) =>
-      prev.includes(status) ? [] : [status]
-    );
+    setSelectedStatuses((prev) => (prev.includes(status) ? [] : [status]));
     setCurrentPage(1);
   };
 

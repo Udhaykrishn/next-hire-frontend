@@ -48,7 +48,10 @@ export const RecruiterList = () => {
   } = useAdminRecruiters();
 
   const [isBlocking, setIsBlocking] = useState(false);
-  const [selectedRecruiter, setSelectedRecruiter] = useState<{ id: string; status: string } | null>(null);
+  const [selectedRecruiter, setSelectedRecruiter] = useState<{
+    id: string;
+    status: string;
+  } | null>(null);
 
   const openBlockModal = (id: string, status: string) => {
     setSelectedRecruiter({ id, status });
@@ -228,7 +231,10 @@ export const RecruiterList = () => {
                   </td>
                   <td className="px-6 py-4 text-right">
                     <DropdownMenu>
-                      <DropdownMenuTrigger type="button" className="p-2 hover:bg-white border border-transparent hover:border-gray-100 rounded-xl transition-all flex items-center justify-center">
+                      <DropdownMenuTrigger
+                        type="button"
+                        className="p-2 hover:bg-white border border-transparent hover:border-gray-100 rounded-xl transition-all flex items-center justify-center"
+                      >
                         <MoreHorizontal className="w-5 h-5 text-gray-400" />
                       </DropdownMenuTrigger>
                       <DropdownMenuContent
@@ -243,16 +249,20 @@ export const RecruiterList = () => {
                           </DropdownMenuItem>
                         </Link>
                         <DropdownMenuItem
-                          onClick={() => openBlockModal(recruiter.id, recruiter.status)}
+                          onClick={() =>
+                            openBlockModal(recruiter.id, recruiter.status)
+                          }
                           className={cn(
                             "h-12 px-4 rounded-xl flex items-center gap-3 font-bold text-xs uppercase tracking-widest cursor-pointer",
                             recruiter.status === "Blocked"
                               ? "text-green-500 hover:bg-green-50 hover:text-green-600"
-                              : "text-red-500 hover:bg-red-50 hover:text-red-600"
+                              : "text-red-500 hover:bg-red-50 hover:text-red-600",
                           )}
                         >
                           <Ban className="w-4 h-4" />
-                          {recruiter.status === "Blocked" ? "Restore Access" : "Restrict Access"}
+                          {recruiter.status === "Blocked"
+                            ? "Restore Access"
+                            : "Restrict Access"}
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
@@ -276,9 +286,21 @@ export const RecruiterList = () => {
         isOpen={isBlocking}
         onClose={() => setIsBlocking(false)}
         onConfirm={confirmBlock}
-        title={selectedRecruiter?.status === "Blocked" ? "Restore Recruiter Access" : "Restrict Recruiter Access"}
-        description={selectedRecruiter?.status === "Blocked" ? "This will restore account access and enable all active job postings for this company." : "This will immediately revoke account access and disable all active job postings for this company."}
-        confirmText={selectedRecruiter?.status === "Blocked" ? "Confirm Restore" : "Confirm Restriction"}
+        title={
+          selectedRecruiter?.status === "Blocked"
+            ? "Restore Recruiter Access"
+            : "Restrict Recruiter Access"
+        }
+        description={
+          selectedRecruiter?.status === "Blocked"
+            ? "This will restore account access and enable all active job postings for this company."
+            : "This will immediately revoke account access and disable all active job postings for this company."
+        }
+        confirmText={
+          selectedRecruiter?.status === "Blocked"
+            ? "Confirm Restore"
+            : "Confirm Restriction"
+        }
         variant={selectedRecruiter?.status === "Blocked" ? "info" : "danger"}
       />
     </div>

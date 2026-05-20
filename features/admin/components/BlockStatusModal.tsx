@@ -18,7 +18,9 @@ export const BlockStatusModal = ({
   isBlocked,
   isLoading,
 }: BlockStatusModalProps) => {
-  const [selectedReason, setSelectedReason] = useState("Terms of Service Violation");
+  const [selectedReason, setSelectedReason] = useState(
+    "Terms of Service Violation",
+  );
   const [customReason, setCustomReason] = useState("");
 
   const handleConfirm = () => {
@@ -26,7 +28,8 @@ export const BlockStatusModal = ({
       onConfirm("");
       return;
     }
-    const finalReason = selectedReason === "Other" ? customReason : selectedReason;
+    const finalReason =
+      selectedReason === "Other" ? customReason : selectedReason;
     if (!finalReason.trim()) return;
     onConfirm(finalReason);
     setSelectedReason("Terms of Service Violation");
@@ -38,7 +41,9 @@ export const BlockStatusModal = ({
       isOpen={isOpen}
       onClose={onClose}
       onConfirm={handleConfirm}
-      title={isBlocked ? "Restore Candidate Access" : "Restrict Candidate Access"}
+      title={
+        isBlocked ? "Restore Candidate Access" : "Restrict Candidate Access"
+      }
       description={
         isBlocked
           ? `Are you sure you want to unblock ${candidateName}? They will regain full access to their profile and job applications.`
@@ -59,10 +64,18 @@ export const BlockStatusModal = ({
               onChange={(e) => setSelectedReason(e.target.value)}
               className="w-full h-12 px-4 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-wise-green/20 focus:border-wise-green bg-white transition-all outline-none font-bold text-near-black cursor-pointer"
             >
-              <option value="Terms of Service Violation">Terms of Service Violation</option>
-              <option value="Spam or fraudulent activity">Spam or fraudulent activity</option>
-              <option value="Harassment or inappropriate behavior">Harassment or inappropriate behavior</option>
-              <option value="Fake profile or invalid documents">Fake profile or invalid documents</option>
+              <option value="Terms of Service Violation">
+                Terms of Service Violation
+              </option>
+              <option value="Spam or fraudulent activity">
+                Spam or fraudulent activity
+              </option>
+              <option value="Harassment or inappropriate behavior">
+                Harassment or inappropriate behavior
+              </option>
+              <option value="Fake profile or invalid documents">
+                Fake profile or invalid documents
+              </option>
               <option value="Other">Other (specify below)</option>
             </select>
           </div>

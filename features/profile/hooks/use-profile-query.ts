@@ -33,7 +33,10 @@ export const useProfileQuery = (role: string | null, options = {}) => {
   });
 };
 
-export const useUpdateProfileMutation = (role: string | null, userId?: string) => {
+export const useUpdateProfileMutation = (
+  role: string | null,
+  userId?: string,
+) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (data: UpdateProfileDto) => updateProfile(data, role, userId),

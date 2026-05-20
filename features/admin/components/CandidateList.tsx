@@ -2,19 +2,18 @@
 
 import {
   ArrowUpRight,
+  BadgeCheck,
   Ban,
   Briefcase,
   Filter,
   MoreHorizontal,
   Search,
-  UserCircle,
-  BadgeCheck,
   ShieldAlert,
+  UserCircle,
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { buttonVariants } from "@/components/animate-ui/components/buttons/button";
-import { ConfirmationModal } from "@/components/shared/confirmation-modal";
 import { Pagination } from "@/components/shared/pagination";
 import {
   DropdownMenu,
@@ -54,7 +53,9 @@ export const CandidateList = () => {
     null,
   );
 
-  const selectedCandidate = candidates.find((c) => c.id === selectedCandidateId);
+  const selectedCandidate = candidates.find(
+    (c) => c.id === selectedCandidateId,
+  );
 
   const openBlockModal = (id: string) => {
     setSelectedCandidateId(id);
@@ -63,7 +64,8 @@ export const CandidateList = () => {
 
   const confirmBlock = (reason: string) => {
     if (selectedCandidateId && selectedCandidate) {
-      const nextStatus = selectedCandidate.status === "Blocked" ? "Active" : "Blocked";
+      const nextStatus =
+        selectedCandidate.status === "Blocked" ? "Active" : "Blocked";
       handleConfirmBlock(selectedCandidateId, nextStatus, reason);
       setIsBlocking(false);
       setSelectedCandidateId(null);
@@ -186,17 +188,20 @@ export const CandidateList = () => {
                   key={candidate.id}
                   className={cn(
                     "group hover:bg-gray-50/30 transition-all",
-                    candidate.status === "Blocked" && "opacity-75 hover:opacity-100"
+                    candidate.status === "Blocked" &&
+                      "opacity-75 hover:opacity-100",
                   )}
                 >
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-4">
-                      <div className={cn(
-                        "w-12 h-12 rounded-2xl flex items-center justify-center text-sm font-black shadow-lg group-hover:rotate-6 transition-transform",
-                        candidate.status === "Blocked"
-                          ? "bg-gray-100 text-gray-400 shadow-gray-200/10"
-                          : "bg-near-black text-wise-green shadow-near-black/10"
-                      )}>
+                      <div
+                        className={cn(
+                          "w-12 h-12 rounded-2xl flex items-center justify-center text-sm font-black shadow-lg group-hover:rotate-6 transition-transform",
+                          candidate.status === "Blocked"
+                            ? "bg-gray-100 text-gray-400 shadow-gray-200/10"
+                            : "bg-near-black text-wise-green shadow-near-black/10",
+                        )}
+                      >
                         {candidate.name.charAt(0)}
                       </div>
                       <div>
@@ -205,7 +210,8 @@ export const CandidateList = () => {
                             href={`/admin/candidates/${candidate.id}`}
                             className={cn(
                               "text-sm font-black text-near-black uppercase tracking-tight hover:text-wise-green transition-colors",
-                              candidate.status === "Blocked" && "line-through text-gray-400"
+                              candidate.status === "Blocked" &&
+                                "line-through text-gray-400",
                             )}
                           >
                             {candidate.name}
@@ -251,7 +257,10 @@ export const CandidateList = () => {
                   </td>
                   <td className="px-6 py-4 text-right">
                     <DropdownMenu>
-                      <DropdownMenuTrigger type="button" className="p-2 hover:bg-white border border-transparent hover:border-gray-100 rounded-xl transition-all flex items-center justify-center">
+                      <DropdownMenuTrigger
+                        type="button"
+                        className="p-2 hover:bg-white border border-transparent hover:border-gray-100 rounded-xl transition-all flex items-center justify-center"
+                      >
                         <MoreHorizontal className="w-5 h-5 text-gray-400" />
                       </DropdownMenuTrigger>
                       <DropdownMenuContent
@@ -271,7 +280,7 @@ export const CandidateList = () => {
                             "h-12 px-4 rounded-xl flex items-center gap-3 font-bold text-xs uppercase tracking-widest cursor-pointer",
                             candidate.status === "Blocked"
                               ? "text-green-600 hover:bg-green-50 hover:text-green-700"
-                              : "text-red-500 hover:bg-red-50 hover:text-red-600"
+                              : "text-red-500 hover:bg-red-50 hover:text-red-600",
                           )}
                         >
                           {candidate.status === "Blocked" ? (

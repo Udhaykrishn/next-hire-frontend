@@ -1,13 +1,8 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import {
-  createContext,
-  type ReactNode,
-  useCallback,
-  useContext,
-} from "react";
 import { useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import { createContext, type ReactNode, useCallback, useContext } from "react";
 import { useCurrentUserQuery } from "../hooks/use-auth";
 import { authService } from "../services/auth.api";
 import type { User, UserRole } from "../types/auth.types";
@@ -28,12 +23,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
   const queryClient = useQueryClient();
 
-  const { data: currentUserResponse, isLoading, refetch } = useCurrentUserQuery();
+  const {
+    data: currentUserResponse,
+    isLoading,
+    refetch,
+  } = useCurrentUserQuery();
 
   const user = (currentUserResponse as { data?: User } | null)?.data || null;
 
   const setUserState = (newUser: User | null) => {
-    queryClient.setQueryData(["current-user"], newUser ? { data: newUser } : null);
+    queryClient.setQueryData(
+      ["current-user"],
+      newUser ? { data: newUser } : null,
+    );
   };
 
   const checkAuth = useCallback(async () => {

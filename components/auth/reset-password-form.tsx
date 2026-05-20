@@ -16,10 +16,7 @@ interface ResetPasswordFormProps {
   role: "recruiter" | "user";
 }
 
-export function ResetPasswordForm({
-  token,
-  role,
-}: ResetPasswordFormProps) {
+export function ResetPasswordForm({ token, role }: ResetPasswordFormProps) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [localError, setLocalError] = useState("");

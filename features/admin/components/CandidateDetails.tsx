@@ -14,9 +14,9 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/animate-ui/components/buttons/button";
-import { BlockStatusModal } from "./BlockStatusModal";
 import { cn } from "@/lib/utils";
 import { useCandidateDetails } from "../hooks/use-candidate-details";
+import { BlockStatusModal } from "./BlockStatusModal";
 
 interface CandidateDetailsProps {
   id: string;
@@ -142,7 +142,9 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
                   </span>
                 ))
               ) : (
-                <span className="text-xs text-gray-400 font-bold italic">No skills listed</span>
+                <span className="text-xs text-gray-400 font-bold italic">
+                  No skills listed
+                </span>
               )}
             </div>
           </section>
@@ -172,20 +174,38 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
               <div className="space-y-8">
                 {experience && experience.length > 0 ? (
                   experience.map((exp) => (
-                    <div key={exp.id} className="relative pl-8 border-l-2 border-slate-100 pb-6 last:pb-0">
+                    <div
+                      key={exp.id}
+                      className="relative pl-8 border-l-2 border-slate-100 pb-6 last:pb-0"
+                    >
                       <div className="absolute top-1 -left-[6px] w-2.5 h-2.5 rounded-full bg-wise-green border-2 border-white shadow-sm" />
                       <p className="text-base font-extrabold text-slate-800">
                         {exp.projectName}
                       </p>
                       <div className="flex flex-wrap items-center gap-2 text-xs font-bold text-slate-500 mt-1">
-                        <span className="text-slate-800 font-black">{exp.company || "Independent"}</span>
+                        <span className="text-slate-800 font-black">
+                          {exp.company || "Independent"}
+                        </span>
                         <span>•</span>
                         <span>{exp.role || "Developer"}</span>
                         <span>•</span>
-                        <span className="text-slate-400">{exp.location || "Remote"}</span>
+                        <span className="text-slate-400">
+                          {exp.location || "Remote"}
+                        </span>
                       </div>
                       <p className="text-[11px] font-bold text-slate-400 mt-1">
-                        {exp.employmentType || "Full-time"} | {new Date(exp.startDate).toLocaleDateString("en-US", { month: "short", year: "numeric" })} — {exp.currentlyWorking ? "Present" : new Date(exp.endDate).toLocaleDateString("en-US", { month: "short", year: "numeric" })}
+                        {exp.employmentType || "Full-time"} |{" "}
+                        {new Date(exp.startDate).toLocaleDateString("en-US", {
+                          month: "short",
+                          year: "numeric",
+                        })}{" "}
+                        —{" "}
+                        {exp.currentlyWorking
+                          ? "Present"
+                          : new Date(exp.endDate).toLocaleDateString("en-US", {
+                              month: "short",
+                              year: "numeric",
+                            })}
                       </p>
                       <p className="text-xs text-slate-600 mt-3 font-bold bg-slate-50/50 p-4 rounded-2xl border border-slate-100/50 leading-relaxed whitespace-pre-wrap">
                         {exp.description}
@@ -193,7 +213,10 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
                       {exp.skillsLearned && exp.skillsLearned.length > 0 && (
                         <div className="flex flex-wrap gap-1.5 mt-3">
                           {exp.skillsLearned.map((s, sIdx) => (
-                            <span key={sIdx} className="text-[10px] font-black uppercase tracking-wider text-slate-600 bg-slate-100 px-2.5 py-1 rounded-lg">
+                            <span
+                              key={sIdx}
+                              className="text-[10px] font-black uppercase tracking-wider text-slate-600 bg-slate-100 px-2.5 py-1 rounded-lg"
+                            >
                               {s}
                             </span>
                           ))}
@@ -203,7 +226,9 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
                   ))
                 ) : (
                   <div className="flex items-center gap-3 text-slate-400 italic py-4">
-                    <p className="text-sm font-bold">No work history or experiences added yet.</p>
+                    <p className="text-sm font-bold">
+                      No work history or experiences added yet.
+                    </p>
                   </div>
                 )}
               </div>
@@ -217,7 +242,10 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
               <div className="space-y-6">
                 {education && education.length > 0 ? (
                   education.map((edu) => (
-                    <div key={edu.id} className="relative pl-8 border-l-2 border-slate-100 pb-6 last:pb-0">
+                    <div
+                      key={edu.id}
+                      className="relative pl-8 border-l-2 border-slate-100 pb-6 last:pb-0"
+                    >
                       <div className="absolute top-1 -left-[6px] w-2.5 h-2.5 rounded-full bg-wise-green border-2 border-white shadow-sm" />
                       <p className="text-base font-extrabold text-slate-800">
                         {edu.degree} in {edu.fieldOfStudy}
@@ -226,11 +254,25 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
                         {edu.institutionName}
                       </p>
                       <div className="flex flex-wrap items-center gap-2 text-xs font-bold text-slate-400 mt-1">
-                        <span>{new Date(edu.startDate).toLocaleDateString("en-US", { month: "short", year: "numeric" })} — {edu.endDate ? new Date(edu.endDate).toLocaleDateString("en-US", { month: "short", year: "numeric" }) : "Present"}</span>
+                        <span>
+                          {new Date(edu.startDate).toLocaleDateString("en-US", {
+                            month: "short",
+                            year: "numeric",
+                          })}{" "}
+                          —{" "}
+                          {edu.endDate
+                            ? new Date(edu.endDate).toLocaleDateString(
+                                "en-US",
+                                { month: "short", year: "numeric" },
+                              )
+                            : "Present"}
+                        </span>
                         {edu.gpa && (
                           <>
                             <span>•</span>
-                            <span className="text-wise-green font-black bg-wise-green/5 px-2 py-0.5 rounded-lg border border-wise-green/10">GPA: {edu.gpa}</span>
+                            <span className="text-wise-green font-black bg-wise-green/5 px-2 py-0.5 rounded-lg border border-wise-green/10">
+                              GPA: {edu.gpa}
+                            </span>
                           </>
                         )}
                       </div>
@@ -238,7 +280,9 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
                   ))
                 ) : (
                   <div className="flex items-center gap-3 text-slate-400 italic py-4">
-                    <p className="text-sm font-bold">No educational credentials added yet.</p>
+                    <p className="text-sm font-bold">
+                      No educational credentials added yet.
+                    </p>
                   </div>
                 )}
               </div>
@@ -268,7 +312,11 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
                         {cert.issuer}
                       </p>
                       <p className="text-[10px] font-bold text-slate-400 mt-1">
-                        Earned: {new Date(cert.issueDate).toLocaleDateString("en-US", { month: "short", year: "numeric" })}
+                        Earned:{" "}
+                        {new Date(cert.issueDate).toLocaleDateString("en-US", {
+                          month: "short",
+                          year: "numeric",
+                        })}
                       </p>
                     </div>
                   </div>
@@ -383,7 +431,7 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
                 "h-12 px-8 rounded-xl text-xs font-black uppercase tracking-widest transition-all",
                 isBlocked
                   ? "border-green-100 text-green-600 hover:bg-green-50 hover:border-green-200"
-                  : "border-red-100 text-red-500 hover:bg-red-50 hover:border-red-200"
+                  : "border-red-100 text-red-500 hover:bg-red-50 hover:border-red-200",
               )}
             >
               {isBlocked ? "Restore Access" : "Restrict Access"}

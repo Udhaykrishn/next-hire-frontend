@@ -2,7 +2,7 @@
 
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { authService } from "../services/auth.api";
-import type { UserRole, AuthResponse } from "../types/auth.types";
+import type { AuthResponse, UserRole } from "../types/auth.types";
 
 export const useCurrentUserQuery = (options = {}) => {
   return useQuery({

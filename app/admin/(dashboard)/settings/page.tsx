@@ -1,7 +1,7 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import { Bell, Server, Shield } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const settingGroups = [
   {
@@ -118,14 +118,19 @@ export default function AdminSettings() {
       </div>
 
       <div className="flex items-center justify-end gap-4">
-        <button type="button" className="px-6 py-3 text-sm font-black text-gray-400 hover:text-near-black transition-colors">
+        <button
+          type="button"
+          className="px-6 py-3 text-sm font-black text-gray-400 hover:text-near-black transition-colors"
+        >
           Discard Changes
         </button>
-        <button type="button" className="px-8 py-3 bg-near-black text-white rounded-2xl text-sm font-black hover:bg-wise-green hover:text-near-black transition-all shadow-xl shadow-near-black/10">
+        <button
+          type="button"
+          className="px-8 py-3 bg-near-black text-white rounded-2xl text-sm font-black hover:bg-wise-green hover:text-near-black transition-all shadow-xl shadow-near-black/10"
+        >
           Save Configurations
         </button>
       </div>
     </div>
   );
 }
-

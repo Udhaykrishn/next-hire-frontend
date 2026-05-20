@@ -2,13 +2,19 @@
 
 import { format } from "date-fns";
 import { useEffect } from "react";
-import type { ApiResponse, UserProfile, Education, Experience, Certificate } from "@/features/profile/types/profile.types";
 import type {
+  ApiResponse,
+  Certificate,
+  Education,
+  Experience,
+  UserProfile,
+} from "@/features/profile/types/profile.types";
+import type {
+  BasicInfo,
+  ProfileCertificate,
   ProfileEducation,
   ProfileExperience,
-  ProfileCertificate,
   ProfileLanguage,
-  BasicInfo,
   SocialLinks,
 } from "@/features/profile/types/profile-context.types";
 

@@ -1,8 +1,9 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import type React from "react";
 import { createContext, useContext, useState } from "react";
-import { usePathname } from "next/navigation";
+import { useProfileHandlers } from "@/features/profile/hooks/use-profile-handlers";
 import {
   useCertificateQuery,
   useEducationQuery,
@@ -10,23 +11,22 @@ import {
   useProfileQuery,
 } from "@/features/profile/hooks/use-profile-query";
 import { useProfileStateSync } from "@/features/profile/hooks/use-profile-state-sync";
-import { useProfileHandlers } from "@/features/profile/hooks/use-profile-handlers";
 import type {
-  ProfileContextType,
-  ProfileExperience,
-  ProfileEducation,
-  ProfileCertificate,
-  ProfileLanguage,
   BasicInfo,
-  SocialLinks,
   JobPreferences,
+  ProfileCertificate,
+  ProfileContextType,
+  ProfileEducation,
+  ProfileExperience,
+  ProfileLanguage,
+  SocialLinks,
 } from "@/features/profile/types/profile-context.types";
 
 // Re-export UI types for backward-compat with existing imports
 export type {
-  ProfileExperience as Experience,
-  ProfileEducation as Education,
   ProfileCertificate as Certificate,
+  ProfileEducation as Education,
+  ProfileExperience as Experience,
   ProfileLanguage as Language,
 } from "@/features/profile/types/profile-context.types";
 
@@ -80,9 +80,12 @@ export const ProfileProvider = ({
   const isRecruiter = role === "RECRUITER";
   const hasProfile = isCandidate || isRecruiter;
 
-  const { data: profileData, isLoading: isProfileLoading } = useProfileQuery(role, {
-    enabled: !isAuthPage && isAuthenticated && hasProfile,
-  });
+  const { data: profileData, isLoading: isProfileLoading } = useProfileQuery(
+    role,
+    {
+      enabled: !isAuthPage && isAuthenticated && hasProfile,
+    },
+  );
   const { data: eduData, isLoading: isEduLoading } = useEducationQuery({
     enabled: !isAuthPage && isAuthenticated && isCandidate,
   });
@@ -99,8 +102,11 @@ export const ProfileProvider = ({
   const [certificates, setCertifications] = useState<ProfileCertificate[]>([]);
   const [languages, setLanguages] = useState<ProfileLanguage[]>([]);
   const [basicInfo, setBasicInfo] = useState<BasicInfo>(DEFAULT_BASIC_INFO);
-  const [socialLinks, setSocialLinks] = useState<SocialLinks>(DEFAULT_SOCIAL_LINKS);
-  const [jobPreferences, setJobPreferences] = useState<JobPreferences>(DEFAULT_JOB_PREFERENCES);
+  const [socialLinks, setSocialLinks] =
+    useState<SocialLinks>(DEFAULT_SOCIAL_LINKS);
+  const [jobPreferences, setJobPreferences] = useState<JobPreferences>(
+    DEFAULT_JOB_PREFERENCES,
+  );
 
   useProfileStateSync({
     profileData,

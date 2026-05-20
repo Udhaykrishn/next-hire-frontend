@@ -1,5 +1,6 @@
 import { apiClient } from "@/lib/api-client";
 import type {
+  ApiResponse,
   Certificate,
   CreateCertificateDto,
   CreateEducationDto,
@@ -8,10 +9,11 @@ import type {
   Experience,
   UpdateProfileDto,
   UserProfile,
-  ApiResponse,
 } from "../types/profile.types";
 
-export const getProfile = async (role?: string | null): Promise<ApiResponse<UserProfile>> => {
+export const getProfile = async (
+  role?: string | null,
+): Promise<ApiResponse<UserProfile>> => {
   if (role === "RECRUITER") {
     return await apiClient.get("/recruiter/profile");
   }
@@ -29,10 +31,14 @@ export const updateProfile = async (
   return await apiClient.patch("/user/update", data);
 };
 
-export const uploadProfileImage = async (file: File, role?: string | null): Promise<UserProfile> => {
+export const uploadProfileImage = async (
+  file: File,
+  role?: string | null,
+): Promise<UserProfile> => {
   const formData = new FormData();
   formData.append("image", file);
-  const endpoint = role === "RECRUITER" ? "/recruiter/profile/upload" : "/user/profile/upload";
+  const endpoint =
+    role === "RECRUITER" ? "/recruiter/profile/upload" : "/user/profile/upload";
   return await apiClient.post(endpoint, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
@@ -95,7 +101,9 @@ export const deleteExperience = async (id: string): Promise<void> => {
 };
 
 // Certificates
-export const getCertificates = async (): Promise<ApiResponse<Certificate[]>> => {
+export const getCertificates = async (): Promise<
+  ApiResponse<Certificate[]>
+> => {
   return await apiClient.get("/certificate");
 };
 

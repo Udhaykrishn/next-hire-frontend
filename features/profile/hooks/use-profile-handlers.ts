@@ -1,18 +1,21 @@
 "use client";
 
-import type { ApiResponse, UserProfile } from "@/features/profile/types/profile.types";
 import {
-  useUpdateProfileMutation,
-  useCreateExperienceMutation,
-  useUpdateExperienceMutation,
-  useDeleteExperienceMutation,
-  useCreateEducationMutation,
-  useUpdateEducationMutation,
-  useDeleteEducationMutation,
   useCreateCertificateMutation,
-  useUpdateCertificateMutation,
+  useCreateEducationMutation,
+  useCreateExperienceMutation,
   useDeleteCertificateMutation,
+  useDeleteEducationMutation,
+  useDeleteExperienceMutation,
+  useUpdateCertificateMutation,
+  useUpdateEducationMutation,
+  useUpdateExperienceMutation,
+  useUpdateProfileMutation,
 } from "@/features/profile/hooks/use-profile-query";
+import type {
+  ApiResponse,
+  UserProfile,
+} from "@/features/profile/types/profile.types";
 
 interface UseProfileHandlersParams {
   profileData: ApiResponse<UserProfile> | undefined;
@@ -21,7 +24,12 @@ interface UseProfileHandlersParams {
   userId?: string;
 }
 
-export function useProfileHandlers({ profileData, skills, role, userId }: UseProfileHandlersParams) {
+export function useProfileHandlers({
+  profileData,
+  skills,
+  role,
+  userId,
+}: UseProfileHandlersParams) {
   const updateProfileMutation = useUpdateProfileMutation(role, userId);
 
   const createEduMutation = useCreateEducationMutation();
@@ -124,7 +132,10 @@ export function useProfileHandlers({ profileData, skills, role, userId }: UsePro
     deleteEduMutation.mutate(id);
   };
 
-  const handleAddCertificate = (formData: FormData, certDate: Date | undefined) => {
+  const handleAddCertificate = (
+    formData: FormData,
+    certDate: Date | undefined,
+  ) => {
     createCertMutation.mutate({
       name: formData.get("name") as string,
       issuer: formData.get("issuer") as string,
@@ -160,7 +171,10 @@ export function useProfileHandlers({ profileData, skills, role, userId }: UsePro
       social_link: {
         linkedin: formData.get("linkedin") as string,
         portfolio: formData.get("portfolio") as string,
-        github: (formData.get("github") as string) || profileData?.data?.social_link?.github || "",
+        github:
+          (formData.get("github") as string) ||
+          profileData?.data?.social_link?.github ||
+          "",
       },
     });
   };

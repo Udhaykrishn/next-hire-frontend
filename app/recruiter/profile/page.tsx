@@ -12,12 +12,12 @@ import {
   X,
 } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { cn } from "@/lib/utils";
 import { useProfile } from "@/hooks/use-profile";
-import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 
 export default function ProfilePage() {
   const { basicInfo, handleUpdateProfile, handleUpdateCin, isLoading } =
@@ -43,7 +43,7 @@ export default function ProfilePage() {
 
       setIsEditing(false);
       toast.success("Profile updated successfully");
-    } catch (error) {
+    } catch (_error) {
       toast.error("Failed to update profile");
     }
   };

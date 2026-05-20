@@ -15,8 +15,8 @@ import { Button } from "@/components/animate-ui/components/buttons/button";
 import { ConfirmationModal } from "@/components/shared/confirmation-modal";
 import { cn } from "@/lib/utils";
 import { useRecruiterDetails } from "../hooks/use-recruiter-details";
-import { useRestrictRecruiter } from "../hooks/use-restrict-recruiter";
 import { useRecruiterJobs } from "../hooks/use-recruiter-jobs";
+import { useRestrictRecruiter } from "../hooks/use-restrict-recruiter";
 
 const ActivityIcon = ({ type }: { type: string }) => {
   switch (type) {
@@ -39,7 +39,8 @@ interface RecruiterDetailsProps {
 
 export const RecruiterDetails = ({ id }: RecruiterDetailsProps) => {
   const { data: recruiter } = useRecruiterDetails(id);
-  const { mutate: restrictRecruiter, isPending: isRestricting } = useRestrictRecruiter();
+  const { mutate: restrictRecruiter, isPending: isRestricting } =
+    useRestrictRecruiter();
   const { data: jobs = [], isLoading: isJobsLoading } = useRecruiterJobs(id);
   const [isBlocking, setIsBlocking] = useState(false);
 
@@ -119,25 +120,48 @@ export const RecruiterDetails = ({ id }: RecruiterDetailsProps) => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="p-4 bg-gray-50 rounded-2xl">
-                <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Company Role</p>
-                <p className="text-sm font-bold text-near-black">{recruiter.company_role || "N/A"}</p>
+                <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">
+                  Company Role
+                </p>
+                <p className="text-sm font-bold text-near-black">
+                  {recruiter.company_role || "N/A"}
+                </p>
               </div>
               <div className="p-4 bg-gray-50 rounded-2xl">
-                <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Category</p>
-                <p className="text-sm font-bold text-near-black">{recruiter.category || "N/A"}</p>
+                <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">
+                  Category
+                </p>
+                <p className="text-sm font-bold text-near-black">
+                  {recruiter.category || "N/A"}
+                </p>
               </div>
               <div className="p-4 bg-gray-50 rounded-2xl">
-                <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">GSTIN</p>
-                <p className="text-sm font-bold text-near-black">{recruiter.GSTIN || "N/A"}</p>
+                <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">
+                  GSTIN
+                </p>
+                <p className="text-sm font-bold text-near-black">
+                  {recruiter.GSTIN || "N/A"}
+                </p>
               </div>
               <div className="p-4 bg-gray-50 rounded-2xl">
-                <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">CIN</p>
-                <p className="text-sm font-bold text-near-black">{recruiter.CIN || "N/A"}</p>
+                <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">
+                  CIN
+                </p>
+                <p className="text-sm font-bold text-near-black">
+                  {recruiter.CIN || "N/A"}
+                </p>
               </div>
               <div className="p-4 bg-gray-50 rounded-2xl">
-                <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Website</p>
+                <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">
+                  Website
+                </p>
                 {recruiter.website_link ? (
-                  <a href={recruiter.website_link} target="_blank" rel="noreferrer" className="text-sm font-bold text-wise-green hover:underline">
+                  <a
+                    href={recruiter.website_link}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-sm font-bold text-wise-green hover:underline"
+                  >
                     {recruiter.website_link}
                   </a>
                 ) : (
@@ -145,15 +169,25 @@ export const RecruiterDetails = ({ id }: RecruiterDetailsProps) => {
                 )}
               </div>
               <div className="p-4 bg-gray-50 rounded-2xl">
-                <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Verification Status</p>
+                <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">
+                  Verification Status
+                </p>
                 <p className="text-sm font-bold text-near-black">
-                  {recruiter.is_verified_company ? "Verified" : "Unverified"} / {recruiter.admin_approved ? "Admin Approved" : "Pending Approval"}
+                  {recruiter.is_verified_company ? "Verified" : "Unverified"} /{" "}
+                  {recruiter.admin_approved
+                    ? "Admin Approved"
+                    : "Pending Approval"}
                 </p>
               </div>
               <div className="p-4 bg-gray-50 rounded-2xl md:col-span-2">
-                <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Subscription Plan</p>
+                <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">
+                  Subscription Plan
+                </p>
                 <p className="text-sm font-bold text-near-black">
-                  {recruiter.subscription?.current_plan || "Free"} {recruiter.subscription?.is_subscribed ? "(Active)" : "(Inactive)"}
+                  {recruiter.subscription?.current_plan || "Free"}{" "}
+                  {recruiter.subscription?.is_subscribed
+                    ? "(Active)"
+                    : "(Inactive)"}
                 </p>
               </div>
             </div>
@@ -199,9 +233,13 @@ export const RecruiterDetails = ({ id }: RecruiterDetailsProps) => {
 
             <div className="space-y-4">
               {isJobsLoading ? (
-                <div className="p-6 text-center text-gray-400 text-sm font-bold">Loading jobs...</div>
+                <div className="p-6 text-center text-gray-400 text-sm font-bold">
+                  Loading jobs...
+                </div>
               ) : jobs.length === 0 ? (
-                <div className="p-6 text-center text-gray-400 text-sm font-bold">No jobs created yet.</div>
+                <div className="p-6 text-center text-gray-400 text-sm font-bold">
+                  No jobs created yet.
+                </div>
               ) : (
                 jobs.map((job) => (
                   <div
@@ -213,9 +251,13 @@ export const RecruiterDetails = ({ id }: RecruiterDetailsProps) => {
                         {job.jobTitle}
                       </h4>
                       <div className="flex items-center gap-3 text-[11px] font-bold text-gray-400">
-                        <span className="uppercase tracking-widest">{job.jobType}</span>
+                        <span className="uppercase tracking-widest">
+                          {job.jobType}
+                        </span>
                         <span className="w-1 h-1 rounded-full bg-gray-200" />
-                        <span className="uppercase tracking-widest">{job.locationType}</span>
+                        <span className="uppercase tracking-widest">
+                          {job.locationType}
+                        </span>
                       </div>
                     </div>
                     <div className="flex items-center gap-4">
@@ -280,9 +322,21 @@ export const RecruiterDetails = ({ id }: RecruiterDetailsProps) => {
         isOpen={isBlocking}
         onClose={() => setIsBlocking(false)}
         onConfirm={handleConfirm}
-        title={recruiter.status === "Blocked" ? "Restore Recruiter Access" : "Restrict Recruiter Access"}
-        description={recruiter.status === "Blocked" ? "This will restore account access and enable all active job postings for this company." : "This will immediately revoke account access and disable all active job postings for this company."}
-        confirmText={recruiter.status === "Blocked" ? "Confirm Restore" : "Confirm Restriction"}
+        title={
+          recruiter.status === "Blocked"
+            ? "Restore Recruiter Access"
+            : "Restrict Recruiter Access"
+        }
+        description={
+          recruiter.status === "Blocked"
+            ? "This will restore account access and enable all active job postings for this company."
+            : "This will immediately revoke account access and disable all active job postings for this company."
+        }
+        confirmText={
+          recruiter.status === "Blocked"
+            ? "Confirm Restore"
+            : "Confirm Restriction"
+        }
         variant={recruiter.status === "Blocked" ? "info" : "danger"}
       />
     </div>

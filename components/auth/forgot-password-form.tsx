@@ -27,7 +27,11 @@ export function ForgotPasswordForm({ role }: ForgotPasswordFormProps) {
       toast.success("Password reset link sent successfully!");
     } catch (err: unknown) {
       console.error(err);
-      toast.error(err instanceof Error ? err.message : "Failed to request password reset. Please try again.");
+      toast.error(
+        err instanceof Error
+          ? err.message
+          : "Failed to request password reset. Please try again.",
+      );
     }
   };
 
@@ -39,8 +43,9 @@ export function ForgotPasswordForm({ role }: ForgotPasswordFormProps) {
         </div>
         <h3 className="text-xl font-bold text-gray-900">Check your email</h3>
         <p className="text-sm text-gray-500 font-medium leading-relaxed max-w-sm mx-auto">
-          We have sent a secure password reset link to <span className="font-bold text-gray-800">{email}</span>. 
-          Please click the link in the email to reset your password.
+          We have sent a secure password reset link to{" "}
+          <span className="font-bold text-gray-800">{email}</span>. Please click
+          the link in the email to reset your password.
         </p>
       </div>
     );

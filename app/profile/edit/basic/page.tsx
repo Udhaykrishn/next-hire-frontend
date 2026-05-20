@@ -4,28 +4,45 @@ import { APIProvider, useApiIsLoaded } from "@vis.gl/react-google-maps";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import usePlacesAutocomplete from "use-places-autocomplete";
+import { z } from "zod";
 import { Button } from "@/components/animate-ui/components/buttons/button";
 import { FormPageLayout } from "@/components/profile/forms/form-page-layout";
 import { useProfile } from "@/hooks/use-profile";
 
-import { z } from "zod";
-
 const basicInfoSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters").max(50, "Name cannot exceed 50 characters"),
-  tagline: z.string().min(2, "Tagline must be at least 2 characters").max(100, "Tagline cannot exceed 100 characters"),
+  name: z
+    .string()
+    .min(2, "Name must be at least 2 characters")
+    .max(50, "Name cannot exceed 50 characters"),
+  tagline: z
+    .string()
+    .min(2, "Tagline must be at least 2 characters")
+    .max(100, "Tagline cannot exceed 100 characters"),
   location: z.string().optional(),
-  phone: z.string().optional().refine(
-    (val) => !val || /^\+?[0-9\s\-()]{7,18}$/.test(val),
-    "Phone number must be a valid format"
-  ),
-  linkedin: z.string().optional().refine(
-    (val) => !val || /^https:\/\/([a-zA-Z0-9\-]+\.)?linkedin\.com\/.*$/.test(val),
-    "LinkedIn profile must be a valid HTTPS URL matching linkedin.com (e.g. https://www.linkedin.com/in/username)"
-  ),
-  portfolio: z.string().optional().refine(
-    (val) => !val || /^https:\/\/(www\.)?([a-zA-Z0-9\-]+\.)+[a-zA-Z]{2,4}(\/\S*)?$/.test(val),
-    "Portfolio must be a valid HTTPS URL (e.g. https://myportfolio.com) and cannot be localhost"
-  ),
+  phone: z
+    .string()
+    .optional()
+    .refine(
+      (val) => !val || /^\+?[0-9\s\-()]{7,18}$/.test(val),
+      "Phone number must be a valid format",
+    ),
+  linkedin: z
+    .string()
+    .optional()
+    .refine(
+      (val) =>
+        !val || /^https:\/\/([a-zA-Z0-9-]+\.)?linkedin\.com\/.*$/.test(val),
+      "LinkedIn profile must be a valid HTTPS URL matching linkedin.com (e.g. https://www.linkedin.com/in/username)",
+    ),
+  portfolio: z
+    .string()
+    .optional()
+    .refine(
+      (val) =>
+        !val ||
+        /^https:\/\/(www\.)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,4}(\/\S*)?$/.test(val),
+      "Portfolio must be a valid HTTPS URL (e.g. https://myportfolio.com) and cannot be localhost",
+    ),
 });
 
 const GoogleLocationInput = ({
@@ -198,7 +215,9 @@ export default function EditBasicInfoPage() {
               placeholder="e.g. Uday Krishna"
             />
             {errors.name && (
-              <p className="text-red-500 text-xs font-bold mt-1 ml-1">{errors.name}</p>
+              <p className="text-red-500 text-xs font-bold mt-1 ml-1">
+                {errors.name}
+              </p>
             )}
           </div>
 
@@ -222,7 +241,9 @@ export default function EditBasicInfoPage() {
               placeholder="e.g. Senior Frontend Engineer"
             />
             {errors.tagline && (
-              <p className="text-red-500 text-xs font-bold mt-1 ml-1">{errors.tagline}</p>
+              <p className="text-red-500 text-xs font-bold mt-1 ml-1">
+                {errors.tagline}
+              </p>
             )}
           </div>
 
@@ -239,7 +260,9 @@ export default function EditBasicInfoPage() {
               onChange={setLocationValue}
             />
             {errors.location && (
-              <p className="text-red-500 text-xs font-bold mt-1 ml-1">{errors.location}</p>
+              <p className="text-red-500 text-xs font-bold mt-1 ml-1">
+                {errors.location}
+              </p>
             )}
           </div>
 
@@ -263,7 +286,9 @@ export default function EditBasicInfoPage() {
               placeholder="e.g. +91 9876543210"
             />
             {errors.phone && (
-              <p className="text-red-500 text-xs font-bold mt-1 ml-1">{errors.phone}</p>
+              <p className="text-red-500 text-xs font-bold mt-1 ml-1">
+                {errors.phone}
+              </p>
             )}
           </div>
 
@@ -287,7 +312,9 @@ export default function EditBasicInfoPage() {
               placeholder="e.g. https://linkedin.com/in/username"
             />
             {errors.linkedin && (
-              <p className="text-red-500 text-xs font-bold mt-1 ml-1">{errors.linkedin}</p>
+              <p className="text-red-500 text-xs font-bold mt-1 ml-1">
+                {errors.linkedin}
+              </p>
             )}
           </div>
 
@@ -311,7 +338,9 @@ export default function EditBasicInfoPage() {
               placeholder="e.g. https://myportfolio.com"
             />
             {errors.portfolio && (
-              <p className="text-red-500 text-xs font-bold mt-1 ml-1">{errors.portfolio}</p>
+              <p className="text-red-500 text-xs font-bold mt-1 ml-1">
+                {errors.portfolio}
+              </p>
             )}
           </div>
 

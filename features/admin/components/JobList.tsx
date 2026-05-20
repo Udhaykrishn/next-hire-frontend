@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  Ban,
   Briefcase,
   Clock,
   DollarSign,
@@ -10,7 +11,6 @@ import {
   MapPin,
   MoreHorizontal,
   Search,
-  Ban,
   Unlock,
 } from "lucide-react";
 import { useState } from "react";
@@ -110,9 +110,7 @@ export const JobList = () => {
           />
         </div>
         <Popover>
-          <PopoverTrigger
-            className="h-14 px-6 rounded-2xl border border-gray-100 bg-white hover:bg-gray-50 flex items-center gap-2 font-black text-[10px] uppercase tracking-widest text-near-black"
-          >
+          <PopoverTrigger className="h-14 px-6 rounded-2xl border border-gray-100 bg-white hover:bg-gray-50 flex items-center gap-2 font-black text-[10px] uppercase tracking-widest text-near-black">
             <Filter className="w-4 h-4" />
             Advanced Filters
             {selectedStatuses.length > 0 && (

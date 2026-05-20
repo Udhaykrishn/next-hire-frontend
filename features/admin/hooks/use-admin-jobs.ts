@@ -1,11 +1,7 @@
-import {
-  useMutation,
-  useQueryClient,
-  useQuery,
-} from "@tanstack/react-query";
+import { useDebouncedValue } from "@tanstack/react-pacer";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { toast } from "sonner";
-import { useDebouncedValue } from "@tanstack/react-pacer";
 import { adminService } from "../services/admin.api";
 
 export const useAdminJobs = () => {
@@ -19,7 +15,12 @@ export const useAdminJobs = () => {
   const [debouncedSearchQuery] = useDebouncedValue(searchQuery, { wait: 400 });
 
   const { data, isPending } = useQuery({
-    queryKey: ["admin-jobs", debouncedSearchQuery, selectedStatuses, currentPage],
+    queryKey: [
+      "admin-jobs",
+      debouncedSearchQuery,
+      selectedStatuses,
+      currentPage,
+    ],
     queryFn: () =>
       adminService.getJobs(
         currentPage,
@@ -30,8 +31,7 @@ export const useAdminJobs = () => {
   });
 
   const blockMutation = useMutation({
-    mutationFn: (id: string) =>
-      adminService.updateJobStatus(id, "Blocked"),
+    mutationFn: (id: string) => adminService.updateJobStatus(id, "Blocked"),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["admin-jobs"] });
       toast.success("Job status updated successfully");

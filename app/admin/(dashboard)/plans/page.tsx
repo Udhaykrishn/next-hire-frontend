@@ -198,7 +198,10 @@ export default function PlansAdmin() {
                         <button
                           key={type}
                           onClick={() =>
-                            setNewPlan({ ...newPlan, type: type as "candidate" | "recruiter" })
+                            setNewPlan({
+                              ...newPlan,
+                              type: type as "candidate" | "recruiter",
+                            })
                           }
                           className={cn(
                             "flex-1 h-16 rounded-2xl font-black text-xs uppercase tracking-widest transition-all flex items-center justify-center gap-3 border",
@@ -227,7 +230,10 @@ export default function PlansAdmin() {
                         <button
                           key={icon}
                           onClick={() =>
-                            setNewPlan({ ...newPlan, iconType: icon as "zap" | "crown" | "shield" })
+                            setNewPlan({
+                              ...newPlan,
+                              iconType: icon as "zap" | "crown" | "shield",
+                            })
                           }
                           className={cn(
                             "w-12 h-12 rounded-xl flex items-center justify-center transition-all",
@@ -526,7 +532,10 @@ export default function PlansAdmin() {
                           </td>
                           <td className="px-8 py-6 text-right">
                             <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-all">
-                              <button type="button" className="p-3 bg-gray-50 text-gray-400 hover:text-near-black hover:bg-white border border-transparent hover:border-gray-100 rounded-xl transition-all">
+                              <button
+                                type="button"
+                                className="p-3 bg-gray-50 text-gray-400 hover:text-near-black hover:bg-white border border-transparent hover:border-gray-100 rounded-xl transition-all"
+                              >
                                 <Edit2 className="w-4 h-4" />
                               </button>
                               <button

@@ -1,11 +1,7 @@
-import {
-  useMutation,
-  useQueryClient,
-  useQuery,
-} from "@tanstack/react-query";
+import { useDebouncedValue } from "@tanstack/react-pacer";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { toast } from "sonner";
-import { useDebouncedValue } from "@tanstack/react-pacer";
 import { adminService } from "../services/admin.api";
 
 export const useAdminCandidates = () => {
@@ -19,7 +15,12 @@ export const useAdminCandidates = () => {
   const [debouncedSearchQuery] = useDebouncedValue(searchQuery, { wait: 400 });
 
   const { data, isPending } = useQuery({
-    queryKey: ["admin-candidates", debouncedSearchQuery, selectedStatuses, currentPage],
+    queryKey: [
+      "admin-candidates",
+      debouncedSearchQuery,
+      selectedStatuses,
+      currentPage,
+    ],
     queryFn: () =>
       adminService.getCandidates(
         currentPage,
@@ -30,22 +31,27 @@ export const useAdminCandidates = () => {
   });
 
   const blockMutation = useMutation({
-    mutationFn: ({ id, status, description }: { id: string; status: string; description?: string }) =>
-      adminService.updateCandidateStatus(id, status, description),
+    mutationFn: ({
+      id,
+      status,
+      description,
+    }: {
+      id: string;
+      status: string;
+      description?: string;
+    }) => adminService.updateCandidateStatus(id, status, description),
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ["admin-candidates"] });
       toast.success(
         variables.status === "Blocked"
           ? "Candidate access restricted"
-          : "Candidate access restored"
+          : "Candidate access restored",
       );
     },
   });
 
   const handleStatusToggle = (status: string) => {
-    setSelectedStatuses((prev) =>
-      prev.includes(status) ? [] : [status]
-    );
+    setSelectedStatuses((prev) => (prev.includes(status) ? [] : [status]));
     setCurrentPage(1);
   };
 

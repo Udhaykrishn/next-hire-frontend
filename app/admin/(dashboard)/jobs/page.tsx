@@ -17,8 +17,8 @@ export default function JobsAdminPage() {
             Job <span className="text-wise-green">Listing</span> Control
           </h1>
           <p className="text-sm font-bold text-gray-400 mt-4 max-w-xl">
-            Review job postings, flag potential threat/scam submissions, and moderate
-            active listings in the marketplace.
+            Review job postings, flag potential threat/scam submissions, and
+            moderate active listings in the marketplace.
           </p>
         </div>
       </div>

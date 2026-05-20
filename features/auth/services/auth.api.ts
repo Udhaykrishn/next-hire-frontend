@@ -1,5 +1,5 @@
-import { apiClient } from "@/lib/api-client";
 import type { ApiResponse } from "@/features/profile/types/profile.types";
+import { apiClient } from "@/lib/api-client";
 import type {
   AuthResponse,
   BackendAuthResponse,
@@ -66,7 +66,11 @@ export const authService = {
     const response = res.data;
 
     return {
-      user: { id: response?.id || "current", email: data.email, role: data.role },
+      user: {
+        id: response?.id || "current",
+        email: data.email,
+        role: data.role,
+      },
       token: response?.accessToken || "",
     };
   },
@@ -88,7 +92,9 @@ export const authService = {
           }
         }
         if (pathname.startsWith("/recruiter")) {
-          const res = (await apiClient.get("/recruiter/profile")) as ApiResponse<Record<string, unknown>>;
+          const res = (await apiClient.get(
+            "/recruiter/profile",
+          )) as ApiResponse<Record<string, unknown>>;
           return {
             data: {
               ...res.data,
@@ -100,7 +106,9 @@ export const authService = {
 
       // Default/Fallback logic
       try {
-        const res = (await apiClient.get("/user/profile")) as ApiResponse<Record<string, unknown>>;
+        const res = (await apiClient.get("/user/profile")) as ApiResponse<
+          Record<string, unknown>
+        >;
         return {
           data: {
             ...res.data,
@@ -109,7 +117,9 @@ export const authService = {
         };
       } catch (userErr: unknown) {
         try {
-          const res = (await apiClient.get("/recruiter/profile")) as ApiResponse<Record<string, unknown>>;
+          const res = (await apiClient.get(
+            "/recruiter/profile",
+          )) as ApiResponse<Record<string, unknown>>;
           return {
             data: {
               ...res.data,
@@ -131,13 +141,10 @@ export const authService = {
   },
 
   googleLogin: async (idToken: string): Promise<AuthResponse> => {
-    const res = (await apiClient.post(
-      "/auth/user/google",
-      {
-        credential: idToken,
-      },
-    )) as ApiResponse<BackendAuthResponse>;
-    
+    const res = (await apiClient.post("/auth/user/google", {
+      credential: idToken,
+    })) as ApiResponse<BackendAuthResponse>;
+
     const response = res.data;
 
     return {

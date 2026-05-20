@@ -30,23 +30,26 @@ export async function proxy(request: NextRequest) {
     }
   }
 
-  const isAuthPage = pathname === "/login" || 
-                     pathname === "/signup" || 
-                     pathname.endsWith("/login") || 
-                     pathname.endsWith("/signup") ||
-                     pathname.includes("/forgot-password") ||
-                     pathname.includes("/reset-password") ||
-                     pathname.includes("/onboarding"); // Recruiter onboarding is also semi-auth
+  const isAuthPage =
+    pathname === "/login" ||
+    pathname === "/signup" ||
+    pathname.endsWith("/login") ||
+    pathname.endsWith("/signup") ||
+    pathname.includes("/forgot-password") ||
+    pathname.includes("/reset-password") ||
+    pathname.includes("/onboarding"); // Recruiter onboarding is also semi-auth
 
   const getDashboardUrl = (prefix: string | null) => {
     if (prefix === "/admin") return new URL("/admin/dashboard", request.url);
-    if (prefix === "/recruiter") return new URL("/recruiter/dashboard", request.url);
+    if (prefix === "/recruiter")
+      return new URL("/recruiter/dashboard", request.url);
     return new URL("/profile", request.url);
   };
 
   const getLoginUrl = (prefix: string | null) => {
     if (prefix === "/admin") return new URL("/admin/login", request.url);
-    if (prefix === "/recruiter") return new URL("/recruiter/login", request.url);
+    if (prefix === "/recruiter")
+      return new URL("/recruiter/login", request.url);
     return new URL("/login", request.url);
   };
 
@@ -64,7 +67,10 @@ export async function proxy(request: NextRequest) {
   if (accessToken) {
     if (isAuthPage) {
       // Don't redirect if it's a special case like forgot-password or reset-password
-      if (pathname.includes("/forgot-password") || pathname.includes("/reset-password")) {
+      if (
+        pathname.includes("/forgot-password") ||
+        pathname.includes("/reset-password")
+      ) {
         return NextResponse.next();
       }
       return NextResponse.redirect(getDashboardUrl(inferredPrefix));
@@ -81,7 +87,7 @@ export async function proxy(request: NextRequest) {
             },
           },
         );
-        
+
         if (!checkBlock.ok) {
           console.log(`Block check failed with status ${checkBlock.status}`);
           const text = await checkBlock.text();
@@ -135,16 +141,16 @@ export async function proxy(request: NextRequest) {
           if (isAuthPage) {
             return NextResponse.redirect(getDashboardUrl(inferredPrefix));
           }
-          
+
           // Redirect to the same URL to pick up the new cookies
           const response = NextResponse.redirect(request.nextUrl);
 
           // Correctly handle Set-Cookie headers for Next.js 16
           const setCookieHeaders = refreshResponse.headers.get("set-cookie");
           if (setCookieHeaders) {
-             // For multiple cookies, we might need to split them or use append
-             // But usually it's one accessToken
-             response.headers.append("Set-Cookie", setCookieHeaders);
+            // For multiple cookies, we might need to split them or use append
+            // But usually it's one accessToken
+            response.headers.append("Set-Cookie", setCookieHeaders);
           }
 
           return response;
@@ -156,12 +162,12 @@ export async function proxy(request: NextRequest) {
           const loginUrl = getLoginUrl(inferredPrefix);
           loginUrl.searchParams.set("error", "blocked");
           const response = NextResponse.redirect(loginUrl);
-          
+
           response.cookies.set(COOKIE_NAMES.sid, "", {
             expires: new Date(0),
             path: "/",
           });
-          
+
           return response;
         }
       }
