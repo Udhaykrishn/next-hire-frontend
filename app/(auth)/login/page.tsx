@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import type React from "react";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/animate-ui/components/buttons/button";
 import { Logo } from "@/components/logo";
@@ -23,7 +23,7 @@ import { Label } from "@/components/ui/label";
 import { useAuthContext } from "@/features/auth/context/auth-context";
 import { useAuth } from "@/features/auth/hooks/use-auth";
 
-export default function UserLoginPage() {
+function LoginContent() {
   const { login, googleAuth, isLoading, error } = useAuth();
   const { setUser, isAuthenticated, user } = useAuthContext();
   const router = useRouter();
@@ -283,5 +283,13 @@ export default function UserLoginPage() {
         </Card>
       </motion.div>
     </div>
+  );
+}
+
+export default function UserLoginPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LoginContent />
+    </Suspense>
   );
 }

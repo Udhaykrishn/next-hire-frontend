@@ -38,8 +38,7 @@ apiClient.interceptors.response.use(
       error.response?.data?.error?.message || error.response?.data?.message;
     const message = backendMessage || error.message || "Something went wrong";
     const isBlockedError =
-      error.response?.status === 403 &&
-      message.toLowerCase().includes("blocked");
+      error.response?.status === 403;
 
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;

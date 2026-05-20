@@ -136,20 +136,20 @@ export default function CreateJobPage() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8">
         <MethodologyCard
           title="Manual Configuration"
-          description="Build a custom job configuration from the ground up. Best for unique roles and specialized requirements."
+          description="Build a custom job configuration from the ground up. Best for unique roles and specialized requirements. Start from a blank slate and dictate every requirement."
           icon={<Plus />}
-          tags={["Custom", "Precise"]}
+          tags={["Custom", "Precise", "Flexible"]}
           onClick={() => router.push("/recruiter/jobs/create/new")}
         />
         <MethodologyCard
           isTemplate
           title="Verified Templates"
-          description="Deploy structures from our library. Optimized for speed and consistent high-quality candidate matches."
+          description="Deploy structures from our library. Optimized for speed and consistent high-quality candidate matches. Select from top performing job posts."
           icon={<Layout />}
-          tags={["Accelerated", "Verified"]}
+          tags={["Accelerated", "Verified", "High Matching"]}
           onClick={() =>
             router.push("/recruiter/jobs/create/new?template=true")
           }
