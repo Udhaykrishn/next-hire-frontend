@@ -14,7 +14,7 @@ import {
 import { motion } from "motion/react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import {
   Accordion,
   AccordionItem,
@@ -25,7 +25,7 @@ import { Button } from "@/components/animate-ui/components/buttons/button";
 import { LandingFooter } from "@/components/landing-footer";
 import { LandingNavbar } from "@/components/landing-navbar";
 
-export default function JobsPage() {
+function JobsContent() {
   const searchParams = useSearchParams();
   const initialQuery = searchParams.get("q") || "";
   const initialLocation = searchParams.get("l") || "";
@@ -367,5 +367,13 @@ export default function JobsPage() {
 
       <LandingFooter />
     </div>
+  );
+}
+
+export default function JobsPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <JobsContent />
+    </Suspense>
   );
 }

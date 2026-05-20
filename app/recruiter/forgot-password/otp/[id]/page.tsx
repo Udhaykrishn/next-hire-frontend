@@ -57,7 +57,7 @@ export default function RecruiterOtpPage({
           </CardHeader>
 
           <CardContent className="space-y-6 pt-8 px-10">
-            <OtpForm id={resolvedParams.id} />
+            <OtpForm id={resolvedParams.id} role="recruiter" />
           </CardContent>
 
           <CardFooter className="flex justify-center pb-8 pt-4">

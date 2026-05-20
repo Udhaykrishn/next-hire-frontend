@@ -40,7 +40,7 @@ export const MapSelectorModal: React.FC<MapSelectorModalProps> = ({
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={isOpen} onClose={onClose}>
       <DialogContent className="sm:max-w-[700px] p-0 overflow-hidden rounded-3xl border-none shadow-2xl">
         <DialogHeader className="p-6 pb-0">
           <DialogTitle className="text-[20px] font-black text-near-black flex items-center gap-3">
