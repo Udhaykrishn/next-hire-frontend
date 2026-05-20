@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-
 export const metadata: Metadata = {
   title: "Next Hire | Elite Fintech & Crypto Careers",
   description:
@@ -15,9 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="antialiased">
-      <body>
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
