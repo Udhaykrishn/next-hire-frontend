@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import type React from "react";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useProfileHandlers } from "@/features/profile/hooks/use-profile-handlers";
 import {
   useCertificateQuery,
@@ -61,6 +61,9 @@ const DEFAULT_JOB_PREFERENCES: JobPreferences = {
   workStyles: [],
   minSalary: "",
   maxSalary: "",
+  currency: "INR",
+  salaryFrequency: "year",
+  salaryFormat: "compact",
 };
 
 import { useAuthContext } from "@/features/auth/context/auth-context";
@@ -108,6 +111,19 @@ export const ProfileProvider = ({
     DEFAULT_JOB_PREFERENCES,
   );
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("jobPreferences");
+      if (stored) {
+        try {
+          setJobPreferences(JSON.parse(stored));
+        } catch (e) {
+          console.error("Error parsing job preferences from localStorage", e);
+        }
+      }
+    }
+  }, []);
+
   useProfileStateSync({
     profileData,
     eduData,
@@ -130,7 +146,7 @@ export const ProfileProvider = ({
   });
 
   const handleUpdateJobPreferences = (formData: FormData) => {
-    setJobPreferences({
+    const updated = {
       jobTypes: formData.getAll("jobTypes") as string[],
       roles:
         (formData.get("roles") as string)
@@ -140,17 +156,31 @@ export const ProfileProvider = ({
       workStyles: formData.getAll("workStyles") as string[],
       minSalary: (formData.get("minSalary") as string) || "",
       maxSalary: (formData.get("maxSalary") as string) || "",
-    });
+      currency: (formData.get("currency") as string) || "USD",
+      salaryFrequency: (formData.get("salaryFrequency") as string) || "year",
+      salaryFormat: (formData.get("salaryFormat") as string) || "compact",
+    };
+    setJobPreferences(updated);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("jobPreferences", JSON.stringify(updated));
+    }
   };
 
   const handleClearJobPreferences = () => {
-    setJobPreferences({
+    const cleared = {
       jobTypes: [],
       roles: [],
       workStyles: [],
       minSalary: "",
       maxSalary: "",
-    });
+      currency: "USD",
+      salaryFrequency: "year",
+      salaryFormat: "compact",
+    };
+    setJobPreferences(cleared);
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("jobPreferences");
+    }
   };
 
   const isLoading =

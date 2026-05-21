@@ -1,8 +1,7 @@
 "use client";
 
-import { Settings, Lock, KeyRound, ArrowRight } from "lucide-react";
+import { ArrowRight, KeyRound, Lock, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   Form,
   FormControl,
@@ -11,6 +10,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { useSettingsForm } from "@/features/recruiter/hooks/use-settings-form";
 
 export default function RecruiterSettings() {
@@ -40,13 +40,17 @@ export default function RecruiterSettings() {
                   Change Password
                 </h2>
                 <p className="text-xs font-medium text-gray-500">
-                  Ensure your account is using a long, random password to stay secure.
+                  Ensure your account is using a long, random password to stay
+                  secure.
                 </p>
               </div>
             </div>
 
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-5"
+              >
                 <FormField
                   control={form.control}
                   name="currentPassword"
@@ -118,9 +122,7 @@ export default function RecruiterSettings() {
                     disabled={isPending}
                     className="h-11 px-8 rounded-xl bg-near-black text-white hover:bg-wise-green hover:text-near-black transition-colors font-bold text-sm shadow-sm"
                   >
-                    {isPending
-                      ? "Updating..."
-                      : "Save Password"}
+                    {isPending ? "Updating..." : "Save Password"}
                   </Button>
                 </div>
               </form>
@@ -141,7 +143,8 @@ export default function RecruiterSettings() {
             </div>
 
             <p className="text-sm font-medium text-orange-700/80 mb-6 leading-relaxed">
-              If you do not remember your current password, you can log out and reset it securely using your registered email address.
+              If you do not remember your current password, you can log out and
+              reset it securely using your registered email address.
             </p>
 
             <Button

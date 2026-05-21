@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 import { useAuthContext } from "@/features/auth/context/auth-context";
 import {
   useRecruiterProfileQuery,
   useUpdateRecruiterProfileMutation,
 } from "./use-recruiter-query";
-import { toast } from "sonner";
 
 export interface RecruiterFormValues {
   name: string;
@@ -18,7 +18,10 @@ export function useRecruiterProfile() {
   const { data: profileResponse, isLoading } = useRecruiterProfileQuery();
   const updateMutation = useUpdateRecruiterProfileMutation();
 
-  const recruiterProfile = profileResponse?.success && profileResponse.data ? profileResponse.data : null;
+  const recruiterProfile =
+    profileResponse?.success && profileResponse.data
+      ? profileResponse.data
+      : null;
 
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState<RecruiterFormValues>({

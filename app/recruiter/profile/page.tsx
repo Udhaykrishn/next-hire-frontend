@@ -11,8 +11,6 @@ import {
   User,
   X,
 } from "lucide-react";
-import { useState, useEffect } from "react";
-import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -80,7 +78,8 @@ export default function ProfilePage() {
                     disabled={isUpdating}
                     className="h-12 px-6 rounded-2xl font-bold bg-near-black text-white hover:bg-near-black/90 gap-2 shadow-xl shadow-near-black/10"
                   >
-                    <Save className="w-4 h-4" /> {isUpdating ? "Saving..." : "Save Changes"}
+                    <Save className="w-4 h-4" />{" "}
+                    {isUpdating ? "Saving..." : "Save Changes"}
                   </Button>
                 </motion.div>
               ) : (

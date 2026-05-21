@@ -32,11 +32,18 @@ export async function GET(request: Request) {
 
     return NextResponse.json({ blocked: isBlocked });
   } catch (error) {
-    const axiosError = error as { response?: { status?: number; data?: { message?: string; error?: { message?: string } } } };
+    const axiosError = error as {
+      response?: {
+        status?: number;
+        data?: { message?: string; error?: { message?: string } };
+      };
+    };
     if (
       axiosError.response?.status === 403 ||
       axiosError.response?.data?.message?.toLowerCase().includes("blocked") ||
-      axiosError.response?.data?.error?.message?.toLowerCase().includes("blocked")
+      axiosError.response?.data?.error?.message
+        ?.toLowerCase()
+        .includes("blocked")
     ) {
       return NextResponse.json({ blocked: true });
     }

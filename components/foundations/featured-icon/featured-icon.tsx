@@ -1,5 +1,5 @@
 import type { FC, ReactNode, Ref } from "react";
-import { isValidElement } from "react";
+import React, { isValidElement } from "react";
 import { cx, sortCx } from "@/lib/utils/cx";
 import { isReactComponent } from "@/lib/utils/is-react-component";
 
@@ -159,7 +159,17 @@ export const FeaturedIcon = (props: FeaturedIconProps) => {
         props.className,
       )}
     >
-      {isReactComponent(Icon) && <Icon data-icon className="z-1" />}
+      {isReactComponent(Icon) &&
+        React.createElement(
+          Icon as React.ComponentType<{
+            "data-icon": string;
+            className: string;
+          }>,
+          {
+            "data-icon": "true",
+            className: "z-1",
+          },
+        )}
       {isValidElement(Icon) && <div className="z-1">{Icon}</div>}
 
       {props.children}

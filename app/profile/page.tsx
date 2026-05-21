@@ -23,6 +23,7 @@ import {
 } from "@/components/profile/profile-components";
 import { ProfileSidebar } from "@/components/profile/profile-sidebar";
 import { useProfile } from "@/hooks/use-profile";
+import { formatSalaryAmount } from "@/lib/salary";
 
 export default function ProfilePage() {
   const {
@@ -108,6 +109,7 @@ export default function ProfilePage() {
                   <div className="flex items-center gap-2">
                     {jobPreferences.roles.length > 0 && (
                       <button
+                        type="button"
                         onClick={handleClearJobPreferences}
                         className="h-10 px-4 rounded-xl bg-white text-red-500 hover:bg-red-50 transition-all text-[12px] font-black flex items-center gap-2 border border-gray-100 hover:border-red-100"
                       >
@@ -180,20 +182,32 @@ export default function ProfilePage() {
                             <div>
                               <p className="text-[12px] font-black text-wise-green uppercase tracking-widest mb-4 flex items-center gap-2">
                                 <span className="w-2 h-2 rounded-full bg-wise-green animate-pulse" />
-                                Annual Compensation Range
+                                {jobPreferences.salaryFrequency === "hour"
+                                  ? "Hourly Compensation Range"
+                                  : jobPreferences.salaryFrequency === "month"
+                                    ? "Monthly Compensation Range"
+                                    : "Annual Compensation Range"}
                               </p>
                               <div className="flex items-baseline gap-3">
                                 <span className="text-xl md:text-2xl font-black text-gray-900 tracking-tighter">
-                                  ${jobPreferences.minSalary}k
+                                  {formatSalaryAmount(
+                                    jobPreferences.minSalary,
+                                    jobPreferences.currency || "USD",
+                                    jobPreferences.salaryFormat || "compact",
+                                  )}
                                 </span>
                                 <span className="text-xl md:text-2xl font-black text-gray-400">
                                   to
                                 </span>
                                 <span className="text-xl md:text-2xl font-black text-gray-900 tracking-tighter">
-                                  ${jobPreferences.maxSalary}k
+                                  {formatSalaryAmount(
+                                    jobPreferences.maxSalary,
+                                    jobPreferences.currency || "USD",
+                                    jobPreferences.salaryFormat || "compact",
+                                  )}
                                 </span>
                                 <span className="text-gray-400 font-bold ml-2">
-                                  / year
+                                  / {jobPreferences.salaryFrequency || "year"}
                                 </span>
                               </div>
                             </div>
@@ -271,6 +285,7 @@ export default function ProfilePage() {
                           {skill}
                         </span>
                         <button
+                          type="button"
                           onClick={() => handleDeleteSkill(skill)}
                           className="p-0.5 rounded-md hover:bg-red-50 text-gray-300 hover:text-red-500 transition-all opacity-0 group-hover/skill:opacity-100"
                         >
@@ -298,6 +313,7 @@ export default function ProfilePage() {
                         />
                       </div>
                       <button
+                        type="button"
                         onClick={() => {
                           handleAddSkill(newSkill);
                           setNewSkill("");
@@ -347,6 +363,7 @@ export default function ProfilePage() {
                         <Edit2 className="w-4 h-4" />
                       </Link>
                       <button
+                        type="button"
                         onClick={() => handleDeleteLanguage(lang.id)}
                         className="p-2 rounded-xl hover:bg-red-50 text-gray-400 hover:text-red-500 transition-colors"
                       >

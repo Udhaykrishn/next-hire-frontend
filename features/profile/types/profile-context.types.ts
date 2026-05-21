@@ -65,6 +65,9 @@ export type JobPreferences = {
   workStyles: string[];
   minSalary: string;
   maxSalary: string;
+  currency: string;
+  salaryFrequency: string;
+  salaryFormat: string;
 };
 
 export interface ProfileContextType {
