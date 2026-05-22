@@ -23,8 +23,13 @@ import { useAuth } from "@/features/auth/hooks/use-auth";
 
 export default function RecruiterSignupPage() {
   const router = useRouter();
-  const { signup, isLoading, error } = useAuth();
-  const { setUser, isAuthenticated } = useAuthContext();
+  const { signup, isLoading: signupLoading, error } = useAuth();
+  const {
+    setUser,
+    isAuthenticated,
+    user,
+    isLoading: authLoading,
+  } = useAuthContext();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -36,10 +41,20 @@ export default function RecruiterSignupPage() {
 
   // Redirect if already authenticated
   useEffect(() => {
-    if (isAuthenticated) {
-      router.push("/recruiter/dashboard");
+    if (isAuthenticated && user) {
+      if (user.role === "ADMIN") router.push("/admin/dashboard");
+      else if (user.role === "RECRUITER") router.push("/recruiter/dashboard");
+      else router.push("/profile");
     }
-  }, [isAuthenticated, router]);
+  }, [isAuthenticated, user, router]);
+
+  if (authLoading || isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center font-satoshi">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-wise-green"></div>
+      </div>
+    );
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -207,7 +222,7 @@ export default function RecruiterSignupPage() {
                 <Button
                   type="submit"
                   className="w-full h-12 bg-wise-green text-dark-green font-black rounded-xl hover:bg-wise-green/90 transition-all text-lg shadow-[0_0_20px_rgba(159,232,112,0.2)] mt-2"
-                  disabled={isLoading}
+                  disabled={signupLoading}
                 >
                   Create Recruiter Account
                 </Button>
