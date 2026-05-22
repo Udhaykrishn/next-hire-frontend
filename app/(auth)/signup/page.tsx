@@ -24,8 +24,13 @@ import { useAuthContext } from "@/features/auth/context/auth-context";
 import { useAuth } from "@/features/auth/hooks/use-auth";
 
 export default function UserSignupPage() {
-  const { signup, googleAuth, isLoading, error } = useAuth();
-  const { setUser, isAuthenticated, user } = useAuthContext();
+  const { signup, googleAuth, isLoading: signupLoading, error } = useAuth();
+  const {
+    setUser,
+    isAuthenticated,
+    user,
+    isLoading: authLoading,
+  } = useAuthContext();
   const router = useRouter();
 
   const [step, setStep] = useState<"INITIAL" | "FORM">("INITIAL");
@@ -44,6 +49,14 @@ export default function UserSignupPage() {
       else router.push("/profile");
     }
   }, [isAuthenticated, user, router]);
+
+  if (authLoading || isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center font-satoshi">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-wise-green"></div>
+      </div>
+    );
+  }
 
   const handleGoogleSuccess = async (
     credentialResponse: CredentialResponse,
@@ -286,7 +299,7 @@ export default function UserSignupPage() {
                       <Button
                         type="submit"
                         className="h-12 bg-wise-green text-dark-green font-black rounded-xl hover:bg-wise-green/90 transition-all text-lg shadow-lg shadow-wise-green/20 flex-[2] gap-2 group"
-                        disabled={isLoading}
+                        disabled={signupLoading}
                       >
                         Join Now
                         <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
