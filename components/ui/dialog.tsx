@@ -11,10 +11,12 @@ import {
   DialogPanel as DialogPanelPrimitive,
   Dialog as DialogPrimitive,
   DialogTitle as DialogTitlePrimitive,
-} from "@/components/animate-ui/components/headless/dialog";
+} from "@/components/animate-ui/primitives/headless/dialog";
 import { cn } from "@/lib/utils";
 
-interface DialogProps extends React.ComponentProps<typeof DialogPrimitive> {
+interface DialogProps
+  extends Omit<React.ComponentProps<typeof DialogPrimitive>, "onClose"> {
+  onClose?: (open: boolean) => void;
   onOpenChange?: (open: boolean) => void;
 }
 

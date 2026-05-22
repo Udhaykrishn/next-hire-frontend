@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Camera,
   ChevronRight,
@@ -5,68 +7,74 @@ import {
   ExternalLink,
   FileText,
   Globe,
+  Loader2,
   Mail,
   MapPin,
   Phone,
+  Trash,
 } from "lucide-react";
 import { motion } from "motion/react";
 import Link from "next/link";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import type {
+  BasicInfo,
+  SocialLinks,
+} from "@/features/profile/types/profile-context.types";
+import { useProfile } from "@/hooks/use-profile";
+import { ProfileAvatarModal } from "./profile-avatar-modal";
 import { ResumeUpload } from "./resume-upload";
 
 export const ProfileSidebar = ({
   basicInfo,
   socialLinks,
 }: {
-  basicInfo: {
-    name: string;
-    location: string;
-    tagline: string;
-    avatar: string;
-    email: string;
-    phone: string;
-  };
-  socialLinks: { linkedin: string; portfolio: string; github: string };
+  basicInfo: BasicInfo;
+  socialLinks: SocialLinks;
 }) => {
-  const _handleResumeUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      alert(`Uploading ${file.name}... (Simulated)`);
-    }
-  };
+  const {
+    handleUploadAvatar,
+    handleDeleteAvatar,
+    isUploadingAvatar,
+    isDeletingAvatar,
+  } = useProfile();
 
   return (
     <aside className="lg:col-span-4 space-y-6">
-      {/* Core Profile Card */}
       <motion.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
       >
         <div className="bg-white rounded-[2.5rem] border border-gray-100 p-8 shadow-sm text-center relative overflow-hidden group">
           <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-br from-wise-green/20 to-transparent" />
+
+          <Link
+            href="/profile/edit/basic"
+            className="absolute top-6 right-6 w-10 h-10 rounded-full bg-wise-green text-near-black hover:bg-near-black hover:text-wise-green flex items-center justify-center shadow-lg shadow-wise-green/20 transition-all hover:scale-110 z-20 group/edit"
+            title="Edit Profile"
+          >
+            <Edit2 className="w-4 h-4 group-hover/edit:rotate-12 transition-transform" />
+          </Link>
+
           <div className="relative pt-4">
-            <div className="w-24 h-24 rounded-[2rem] bg-gray-100 mx-auto border-4 border-white shadow-xl flex items-center justify-center overflow-hidden mb-6 group-hover:scale-105 transition-transform duration-500 relative cursor-pointer">
-              <Avatar className="w-full h-full rounded-none">
-                <AvatarImage
+            <div className="w-24 h-24 rounded-[2rem] bg-gray-100 mx-auto border-4 border-white shadow-xl flex items-center justify-center overflow-hidden mb-6 relative">
+              {isUploadingAvatar || isDeletingAvatar ? (
+                <div className="absolute inset-0 bg-black/45 flex items-center justify-center z-10 backdrop-blur-[1px]">
+                  <Loader2 className="w-6 h-6 text-white animate-spin" />
+                </div>
+              ) : null}
+              {basicInfo.avatar ? (
+                <img
                   src={basicInfo.avatar}
                   alt={basicInfo.name}
-                  className="object-cover"
+                  className="w-full h-full object-cover"
                 />
-                <AvatarFallback className="bg-wise-green/10 text-wise-green text-xl font-black">
-                  {basicInfo.name.charAt(0)}
-                </AvatarFallback>
-              </Avatar>
-              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                <Camera className="w-6 h-6 text-white" />
-              </div>
+              ) : (
+                <div className="w-full h-full bg-wise-green/10 text-wise-green text-3xl font-black flex items-center justify-center">
+                  {basicInfo.name
+                    ? basicInfo.name.charAt(0).toUpperCase()
+                    : "U"}
+                </div>
+              )}
             </div>
-            <Link
-              href="/profile/edit/basic"
-              className="absolute top-4 right-0 px-4 py-2 rounded-2xl bg-white/80 backdrop-blur-md border border-white/20 shadow-sm text-[12px] font-black text-gray-400 hover:text-wise-green flex items-center gap-2 transition-all group/edit"
-            >
-              <Edit2 className="w-3.5 h-3.5 group-hover/edit:rotate-12 transition-transform" />
-              Edit Profile
-            </Link>
             <h2 className="text-[24px] font-black text-gray-900 leading-none mb-2">
               {basicInfo.name}
             </h2>
@@ -77,6 +85,14 @@ export const ProfileSidebar = ({
               <MapPin className="w-3.5 h-3.5" />
               {basicInfo.location}
             </div>
+            <ProfileAvatarModal
+              avatarUrl={basicInfo.avatar}
+              name={basicInfo.name}
+              handleUploadAvatar={handleUploadAvatar}
+              handleDeleteAvatar={handleDeleteAvatar}
+              isUploading={isUploadingAvatar}
+              isDeleting={isDeletingAvatar}
+            />
           </div>
         </div>
 

@@ -123,3 +123,15 @@ export const updateCertificate = async (
 export const deleteCertificate = async (id: string): Promise<void> => {
   await apiClient.delete(`/certificate/${id}`);
 };
+
+export const deleteProfileImage = async (
+  role?: string | null,
+): Promise<ApiResponse<UserProfile>> => {
+  const endpoint =
+    role === "RECRUITER" ? "/recruiter/profile/upload" : "/user/profile/upload";
+  return await apiClient.delete(endpoint);
+};
+
+export const deleteResume = async (): Promise<ApiResponse<UserProfile>> => {
+  return await apiClient.delete("/user/profile/resume/upload");
+};

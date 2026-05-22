@@ -39,6 +39,7 @@ const AutocompleteInput = ({
 }) => {
   const isLoaded = useApiIsLoaded();
   const [isReady, setIsReady] = React.useState(false);
+  const [inputValue, setInputValue] = React.useState(value);
 
   useEffect(() => {
     if (
@@ -51,32 +52,45 @@ const AutocompleteInput = ({
   }, [isLoaded]);
 
   const {
-    ready,
-    value: googleValue,
     suggestions: { status, data },
     setValue,
     clearSuggestions,
+    init,
   } = usePlacesAutocomplete({
     requestOptions: { componentRestrictions: { country: "in" } },
     debounce: 300,
     defaultValue: value,
-    initOnMount: isReady,
+    initOnMount: false,
   });
 
+  useEffect(() => {
+    if (isReady) {
+      init();
+    }
+  }, [isReady, init]);
+
   React.useEffect(() => {
-    if (value && value !== googleValue) {
+    setInputValue(value);
+    if (isReady) {
       setValue(value, false);
     }
-  }, [value, setValue, googleValue]);
+  }, [value, setValue, isReady]);
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-    onChange(e.target.value);
+    const val = e.target.value;
+    setInputValue(val);
+    if (isReady) {
+      setValue(val);
+    }
+    onChange(val);
   };
 
   const handleSelect =
     (suggestion: google.maps.places.AutocompletePrediction) => () => {
-      setValue(suggestion.description, false);
+      setInputValue(suggestion.description);
+      if (isReady) {
+        setValue(suggestion.description, false);
+      }
       clearSuggestions();
       onSelect(suggestion.description);
     };
@@ -86,25 +100,20 @@ const AutocompleteInput = ({
       <div className="relative">
         <Input
           type="text"
-          value={googleValue}
+          value={inputValue}
           onChange={handleInput}
-          disabled={!isReady}
-          placeholder={isReady ? placeholder : "Initializing search..."}
+          placeholder={placeholder}
           className={cn(
             "pl-12 h-14 bg-white/50 border-gray-100 rounded-2xl focus:ring-wise-green/20 focus:border-wise-green transition-all duration-300 font-medium",
             error && "border-red-500 ring-red-500/10",
           )}
         />
         <div className="absolute left-4 top-1/2 -translate-y-1/2">
-          {isReady ? (
-            <Search className="w-5 h-5 text-gray-400" />
-          ) : (
-            <Loader2 className="w-5 h-5 text-wise-green animate-spin" />
-          )}
+          <Search className="w-5 h-5 text-gray-400" />
         </div>
       </div>
 
-      {status === "OK" && (
+      {isReady && status === "OK" && (
         <ul className="absolute z-50 w-full mt-2 bg-white border border-gray-100 rounded-xl shadow-xl max-h-60 overflow-y-auto overflow-x-hidden py-2 animate-in fade-in zoom-in-95 duration-200">
           {data.map((suggestion) => (
             <li

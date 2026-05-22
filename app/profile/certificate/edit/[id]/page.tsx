@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { notFound, useRouter } from "next/navigation";
 import { use } from "react";
 import { CertificateForm } from "@/components/profile/forms/certificate-form";
 import { FormPageLayout } from "@/components/profile/forms/form-page-layout";
@@ -18,7 +18,7 @@ export default function EditCertificatePage({
   const cert = certificates.find((c) => c.id === id);
 
   if (!cert) {
-    return <div>Certificate not found</div>;
+    notFound();
   }
 
   const onSubmit = (formData: FormData, date?: Date) => {

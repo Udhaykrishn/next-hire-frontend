@@ -57,6 +57,24 @@ export interface JobResponse {
   updated_at: string;
   status: string;
   company_id: string;
-  posted_by: string;
+  posted_by?: string;
   is_published: boolean;
+}
+
+export interface SearchJobsParams {
+  search?: string;
+  page?: number;
+  limit?: number;
+}
+
+export interface PaginationResponse<T> {
+  data: T[];
+  page: number;
+  limit: number;
+  total: number;
+  totalPages: number;
+}
+
+export interface JobWithMatchScore extends JobResponse {
+  matchScore?: number;
 }

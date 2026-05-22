@@ -53,7 +53,7 @@ export function useProfileStateSync({
       setSkills(p.skills || []);
       setBasicInfo({
         name: p.name || "",
-        location: "Not set",
+        location: p.location || "Not set",
         tagline: p.role_of_title || "",
         avatar: p.profile_url?.url || "",
         email: p.email || "",
@@ -61,6 +61,7 @@ export function useProfileStateSync({
         cinNumber: p.cinNumber || p.CIN || "",
         isCompanyVerified:
           p.isCompanyVerified || p.is_verified_company || false,
+        resume: p.resume_url || null,
       });
       setSocialLinks({
         linkedin: p.social_link?.linkedin || "",
@@ -127,8 +128,8 @@ export function useProfileStateSync({
       setCertifications(
         certData.data.map((cert) => ({
           id: cert.id,
-          name: cert.name,
-          issuer: cert.issuer,
+          name: cert.certificateName,
+          issuer: cert.issuingOrganization,
           date: format(new Date(cert.issueDate), "MMM yyyy"),
           issueDate: new Date(cert.issueDate),
         })),

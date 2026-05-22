@@ -51,6 +51,7 @@ export type BasicInfo = {
   phone: string;
   cinNumber?: string;
   isCompanyVerified?: boolean;
+  resume?: { key: string; url: string } | null;
 };
 
 export type SocialLinks = {
@@ -80,6 +81,10 @@ export interface ProfileContextType {
   jobPreferences: JobPreferences;
   languages: ProfileLanguage[];
   isLoading: boolean;
+  isUploadingAvatar: boolean;
+  isDeletingAvatar: boolean;
+  isUploadingResume: boolean;
+  isDeletingResume: boolean;
   handleAddExperience: (
     data: FormData,
     startDate: Date | undefined,
@@ -120,4 +125,8 @@ export interface ProfileContextType {
   handleAddSkill: (skill: string) => void;
   handleDeleteSkill: (skill: string) => void;
   handleUpdateCin: (cin: string) => void;
+  handleUploadAvatar: (file: File) => Promise<void>;
+  handleDeleteAvatar: () => Promise<void>;
+  handleUploadResume: (file: File) => Promise<void>;
+  handleDeleteResume: () => Promise<void>;
 }

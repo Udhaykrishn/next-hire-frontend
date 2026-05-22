@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { notFound, useRouter } from "next/navigation";
 import { use } from "react";
 import { EducationForm } from "@/components/profile/forms/education-form";
 import { FormPageLayout } from "@/components/profile/forms/form-page-layout";
@@ -18,7 +18,7 @@ export default function EditEducationPage({
   const edu = education.find((e) => e.id === id);
 
   if (!edu) {
-    return <div>Education not found</div>;
+    notFound();
   }
 
   const onSubmit = (formData: FormData, start?: Date, end?: Date) => {

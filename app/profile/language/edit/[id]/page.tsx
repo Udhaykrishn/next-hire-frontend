@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { notFound, useRouter } from "next/navigation";
 import { use } from "react";
 import { FormPageLayout } from "@/components/profile/forms/form-page-layout";
 import { LanguageForm } from "@/components/profile/forms/language-form";
@@ -18,7 +18,7 @@ export default function EditLanguagePage({
   const lang = languages.find((l) => l.id === id);
 
   if (!lang) {
-    return <div>Language not found</div>;
+    notFound();
   }
 
   const onSubmit = (formData: FormData) => {

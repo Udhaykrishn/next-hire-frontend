@@ -30,6 +30,33 @@ apiClient.interceptors.request.use((config) => {
   return config;
 });
 
+const PUBLIC_PATHS = [
+  "/",
+  "/login",
+  "/signup",
+  "/forgot-password",
+  "/reset-password",
+  "/jobs",
+  "/pricing",
+  "/about",
+  "/contact",
+  "/recruiter",
+  "/recruiter/login",
+  "/recruiter/signup",
+  "/recruiter/forgot-password",
+  "/recruiter/reset-password",
+  "/admin/login",
+];
+
+function isPublicRoute(pathname: string): boolean {
+  return PUBLIC_PATHS.some((path) => {
+    if (path === "/") {
+      return pathname === "/";
+    }
+    return pathname === path || pathname.startsWith(path + "/");
+  });
+}
+
 apiClient.interceptors.response.use(
   (response) => response.data,
   async (error) => {
@@ -88,18 +115,20 @@ apiClient.interceptors.response.use(
       } catch (err) {
         if (typeof window !== "undefined") {
           const pathname = window.location.pathname;
-          let targetPath = "/login";
-          if (pathname.startsWith("/admin")) targetPath = "/admin/login";
-          else if (pathname.startsWith("/recruiter"))
-            targetPath = "/recruiter/login";
+          if (!isPublicRoute(pathname)) {
+            let targetPath = "/login";
+            if (pathname.startsWith("/admin")) targetPath = "/admin/login";
+            else if (pathname.startsWith("/recruiter"))
+              targetPath = "/recruiter/login";
 
-          if (pathname !== targetPath) {
-            let redirectUrl = targetPath;
-            const errorObj = err as { message?: string };
-            if (errorObj.message === "blocked") {
-              redirectUrl += "?error=blocked";
+            if (pathname !== targetPath) {
+              let redirectUrl = targetPath;
+              const errorObj = err as { message?: string };
+              if (errorObj.message === "blocked") {
+                redirectUrl += "?error=blocked";
+              }
+              window.location.href = redirectUrl;
             }
-            window.location.href = redirectUrl;
           }
         }
         return Promise.reject(err);
@@ -109,13 +138,15 @@ apiClient.interceptors.response.use(
     if (isBlockedError) {
       if (typeof window !== "undefined") {
         const pathname = window.location.pathname;
-        let targetPath = "/login";
-        if (pathname.startsWith("/admin")) targetPath = "/admin/login";
-        else if (pathname.startsWith("/recruiter"))
-          targetPath = "/recruiter/login";
+        if (!isPublicRoute(pathname)) {
+          let targetPath = "/login";
+          if (pathname.startsWith("/admin")) targetPath = "/admin/login";
+          else if (pathname.startsWith("/recruiter"))
+            targetPath = "/recruiter/login";
 
-        if (pathname !== targetPath) {
-          window.location.href = `${targetPath}?error=blocked`;
+          if (pathname !== targetPath) {
+            window.location.href = `${targetPath}?error=blocked`;
+          }
         }
       }
     } else {

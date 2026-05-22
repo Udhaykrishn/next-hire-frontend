@@ -1,17 +1,17 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 import {
+  changeRecruiterPassword,
   getRecruiterCandidates,
   getRecruiterJobListings,
-  getRecruiterStats,
-  changeRecruiterPassword,
   getRecruiterProfile,
+  getRecruiterStats,
   updateRecruiterProfile,
 } from "../services/recruiter.api";
 import type {
   ChangePasswordData,
   UpdateRecruiterProfileDto,
 } from "../types/recruiter.types";
-import { toast } from "sonner";
 
 export const useRecruiterStatsQuery = () => {
   return useQuery({
