@@ -31,3 +31,8 @@ export const getJobById = async (id: string): Promise<JobWithMatchScore> => {
   const { data } = await apiClient.get<JobWithMatchScore>(`/job/${id}`);
   return data;
 };
+
+export const applyToJob = async (jobId: string): Promise<unknown> => {
+  const { data } = await apiClient.post(`/job/apply/${jobId}`);
+  return data;
+};

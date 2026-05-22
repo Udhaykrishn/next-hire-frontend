@@ -58,6 +58,7 @@ export function useProfileStateSync({
         avatar: p.profile_url?.url || "",
         email: p.email || "",
         phone: p.phone || "",
+        bio: p.bio || "",
         cinNumber: p.cinNumber || p.CIN || "",
         isCompanyVerified:
           p.isCompanyVerified || p.is_verified_company || false,

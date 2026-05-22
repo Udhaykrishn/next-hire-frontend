@@ -4,11 +4,24 @@ import {
   useSuspenseQuery,
 } from "@tanstack/react-query";
 import {
+  applyToJob,
   createJob,
   getJobById,
   getJobsForCandidate,
 } from "../services/job.api";
 import type { SearchJobsParams } from "../types/job.types";
+
+export const useApplyJobMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: applyToJob,
+    onSuccess: (_data, jobId) => {
+      queryClient.invalidateQueries({ queryKey: ["job", jobId] });
+      queryClient.invalidateQueries({ queryKey: ["jobs"] });
+    },
+  });
+};
 
 export const useCreateJobMutation = () => {
   const queryClient = useQueryClient();

@@ -48,6 +48,7 @@ const DEFAULT_BASIC_INFO: BasicInfo = {
   avatar: "",
   email: "",
   phone: "",
+  bio: "",
   cinNumber: "",
   isCompanyVerified: false,
 };

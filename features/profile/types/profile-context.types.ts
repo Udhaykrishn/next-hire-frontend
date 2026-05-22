@@ -49,6 +49,7 @@ export type BasicInfo = {
   avatar: string;
   email: string;
   phone: string;
+  bio: string;
   cinNumber?: string;
   isCompanyVerified?: boolean;
   resume?: { key: string; url: string } | null;

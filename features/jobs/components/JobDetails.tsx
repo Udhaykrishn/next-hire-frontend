@@ -12,15 +12,31 @@ import {
   ShieldCheck,
   Target,
   Zap,
+  AlertTriangle,
+  CheckCircle,
+  Loader2,
 } from "lucide-react";
 import { motion } from "motion/react";
+import Link from "next/link";
 import { Button } from "@/components/animate-ui/components/buttons/button";
 import { LandingFooter } from "@/components/landing-footer";
 import { LandingNavbar } from "@/components/landing-navbar";
 import { useJobDetails } from "../hooks/use-job-details";
 
 export default function JobDetails() {
-  const { job, formattedSalary, formattedDate, handleBack } = useJobDetails();
+  const {
+    job,
+    formattedSalary,
+    formattedDate,
+    handleBack,
+    handleApply,
+    isApplying,
+    hasApplied,
+    isProfileComplete,
+    missingFields,
+    isCandidate,
+    isAuthenticated,
+  } = useJobDetails();
 
   if (!job) return null;
 
@@ -306,8 +322,72 @@ export default function JobDetails() {
                     </div>
                   </div>
 
-                  <Button className="w-full h-14 bg-wise-green text-dark-green rounded-2xl text-[15px] font-black hover:bg-wise-green/90 transition-all shadow-lg shadow-wise-green/20 active:scale-[0.98]">
-                    Apply with 1-Click
+                  {isAuthenticated && isCandidate && !isProfileComplete && (
+                    <div className="p-5 rounded-2xl bg-amber-50 border border-amber-100 mb-6 space-y-4 text-left">
+                      <div className="flex items-start gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center shrink-0 mt-0.5">
+                          <AlertTriangle className="w-4 h-4 text-amber-600" />
+                        </div>
+                        <div className="space-y-1">
+                          <h4 className="text-[14px] font-black text-amber-900 leading-tight">
+                            Profile Incomplete
+                          </h4>
+                          <p className="text-[12px] text-amber-700 font-medium leading-normal">
+                            You must complete your profile and upload a resume before you can apply to this job.
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="pl-11 space-y-2">
+                        <p className="text-[11px] font-black text-amber-800 uppercase tracking-wider">
+                          Missing Fields:
+                        </p>
+                        <ul className="grid grid-cols-1 gap-1.5">
+                          {missingFields.map((field) => (
+                            <li key={field} className="flex items-center gap-2 text-[12px] text-amber-700 font-bold">
+                              <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+                              {field}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      <div className="pl-11 pt-2">
+                        <Link
+                          href="/profile"
+                          className="inline-flex items-center gap-1.5 text-[12px] font-black text-amber-900 hover:text-black uppercase tracking-wider transition-colors group/link"
+                        >
+                          Complete Profile Now
+                          <ArrowRight className="w-3.5 h-3.5 group-hover/link:translate-x-0.5 transition-transform" />
+                        </Link>
+                      </div>
+                    </div>
+                  )}
+
+                  <Button
+                    onClick={handleApply}
+                    disabled={isApplying || hasApplied || (isAuthenticated && isCandidate && !isProfileComplete)}
+                    className={`w-full h-14 rounded-2xl text-[15px] font-black transition-all shadow-lg active:scale-[0.98] flex items-center justify-center gap-2 ${
+                      hasApplied
+                        ? "bg-wise-green/20 text-dark-green border border-wise-green/30 cursor-default shadow-none pointer-events-none"
+                        : isAuthenticated && isCandidate && !isProfileComplete
+                          ? "bg-gray-100 text-gray-400 cursor-not-allowed shadow-none border border-gray-200 pointer-events-none"
+                          : "bg-wise-green text-dark-green hover:bg-wise-green/90 shadow-wise-green/20"
+                    }`}
+                  >
+                    {isApplying ? (
+                      <>
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                        Applying...
+                      </>
+                    ) : hasApplied ? (
+                      <>
+                        <CheckCircle className="w-5 h-5 text-dark-green fill-current" />
+                        Applied for Job
+                      </>
+                    ) : (
+                      "Apply with 1-Click"
+                    )}
                   </Button>
                 </div>
               </motion.div>
