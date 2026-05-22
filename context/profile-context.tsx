@@ -15,7 +15,6 @@ import {
   useUploadResumeMutation,
 } from "@/features/profile/hooks/use-profile-query";
 import { useProfileStateSync } from "@/features/profile/hooks/use-profile-state-sync";
-import type { UserProfile } from "@/features/profile/types/profile.types";
 import type {
   BasicInfo,
   JobPreferences,
@@ -91,14 +90,6 @@ export const ProfileProvider = ({
     role,
     {
       enabled: !isAuthPage && isAuthenticated && hasProfile,
-      initialData: user
-        ? {
-            success: true,
-            data: user as unknown as UserProfile, // Type cast since User context type lacks full profile typing
-            statusCode: 200,
-            message: "Success",
-          }
-        : undefined,
     },
   );
   const { data: eduData, isLoading: isEduLoading } = useEducationQuery({
