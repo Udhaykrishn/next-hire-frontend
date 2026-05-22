@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/animate-ui/components/buttons/button";
 import { Logo } from "@/components/logo";
 import {
@@ -20,6 +20,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuthContext } from "@/features/auth/context/auth-context";
 import { useAuth } from "@/features/auth/hooks/use-auth";
+import { useRoleRedirect } from "@/features/auth/hooks/use-role-redirect";
 
 export default function RecruiterLoginPage() {
   const router = useRouter();
@@ -36,16 +37,10 @@ export default function RecruiterLoginPage() {
     password: "",
   });
 
-  // Redirect if already authenticated
-  useEffect(() => {
-    if (isAuthenticated && user) {
-      if (user.role === "ADMIN") router.push("/admin/dashboard");
-      else if (user.role === "RECRUITER") router.push("/recruiter/dashboard");
-      else router.push("/profile");
-    }
-  }, [isAuthenticated, user, router]);
+  // Redirect if already authenticated as RECRUITER
+  useRoleRedirect("RECRUITER", "/recruiter/dashboard");
 
-  if (authLoading || isAuthenticated) {
+  if (authLoading || (isAuthenticated && user?.role === "RECRUITER")) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center font-satoshi">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-wise-green"></div>

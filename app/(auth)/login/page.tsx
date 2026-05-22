@@ -22,15 +22,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuthContext } from "@/features/auth/context/auth-context";
 import { useAuth } from "@/features/auth/hooks/use-auth";
+import { useAuthRedirect } from "@/features/auth/hooks/use-role-redirect";
 
 function LoginContent() {
   const { login, googleAuth, isLoading: loginLoading, error } = useAuth();
-  const {
-    setUser,
-    isAuthenticated,
-    user,
-    isLoading: authLoading,
-  } = useAuthContext();
+  const { setUser, isAuthenticated, isLoading: authLoading } = useAuthContext();
   const router = useRouter();
   const searchParams = useSearchParams();
   const urlError = searchParams.get("error");
@@ -57,13 +53,7 @@ function LoginContent() {
   }, [urlError]);
 
   // Redirect if already authenticated
-  useEffect(() => {
-    if (isAuthenticated && user) {
-      if (user.role === "ADMIN") router.push("/admin/dashboard");
-      else if (user.role === "RECRUITER") router.push("/recruiter/dashboard");
-      else router.push("/profile");
-    }
-  }, [isAuthenticated, user, router]);
+  useAuthRedirect();
 
   if (authLoading || isAuthenticated) {
     return (
