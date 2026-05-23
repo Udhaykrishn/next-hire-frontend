@@ -49,14 +49,14 @@ export const Step1Details = ({
           </p>
         </div>
 
-        <div className="space-y-6">
-          <div className="flex items-center justify-between p-4 rounded-2xl bg-slate-50/80 border border-slate-100 relative">
+        <div className="space-y-4">
+          <div className="flex items-center justify-between px-4 py-3 rounded-xl bg-slate-50/80 border border-slate-100 relative">
             <div className="flex items-center gap-3 w-full">
-              <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center shadow-sm shrink-0">
+              <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center shadow-sm shrink-0">
                 <Briefcase className="w-5 h-5 text-wise-green" />
               </div>
               <div className="flex-1">
-                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-0.5">
+                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">
                   Posting as
                 </p>
                 <div className="relative">
@@ -71,7 +71,7 @@ export const Step1Details = ({
                       }));
                     }}
                   >
-                    <SelectTrigger className="w-full h-auto p-0 bg-transparent border-0 font-black text-[15px] text-near-black focus:ring-0 focus:ring-offset-0 shadow-none hover:bg-transparent data-[state=open]:bg-transparent">
+                    <SelectTrigger className="w-full h-8 p-0 bg-transparent border-0 font-black text-[15px] text-near-black focus:ring-0 focus:ring-offset-0 shadow-none hover:bg-transparent data-[state=open]:bg-transparent">
                       <SelectValue placeholder="Select a company" />
                     </SelectTrigger>
                     <SelectContent>
@@ -90,56 +90,58 @@ export const Step1Details = ({
             </div>
           </div>
 
-          <div className="flex items-center justify-between p-4 rounded-2xl bg-slate-50/80 border border-slate-100 relative">
-            <div className="flex items-center gap-3 w-full">
-              <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center shadow-sm shrink-0">
-                <FileText className="w-5 h-5 text-wise-green" />
-              </div>
-              <div className="flex-1">
-                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-0.5">
-                  Job Title / Role *
-                </p>
-                <Input
-                  value={formData.jobTitle}
-                  onChange={(e) =>
-                    setFormData((prev) => ({
-                      ...prev,
-                      jobTitle: e.target.value,
-                    }))
-                  }
-                  placeholder="Eg. Backend Developer, Store Manager"
-                  className="w-full h-auto p-0 bg-transparent border-0 font-black text-[15px] text-near-black focus-visible:ring-0 focus-visible:ring-offset-0 shadow-none placeholder:text-gray-300"
-                />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="flex items-center justify-between px-4 py-3 rounded-xl bg-slate-50/80 border border-slate-100 relative">
+              <div className="flex items-center gap-3 w-full">
+                <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center shadow-sm shrink-0">
+                  <FileText className="w-5 h-5 text-wise-green" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">
+                    Job Title / Role *
+                  </p>
+                  <Input
+                    value={formData.jobTitle}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        jobTitle: e.target.value,
+                      }))
+                    }
+                    placeholder="Eg. Backend Developer"
+                    className="w-full h-8 p-0 bg-transparent border-0 font-black text-[15px] text-near-black focus-visible:ring-0 focus-visible:ring-offset-0 shadow-none placeholder:text-gray-300"
+                  />
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="flex items-center justify-between p-4 rounded-2xl bg-slate-50/80 border border-slate-100 relative">
-            <div className="flex items-center gap-3 w-full">
-              <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center shadow-sm shrink-0">
-                <Layers className="w-5 h-5 text-wise-green" />
-              </div>
-              <div className="flex-1">
-                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-0.5">
-                  Job Category *
-                </p>
-                <Select
-                  value={formData.jobCategory}
-                  onValueChange={(val) =>
-                    setFormData((prev) => ({ ...prev, jobCategory: val || "" }))
-                  }
-                >
-                  <SelectTrigger className="w-full h-auto p-0 bg-transparent border-0 font-black text-[15px] text-near-black focus:ring-0 focus:ring-offset-0 shadow-none hover:bg-transparent">
-                    <SelectValue placeholder="Select category" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {JOB_CATEGORIES.map((cat) => (
-                      <SelectItem key={cat} value={cat}>
-                        {cat}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+            <div className="flex items-center justify-between px-4 py-3 rounded-xl bg-slate-50/80 border border-slate-100 relative">
+              <div className="flex items-center gap-3 w-full">
+                <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center shadow-sm shrink-0">
+                  <Layers className="w-5 h-5 text-wise-green" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">
+                    Job Category *
+                  </p>
+                  <Select
+                    value={formData.jobCategory}
+                    onValueChange={(val) =>
+                      setFormData((prev) => ({ ...prev, jobCategory: val || "" }))
+                    }
+                  >
+                    <SelectTrigger className="w-full h-8 p-0 bg-transparent border-0 font-black text-[15px] text-near-black focus:ring-0 focus:ring-offset-0 shadow-none hover:bg-transparent">
+                      <SelectValue placeholder="Select category" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {JOB_CATEGORIES.map((cat) => (
+                        <SelectItem key={cat} value={cat}>
+                          {cat}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
             </div>
           </div>
