@@ -151,60 +151,76 @@ export const Step3Logistics = ({
                   <FieldError name="walkInStartDate" errors={errors} />
                 </div>
 
-                <div className="space-y-3">
+                <div className="space-y-3" id="field-walkInStartTime">
                   <Label className="text-[14px] font-black text-near-black">
                     Walk-in timings <span className="text-red-500">*</span>
                   </Label>
                   <div className="flex items-center gap-4">
-                    <Select
-                      value={formData.walkInStartTime}
-                      onValueChange={(v) =>
-                        setFormData((prev) => ({
-                          ...prev,
-                          walkInStartTime: v || "",
-                        }))
-                      }
-                    >
-                      <SelectTrigger className="h-14 flex-1 rounded-xl border-gray-200 font-bold">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent className="rounded-xl border-gray-100 shadow-xl max-h-56">
-                        {WALK_IN_START_TIMES.map((time) => (
-                          <SelectItem
-                            key={time}
-                            value={time}
-                            className="font-bold py-3"
-                          >
-                            {time}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    <div className="flex-1">
+                      <Select
+                        value={formData.walkInStartTime}
+                        onValueChange={(v) =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            walkInStartTime: v || "",
+                          }))
+                        }
+                      >
+                        <SelectTrigger
+                          className={cn(
+                            "h-14 w-full rounded-xl border-gray-200 font-bold",
+                            errors.walkInStartTime && "border-red-200 bg-red-50"
+                          )}
+                        >
+                          <SelectValue placeholder="Start Time" />
+                        </SelectTrigger>
+                        <SelectContent className="rounded-xl border-gray-100 shadow-xl max-h-56">
+                          {WALK_IN_START_TIMES.map((time) => (
+                            <SelectItem
+                              key={time}
+                              value={time}
+                              className="font-bold py-3"
+                            >
+                              {time}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FieldError name="walkInStartTime" errors={errors} />
+                    </div>
                     <span className="text-gray-400 font-bold">to</span>
-                    <Select
-                      value={formData.walkInEndTime}
-                      onValueChange={(v) =>
-                        setFormData((prev) => ({
-                          ...prev,
-                          walkInEndTime: v || "",
-                        }))
-                      }
-                    >
-                      <SelectTrigger className="h-14 flex-1 rounded-xl border-gray-200 font-bold">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent className="rounded-xl border-gray-100 shadow-xl max-h-56">
-                        {WALK_IN_END_TIMES.map((time) => (
-                          <SelectItem
-                            key={time}
-                            value={time}
-                            className="font-bold py-3"
-                          >
-                            {time}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    <div className="flex-1" id="field-walkInEndTime">
+                      <Select
+                        value={formData.walkInEndTime}
+                        onValueChange={(v) =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            walkInEndTime: v || "",
+                          }))
+                        }
+                      >
+                        <SelectTrigger
+                          className={cn(
+                            "h-14 w-full rounded-xl border-gray-200 font-bold",
+                            errors.walkInEndTime && "border-red-200 bg-red-50"
+                          )}
+                        >
+                          <SelectValue placeholder="End Time" />
+                        </SelectTrigger>
+                        <SelectContent className="rounded-xl border-gray-100 shadow-xl max-h-56">
+                          {WALK_IN_END_TIMES.map((time) => (
+                            <SelectItem
+                              key={time}
+                              value={time}
+                              className="font-bold py-3"
+                            >
+                              {time}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FieldError name="walkInEndTime" errors={errors} />
+                    </div>
                   </div>
                 </div>
 
@@ -281,6 +297,7 @@ export const Step3Logistics = ({
                 </button>
               ))}
             </div>
+            <FieldError name="contactPreference" errors={errors} />
           </div>
 
           <AnimatePresence>
@@ -310,9 +327,10 @@ export const Step3Logistics = ({
                       errors.hrName && "border-red-200 bg-red-50",
                     )}
                   />
+                  <FieldError name="hrName" errors={errors} />
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-3">
+                  <div className="space-y-3" id="field-hrPhone">
                     <Label className="text-[14px] font-black text-near-black">
                       Recruiter's Whatsapp No.{" "}
                       <span className="text-red-500">*</span>
@@ -327,10 +345,14 @@ export const Step3Logistics = ({
                         }))
                       }
                       placeholder="Enter Number"
-                      className="h-14 rounded-xl border-gray-200 font-bold"
+                      className={cn(
+                        "h-14 rounded-xl border-gray-200 font-bold",
+                        errors.hrPhone && "border-red-200 bg-red-50",
+                      )}
                     />
+                    <FieldError name="hrPhone" errors={errors} />
                   </div>
-                  <div className="space-y-3">
+                  <div className="space-y-3" id="field-hrEmail">
                     <Label className="text-[14px] font-black text-near-black">
                       Recruiter's Email ID{" "}
                       <span className="text-red-500">*</span>
@@ -346,11 +368,14 @@ export const Step3Logistics = ({
                         }))
                       }
                       placeholder="Enter Email"
-                      className="h-14 rounded-xl border-gray-200 font-bold"
+                      className={cn(
+                        "h-14 rounded-xl border-gray-200 font-bold",
+                        errors.hrEmail && "border-red-200 bg-red-50",
+                      )}
                     />
+                    <FieldError name="hrEmail" errors={errors} />
                   </div>
                 </div>
-                <FieldError name="hrName" errors={errors} />
               </motion.div>
             )}
           </AnimatePresence>

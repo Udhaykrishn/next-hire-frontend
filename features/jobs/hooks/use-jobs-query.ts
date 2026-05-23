@@ -8,8 +8,16 @@ import {
   createJob,
   getJobById,
   getJobsForCandidate,
+  getRecruiterJobs,
 } from "../services/job.api";
 import type { SearchJobsParams } from "../types/job.types";
+
+export const useRecruiterJobsQuery = () => {
+  return useSuspenseQuery({
+    queryKey: ["recruiter", "jobs"],
+    queryFn: getRecruiterJobs,
+  });
+};
 
 export const useApplyJobMutation = () => {
   const queryClient = useQueryClient();

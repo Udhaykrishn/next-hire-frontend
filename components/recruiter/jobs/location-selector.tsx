@@ -149,7 +149,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
       .slice(0, 100);
   }, [citySearch, indianCities]);
 
-  const _FieldError = ({ name }: { name: string }) => {
+  const LocationFieldError = ({ name }: { name: string }) => {
     if (!errors[name]) return null;
     return (
       <motion.p
@@ -197,6 +197,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
               ),
             )}
           </div>
+          <LocationFieldError name="locationType" />
         </div>
 
         <AnimatePresence mode="wait">
@@ -234,6 +235,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                     setFormData((prev) => ({ ...prev, officeAddress: val }))
                   }
                 />
+                <LocationFieldError name="officeAddress" />
               </div>
             </motion.div>
           )}
@@ -271,6 +273,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                   setFormData((prev) => ({ ...prev, fieldArea: val }))
                 }
               />
+              <LocationFieldError name="fieldArea" />
             </motion.div>
           )}
 
@@ -354,6 +357,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                   )}
                 </AnimatePresence>
               </div>
+              <LocationFieldError name="jobCity" />
             </motion.div>
           )}
         </AnimatePresence>

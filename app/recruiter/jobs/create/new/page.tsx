@@ -74,7 +74,13 @@ const INITIAL_DATA: JobFormData = {
   selectedPlan: "",
 };
 
-export default function CreateJobPage() {
+export function JobWizard({
+  initialData = INITIAL_DATA,
+  jobId,
+}: {
+  initialData?: JobFormData;
+  jobId?: string;
+}) {
   const router = useRouter();
   const {
     currentStep,
@@ -91,16 +97,19 @@ export default function CreateJobPage() {
     setIsWalkInMapOpen,
     setCurrentStep,
     handlePostJob,
-  } = useJobForm(INITIAL_DATA);
+  } = useJobForm(initialData);
+
+  // Use jobId in handlePostJob if needed (you may want to pass it to useJobForm or handle it in the hook)
+
   const { recruiterProfile, isLoading: isProfileLoading } =
     useRecruiterProfile();
 
   useEffect(() => {
     if (!isProfileLoading && !recruiterProfile?.is_verified_company) {
-      toast.error("Please verify your company with a CIN number to post jobs.");
+      toast.error(`Please verify your company with a CIN number to ${jobId ? 'edit' : 'post'} jobs.`);
       router.push("/recruiter/profile");
     }
-  }, [recruiterProfile?.is_verified_company, isProfileLoading, router]);
+  }, [recruiterProfile?.is_verified_company, isProfileLoading, router, jobId]);
 
   if (isProfileLoading) {
     return (
@@ -168,7 +177,7 @@ export default function CreateJobPage() {
                 <ChevronLeft className="w-5 h-5" />
               </Button>
               <h1 className="text-[16px] font-black text-near-black">
-                Post job
+                {jobId ? "Edit job" : "Post job"}
               </h1>
             </div>
             <div className="flex items-center gap-6">
@@ -261,7 +270,7 @@ export default function CreateJobPage() {
                   <span>Processing...</span>
                 </div>
               ) : (
-                <span>{isLastStep ? "Post Job Now" : "Continue"}</span>
+                <span>{isLastStep ? (jobId ? "Update Job Now" : "Post Job Now") : "Continue"}</span>
               )}
             </Button>
           </div>
@@ -269,4 +278,8 @@ export default function CreateJobPage() {
       </div>
     </APIProvider>
   );
+}
+
+export default function CreateJobPage() {
+  return <JobWizard />;
 }

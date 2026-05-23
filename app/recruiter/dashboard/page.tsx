@@ -65,30 +65,38 @@ export default function RecruiterDashboard() {
                   <h2 className="text-[18px] font-black text-near-black group-hover:text-wise-green transition-colors leading-none tracking-tight">
                     {job.title}
                   </h2>
-                  <div className="px-2 py-0.5 rounded-full bg-orange-50 text-orange-600 text-[8px] font-black uppercase tracking-widest border border-orange-100">
-                    Select Plan
+                  <div className={`px-2 py-0.5 rounded-full text-[8px] font-black uppercase tracking-widest border ${!job.isPublished ? "bg-yellow-50 text-yellow-600 border-yellow-100" : "bg-green-50 text-green-600 border-green-100"}`}>
+                    {!job.isPublished ? "Draft" : "Active"}
                   </div>
                 </div>
 
                 <div className="flex flex-wrap items-center gap-x-5 gap-y-1.5">
-                  <div className="flex items-center gap-1.5 text-gray-400 text-[12px] font-medium">
-                    <Navigation className="w-3.5 h-3.5 text-wise-green/40" />
-                    {job.location || "Kochi, Kerala"}
-                  </div>
-                  <div className="flex items-center gap-1.5 text-gray-400 text-[12px] font-medium">
-                    <Clock className="w-3.5 h-3.5 text-wise-green/40" />
-                    Posted: {job.posted}
-                  </div>
-                  <div className="flex items-center gap-1.5 text-gray-400 text-[12px] font-medium">
-                    <User2 className="w-3.5 h-3.5 text-gray-200" />
-                    {job.postedBy || "Uday krishna"}
-                  </div>
+                  {job.location && (
+                    <div className="flex items-center gap-1.5 text-gray-400 text-[12px] font-medium">
+                      <Navigation className="w-3.5 h-3.5 text-wise-green/40" />
+                      {job.location}
+                    </div>
+                  )}
+                  {job.posted && (
+                    <div className="flex items-center gap-1.5 text-gray-400 text-[12px] font-medium">
+                      <Clock className="w-3.5 h-3.5 text-wise-green/40" />
+                      Posted: {job.posted}
+                    </div>
+                  )}
+                  {job.postedBy && (
+                    <div className="flex items-center gap-1.5 text-gray-400 text-[12px] font-medium">
+                      <User2 className="w-3.5 h-3.5 text-gray-200" />
+                      {job.postedBy}
+                    </div>
+                  )}
                 </div>
 
-                <div className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-gray-50/50 border border-gray-100/50 text-[12px] font-medium text-gray-400">
-                  <Info className="w-3.5 h-3.5 text-wise-green" />
-                  Finish job posting to start receiving candidates
-                </div>
+                {!job.isPublished && (
+                  <div className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-gray-50/50 border border-gray-100/50 text-[12px] font-medium text-gray-400">
+                    <Info className="w-3.5 h-3.5 text-wise-green" />
+                    Finish job posting to start receiving candidates
+                  </div>
+                )}
               </div>
 
               {/* Middle Column: Stats Display */}
@@ -116,12 +124,30 @@ export default function RecruiterDashboard() {
 
               {/* Right Column: Actions */}
               <div className="flex items-center gap-3">
+                {!job.isPublished ? (
+                  <Button
+                    variant="outline"
+                    className="h-10 px-6 rounded-full border-gray-100 font-black text-[13px] text-near-black hover:border-wise-green hover:bg-wise-green/5 transition-all"
+                  >
+                    Finish posting
+                  </Button>
+                ) : (
+                  job.expiresIn ? (
+                    <div className="flex flex-col items-end pr-4">
+                      <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Expires In</span>
+                      <span className="text-[13px] font-black text-orange-500">{job.expiresIn}</span>
+                    </div>
+                  ) : null
+                )}
+                
                 <Button
-                  variant="outline"
-                  className="h-10 px-6 rounded-full border-gray-100 font-black text-[13px] text-near-black hover:border-wise-green hover:bg-wise-green/5 transition-all"
+                  onClick={() => router.push(`/recruiter/jobs/edit/${job.id}`)}
+                  variant="ghost"
+                  className="h-10 px-4 rounded-full font-black text-[13px] text-slate-500 hover:text-near-black hover:bg-slate-50 transition-all border border-transparent hover:border-slate-200"
                 >
-                  Finish posting
+                  Edit Job
                 </Button>
+                
                 <Button
                   variant="ghost"
                   size="icon"

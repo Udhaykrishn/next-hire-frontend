@@ -7,14 +7,16 @@ export const getRecruiterJobListings = async (): Promise<JobListing[]> => {
   const jobs = await getRecruiterJobs();
   return jobs.map((job: JobResponse) => ({
     id: job.id,
-    title: job.jobTitle,
+    title: job.jobTitle || "",
     applicants: 0,
     posted: job.created_at
       ? formatDistanceToNow(parseISO(job.created_at), { addSuffix: true })
-      : "recently",
-    status: job.status === "OPEN" ? "Active" : "Closed",
-    location: job.jobCity || job.officeAddress || "Unknown",
-    postedBy: job.posted_by || "Recruiter",
+      : "",
+    status: job.is_published ? (job.status === "OPEN" ? "Active" : "Closed") : "Draft",
+    location: job.jobCity || job.officeAddress || "",
+    postedBy: job.posted_by || "",
+    isPublished: job.is_published ?? false,
+    expiresIn: "",
   }));
 };
 

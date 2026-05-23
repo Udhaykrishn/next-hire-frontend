@@ -14,9 +14,11 @@ export interface JobListing {
   title: string;
   applicants: number;
   posted: string;
-  status: "Active" | "Closed";
+  status: "Active" | "Closed" | "Draft";
   location: string;
   postedBy: string;
+  isPublished?: boolean;
+  expiresIn?: string;
 }
 
 export interface ChangePasswordData {

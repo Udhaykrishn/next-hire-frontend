@@ -86,25 +86,45 @@ export const useJobForm = (initialData: JobFormData) => {
     }));
   };
 
+  const stepSchemas = [
+    jobStep1Schema,
+    jobStep2Schema,
+    jobStep3Schema,
+    jobStep4Schema,
+    jobStep5Schema,
+  ];
+  const currentSchema = stepSchemas[currentStep - 1];
+
+  // Derive live errors using Zod's inbuilt flatten feature
+  const liveErrors = useMemo(() => {
+    if (Object.keys(errors).length === 0 || !currentSchema) return errors;
+
+    const result = currentSchema.safeParse(formData);
+    if (result.success) return {};
+
+    const fieldErrors = result.error.flatten().fieldErrors;
+    const formattedErrors: Record<string, string> = {};
+    for (const key in fieldErrors) {
+      formattedErrors[key] = fieldErrors[key]?.[0] || "";
+    }
+    return formattedErrors;
+  }, [formData, currentSchema, errors]);
+
+  const displayErrors = Object.keys(errors).length > 0 ? liveErrors : {};
+
   const nextStep = () => {
-    const stepSchemas = [
-      jobStep1Schema,
-      jobStep2Schema,
-      jobStep3Schema,
-      jobStep4Schema,
-      jobStep5Schema,
-    ];
-    const currentSchema = stepSchemas[currentStep - 1];
+    if (!currentSchema) return;
 
     const result = currentSchema.safeParse(formData);
     if (!result.success) {
+      const fieldErrors = result.error.flatten().fieldErrors;
       const newErrors: Record<string, string> = {};
-      result.error.issues.forEach((issue) => {
-        newErrors[issue.path[0] as string] = issue.message;
-      });
+      for (const key in fieldErrors) {
+        newErrors[key] = fieldErrors[key]?.[0] || "";
+      }
       setErrors(newErrors);
 
-      const firstErrorKey = Object.keys(newErrors)[0];
+      const firstErrorKey = Object.keys(fieldErrors)[0];
       const element = document.getElementById(`field-${firstErrorKey}`);
       if (element) {
         element.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -153,7 +173,7 @@ export const useJobForm = (initialData: JobFormData) => {
     setFormData,
     currentStep,
     setCurrentStep,
-    errors,
+    errors: displayErrors,
     setErrors,
     isLoaded,
     activeRequirementTab,
