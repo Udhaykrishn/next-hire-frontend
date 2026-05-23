@@ -90,10 +90,16 @@ export const verifyCompanyOtp = async (
 export const uploadRecruiterProfileImage = async (
   _userId: string,
   file: File,
-): Promise<ApiResponse<RecruiterProfile>> => {
+): Promise<{ message: string }> => {
   const formData = new FormData();
   formData.append("image", file);
   return await apiClient.post(`/recruiter/profile/upload`, formData, {
     headers: { "Content-Type": "multipart/form-data" },
   });
+};
+
+export const deleteRecruiterProfileImage = async (): Promise<{
+  message: string;
+}> => {
+  return await apiClient.delete(`/recruiter/profile/upload`);
 };

@@ -6,6 +6,7 @@ import {
   useRecruiterProfileQuery,
   useUpdateRecruiterProfileMutation,
   useUploadRecruiterAvatarMutation,
+  useDeleteRecruiterAvatarMutation,
 } from "./use-recruiter-query";
 
 export interface RecruiterFormValues {
@@ -26,6 +27,7 @@ export function useRecruiterProfile() {
   const { data: profileResponse, isLoading } = useRecruiterProfileQuery();
   const updateMutation = useUpdateRecruiterProfileMutation();
   const uploadAvatarMutation = useUploadRecruiterAvatarMutation();
+  const deleteAvatarMutation = useDeleteRecruiterAvatarMutation();
 
   const recruiterProfile =
     profileResponse?.success && profileResponse.data
@@ -47,8 +49,8 @@ export function useRecruiterProfile() {
   // Snapshot on entering edit mode for cancel
   const [snapshot, setSnapshot] = useState<RecruiterFormValues | null>(null);
 
-  const syncFromProfile = () => {
-    if (recruiterProfile) {
+  useEffect(() => {
+    if (editSection === null && recruiterProfile) {
       setFormData({
         name: recruiterProfile.name || "",
         email: recruiterProfile.email || "",
@@ -60,14 +62,7 @@ export function useRecruiterProfile() {
         companyRole: recruiterProfile.company_role || "",
       });
     }
-  };
-
-  useEffect(() => {
-    if (editSection === null && recruiterProfile) {
-      syncFromProfile();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [recruiterProfile, editSection, syncFromProfile]);
+  }, [recruiterProfile, editSection]);
 
   const startEdit = (section: EditSection) => {
     setSnapshot({ ...formData });
@@ -138,6 +133,11 @@ export function useRecruiterProfile() {
     await uploadAvatarMutation.mutateAsync({ userId: user.id, file });
   };
 
+  const handleDeleteAvatar = async () => {
+    if (!user?.id) return;
+    await deleteAvatarMutation.mutateAsync();
+  };
+
   return {
     recruiterProfile,
     isLoading,
@@ -150,5 +150,7 @@ export function useRecruiterProfile() {
     isUpdating: updateMutation.isPending,
     handleUploadAvatar,
     isUploadingAvatar: uploadAvatarMutation.isPending,
+    handleDeleteAvatar,
+    isDeletingAvatar: deleteAvatarMutation.isPending,
   };
 }

@@ -183,6 +183,7 @@ export const adminService = {
       company_role: r.company_role || undefined,
       is_verified_company: r.is_verified_company,
       admin_approved: r.admin_approved,
+      verification_revoked_reason: r.verification_revoked_reason || "",
       subscription: r.subscription,
       activity: [
         {
@@ -260,6 +261,13 @@ export const adminService = {
     description?: string,
   ): Promise<void> => {
     await apiClient.patch(`/recruiter/${id}/block`, { description });
+  },
+
+  revokeCompanyVerification: async (
+    id: string,
+    reason: string,
+  ): Promise<void> => {
+    await apiClient.patch(`/recruiter/${id}/revoke-verification`, { reason });
   },
 
   updateCandidateStatus: async (

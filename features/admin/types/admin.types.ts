@@ -17,6 +17,7 @@ export interface RecruiterDetail {
   company_role?: string;
   is_verified_company?: boolean;
   admin_approved?: boolean;
+  verification_revoked_reason?: string;
   subscription?: {
     current_plan: string;
     is_subscribed: boolean;
@@ -109,6 +110,7 @@ export interface BackendRecruiter {
   company_role: string;
   is_verified_company: boolean;
   admin_approved: boolean;
+  verification_revoked_reason: string;
   subscription: {
     current_plan: string;
     is_subscribed: boolean;

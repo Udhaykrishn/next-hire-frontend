@@ -21,6 +21,8 @@ export default function ProfilePage() {
     isUpdating,
     handleUploadAvatar,
     isUploadingAvatar,
+    handleDeleteAvatar,
+    isDeletingAvatar,
   } = useRecruiterProfile();
 
   if (isLoading) {
@@ -54,6 +56,8 @@ export default function ProfilePage() {
           recruiterProfile={recruiterProfile}
           isUploadingAvatar={isUploadingAvatar}
           handleUploadAvatar={handleUploadAvatar}
+          isDeletingAvatar={isDeletingAvatar}
+          handleDeleteAvatar={handleDeleteAvatar}
         />
 
         <BasicDetailsCard

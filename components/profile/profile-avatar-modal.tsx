@@ -72,40 +72,37 @@ export function ProfileAvatarModal({
   };
 
   return (
-    <div className="flex flex-wrap items-center justify-center gap-3 mt-4">
-      <Button
+    <div className="flex flex-wrap items-center justify-center gap-2 mt-3">
+      <button
         type="button"
-        variant="outline"
         onClick={openUploadModal}
         disabled={isUploading || isUploadingProp}
-        className="h-10 px-5 rounded-xl border-gray-200 hover:border-wise-green/30 hover:bg-wise-green/5 text-gray-700 hover:text-wise-green font-black flex items-center gap-2 transition-all"
+        title="Upload Image"
+        className="h-10 w-10 flex items-center justify-center rounded-xl border border-gray-200 hover:border-wise-green/30 hover:bg-wise-green/5 text-gray-700 hover:text-wise-green transition-all disabled:opacity-50"
       >
         <Upload className="w-4 h-4" />
-        Upload Image
-      </Button>
+      </button>
 
       {avatarUrl && (
         <>
-          <Button
+          <button
             type="button"
-            variant="outline"
             onClick={() => setIsPreviewOpen(true)}
-            className="h-10 px-5 rounded-xl border-gray-200 hover:border-wise-green/30 hover:bg-wise-green/5 text-gray-700 hover:text-wise-green font-black flex items-center gap-2 transition-all"
+            title="Preview"
+            className="h-10 w-10 flex items-center justify-center rounded-xl border border-gray-200 hover:border-wise-green/30 hover:bg-wise-green/5 text-gray-700 hover:text-wise-green transition-all"
           >
             <Eye className="w-4 h-4" />
-            Preview
-          </Button>
+          </button>
 
-          <Button
+          <button
             type="button"
-            variant="destructive"
             onClick={() => setIsDeleteOpen(true)}
             disabled={isDeleting || isDeletingProp}
-            className="h-10 px-5 rounded-xl font-black flex items-center gap-2 transition-all"
+            title="Delete Image"
+            className="h-10 w-10 flex items-center justify-center rounded-xl bg-red-50 text-red-600 hover:bg-red-100 hover:text-red-700 transition-all border border-transparent hover:border-red-200 disabled:opacity-50"
           >
             <Trash2 className="w-4 h-4" />
-            Delete Image
-          </Button>
+          </button>
         </>
       )}
 

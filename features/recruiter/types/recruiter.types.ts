@@ -46,6 +46,7 @@ export interface RecruiterProfile {
   company_role: string;
   is_verified_company: boolean;
   admin_approved: boolean;
+  verification_revoked_reason: string | null;
   subscription: {
     current_plan: string;
     is_subscribed: boolean;

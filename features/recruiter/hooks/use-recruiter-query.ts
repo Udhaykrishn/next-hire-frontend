@@ -9,6 +9,7 @@ import {
   startCompanyVerificationSession,
   updateRecruiterProfile,
   uploadRecruiterProfileImage,
+  deleteRecruiterProfileImage,
   verifyCompanyOtp,
   verifyRecruiterCompany,
 } from "../services/recruiter.api";
@@ -78,6 +79,22 @@ export const useUploadRecruiterAvatarMutation = () => {
     onError: (error: unknown) => {
       const message =
         error instanceof Error ? error.message : "Failed to upload photo";
+      toast.error(message);
+    },
+  });
+};
+
+export const useDeleteRecruiterAvatarMutation = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: deleteRecruiterProfileImage,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["recruiter", "profile"] });
+      toast.success("Profile photo deleted");
+    },
+    onError: (error: unknown) => {
+      const message =
+        error instanceof Error ? error.message : "Failed to delete photo";
       toast.error(message);
     },
   });

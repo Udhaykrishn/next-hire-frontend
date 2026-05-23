@@ -2,21 +2,32 @@
 
 import {
   Briefcase,
+  ChevronDown,
   Clock,
   Eye,
   Mail,
   Phone,
   PlusCircle,
   Settings,
-  Users,
+  ShieldCheck,
+  ShieldOff,
+  ShieldX,
 } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/animate-ui/components/buttons/button";
 import { ConfirmationModal } from "@/components/shared/confirmation-modal";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { useRecruiterDetails } from "../hooks/use-recruiter-details";
 import { useRecruiterJobs } from "../hooks/use-recruiter-jobs";
 import { useRestrictRecruiter } from "../hooks/use-restrict-recruiter";
+import { useRevokeCompanyVerification } from "../hooks/use-revoke-company-verification";
 
 const ActivityIcon = ({ type }: { type: string }) => {
   switch (type) {
@@ -37,19 +48,54 @@ interface RecruiterDetailsProps {
   id: string;
 }
 
+const REVOCATION_REASONS = [
+  "Invalid or fraudulent CIN number provided",
+  "Company no longer registered or dissolved",
+  "Mismatched company details (name, address, or ownership)",
+  "Duplicate or impersonation account detected",
+  "Company under legal investigation or regulatory action",
+  "Recruiter violated platform terms of service",
+  "False or misleading information submitted during verification",
+  "Company failed re-verification after suspension",
+] as const;
+
 export const RecruiterDetails = ({ id }: RecruiterDetailsProps) => {
   const { data: recruiter } = useRecruiterDetails(id);
   const { mutate: restrictRecruiter, isPending: isRestricting } =
     useRestrictRecruiter();
+  const { mutate: revokeVerification, isPending: isRevoking } =
+    useRevokeCompanyVerification();
   const { data: jobs = [], isLoading: isJobsLoading } = useRecruiterJobs(id);
   const [isBlocking, setIsBlocking] = useState(false);
+  const [isRevokingModal, setIsRevokingModal] = useState(false);
+  const [revokeReason, setRevokeReason] = useState("");
+  const [selectedPreset, setSelectedPreset] = useState("");
+  const [isVerifOpen, setIsVerifOpen] = useState(false);
 
   if (!recruiter) return null;
 
-  const handleConfirm = () => {
+  const handleConfirmBlock = () => {
     restrictRecruiter({ id });
     setIsBlocking(false);
   };
+
+  const handleConfirmRevoke = () => {
+    if (!revokeReason.trim()) return;
+    revokeVerification(
+      { id, reason: revokeReason.trim() },
+      {
+        onSuccess: () => {
+          setIsRevokingModal(false);
+          setRevokeReason("");
+        },
+      },
+    );
+  };
+
+  const isVerified = recruiter.is_verified_company === true;
+  const wasRevoked =
+    !isVerified &&
+    !!recruiter.verification_revoked_reason;
 
   return (
     <div className="space-y-12">
@@ -110,6 +156,7 @@ export const RecruiterDetails = ({ id }: RecruiterDetailsProps) => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-8">
+          {/* Company Details */}
           <section className="bg-white border border-gray-100 rounded-[2.5rem] p-8 shadow-sm">
             <div className="flex items-center justify-between mb-8">
               <div className="text-[10px] font-black text-near-black uppercase tracking-[0.4em] flex items-center gap-3">
@@ -168,16 +215,61 @@ export const RecruiterDetails = ({ id }: RecruiterDetailsProps) => {
                   <p className="text-sm font-bold text-near-black">N/A</p>
                 )}
               </div>
+              {/* Company Verification — did the recruiter go through CIN + OTP flow? */}
               <div className="p-4 bg-gray-50 rounded-2xl">
-                <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">
-                  Verification Status
+                <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">
+                  Company Verification
                 </p>
-                <p className="text-sm font-bold text-near-black">
-                  {recruiter.is_verified_company ? "Verified" : "Unverified"} /{" "}
-                  {recruiter.admin_approved
-                    ? "Admin Approved"
-                    : "Pending Approval"}
+                <p className="text-[9px] text-gray-400 font-bold mb-2 leading-relaxed">
+                  Recruiter self-verified via CIN + OTP flow
                 </p>
+                <div className="flex items-center gap-2">
+                  {isVerified ? (
+                    <ShieldCheck className="w-4 h-4 text-wise-green" />
+                  ) : wasRevoked ? (
+                    <ShieldX className="w-4 h-4 text-red-500" />
+                  ) : (
+                    <ShieldOff className="w-4 h-4 text-gray-400" />
+                  )}
+                  <span
+                    className={cn(
+                      "text-sm font-black uppercase tracking-widest",
+                      isVerified
+                        ? "text-wise-green"
+                        : wasRevoked
+                          ? "text-red-500"
+                          : "text-gray-400",
+                    )}
+                  >
+                    {isVerified ? "Verified" : wasRevoked ? "Revoked" : "Not Verified"}
+                  </span>
+                </div>
+              </div>
+
+              {/* Admin Approval — did an admin manually approve this recruiter? */}
+              <div className="p-4 bg-gray-50 rounded-2xl">
+                <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">
+                  Admin Approval
+                </p>
+                <p className="text-[9px] text-gray-400 font-bold mb-2 leading-relaxed">
+                  Manual review and approval by platform admin
+                </p>
+                <div className="flex items-center gap-2">
+                  <div
+                    className={cn(
+                      "w-2 h-2 rounded-full",
+                      recruiter.admin_approved ? "bg-wise-green shadow-[0_0_6px_rgba(159,232,112,0.8)]" : "bg-gray-300",
+                    )}
+                  />
+                  <span
+                    className={cn(
+                      "text-sm font-black uppercase tracking-widest",
+                      recruiter.admin_approved ? "text-wise-green" : "text-gray-400",
+                    )}
+                  >
+                    {recruiter.admin_approved ? "Approved" : "Pending Approval"}
+                  </span>
+                </div>
               </div>
               <div className="p-4 bg-gray-50 rounded-2xl md:col-span-2">
                 <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">
@@ -193,6 +285,98 @@ export const RecruiterDetails = ({ id }: RecruiterDetailsProps) => {
             </div>
           </section>
 
+          {/* Company Verification — collapsible dropdown */}
+          {(isVerified || wasRevoked) && (
+            <section
+              className={cn(
+                "border rounded-[2.5rem] overflow-hidden transition-all",
+                isVerified ? "border-green-100" : "border-red-100",
+              )}
+            >
+              {/* Accordion Header */}
+              <button
+                type="button"
+                onClick={() => setIsVerifOpen((v) => !v)}
+                className={cn(
+                  "w-full flex items-center justify-between px-8 py-5 transition-colors",
+                  isVerified
+                    ? "bg-green-50/60 hover:bg-green-50"
+                    : "bg-red-50/60 hover:bg-red-50",
+                )}
+              >
+                <div className="flex items-center gap-3">
+                  {isVerified ? (
+                    <ShieldCheck className="w-5 h-5 text-wise-green" />
+                  ) : (
+                    <ShieldX className="w-5 h-5 text-red-500" />
+                  )}
+                  <span className="text-[10px] font-black uppercase tracking-[0.4em] text-near-black">
+                    {isVerified ? "Company Verification Details" : "Revocation Details"}
+                  </span>
+                  <span
+                    className={cn(
+                      "px-2.5 py-0.5 rounded-full text-[9px] font-black uppercase tracking-widest",
+                      isVerified
+                        ? "bg-green-100 text-green-700"
+                        : "bg-red-100 text-red-600",
+                    )}
+                  >
+                    {isVerified ? "Active" : "Revoked"}
+                  </span>
+                </div>
+                <ChevronDown
+                  className={cn(
+                    "w-4 h-4 text-gray-400 transition-transform duration-200",
+                    isVerifOpen && "rotate-180",
+                  )}
+                />
+              </button>
+
+              {/* Accordion Body */}
+              {isVerifOpen && (
+                <div
+                  className={cn(
+                    "px-8 pb-8 pt-6 grid grid-cols-1 md:grid-cols-2 gap-4",
+                    isVerified ? "bg-green-50/30" : "bg-red-50/30",
+                  )}
+                >
+                  <div className="p-4 bg-white/80 rounded-2xl">
+                    <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">
+                      CIN Verified
+                    </p>
+                    <p className="text-sm font-bold text-near-black">
+                      {recruiter.CIN || "N/A"}
+                    </p>
+                  </div>
+                  <div className="p-4 bg-white/80 rounded-2xl">
+                    <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">
+                      Verification State
+                    </p>
+                    <p
+                      className={cn(
+                        "text-sm font-black uppercase tracking-widest",
+                        isVerified ? "text-wise-green" : "text-red-500",
+                      )}
+                    >
+                      {isVerified ? "Active" : "Revoked"}
+                    </p>
+                  </div>
+                  {wasRevoked && recruiter.verification_revoked_reason && (
+                    <div className="p-4 bg-white/80 rounded-2xl md:col-span-2">
+                      <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">
+                        Revocation Reason
+                      </p>
+                      <p className="text-sm font-bold text-red-600">
+                        {recruiter.verification_revoked_reason}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )}
+            </section>
+          )}
+
+          {/* Activity */}
           <section className="bg-white border border-gray-100 rounded-[2.5rem] p-8 shadow-sm">
             <div className="text-xs font-black text-near-black uppercase tracking-[0.2em] mb-8 flex items-center gap-2">
               <div className="w-1.5 h-1.5 rounded-full bg-wise-green" />
@@ -220,6 +404,7 @@ export const RecruiterDetails = ({ id }: RecruiterDetailsProps) => {
             </div>
           </section>
 
+          {/* Jobs Created */}
           <section className="bg-white border border-gray-100 rounded-[2.5rem] p-8 shadow-sm">
             <div className="flex items-center justify-between mb-8">
               <div className="text-[10px] font-black text-near-black uppercase tracking-[0.4em] flex items-center gap-3">
@@ -282,22 +467,24 @@ export const RecruiterDetails = ({ id }: RecruiterDetailsProps) => {
           </section>
         </div>
 
+        {/* Sidebar */}
         <div className="space-y-8">
           <section className="bg-white border border-gray-100 rounded-[2.5rem] p-8 shadow-sm">
             <div className="text-xs font-black text-near-black uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
-              <Users className="w-4 h-4 text-wise-green" />
               About
             </div>
             <p className="text-sm font-medium text-gray-500 leading-relaxed italic">
-              "{recruiter.about}"
+              &quot;{recruiter.about}&quot;
             </p>
           </section>
 
+          {/* Moderator Tools */}
           <section className="bg-gray-50 border border-gray-100 rounded-[2.5rem] p-8">
             <h3 className="text-[10px] font-black text-near-black uppercase tracking-widest mb-6">
               Moderator Tools
             </h3>
             <div className="space-y-3">
+              {/* Block / Restore */}
               <Button
                 variant="outline"
                 onClick={() => setIsBlocking(true)}
@@ -313,15 +500,29 @@ export const RecruiterDetails = ({ id }: RecruiterDetailsProps) => {
                   ? "Restore Partner Access"
                   : "Restrict Partner Access"}
               </Button>
+
+              {/* Revoke Verification — only when verified */}
+              {isVerified && (
+                <Button
+                  variant="outline"
+                  onClick={() => setIsRevokingModal(true)}
+                  disabled={isRevoking}
+                  className="w-full h-12 rounded-xl justify-start text-xs font-black uppercase tracking-widest border-orange-100 text-orange-500 hover:bg-orange-50 hover:border-orange-200 transition-colors"
+                >
+                  <ShieldX className="w-4 h-4 mr-2" />
+                  Revoke Company Verification
+                </Button>
+              )}
             </div>
           </section>
         </div>
       </div>
 
+      {/* Block / Restore Modal */}
       <ConfirmationModal
         isOpen={isBlocking}
         onClose={() => setIsBlocking(false)}
-        onConfirm={handleConfirm}
+        onConfirm={handleConfirmBlock}
         title={
           recruiter.status === "Blocked"
             ? "Restore Recruiter Access"
@@ -333,12 +534,98 @@ export const RecruiterDetails = ({ id }: RecruiterDetailsProps) => {
             : "This will immediately revoke account access and disable all active job postings for this company."
         }
         confirmText={
-          recruiter.status === "Blocked"
-            ? "Confirm Restore"
-            : "Confirm Restriction"
+          recruiter.status === "Blocked" ? "Confirm Restore" : "Confirm Restriction"
         }
         variant={recruiter.status === "Blocked" ? "info" : "danger"}
       />
+
+      {/* Revoke Verification Modal */}
+      {isRevokingModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+          <div className="bg-white rounded-[2rem] p-8 shadow-2xl w-full max-w-md mx-4 space-y-6">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-2xl bg-orange-50 flex items-center justify-center">
+                <ShieldX className="w-6 h-6 text-orange-500" />
+              </div>
+              <div>
+                <h2 className="text-lg font-black text-near-black">
+                  Revoke Company Verification
+                </h2>
+                <p className="text-xs text-gray-400 font-bold">
+                  This action cannot be undone without recruiter re-verification.
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <label
+                htmlFor="revoke-preset"
+                className="text-[10px] font-black text-gray-500 uppercase tracking-widest"
+              >
+                Reason for Revocation
+              </label>
+
+              {/* shadcn Select */}
+              <Select
+                value={selectedPreset}
+                onValueChange={(value) => {
+                  const safe = value ?? "";
+                  setSelectedPreset(safe);
+                  setRevokeReason(safe);
+                }}
+              >
+                <SelectTrigger className="w-full h-11 rounded-2xl border border-gray-200 bg-gray-50 px-4 text-sm font-medium text-near-black focus:border-orange-300 focus:ring-0">
+                  <SelectValue placeholder="Select a reason..." />
+                </SelectTrigger>
+                <SelectContent>
+                  {REVOCATION_REASONS.map((reason) => (
+                    <SelectItem key={reason} value={reason}>
+                      {reason}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              {/* Custom reason — only shown when "Other" is selected */}
+              {selectedPreset === "Other" && (
+                <textarea
+                  id="revoke-reason-custom"
+                  value={revokeReason}
+                  onChange={(e) => setRevokeReason(e.target.value)}
+                  placeholder="Describe the reason in detail..."
+                  rows={3}
+                  className="w-full resize-none rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm font-medium text-near-black placeholder:text-gray-300 focus:border-orange-300 focus:bg-white focus:outline-none transition-colors"
+                />
+              )}
+
+              <p className="text-[10px] text-gray-400 font-bold">
+                This reason will be visible to the recruiter.
+              </p>
+            </div>
+
+            <div className="flex gap-3">
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setIsRevokingModal(false);
+                  setRevokeReason("");
+                  setSelectedPreset("");
+                }}
+                className="flex-1 h-11 rounded-xl text-xs font-black uppercase tracking-widest"
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={handleConfirmRevoke}
+                disabled={isRevoking || !revokeReason.trim()}
+                className="flex-1 h-11 rounded-xl text-xs font-black uppercase tracking-widest bg-orange-500 hover:bg-orange-600 text-white border-0"
+              >
+                {isRevoking ? "Revoking..." : "Confirm Revoke"}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
