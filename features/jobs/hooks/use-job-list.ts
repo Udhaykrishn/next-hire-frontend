@@ -7,7 +7,7 @@ export function useJobList() {
   const [selectedExperience, setSelectedExperience] = useState<string[]>([]);
   const [selectedSalary, setSelectedSalary] = useState<string[]>([]);
   const [selectedJobTypes, setSelectedJobTypes] = useState<string[]>([]);
-  const [, startTransition] = useTransition();
+  const [, _startTransition] = useTransition();
 
   const { data: paginationResult } = useJobsForCandidateQuery({
     search: query,

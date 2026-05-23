@@ -1,67 +1,7 @@
 import { formatDistanceToNow, parseISO } from "date-fns";
 import { getRecruiterJobs } from "@/features/jobs/services/job.api";
 import type { JobResponse } from "@/features/jobs/types/job.types";
-import type {
-  Candidate,
-  JobListing,
-  RecruiterStats,
-} from "../types/recruiter.types";
-
-export const getRecruiterStats = async (): Promise<RecruiterStats> => {
-  await new Promise((r) => setTimeout(r, 800));
-  return {
-    activeJobs: 12,
-    totalApplicants: 856,
-    interviews: 24,
-    hireRate: "15%",
-  };
-};
-
-export const getRecruiterCandidates = async (): Promise<Candidate[]> => {
-  await new Promise((r) => setTimeout(r, 1000));
-  return [
-    {
-      id: "1",
-      name: "Sarah Jenkins",
-      role: "Sr. Product Designer",
-      match: 98,
-      status: "Interview",
-      avatar: "SJ",
-      location: "SF, USA",
-      experience: "8 years",
-    },
-    {
-      id: "2",
-      name: "Michael Chen",
-      role: "Full Stack Engineer",
-      match: 94,
-      status: "Review",
-      avatar: "MC",
-      location: "Toronto, CA",
-      experience: "5 years",
-    },
-    {
-      id: "3",
-      name: "Elena Rodriguez",
-      role: "DevOps Lead",
-      match: 91,
-      status: "Applied",
-      avatar: "ER",
-      location: "Madrid, ES",
-      experience: "10 years",
-    },
-    {
-      id: "4",
-      name: "David Park",
-      role: "Mobile Developer",
-      match: 88,
-      status: "Review",
-      avatar: "DP",
-      location: "Seoul, KR",
-      experience: "4 years",
-    },
-  ];
-};
+import type { JobListing } from "../types/recruiter.types";
 
 export const getRecruiterJobListings = async (): Promise<JobListing[]> => {
   const jobs = await getRecruiterJobs();
@@ -104,4 +44,56 @@ export const updateRecruiterProfile = async (
   data: UpdateRecruiterProfileDto,
 ): Promise<ApiResponse<RecruiterProfile>> => {
   return await apiClient.patch(`/recruiter/${userId}`, data);
+};
+
+export const verifyRecruiterCompany = async (
+  recruiterId: string,
+  CIN: string,
+): Promise<void> => {
+  await apiClient.post("/recruiter/verify-company", { recruiterId, CIN });
+};
+
+export const startCompanyVerificationSession = async (
+  CIN: string,
+): Promise<{ message: string; otp?: string }> => {
+  const { data } = await apiClient.post("/recruiter/verification/start", {
+    CIN,
+  });
+  return data;
+};
+
+export const getCompanyVerificationSession = async (): Promise<{
+  step: string;
+  cin: string;
+  otp: string;
+} | null> => {
+  const { data } = await apiClient.get("/recruiter/verification/session");
+  return data;
+};
+
+export const deleteCompanyVerificationSession = async (): Promise<{
+  message: string;
+}> => {
+  const { data } = await apiClient.delete("/recruiter/verification/session");
+  return data;
+};
+
+export const verifyCompanyOtp = async (
+  otp: string,
+): Promise<{ message: string }> => {
+  const { data } = await apiClient.post("/recruiter/verification/verify", {
+    otp,
+  });
+  return data;
+};
+
+export const uploadRecruiterProfileImage = async (
+  _userId: string,
+  file: File,
+): Promise<ApiResponse<RecruiterProfile>> => {
+  const formData = new FormData();
+  formData.append("image", file);
+  return await apiClient.post(`/recruiter/profile/upload`, formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
 };

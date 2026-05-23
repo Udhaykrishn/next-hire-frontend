@@ -62,4 +62,8 @@ export interface UpdateRecruiterProfileDto {
   name?: string;
   phone?: string;
   CIN?: string;
+  website_link?: string;
+  description?: string;
+  category?: string;
+  company_role?: string;
 }

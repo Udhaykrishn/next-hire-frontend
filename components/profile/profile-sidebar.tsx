@@ -1,17 +1,17 @@
 "use client";
 
 import {
-  Camera,
+  Briefcase,
   ChevronRight,
   Edit2,
   ExternalLink,
   FileText,
+  GitBranch,
   Globe,
   Loader2,
   Mail,
   MapPin,
   Phone,
-  Trash,
 } from "lucide-react";
 import { motion } from "motion/react";
 import Link from "next/link";
@@ -85,6 +85,11 @@ export const ProfileSidebar = ({
               <MapPin className="w-3.5 h-3.5" />
               {basicInfo.location}
             </div>
+            {basicInfo.bio && (
+              <p className="mt-3 text-[12px] font-medium text-gray-500 leading-relaxed line-clamp-3 px-2">
+                {basicInfo.bio}
+              </p>
+            )}
             <ProfileAvatarModal
               avatarUrl={basicInfo.avatar}
               name={basicInfo.name}
@@ -117,6 +122,16 @@ export const ProfileSidebar = ({
                 </div>
                 <span>{basicInfo.phone || "No phone set"}</span>
               </div>
+              {basicInfo.experience && (
+                <div className="flex items-start gap-3 text-[14px] font-bold text-gray-600 bg-gray-50 p-3 rounded-2xl border border-gray-50">
+                  <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center border border-gray-100 shrink-0">
+                    <Briefcase className="w-4 h-4 text-wise-green" />
+                  </div>
+                  <span className="text-[13px] leading-snug">
+                    {basicInfo.experience}
+                  </span>
+                </div>
+              )}
             </div>
           </div>
 
@@ -161,6 +176,24 @@ export const ProfileSidebar = ({
                   <ChevronRight className="w-4 h-4 text-gray-300 group-hover:translate-x-0.5 transition-transform" />
                 )}
               </a>
+              {socialLinks.github && (
+                <a
+                  href={socialLinks.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between p-3 bg-gray-50 rounded-2xl border border-gray-50 transition-all group hover:border-wise-green/30 hover:bg-wise-green/5"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center border border-gray-100 group-hover:border-wise-green/20">
+                      <GitBranch className="w-4 h-4 text-wise-green" />
+                    </div>
+                    <span className="text-[14px] font-bold text-gray-700">
+                      GitHub Profile
+                    </span>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-gray-300 group-hover:translate-x-0.5 transition-transform" />
+                </a>
+              )}
             </div>
           </div>
         </div>

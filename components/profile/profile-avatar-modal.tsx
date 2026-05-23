@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, Eye, Trash2, Upload, X, ZoomIn, ZoomOut } from "lucide-react";
+import { Check, Eye, Trash2, Upload, ZoomIn, ZoomOut } from "lucide-react";
 import Cropper from "react-easy-crop";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,7 +12,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useAvatarManager } from "@/features/profile/hooks/use-avatar-manager";
-import type { Area } from "@/features/profile/utils/crop-image";
 
 interface ProfileAvatarModalProps {
   avatarUrl: string;

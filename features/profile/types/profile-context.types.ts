@@ -50,6 +50,7 @@ export type BasicInfo = {
   email: string;
   phone: string;
   bio: string;
+  experience?: string;
   cinNumber?: string;
   isCompanyVerified?: boolean;
   resume?: { key: string; url: string } | null;

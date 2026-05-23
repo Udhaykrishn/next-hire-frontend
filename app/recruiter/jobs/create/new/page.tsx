@@ -11,8 +11,8 @@ import { Step2Requirements } from "@/components/recruiter/jobs/create/steps/step
 import { Step3Logistics } from "@/components/recruiter/jobs/create/steps/step3-logistics";
 import { Step4Preview } from "@/components/recruiter/jobs/create/steps/step4-preview";
 import { Button } from "@/components/ui/button";
+import { useRecruiterProfile } from "@/features/recruiter/hooks/use-recruiter-profile";
 import { useJobForm } from "@/hooks/use-job-form";
-import { useProfile } from "@/hooks/use-profile";
 import { cn } from "@/lib/utils";
 
 import { STEPS } from "./constants";
@@ -92,14 +92,15 @@ export default function CreateJobPage() {
     setCurrentStep,
     handlePostJob,
   } = useJobForm(INITIAL_DATA);
-  const { basicInfo, isLoading: isProfileLoading } = useProfile();
+  const { recruiterProfile, isLoading: isProfileLoading } =
+    useRecruiterProfile();
 
   useEffect(() => {
-    if (!isProfileLoading && !basicInfo.isCompanyVerified) {
+    if (!isProfileLoading && !recruiterProfile?.is_verified_company) {
       toast.error("Please verify your company with a CIN number to post jobs.");
       router.push("/recruiter/profile");
     }
-  }, [basicInfo.isCompanyVerified, isProfileLoading, router]);
+  }, [recruiterProfile?.is_verified_company, isProfileLoading, router]);
 
   if (isProfileLoading) {
     return (

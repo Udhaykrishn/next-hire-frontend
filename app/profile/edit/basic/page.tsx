@@ -18,6 +18,11 @@ const basicInfoSchema = z.object({
     .string()
     .min(2, "Tagline must be at least 2 characters")
     .max(100, "Tagline cannot exceed 100 characters"),
+  bio: z.string().max(500, "Bio cannot exceed 500 characters").optional(),
+  experience: z
+    .string()
+    .max(300, "Experience description cannot exceed 300 characters")
+    .optional(),
   location: z.string().optional(),
   phone: z
     .string()
@@ -42,6 +47,13 @@ const basicInfoSchema = z.object({
         !val ||
         /^https:\/\/(www\.)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,4}(\/\S*)?$/.test(val),
       "Portfolio must be a valid HTTPS URL (e.g. https://myportfolio.com) and cannot be localhost",
+    ),
+  github: z
+    .string()
+    .optional()
+    .refine(
+      (val) => !val || /^https:\/\/(www\.)?github\.com\/.*$/.test(val),
+      "GitHub profile must be a valid HTTPS URL matching github.com (e.g. https://github.com/username)",
     ),
 });
 
@@ -172,10 +184,13 @@ export default function EditBasicInfoPage() {
     const inputData = {
       name: formData.get("name") as string,
       tagline: formData.get("tagline") as string,
+      bio: (formData.get("bio") as string) || "",
+      experience: (formData.get("experience") as string) || "",
       location: locationValue,
       phone: formData.get("phone") as string,
       linkedin: formData.get("linkedin") as string,
       portfolio: formData.get("portfolio") as string,
+      github: (formData.get("github") as string) || "",
     };
 
     const result = basicInfoSchema.safeParse(inputData);
@@ -317,6 +332,59 @@ export default function EditBasicInfoPage() {
 
           <div className="space-y-1.5">
             <label
+              htmlFor="bio-input"
+              className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1"
+            >
+              Bio
+            </label>
+            <textarea
+              id="bio-input"
+              name="bio"
+              rows={4}
+              defaultValue={basicInfo.bio}
+              maxLength={500}
+              className={`w-full bg-gray-50 rounded-xl border px-4 py-3 text-[14px] font-bold focus:outline-none transition-colors resize-none ${
+                errors.bio
+                  ? "border-red-500 focus:border-red-500"
+                  : "border-gray-100 focus:border-wise-green"
+              }`}
+              placeholder="Tell recruiters about yourself..."
+            />
+            {errors.bio && (
+              <p className="text-red-500 text-xs font-bold mt-1 ml-1">
+                {errors.bio}
+              </p>
+            )}
+          </div>
+
+          <div className="space-y-1.5">
+            <label
+              htmlFor="experience-input"
+              className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1"
+            >
+              Years of Experience
+            </label>
+            <input
+              id="experience-input"
+              name="experience"
+              type="text"
+              defaultValue={basicInfo.experience}
+              className={`w-full h-11 bg-gray-50 rounded-xl border px-4 text-[14px] font-bold focus:outline-none transition-colors ${
+                errors.experience
+                  ? "border-red-500 focus:border-red-500"
+                  : "border-gray-100 focus:border-wise-green"
+              }`}
+              placeholder="e.g. 3 years in frontend development"
+            />
+            {errors.experience && (
+              <p className="text-red-500 text-xs font-bold mt-1 ml-1">
+                {errors.experience}
+              </p>
+            )}
+          </div>
+
+          <div className="space-y-1.5">
+            <label
               htmlFor="linkedin-input"
               className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1"
             >
@@ -363,6 +431,32 @@ export default function EditBasicInfoPage() {
             {errors.portfolio && (
               <p className="text-red-500 text-xs font-bold mt-1 ml-1">
                 {errors.portfolio}
+              </p>
+            )}
+          </div>
+
+          <div className="space-y-1.5">
+            <label
+              htmlFor="github-input"
+              className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1"
+            >
+              GitHub Profile Link
+            </label>
+            <input
+              id="github-input"
+              name="github"
+              type="url"
+              defaultValue={socialLinks?.github}
+              className={`w-full h-11 bg-gray-50 rounded-xl border px-4 text-[14px] font-bold focus:outline-none transition-colors ${
+                errors.github
+                  ? "border-red-500 focus:border-red-500"
+                  : "border-gray-100 focus:border-wise-green"
+              }`}
+              placeholder="e.g. https://github.com/username"
+            />
+            {errors.github && (
+              <p className="text-red-500 text-xs font-bold mt-1 ml-1">
+                {errors.github}
               </p>
             )}
           </div>

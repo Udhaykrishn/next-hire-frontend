@@ -59,6 +59,7 @@ export function useProfileStateSync({
         email: p.email || "",
         phone: p.phone || "",
         bio: p.bio || "",
+        experience: p.experience || "",
         cinNumber: p.cinNumber || p.CIN || "",
         isCompanyVerified:
           p.isCompanyVerified || p.is_verified_company || false,

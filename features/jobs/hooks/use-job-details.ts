@@ -1,9 +1,9 @@
 import { useParams, useRouter } from "next/navigation";
-import { useJobDetailsQuery, useApplyJobMutation } from "./use-jobs-query";
+import { useState } from "react";
+import { toast } from "sonner";
 import { useAuthContext } from "@/features/auth/context/auth-context";
 import { useProfile } from "@/hooks/use-profile";
-import { toast } from "sonner";
-import { useState } from "react";
+import { useApplyJobMutation, useJobDetailsQuery } from "./use-jobs-query";
 
 export function useJobDetails() {
   const params = useParams();
@@ -22,7 +22,8 @@ export function useJobDetails() {
   if (!basicInfo.name?.trim()) missingFields.push("Full Name");
   if (!basicInfo.phone?.trim()) missingFields.push("Phone Number");
   if (!basicInfo.bio?.trim()) missingFields.push("Professional Bio");
-  if (!skills || skills.length === 0) missingFields.push("Skills (at least one)");
+  if (!skills || skills.length === 0)
+    missingFields.push("Skills (at least one)");
   if (!basicInfo.resume?.url) missingFields.push("Resume PDF Document");
 
   const isProfileComplete = missingFields.length === 0;
@@ -73,7 +74,9 @@ export function useJobDetails() {
     }
 
     if (!isProfileComplete) {
-      toast.error(`Please complete your profile to apply. Missing fields: ${missingFields.join(", ")}`);
+      toast.error(
+        `Please complete your profile to apply. Missing fields: ${missingFields.join(", ")}`,
+      );
       return;
     }
 
@@ -82,7 +85,8 @@ export function useJobDetails() {
       setHasAppliedLocally(true);
       toast.success("Applied for job successfully!");
     } catch (error: unknown) {
-      const message = error instanceof Error ? error.message : "Failed to apply for the job.";
+      const message =
+        error instanceof Error ? error.message : "Failed to apply for the job.";
       toast.error(message);
     }
   };

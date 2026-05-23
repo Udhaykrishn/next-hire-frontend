@@ -3,13 +3,7 @@
 import { useApiIsLoaded } from "@vis.gl/react-google-maps";
 import { City } from "country-state-city";
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  AlertCircle,
-  ChevronDown,
-  Loader2,
-  MapPin,
-  Search,
-} from "lucide-react";
+import { AlertCircle, ChevronDown, MapPin, Search } from "lucide-react";
 import React, { useEffect, useMemo, useState } from "react";
 import usePlacesAutocomplete from "use-places-autocomplete";
 import type { JobFormData } from "@/app/recruiter/jobs/create/new/types";

@@ -84,8 +84,7 @@ export const ProfileProvider = ({
   const { user, role, isAuthenticated } = useAuthContext();
 
   const isCandidate = role === "CANDIDATE";
-  const isRecruiter = role === "RECRUITER";
-  const hasProfile = isCandidate || isRecruiter;
+  const hasProfile = isCandidate;
 
   const { data: profileData, isLoading: isProfileLoading } = useProfileQuery(
     role,

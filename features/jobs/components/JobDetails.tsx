@@ -1,20 +1,20 @@
 "use client";
 
 import {
+  AlertTriangle,
   ArrowRight,
   Bookmark,
   Building,
+  CheckCircle,
   ChevronLeft,
   Clock,
   DollarSign,
+  Loader2,
   MapPin,
   Share2,
   ShieldCheck,
   Target,
   Zap,
-  AlertTriangle,
-  CheckCircle,
-  Loader2,
 } from "lucide-react";
 import { motion } from "motion/react";
 import Link from "next/link";
@@ -333,7 +333,8 @@ export default function JobDetails() {
                             Profile Incomplete
                           </h4>
                           <p className="text-[12px] text-amber-700 font-medium leading-normal">
-                            You must complete your profile and upload a resume before you can apply to this job.
+                            You must complete your profile and upload a resume
+                            before you can apply to this job.
                           </p>
                         </div>
                       </div>
@@ -344,7 +345,10 @@ export default function JobDetails() {
                         </p>
                         <ul className="grid grid-cols-1 gap-1.5">
                           {missingFields.map((field) => (
-                            <li key={field} className="flex items-center gap-2 text-[12px] text-amber-700 font-bold">
+                            <li
+                              key={field}
+                              className="flex items-center gap-2 text-[12px] text-amber-700 font-bold"
+                            >
                               <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
                               {field}
                             </li>
@@ -366,7 +370,11 @@ export default function JobDetails() {
 
                   <Button
                     onClick={handleApply}
-                    disabled={isApplying || hasApplied || (isAuthenticated && isCandidate && !isProfileComplete)}
+                    disabled={
+                      isApplying ||
+                      hasApplied ||
+                      (isAuthenticated && isCandidate && !isProfileComplete)
+                    }
                     className={`w-full h-14 rounded-2xl text-[15px] font-black transition-all shadow-lg active:scale-[0.98] flex items-center justify-center gap-2 ${
                       hasApplied
                         ? "bg-wise-green/20 text-dark-green border border-wise-green/30 cursor-default shadow-none pointer-events-none"

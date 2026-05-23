@@ -167,7 +167,8 @@ export function useProfileHandlers({
       name: formData.get("name") as string,
       role_of_title: formData.get("tagline") as string,
       location: formData.get("location") as string,
-      bio: profileData?.data?.bio || "",
+      bio: (formData.get("bio") as string) || profileData?.data?.bio || "",
+      experience: (formData.get("experience") as string) || undefined,
       phone: formData.get("phone") as string,
       social_link: {
         linkedin: formData.get("linkedin") as string,
