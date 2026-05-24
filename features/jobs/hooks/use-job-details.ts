@@ -10,6 +10,7 @@ export function useJobDetails() {
   const router = useRouter();
   const id = params.id as string;
   const [hasAppliedLocally, setHasAppliedLocally] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const { data: job } = useJobDetailsQuery(id);
   const applyMutation = useApplyJobMutation();
@@ -31,14 +32,16 @@ export function useJobDetails() {
   const formatSalary = (min: string | undefined, max: string | undefined) => {
     const minVal = parseFloat(min || "0") || 0;
     const maxVal = parseFloat(max || "0") || 0;
+    const formatINR = (val: number) => `₹${val.toLocaleString("en-IN")}`;
+
     if (minVal && maxVal) {
-      return `$${Math.round(minVal / 1000)}k - $${Math.round(maxVal / 1000)}k`;
+      return `${formatINR(minVal)} - ${formatINR(maxVal)}`;
     }
     if (minVal) {
-      return `$${Math.round(minVal / 1000)}k+`;
+      return `${formatINR(minVal)}+`;
     }
     if (maxVal) {
-      return `$${Math.round(maxVal / 1000)}k`;
+      return formatINR(maxVal);
     }
     return "Negotiable";
   };
@@ -73,6 +76,11 @@ export function useJobDetails() {
       return;
     }
 
+    if (job?.status !== "OPEN") {
+      toast.error("This job is currently unavailable or has expired.");
+      return;
+    }
+
     if (!isProfileComplete) {
       toast.error(
         `Please complete your profile to apply. Missing fields: ${missingFields.join(", ")}`,
@@ -83,11 +91,19 @@ export function useJobDetails() {
     try {
       await applyMutation.mutateAsync(id);
       setHasAppliedLocally(true);
+      setShowSuccessModal(true);
       toast.success("Applied for job successfully!");
     } catch (error: unknown) {
       const message =
         error instanceof Error ? error.message : "Failed to apply for the job.";
       toast.error(message);
+    }
+  };
+
+  const handleShare = () => {
+    if (typeof window !== "undefined") {
+      navigator.clipboard.writeText(window.location.href);
+      toast.success("Link copied to clipboard!");
     }
   };
 
@@ -97,11 +113,14 @@ export function useJobDetails() {
     formattedDate,
     handleBack,
     handleApply,
+    handleShare,
     isApplying: applyMutation.isPending,
     hasApplied: hasAppliedLocally,
     isProfileComplete,
     missingFields,
     isCandidate,
     isAuthenticated,
+    showSuccessModal,
+    setShowSuccessModal,
   };
 }

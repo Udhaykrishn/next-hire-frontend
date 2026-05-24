@@ -11,6 +11,10 @@ export function useJobList() {
 
   const { data: paginationResult } = useJobsForCandidateQuery({
     search: query,
+    location: location,
+    experience: selectedExperience,
+    salary: selectedSalary,
+    jobTypes: selectedJobTypes,
   });
 
   const toggleExperience = (exp: string) => {
@@ -41,57 +45,7 @@ export function useJobList() {
     setLocation("");
   };
 
-  const jobs = (paginationResult?.data || []).filter((job) => {
-    // Location filter
-    if (location) {
-      const cityMatch = job.jobCity
-        ?.toLowerCase()
-        .includes(location.toLowerCase());
-      const addrMatch = job.officeAddress
-        ?.toLowerCase()
-        .includes(location.toLowerCase());
-      const typeMatch = job.locationType
-        ?.toLowerCase()
-        .includes(location.toLowerCase());
-      if (!cityMatch && !addrMatch && !typeMatch) {
-        return false;
-      }
-    }
-    // Experience filter mapping
-    if (selectedExperience.length > 0) {
-      const jobExp = parseFloat(job.minExperience || "0");
-      const matchesExp = selectedExperience.some((exp) => {
-        if (exp === "Entry Level") return jobExp <= 1;
-        if (exp === "Mid Level") return jobExp > 1 && jobExp <= 3;
-        if (exp === "Senior Level") return jobExp > 3 && jobExp <= 7;
-        if (exp === "Director") return jobExp > 7;
-        return false;
-      });
-      if (!matchesExp) return false;
-    }
-    // Job type filter mapping
-    if (selectedJobTypes.length > 0) {
-      const matchesType = selectedJobTypes.some((type) =>
-        job.jobType?.toLowerCase().includes(type.toLowerCase()),
-      );
-      if (!matchesType) return false;
-    }
-    // Salary filter mapping
-    if (selectedSalary.length > 0) {
-      const minSalary = parseFloat(job.minSalary || "0");
-      const matchesSal = selectedSalary.some((sal) => {
-        if (sal === "$0 - $50k") return minSalary <= 50000;
-        if (sal === "$50k - $100k")
-          return minSalary > 50000 && minSalary <= 100000;
-        if (sal === "$100k - $150k")
-          return minSalary > 100000 && minSalary <= 150000;
-        if (sal === "$150k+") return minSalary > 150000;
-        return false;
-      });
-      if (!matchesSal) return false;
-    }
-    return true;
-  });
+  const jobs = paginationResult?.data || [];
 
   return {
     query,

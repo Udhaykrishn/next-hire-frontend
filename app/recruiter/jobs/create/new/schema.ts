@@ -228,4 +228,5 @@ export const jobSchema = z.object({
   ...jobStep3Schema.shape,
   ...jobStep4Schema.shape,
   ...jobStep5Schema.shape,
+  is_published: z.boolean().optional(),
 });

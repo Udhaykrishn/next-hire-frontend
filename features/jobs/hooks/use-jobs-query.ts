@@ -9,8 +9,10 @@ import {
   getJobById,
   getJobsForCandidate,
   getRecruiterJobs,
+  updateJob,
 } from "../services/job.api";
 import type { SearchJobsParams } from "../types/job.types";
+import { JobFormData } from "@/app/recruiter/jobs/create/new/types";
 
 export const useRecruiterJobsQuery = () => {
   return useSuspenseQuery({
@@ -38,6 +40,19 @@ export const useCreateJobMutation = () => {
     mutationFn: createJob,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["recruiter", "jobs"] });
+    },
+  });
+};
+
+export const useUpdateJobMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ jobId, data }: { jobId: string; data: Partial<JobFormData> }) => updateJob(jobId, data),
+    onSuccess: (_, { jobId }) => {
+      queryClient.invalidateQueries({ queryKey: ["recruiter", "jobs"] });
+      queryClient.invalidateQueries({ queryKey: ["job", jobId] });
+      queryClient.invalidateQueries({ queryKey: ["jobs"] });
     },
   });
 };

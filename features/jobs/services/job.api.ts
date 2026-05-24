@@ -36,3 +36,8 @@ export const applyToJob = async (jobId: string): Promise<unknown> => {
   const { data } = await apiClient.post(`/job/apply/${jobId}`);
   return data;
 };
+
+export const updateJob = async (jobId: string, updateData: Partial<JobFormData>): Promise<JobResponse> => {
+  const { data } = await apiClient.patch(`/job/${jobId}`, updateData);
+  return data;
+};

@@ -79,13 +79,15 @@ apiClient.interceptors.response.use(
     ) {
       originalRequest._retry = true;
 
+      if (typeof window === "undefined") {
+        return Promise.reject(new Error(message));
+      }
+
       try {
         let role = "user";
-        if (typeof window !== "undefined") {
-          const pathname = window.location.pathname;
-          if (pathname.startsWith("/admin")) role = "admin";
-          else if (pathname.startsWith("/recruiter")) role = "recruiter";
-        }
+        const pathname = window.location.pathname;
+        if (pathname.startsWith("/admin")) role = "admin";
+        else if (pathname.startsWith("/recruiter")) role = "recruiter";
 
         // Use fetch() with a root-relative path so the request always hits the
         // Next.js API route at /api/auth/refresh — NOT the backend via apiClient's

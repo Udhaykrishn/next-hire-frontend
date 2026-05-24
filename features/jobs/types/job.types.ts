@@ -2,6 +2,7 @@ export interface JobResponse {
   id: string;
   belongingCompany: string;
   hiringCompany: string;
+  companyLogo?: string;
   experienceType: string;
   jobTitle: string;
   jobCategory: string;
@@ -65,6 +66,10 @@ export interface SearchJobsParams {
   search?: string;
   page?: number;
   limit?: number;
+  location?: string;
+  experience?: string[];
+  salary?: string[];
+  jobTypes?: string[];
 }
 
 export interface PaginationResponse<T> {

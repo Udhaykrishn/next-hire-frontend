@@ -27,16 +27,23 @@ import { useJobList } from "../hooks/use-job-list";
 const formatSalary = (min: string | undefined, max: string | undefined) => {
   const minVal = parseFloat(min || "0") || 0;
   const maxVal = parseFloat(max || "0") || 0;
+  const formatINR = (val: number) => `₹${val.toLocaleString("en-IN")}`;
+
   if (minVal && maxVal) {
-    return `$${Math.round(minVal / 1000)}k - $${Math.round(maxVal / 1000)}k`;
+    return `${formatINR(minVal)} - ${formatINR(maxVal)}`;
   }
   if (minVal) {
-    return `$${Math.round(minVal / 1000)}k+`;
+    return `${formatINR(minVal)}+`;
   }
   if (maxVal) {
-    return `$${Math.round(maxVal / 1000)}k`;
+    return formatINR(maxVal);
   }
   return "Negotiable";
+};
+
+const stripHtml = (html: string) => {
+  if (!html) return "";
+  return html.replace(/<[^>]*>?/gm, "");
 };
 
 const formatDate = (dateStr: string | undefined) => {
@@ -151,10 +158,10 @@ export default function JobList() {
                   </AccordionTrigger>
                   <AccordionPanel className="pt-2 pb-4 space-y-3">
                     {[
-                      "$0 - $50k",
-                      "$50k - $100k",
-                      "$100k - $150k",
-                      "$150k+",
+                      "₹0 - ₹3L",
+                      "₹3L - ₹5L",
+                      "₹5L - ₹10L",
+                      "₹10L+",
                     ].map((sal) => (
                       <label
                         key={sal}
@@ -234,12 +241,18 @@ export default function JobList() {
                 <Link
                   href={`/jobs/${job.id}`}
                   className="absolute inset-0 z-0"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 />
                 <div className="flex gap-5 relative z-10 pointer-events-none">
-                  <div className="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center shrink-0 border border-gray-100 group-hover:bg-wise-green/10 transition-colors">
-                    <span className="text-xl font-black text-gray-400 group-hover:text-wise-green transition-colors">
-                      {job.hiringCompany?.[0] || "J"}
-                    </span>
+                  <div className="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center shrink-0 border border-gray-100 group-hover:bg-wise-green/10 transition-colors overflow-hidden">
+                    {job.companyLogo ? (
+                      <img src={job.companyLogo} alt={job.hiringCompany} className="w-full h-full object-cover" />
+                    ) : (
+                      <span className="text-xl font-black text-gray-400 group-hover:text-wise-green transition-colors">
+                        {job.hiringCompany?.[0] || "J"}
+                      </span>
+                    )}
                   </div>
                   <div className="flex-1">
                     <div className="flex justify-between items-start mb-2">
@@ -286,7 +299,7 @@ export default function JobList() {
                     </div>
 
                     <p className="text-[14px] text-gray-600 font-medium leading-relaxed mb-6 line-clamp-2">
-                      {job.description || job.jobDescription}
+                      {stripHtml(job.description || job.jobDescription || "")}
                     </p>
 
                     <div className="flex items-center justify-between">
