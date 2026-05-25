@@ -82,4 +82,29 @@ export interface PaginationResponse<T> {
 
 export interface JobWithMatchScore extends JobResponse {
   matchScore?: number;
+  hasApplied?: boolean;
+  applicationStatus?: string;
+}
+
+export interface JobApplication {
+  id: string;
+  jobId: string;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CandidateApplicationResponse {
+  application: JobApplication;
+  job: JobResponse;
+}
+
+export interface CandidateApplicationListResponse {
+  data: CandidateApplicationResponse[];
+  stats: {
+    total: number;
+    reviewing: number;
+    interviews: number;
+    offers: number;
+  };
 }

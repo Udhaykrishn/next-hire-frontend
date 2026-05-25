@@ -3,6 +3,8 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { useAuthContext } from "@/features/auth/context/auth-context";
 import { useProfile } from "@/hooks/use-profile";
+import { useQuery } from "@tanstack/react-query";
+import { getCandidateApplications } from "../services/job.api";
 import { useApplyJobMutation, useJobDetailsQuery } from "./use-jobs-query";
 
 export function useJobDetails() {
@@ -12,12 +14,22 @@ export function useJobDetails() {
   const [hasAppliedLocally, setHasAppliedLocally] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
-  const { data: job } = useJobDetailsQuery(id);
-  const applyMutation = useApplyJobMutation();
-  const { basicInfo, skills } = useProfile();
-  const { role, isAuthenticated } = useAuthContext();
-
+  const { role, isAuthenticated, isLoading: isAuthLoading } = useAuthContext();
   const isCandidate = role === "CANDIDATE";
+
+  const { data: job } = useJobDetailsQuery(id);
+  const { data: applicationsResponse, isPending: isApplicationsPending } = useQuery({
+    queryKey: ["candidate-applications"],
+    queryFn: () => getCandidateApplications(),
+    enabled: isAuthenticated && isCandidate,
+    staleTime: 0,
+  });
+  
+  const { basicInfo, skills, isLoading: isProfileLoading } = useProfile();
+
+  const isPageLoading = isAuthLoading || isProfileLoading || (isAuthenticated && isCandidate && isApplicationsPending);
+  
+  const applyMutation = useApplyJobMutation();
 
   const missingFields: string[] = [];
   if (!basicInfo.name?.trim()) missingFields.push("Full Name");
@@ -107,6 +119,10 @@ export function useJobDetails() {
     }
   };
 
+  const existingApplication = applicationsResponse?.data?.find((app) => app.job.id === id);
+  const hasApplied = !!existingApplication || job?.hasApplied || hasAppliedLocally;
+  const applicationStatus = existingApplication?.application.status || job?.applicationStatus || (hasAppliedLocally ? "PENDING" : null);
+
   return {
     job,
     formattedSalary,
@@ -115,12 +131,15 @@ export function useJobDetails() {
     handleApply,
     handleShare,
     isApplying: applyMutation.isPending,
-    hasApplied: hasAppliedLocally,
+    hasApplied,
+    applicationStatus,
     isProfileComplete,
     missingFields,
     isCandidate,
     isAuthenticated,
+    isPageLoading,
     showSuccessModal,
     setShowSuccessModal,
+    existingApplication,
   };
 }

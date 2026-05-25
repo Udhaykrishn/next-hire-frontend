@@ -9,9 +9,17 @@ export const dynamic = "force-dynamic";
 export default async function JobsPage() {
   const queryClient = getQueryClient();
 
+  const initialParams = {
+    search: "",
+    location: "",
+    experience: [],
+    salary: [],
+    jobTypes: [],
+  };
+
   await queryClient.prefetchQuery({
-    queryKey: ["jobs", { search: "" }],
-    queryFn: () => getJobsForCandidate({ search: "" }),
+    queryKey: ["jobs", initialParams],
+    queryFn: () => getJobsForCandidate(initialParams),
   });
 
   return (

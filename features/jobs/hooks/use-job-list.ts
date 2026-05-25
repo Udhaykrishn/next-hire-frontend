@@ -1,5 +1,6 @@
 import { useState, useTransition } from "react";
 import { useJobsForCandidateQuery } from "./use-jobs-query";
+import { useAuthContext } from "@/features/auth/context/auth-context";
 
 export function useJobList() {
   const [query, setQuery] = useState("");
@@ -8,6 +9,8 @@ export function useJobList() {
   const [selectedSalary, setSelectedSalary] = useState<string[]>([]);
   const [selectedJobTypes, setSelectedJobTypes] = useState<string[]>([]);
   const [, _startTransition] = useTransition();
+
+  const { isLoading: isAuthLoading } = useAuthContext();
 
   const { data: paginationResult } = useJobsForCandidateQuery({
     search: query,
@@ -60,5 +63,6 @@ export function useJobList() {
     toggleJobType,
     resetFilters,
     jobs,
+    isPageLoading: isAuthLoading,
   };
 }

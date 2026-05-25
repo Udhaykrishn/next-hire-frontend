@@ -8,8 +8,6 @@ import {
   Filter,
   MapPin,
   Search,
-  Star,
-  Zap,
 } from "lucide-react";
 import { motion } from "motion/react";
 import Link from "next/link";
@@ -22,6 +20,7 @@ import {
 import { Button } from "@/components/animate-ui/components/buttons/button";
 import { LandingFooter } from "@/components/landing-footer";
 import { LandingNavbar } from "@/components/landing-navbar";
+import { GlobalLoader } from "@/components/shared/global-loader";
 import { useJobList } from "../hooks/use-job-list";
 
 const formatSalary = (min: string | undefined, max: string | undefined) => {
@@ -71,7 +70,12 @@ export default function JobList() {
     toggleJobType,
     resetFilters,
     jobs,
+    isPageLoading,
   } = useJobList();
+
+  if (isPageLoading) {
+    return <GlobalLoader />;
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col font-satoshi selection:bg-wise-green selection:text-dark-green">
@@ -234,6 +238,7 @@ export default function JobList() {
             {jobs.map((job) => (
               <motion.div
                 key={job.id}
+                layout
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="bg-white p-6 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-md hover:border-wise-green/30 transition-all group relative"
@@ -269,18 +274,6 @@ export default function JobList() {
                             {formatSalary(job.minSalary, job.maxSalary)}
                           </p>
                         </div>
-                      </div>
-                      <div className="flex items-center gap-3 relative z-10 pointer-events-auto">
-                        <div className="flex flex-col items-end">
-                          <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-wise-green text-dark-green text-[11px] font-black shadow-sm shadow-wise-green/20">
-                            <Zap className="w-3 h-3 fill-current" />{" "}
-                            {job.matchScore !== undefined ? job.matchScore : 0}%
-                            Match
-                          </div>
-                        </div>
-                        <button className="text-gray-300 hover:text-wise-green transition-colors">
-                          <Star className="w-5 h-5" />
-                        </button>
                       </div>
                     </div>
 

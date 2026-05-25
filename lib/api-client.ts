@@ -66,8 +66,6 @@ apiClient.interceptors.response.use(
     const message = backendMessage || error.message || "Something went wrong";
     const isBlockedError = error.response?.status === 403;
 
-    // Do NOT attempt a token refresh if the failing request IS the refresh endpoint.
-    // That would cause an infinite retry loop and an unwarranted logout redirect.
     const isRefreshRequest = (
       originalRequest.url as string | undefined
     )?.includes("/api/auth/refresh");

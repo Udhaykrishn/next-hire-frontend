@@ -13,7 +13,6 @@ interface PageProps {
 export default async function JobDetailsPage({ params }: PageProps) {
   const resolvedParams = await params;
   const queryClient = getQueryClient();
-
   await queryClient.prefetchQuery({
     queryKey: ["job", resolvedParams.id],
     queryFn: () => getJobById(resolvedParams.id),
