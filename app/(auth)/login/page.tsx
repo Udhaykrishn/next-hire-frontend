@@ -103,7 +103,7 @@ function LoginContent() {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ …prev, [e.target.id]: e.target.value }));
+    setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
   return (
