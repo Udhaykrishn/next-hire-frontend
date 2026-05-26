@@ -1,4 +1,4 @@
-import { expect, test, describe } from "bun:test";
+import { describe, expect, test } from "bun:test";
 import { render, screen } from "@testing-library/react";
 import LandingPage from "./page";
 

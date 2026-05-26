@@ -102,13 +102,13 @@ export function LandingNavbar() {
                 </button>
                 <div className="absolute top-[120%] left-1/2 -translate-x-1/2 w-48 bg-white border border-gray-100 rounded-2xl shadow-xl shadow-gray-200/50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2 before:absolute before:content-[''] before:w-full before:h-4 before:-top-4 before:left-0 z-50">
                   <Link
-                    href="#"
+                    href="/jobs"
                     className="block px-5 py-3 text-xs font-bold text-gray-600 hover:text-wise-green hover:bg-gray-50/80 transition-colors"
                   >
                     Job Search
                   </Link>
                   <Link
-                    href="#"
+                    href="/jobs/status"
                     className="block px-5 py-3 text-xs font-bold text-gray-600 hover:text-wise-green hover:bg-gray-50/80 transition-colors"
                   >
                     Job Status

@@ -17,6 +17,7 @@ export interface UserProfile {
   phone: string;
   experience: string;
   role_of_title: string;
+  location?: string;
   status: string;
   resume_url: {
     key: string;
@@ -55,6 +56,7 @@ export interface UpdateProfileDto {
   phone?: string;
   experience?: string;
   role_of_title?: string;
+  location?: string;
   bio?: string;
   skills?: string[];
   languages?: {
@@ -134,20 +136,18 @@ export interface CreateExperienceDto {
 export interface Certificate {
   id: string;
   userId: string;
-  name: string;
-  issuer: string;
+  certificateName: string;
+  issuingOrganization: string;
   issueDate: string;
-  expiryDate?: string;
-  credentialId?: string;
-  credentialUrl?: string;
+  expirationDate?: string;
+  certificateUrl?: string;
   createdAt: string;
 }
 
 export interface CreateCertificateDto {
-  name: string;
-  issuer: string;
-  issueDate: string;
-  expiryDate?: string;
-  credentialId?: string;
-  credentialUrl?: string;
+  certificateName: string;
+  issuingOrganization?: string;
+  issueDate?: string;
+  expirationDate?: string;
+  certificateUrl?: string;
 }

@@ -30,6 +30,33 @@ apiClient.interceptors.request.use((config) => {
   return config;
 });
 
+const PUBLIC_PATHS = [
+  "/",
+  "/login",
+  "/signup",
+  "/forgot-password",
+  "/reset-password",
+  "/jobs",
+  "/pricing",
+  "/about",
+  "/contact",
+  "/recruiter",
+  "/recruiter/login",
+  "/recruiter/signup",
+  "/recruiter/forgot-password",
+  "/recruiter/reset-password",
+  "/admin/login",
+];
+
+function isPublicRoute(pathname: string): boolean {
+  return PUBLIC_PATHS.some((path) => {
+    if (path === "/") {
+      return pathname === "/";
+    }
+    return pathname === path || pathname.startsWith(path + "/");
+  });
+}
+
 apiClient.interceptors.response.use(
   (response) => response.data,
   async (error) => {
@@ -39,8 +66,6 @@ apiClient.interceptors.response.use(
     const message = backendMessage || error.message || "Something went wrong";
     const isBlockedError = error.response?.status === 403;
 
-    // Do NOT attempt a token refresh if the failing request IS the refresh endpoint.
-    // That would cause an infinite retry loop and an unwarranted logout redirect.
     const isRefreshRequest = (
       originalRequest.url as string | undefined
     )?.includes("/api/auth/refresh");
@@ -52,13 +77,15 @@ apiClient.interceptors.response.use(
     ) {
       originalRequest._retry = true;
 
+      if (typeof window === "undefined") {
+        return Promise.reject(new Error(message));
+      }
+
       try {
         let role = "user";
-        if (typeof window !== "undefined") {
-          const pathname = window.location.pathname;
-          if (pathname.startsWith("/admin")) role = "admin";
-          else if (pathname.startsWith("/recruiter")) role = "recruiter";
-        }
+        const pathname = window.location.pathname;
+        if (pathname.startsWith("/admin")) role = "admin";
+        else if (pathname.startsWith("/recruiter")) role = "recruiter";
 
         // Use fetch() with a root-relative path so the request always hits the
         // Next.js API route at /api/auth/refresh — NOT the backend via apiClient's
@@ -88,18 +115,20 @@ apiClient.interceptors.response.use(
       } catch (err) {
         if (typeof window !== "undefined") {
           const pathname = window.location.pathname;
-          let targetPath = "/login";
-          if (pathname.startsWith("/admin")) targetPath = "/admin/login";
-          else if (pathname.startsWith("/recruiter"))
-            targetPath = "/recruiter/login";
+          if (!isPublicRoute(pathname)) {
+            let targetPath = "/login";
+            if (pathname.startsWith("/admin")) targetPath = "/admin/login";
+            else if (pathname.startsWith("/recruiter"))
+              targetPath = "/recruiter/login";
 
-          if (pathname !== targetPath) {
-            let redirectUrl = targetPath;
-            const errorObj = err as { message?: string };
-            if (errorObj.message === "blocked") {
-              redirectUrl += "?error=blocked";
+            if (pathname !== targetPath) {
+              let redirectUrl = targetPath;
+              const errorObj = err as { message?: string };
+              if (errorObj.message === "blocked") {
+                redirectUrl += "?error=blocked";
+              }
+              window.location.href = redirectUrl;
             }
-            window.location.href = redirectUrl;
           }
         }
         return Promise.reject(err);
@@ -109,13 +138,15 @@ apiClient.interceptors.response.use(
     if (isBlockedError) {
       if (typeof window !== "undefined") {
         const pathname = window.location.pathname;
-        let targetPath = "/login";
-        if (pathname.startsWith("/admin")) targetPath = "/admin/login";
-        else if (pathname.startsWith("/recruiter"))
-          targetPath = "/recruiter/login";
+        if (!isPublicRoute(pathname)) {
+          let targetPath = "/login";
+          if (pathname.startsWith("/admin")) targetPath = "/admin/login";
+          else if (pathname.startsWith("/recruiter"))
+            targetPath = "/recruiter/login";
 
-        if (pathname !== targetPath) {
-          window.location.href = `${targetPath}?error=blocked`;
+          if (pathname !== targetPath) {
+            window.location.href = `${targetPath}?error=blocked`;
+          }
         }
       }
     } else {

@@ -118,7 +118,7 @@ export const Step2Requirements = ({
               <FieldError name="englishLevel" errors={errors} />
             </div>
 
-            <div className="space-y-4" id="field-experience">
+            <div className="space-y-4" id="field-experienceType">
               <Label className="text-[14px] font-black text-near-black">
                 Total experience required{" "}
                 <span className="text-red-500">*</span>

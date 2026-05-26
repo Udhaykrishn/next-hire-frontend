@@ -14,9 +14,11 @@ export interface JobListing {
   title: string;
   applicants: number;
   posted: string;
-  status: "Active" | "Closed";
+  status: "Active" | "Closed" | "Draft";
   location: string;
   postedBy: string;
+  isPublished?: boolean;
+  expiresIn?: string;
 }
 
 export interface ChangePasswordData {
@@ -46,6 +48,7 @@ export interface RecruiterProfile {
   company_role: string;
   is_verified_company: boolean;
   admin_approved: boolean;
+  verification_revoked_reason: string | null;
   subscription: {
     current_plan: string;
     is_subscribed: boolean;
@@ -62,4 +65,8 @@ export interface UpdateRecruiterProfileDto {
   name?: string;
   phone?: string;
   CIN?: string;
+  website_link?: string;
+  description?: string;
+  category?: string;
+  company_role?: string;
 }

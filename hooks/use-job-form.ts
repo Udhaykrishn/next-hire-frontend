@@ -13,9 +13,10 @@ import {
   jobStep5Schema,
 } from "@/app/recruiter/jobs/create/new/schema";
 import type { JobFormData } from "@/app/recruiter/jobs/create/new/types";
-import { useCreateJobMutation } from "@/features/jobs/hooks/use-jobs-query";
+import { useCreateJobMutation, useUpdateJobMutation } from "@/features/jobs/hooks/use-jobs-query";
+import { toast } from "sonner";
 
-export const useJobForm = (initialData: JobFormData) => {
+export const useJobForm = (initialData: JobFormData, jobId?: string) => {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [formData, setFormData] = useState<JobFormData>(initialData);
@@ -86,25 +87,45 @@ export const useJobForm = (initialData: JobFormData) => {
     }));
   };
 
+  const stepSchemas = [
+    jobStep1Schema,
+    jobStep2Schema,
+    jobStep3Schema,
+    jobStep4Schema,
+    jobStep5Schema,
+  ];
+  const currentSchema = stepSchemas[currentStep - 1];
+
+  // Derive live errors using Zod's inbuilt flatten feature
+  const liveErrors = useMemo(() => {
+    if (Object.keys(errors).length === 0 || !currentSchema) return errors;
+
+    const result = currentSchema.safeParse(formData);
+    if (result.success) return {};
+
+    const fieldErrors = result.error.flatten().fieldErrors;
+    const formattedErrors: Record<string, string> = {};
+    for (const key in fieldErrors) {
+      formattedErrors[key] = fieldErrors[key]?.[0] || "";
+    }
+    return formattedErrors;
+  }, [formData, currentSchema, errors]);
+
+  const displayErrors = Object.keys(errors).length > 0 ? liveErrors : {};
+
   const nextStep = () => {
-    const stepSchemas = [
-      jobStep1Schema,
-      jobStep2Schema,
-      jobStep3Schema,
-      jobStep4Schema,
-      jobStep5Schema,
-    ];
-    const currentSchema = stepSchemas[currentStep - 1];
+    if (!currentSchema) return;
 
     const result = currentSchema.safeParse(formData);
     if (!result.success) {
+      const fieldErrors = result.error.flatten().fieldErrors;
       const newErrors: Record<string, string> = {};
-      result.error.issues.forEach((issue) => {
-        newErrors[issue.path[0] as string] = issue.message;
-      });
+      for (const key in fieldErrors) {
+        newErrors[key] = fieldErrors[key]?.[0] || "";
+      }
       setErrors(newErrors);
 
-      const firstErrorKey = Object.keys(newErrors)[0];
+      const firstErrorKey = Object.keys(fieldErrors)[0];
       const element = document.getElementById(`field-${firstErrorKey}`);
       if (element) {
         element.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -124,24 +145,30 @@ export const useJobForm = (initialData: JobFormData) => {
   };
 
   const { mutateAsync: createJob } = useCreateJobMutation();
+  const { mutateAsync: updateJob } = useUpdateJobMutation();
 
   const handlePostJob = async () => {
     setIsSubmitting(true);
     try {
-      await createJob(formData);
+      if (jobId) {
+        await updateJob({ jobId, data: formData });
+      } else {
+        await createJob(formData);
+      }
+      
       localStorage.removeItem("jobFormData");
       localStorage.removeItem("jobCurrentStep");
 
-      if (isPremium) {
-        alert("Job posted successfully!");
+      if (isPremium || jobId) {
+        toast.success(jobId ? "Job updated successfully!" : "Job posted successfully!");
         router.push("/recruiter/jobs");
       } else {
         router.push("/recruiter/plan");
       }
     } catch (error) {
-      console.error("Failed to post job:", error);
-      alert(
-        "Failed to post job. Please check your company verification status and subscription limits.",
+      console.error(`Failed to ${jobId ? "update" : "post"} job:`, error);
+      toast.error(
+        `Failed to ${jobId ? "update" : "post"} job. Please check your company verification status and subscription limits.`
       );
     } finally {
       setIsSubmitting(false);
@@ -153,7 +180,7 @@ export const useJobForm = (initialData: JobFormData) => {
     setFormData,
     currentStep,
     setCurrentStep,
-    errors,
+    errors: displayErrors,
     setErrors,
     isLoaded,
     activeRequirementTab,

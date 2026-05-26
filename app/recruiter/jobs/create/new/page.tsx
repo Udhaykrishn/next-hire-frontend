@@ -11,8 +11,8 @@ import { Step2Requirements } from "@/components/recruiter/jobs/create/steps/step
 import { Step3Logistics } from "@/components/recruiter/jobs/create/steps/step3-logistics";
 import { Step4Preview } from "@/components/recruiter/jobs/create/steps/step4-preview";
 import { Button } from "@/components/ui/button";
+import { useRecruiterProfile } from "@/features/recruiter/hooks/use-recruiter-profile";
 import { useJobForm } from "@/hooks/use-job-form";
-import { useProfile } from "@/hooks/use-profile";
 import { cn } from "@/lib/utils";
 
 import { STEPS } from "./constants";
@@ -74,7 +74,13 @@ const INITIAL_DATA: JobFormData = {
   selectedPlan: "",
 };
 
-export default function CreateJobPage() {
+export function JobWizard({
+  initialData = INITIAL_DATA,
+  jobId,
+}: {
+  initialData?: JobFormData;
+  jobId?: string;
+}) {
   const router = useRouter();
   const {
     currentStep,
@@ -91,15 +97,19 @@ export default function CreateJobPage() {
     setIsWalkInMapOpen,
     setCurrentStep,
     handlePostJob,
-  } = useJobForm(INITIAL_DATA);
-  const { basicInfo, isLoading: isProfileLoading } = useProfile();
+  } = useJobForm(initialData, jobId);
+
+  // Use jobId in handlePostJob if needed (you may want to pass it to useJobForm or handle it in the hook)
+
+  const { recruiterProfile, isLoading: isProfileLoading } =
+    useRecruiterProfile();
 
   useEffect(() => {
-    if (!isProfileLoading && !basicInfo.isCompanyVerified) {
-      toast.error("Please verify your company with a CIN number to post jobs.");
+    if (!isProfileLoading && !recruiterProfile?.is_verified_company) {
+      toast.error(`Please verify your company with a CIN number to ${jobId ? 'edit' : 'post'} jobs.`);
       router.push("/recruiter/profile");
     }
-  }, [basicInfo.isCompanyVerified, isProfileLoading, router]);
+  }, [recruiterProfile?.is_verified_company, isProfileLoading, router, jobId]);
 
   if (isProfileLoading) {
     return (
@@ -167,7 +177,7 @@ export default function CreateJobPage() {
                 <ChevronLeft className="w-5 h-5" />
               </Button>
               <h1 className="text-[16px] font-black text-near-black">
-                Post job
+                {jobId ? "Edit job" : "Post job"}
               </h1>
             </div>
             <div className="flex items-center gap-6">
@@ -260,7 +270,7 @@ export default function CreateJobPage() {
                   <span>Processing...</span>
                 </div>
               ) : (
-                <span>{isLastStep ? "Post Job Now" : "Continue"}</span>
+                <span>{isLastStep ? (jobId ? "Update Job Now" : "Post Job Now") : "Continue"}</span>
               )}
             </Button>
           </div>
@@ -268,4 +278,8 @@ export default function CreateJobPage() {
       </div>
     </APIProvider>
   );
+}
+
+export default function CreateJobPage() {
+  return <JobWizard />;
 }

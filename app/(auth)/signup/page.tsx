@@ -4,9 +4,9 @@ import { type CredentialResponse, GoogleLogin } from "@react-oauth/google";
 import { ArrowRight, Mail, Phone, ShieldCheck, User } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+
 import type React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/animate-ui/components/buttons/button";
 import { Logo } from "@/components/logo";
@@ -22,11 +22,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuthContext } from "@/features/auth/context/auth-context";
 import { useAuth } from "@/features/auth/hooks/use-auth";
+import { useAuthRedirect } from "@/features/auth/hooks/use-role-redirect";
 
 export default function UserSignupPage() {
-  const { signup, googleAuth, isLoading, error } = useAuth();
-  const { setUser, isAuthenticated, user } = useAuthContext();
-  const router = useRouter();
+  const { signup, googleAuth, isLoading: signupLoading, error } = useAuth();
+  const { setUser, isAuthenticated, isLoading: authLoading } = useAuthContext();
 
   const [step, setStep] = useState<"INITIAL" | "FORM">("INITIAL");
   const [formData, setFormData] = useState({
@@ -37,13 +37,16 @@ export default function UserSignupPage() {
     confirmPassword: "",
   });
 
-  useEffect(() => {
-    if (isAuthenticated && user) {
-      if (user.role === "ADMIN") router.push("/admin/dashboard");
-      else if (user.role === "RECRUITER") router.push("/recruiter/dashboard");
-      else router.push("/profile");
-    }
-  }, [isAuthenticated, user, router]);
+  // Redirect if already authenticated
+  useAuthRedirect();
+
+  if (authLoading || isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center font-satoshi">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-wise-green"></div>
+      </div>
+    );
+  }
 
   const handleGoogleSuccess = async (
     credentialResponse: CredentialResponse,
@@ -286,7 +289,7 @@ export default function UserSignupPage() {
                       <Button
                         type="submit"
                         className="h-12 bg-wise-green text-dark-green font-black rounded-xl hover:bg-wise-green/90 transition-all text-lg shadow-lg shadow-wise-green/20 flex-[2] gap-2 group"
-                        disabled={isLoading}
+                        disabled={signupLoading}
                       >
                         Join Now
                         <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />

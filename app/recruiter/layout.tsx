@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import type React from "react";
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useAuthContext } from "@/features/auth/context/auth-context";
 import { cn } from "@/lib/utils";
@@ -82,13 +83,15 @@ export default function RecruiterLayout({
 }) {
   const router = useRouter();
   const pathname = usePathname();
-  const { logout, user } = useAuthContext();
+  const { logout, user, isAuthenticated, isLoading } = useAuthContext();
 
   const handleLogout = async () => {
     await logout("/login");
   };
 
-  const isCreatingJob = pathname.startsWith("/recruiter/jobs/create/new");
+  const isCreatingOrEditingJob = 
+    pathname.startsWith("/recruiter/jobs/create/new") ||
+    pathname.startsWith("/recruiter/jobs/edit");
   const isPlanPage = pathname.startsWith("/recruiter/plan");
   const isAuthRoute =
     pathname === "/recruiter" ||
@@ -97,7 +100,25 @@ export default function RecruiterLayout({
     pathname.startsWith("/recruiter/onboarding") ||
     pathname.startsWith("/recruiter/forgot-password") ||
     pathname.startsWith("/recruiter/reset-password");
-  const hideSidebarAndHeader = isCreatingJob || isPlanPage || isAuthRoute;
+  const hideSidebarAndHeader = isCreatingOrEditingJob || isPlanPage || isAuthRoute;
+
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated && !isAuthRoute) {
+      router.replace("/recruiter/login");
+    }
+  }, [isLoading, isAuthenticated, isAuthRoute, router]);
+
+  if (isLoading && !isAuthRoute) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center font-satoshi">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-wise-green"></div>
+      </div>
+    );
+  }
+
+  if (!isAuthenticated && !isAuthRoute) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen bg-[#fcfdfd] font-satoshi flex">

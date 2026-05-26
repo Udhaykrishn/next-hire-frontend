@@ -6,9 +6,13 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useProfileHandlers } from "@/features/profile/hooks/use-profile-handlers";
 import {
   useCertificateQuery,
+  useDeleteProfileImageMutation,
+  useDeleteResumeMutation,
   useEducationQuery,
   useExperienceQuery,
   useProfileQuery,
+  useUploadProfileImageMutation,
+  useUploadResumeMutation,
 } from "@/features/profile/hooks/use-profile-query";
 import { useProfileStateSync } from "@/features/profile/hooks/use-profile-state-sync";
 import type {
@@ -22,7 +26,6 @@ import type {
   SocialLinks,
 } from "@/features/profile/types/profile-context.types";
 
-// Re-export UI types for backward-compat with existing imports
 export type {
   ProfileCertificate as Certificate,
   ProfileEducation as Education,
@@ -45,6 +48,7 @@ const DEFAULT_BASIC_INFO: BasicInfo = {
   avatar: "",
   email: "",
   phone: "",
+  bio: "",
   cinNumber: "",
   isCompanyVerified: false,
 };
@@ -80,8 +84,7 @@ export const ProfileProvider = ({
   const { user, role, isAuthenticated } = useAuthContext();
 
   const isCandidate = role === "CANDIDATE";
-  const isRecruiter = role === "RECRUITER";
-  const hasProfile = isCandidate || isRecruiter;
+  const hasProfile = isCandidate;
 
   const { data: profileData, isLoading: isProfileLoading } = useProfileQuery(
     role,
@@ -183,6 +186,27 @@ export const ProfileProvider = ({
     }
   };
 
+  const uploadAvatarMutation = useUploadProfileImageMutation(role);
+  const deleteAvatarMutation = useDeleteProfileImageMutation(role);
+  const uploadResumeMutation = useUploadResumeMutation();
+  const deleteResumeMutation = useDeleteResumeMutation();
+
+  const handleUploadAvatar = async (file: File) => {
+    await uploadAvatarMutation.mutateAsync(file);
+  };
+
+  const handleDeleteAvatar = async () => {
+    await deleteAvatarMutation.mutateAsync();
+  };
+
+  const handleUploadResume = async (file: File) => {
+    await uploadResumeMutation.mutateAsync(file);
+  };
+
+  const handleDeleteResume = async () => {
+    await deleteResumeMutation.mutateAsync();
+  };
+
   const isLoading =
     isProfileLoading || isEduLoading || isExpLoading || isCertLoading;
 
@@ -198,9 +222,17 @@ export const ProfileProvider = ({
         jobPreferences,
         languages,
         isLoading,
+        isUploadingAvatar: uploadAvatarMutation.isPending,
+        isDeletingAvatar: deleteAvatarMutation.isPending,
+        isUploadingResume: uploadResumeMutation.isPending,
+        isDeletingResume: deleteResumeMutation.isPending,
         ...handlers,
         handleUpdateJobPreferences,
         handleClearJobPreferences,
+        handleUploadAvatar,
+        handleDeleteAvatar,
+        handleUploadResume,
+        handleDeleteResume,
       }}
     >
       {children}

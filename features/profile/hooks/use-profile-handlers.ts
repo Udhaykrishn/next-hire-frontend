@@ -137,8 +137,8 @@ export function useProfileHandlers({
     certDate: Date | undefined,
   ) => {
     createCertMutation.mutate({
-      name: formData.get("name") as string,
-      issuer: formData.get("issuer") as string,
+      certificateName: formData.get("name") as string,
+      issuingOrganization: formData.get("issuer") as string,
       issueDate: certDate?.toISOString() || new Date().toISOString(),
     });
   };
@@ -151,8 +151,8 @@ export function useProfileHandlers({
     updateCertMutation.mutate({
       id,
       data: {
-        name: formData.get("name") as string,
-        issuer: formData.get("issuer") as string,
+        certificateName: formData.get("name") as string,
+        issuingOrganization: formData.get("issuer") as string,
         issueDate: certDate?.toISOString(),
       },
     });
@@ -166,7 +166,9 @@ export function useProfileHandlers({
     updateProfileMutation.mutate({
       name: formData.get("name") as string,
       role_of_title: formData.get("tagline") as string,
-      bio: profileData?.data?.bio || "",
+      location: formData.get("location") as string,
+      bio: (formData.get("bio") as string) || profileData?.data?.bio || "",
+      experience: (formData.get("experience") as string) || undefined,
       phone: formData.get("phone") as string,
       social_link: {
         linkedin: formData.get("linkedin") as string,
