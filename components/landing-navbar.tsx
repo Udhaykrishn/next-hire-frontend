@@ -108,7 +108,7 @@ export function LandingNavbar() {
                     Job Search
                   </Link>
                   <Link
-                    href="#"
+                    href="/jobs/status"
                     className="block px-5 py-3 text-xs font-bold text-gray-600 hover:text-wise-green hover:bg-gray-50/80 transition-colors"
                   >
                     Job Status
