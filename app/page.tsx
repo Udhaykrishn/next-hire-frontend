@@ -24,8 +24,9 @@ import { LandingFooter } from "@/components/landing-footer";
 import { LandingNavbar } from "@/components/landing-navbar";
 
 export const metadata = {
-  title: 'NextHire — Find Your Dream Job',
-  description: 'Discover thousands of jobs matched to your skills and experience.',
+  title: "NextHire — Find Your Dream Job",
+  description:
+    "Discover thousands of jobs matched to your skills and experience.",
 };
 
 export default function LandingPage() {
@@ -171,9 +172,7 @@ export default function LandingPage() {
                 className="text-[48px] font-black leading-[56px] mb-6 text-gray-900 tracking-tight"
               >
                 Land your dream job with{" "}
-                <span className="text-wise-green">
-                  precision.
-                </span>
+                <span className="text-wise-green">precision.</span>
               </motion.h1>
 
               <motion.p
@@ -307,7 +306,7 @@ export default function LandingPage() {
             transition={{ repeat: Infinity, ease: "linear", duration: 20 }}
             className="flex items-center gap-16 px-8 whitespace-nowrap"
           >
-            {[…companies, …companies].map((company, idx) => (
+            {[...companies, ...companies].map((company, idx) => (
               <div
                 key={idx}
                 className="text-2xl font-black text-gray-300 uppercase tracking-wider flex items-center gap-2"
@@ -360,10 +359,7 @@ export default function LandingPage() {
             </h2>
             <p className="text-[32px] font-extrabold leading-[40px] text-gray-900">
               Everything you need to{" "}
-              <span className="text-wise-green">
-                supercharge
-              </span>{" "}
-              your career.
+              <span className="text-wise-green">supercharge</span> your career.
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -398,9 +394,7 @@ export default function LandingPage() {
             </h2>
             <p className="text-[32px] font-extrabold leading-[40px] text-gray-900">
               Hear from candidates who found their{" "}
-              <span className="text-wise-green">
-                dream roles.
-              </span>
+              <span className="text-wise-green">dream roles.</span>
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
@@ -490,9 +484,7 @@ export default function LandingPage() {
             </h2>
             <p className="text-[32px] font-extrabold leading-[40px] text-gray-900">
               Got questions? We've got{" "}
-              <span className="text-wise-green">
-                answers.
-              </span>
+              <span className="text-wise-green">answers.</span>
             </p>
           </div>
           <Accordion className="gap-y-4">

@@ -1,7 +1,7 @@
 "use client";
 
 import { Building, Lock, Mail } from "lucide-react";
-import { LazyMotion, m, domAnimation } from "motion/react";
+import { m } from "motion/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type React from "react";
@@ -69,7 +69,7 @@ export default function RecruiterLoginPage() {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ …prev, [e.target.id]: e.target.value }));
+    setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
   return (

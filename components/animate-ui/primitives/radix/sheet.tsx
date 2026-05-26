@@ -68,7 +68,7 @@ type SheetOverlayProps = Omit<
 
 function SheetOverlay({
   transition = { duration: 0.2, ease: "easeInOut" },
-  …props
+  ...props
 }: SheetOverlayProps) {
   return (
     <SheetPrimitive.Overlay forceMount asChild>
@@ -97,7 +97,7 @@ function SheetContent({
   transition = { type: "spring", stiffness: 150, damping: 22 },
   style,
   children,
-  …props
+  ...props
 }: SheetContentProps) {
   const axis = side === "left" || side === "right" ? "x" : "y";
 

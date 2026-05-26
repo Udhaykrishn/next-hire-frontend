@@ -85,10 +85,11 @@ export const BlockStatusModal = ({
               <label className="text-[10px] font-black text-near-black uppercase tracking-wider block">
                 Custom Description <span className="text-red-500">*</span>
               </label>
-              <textarea aria-label="Control"
+              <textarea
+                aria-label="Control"
                 value={customReason}
                 onChange={(e) => setCustomReason(e.target.value)}
-                placeholder="Enter details of policy violation…"
+                placeholder="Enter details of policy violation..."
                 className="w-full h-24 p-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-wise-green/20 focus:border-wise-green transition-all resize-none font-medium text-gray-700"
                 required
               />

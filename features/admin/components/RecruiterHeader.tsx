@@ -198,7 +198,7 @@ export const RecruiterHeader = ({ recruiter, id }: RecruiterHeaderProps) => {
                 }}
               >
                 <SelectTrigger className="w-full h-11 rounded-2xl border border-gray-200 bg-gray-50 px-4 text-sm font-medium text-near-black focus:border-orange-300 focus:ring-0">
-                  <SelectValue placeholder="Select a reason…" />
+                  <SelectValue placeholder="Select a reason..." />
                 </SelectTrigger>
                 <SelectContent>
                   {REVOCATION_REASONS.map((reason) => (
@@ -211,11 +211,12 @@ export const RecruiterHeader = ({ recruiter, id }: RecruiterHeaderProps) => {
 
               {/* Custom reason — only shown when "Other" is selected */}
               {selectedPreset === "Other" && (
-                <textarea aria-label="Control"
+                <textarea
+                  aria-label="Control"
                   id="revoke-reason-custom"
                   value={revokeReason}
                   onChange={(e) => setRevokeReason(e.target.value)}
-                  placeholder="Describe the reason in detail…"
+                  placeholder="Describe the reason in detail..."
                   rows={3}
                   className="w-full resize-none rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm font-medium text-near-black placeholder:text-gray-300 focus:border-orange-300 focus:bg-white focus:outline-none transition-colors"
                 />
@@ -243,7 +244,7 @@ export const RecruiterHeader = ({ recruiter, id }: RecruiterHeaderProps) => {
                 disabled={isRevoking || !revokeReason.trim()}
                 className="flex-1 h-11 rounded-xl text-xs font-black uppercase tracking-widest bg-orange-500 hover:bg-orange-600 text-white border-0"
               >
-                {isRevoking ? "Revoking…" : "Confirm Revoke"}
+                {isRevoking ? "Revoking..." : "Confirm Revoke"}
               </Button>
             </div>
           </div>

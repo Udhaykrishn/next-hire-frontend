@@ -1,4 +1,4 @@
-import { AnimatePresence, domAnimation, LazyMotion, m } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { Briefcase, Building2, Globe, Tag } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -124,7 +124,7 @@ export function CompanyIdentityCard({
                     }))
                   }
                   className="bg-gray-50 border-gray-200 rounded-xl font-bold text-[15px] min-h-[110px] resize-none focus-visible:ring-wise-green focus-visible:border-wise-green"
-                  placeholder="Brief summary of your company, vision, and products…"
+                  placeholder="Brief summary of your company, vision, and products..."
                 />
               </div>
             </m.div>
@@ -172,7 +172,7 @@ export function CompanyIdentityCard({
                 !formData.category &&
                 !formData.description && (
                   <p className="text-[13px] font-bold text-gray-300 italic text-center py-3">
-                  No company details added yet; click Edit to get started.
+                    No company details added yet; click Edit to get started.
                   </p>
                 )}
             </m.div>

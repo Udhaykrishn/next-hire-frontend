@@ -1,5 +1,5 @@
 import { Award, Briefcase, FileText, PlayCircle } from "lucide-react";
-import { LazyMotion, m, domAnimation } from "motion/react";
+import { m } from "motion/react";
 
 interface CandidateApplicationsStatsProps {
   statsData: {

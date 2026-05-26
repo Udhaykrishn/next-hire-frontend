@@ -9,8 +9,6 @@ import { Button } from "@/components/animate-ui/components/buttons/button";
 import { FormPageLayout } from "@/components/profile/forms/form-page-layout";
 import { useProfile } from "@/hooks/use-profile";
 
-
-
 const basicInfoSchema = z.object({
   name: z
     .string()
@@ -70,9 +68,7 @@ const GoogleLocationInput = ({
 }) => {
   const isLoaded = useApiIsLoaded();
   const isReady =
-    isLoaded &&
-    typeof window !== "undefined" &&
-    !!window.google?.maps?.places;
+    isLoaded && typeof window !== "undefined" && !!window.google?.maps?.places;
 
   const [inputValue, setInputValue] = useState(
     defaultValue === "Not set" ? "" : defaultValue,
@@ -124,7 +120,8 @@ const GoogleLocationInput = ({
 
   return (
     <div className="relative w-full">
-      <input aria-label="Control"
+      <input
+        aria-label="Control"
         id={id}
         type="text"
         name="location"
@@ -229,7 +226,8 @@ export default function EditBasicInfoPage() {
             >
               Full Name
             </label>
-            <input aria-label="Control"
+            <input
+              aria-label="Control"
               id="name-input"
               name="name"
               defaultValue={basicInfo.name}
@@ -255,7 +253,8 @@ export default function EditBasicInfoPage() {
             >
               Professional Tagline
             </label>
-            <input aria-label="Control"
+            <input
+              aria-label="Control"
               id="tagline-input"
               name="tagline"
               defaultValue={basicInfo.tagline}
@@ -300,7 +299,8 @@ export default function EditBasicInfoPage() {
             >
               Phone Number
             </label>
-            <input aria-label="Control"
+            <input
+              aria-label="Control"
               id="phone-input"
               name="phone"
               type="tel"
@@ -326,7 +326,8 @@ export default function EditBasicInfoPage() {
             >
               Bio
             </label>
-            <textarea aria-label="Control"
+            <textarea
+              aria-label="Control"
               id="bio-input"
               name="bio"
               rows={4}
@@ -337,7 +338,7 @@ export default function EditBasicInfoPage() {
                   ? "border-red-500 focus:border-red-500"
                   : "border-gray-100 focus:border-wise-green"
               }`}
-              placeholder="Tell recruiters about yourself…"
+              placeholder="Tell recruiters about yourself..."
             />
             {errors.bio && (
               <p className="text-red-500 text-xs font-bold mt-1 ml-1">
@@ -353,7 +354,8 @@ export default function EditBasicInfoPage() {
             >
               Years of Experience
             </label>
-            <input aria-label="Control"
+            <input
+              aria-label="Control"
               id="experience-input"
               name="experience"
               type="text"
@@ -379,7 +381,8 @@ export default function EditBasicInfoPage() {
             >
               LinkedIn Profile Link
             </label>
-            <input aria-label="Control"
+            <input
+              aria-label="Control"
               id="linkedin-input"
               name="linkedin"
               type="url"
@@ -405,7 +408,8 @@ export default function EditBasicInfoPage() {
             >
               Personal Portfolio Link
             </label>
-            <input aria-label="Control"
+            <input
+              aria-label="Control"
               id="portfolio-input"
               name="portfolio"
               type="url"
@@ -431,7 +435,8 @@ export default function EditBasicInfoPage() {
             >
               GitHub Profile Link
             </label>
-            <input aria-label="Control"
+            <input
+              aria-label="Control"
               id="github-input"
               name="github"
               type="url"

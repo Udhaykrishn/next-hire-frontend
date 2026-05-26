@@ -12,8 +12,6 @@ import { CandidateLanguages } from "@/features/jobs/components/candidate-profile
 import { CandidateSkills } from "@/features/jobs/components/candidate-profile/CandidateSkills";
 import { useCandidateProfile } from "@/features/jobs/hooks/use-candidate-profile";
 
-
-
 export default function CandidateProfilePage() {
   const {
     candidateId,
@@ -42,7 +40,7 @@ export default function CandidateProfilePage() {
       <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
         <div className="size-10 border-4 border-[#e8ebe6] border-t-[#0e0f0c] rounded-full animate-spin" />
         <p className="text-[#868685] font-[500] text-[15px]">
-          Loading full profile…
+          Loading full profile...
         </p>
       </div>
     );

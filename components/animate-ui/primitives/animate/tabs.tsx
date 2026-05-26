@@ -46,7 +46,7 @@ function Tabs({
   value,
   onValueChange,
   children,
-  …props
+  ...props
 }: TabsProps) {
   const [activeValue, setActiveValue] = React.useState<string | undefined>(
     defaultValue,
@@ -114,7 +114,7 @@ type TabsHighlightProps = Omit<HighlightProps, "controlledItems" | "value">;
 
 function TabsHighlight({
   transition = { type: "spring", stiffness: 200, damping: 25 },
-  …props
+  ...props
 }: TabsHighlightProps) {
   const { activeValue } = useTabs();
 
@@ -157,7 +157,7 @@ function TabsTrigger({
   ref,
   value,
   asChild = false,
-  …props
+  ...props
 }: TabsTriggerProps) {
   const { activeValue, handleValueChange, registerTrigger } = useTabs();
 
@@ -178,7 +178,7 @@ function TabsTrigger({
       role="tab"
       onClick={() => handleValueChange(value)}
       data-state={activeValue === value ? "active" : "inactive"}
-      {…props}
+      {...props}
     />
   );
 }
@@ -197,7 +197,7 @@ function TabsContents({
     bounce: 0,
     restDelta: 0.01,
   },
-  …props
+  ...props
 }: TabsContentsProps) {
   const { activeValue } = useTabs();
   const childrenArray = React.Children.toArray(children);
@@ -321,7 +321,7 @@ function TabsContent({
   value,
   style,
   asChild = false,
-  …props
+  ...props
 }: TabsContentProps) {
   const { activeValue } = useTabs();
   const isActive = activeValue === value;

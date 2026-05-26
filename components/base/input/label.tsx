@@ -22,7 +22,7 @@ export const Label = ({
   tooltip,
   tooltipDescription,
   className,
-  …props
+  ...props
 }: LabelProps) => {
   return (
     <AriaLabel
@@ -31,7 +31,7 @@ export const Label = ({
       // or
       // <Input label="Visible only on mobile" className="lg:label:hidden" />
       data-label="true"
-      {…props}
+      {...props}
       className={cx(
         "flex cursor-default items-center gap-0.5 text-sm font-medium text-secondary",
         className,

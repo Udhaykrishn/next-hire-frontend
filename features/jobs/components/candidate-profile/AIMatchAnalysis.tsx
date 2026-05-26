@@ -35,7 +35,7 @@ export function AIMatchAnalysis({
             {isAnalyzing ? (
               <>
                 <div className="size-4 border-2 border-[#38c8ff] border-t-transparent rounded-full animate-spin"></div>
-                Analyzing Resume…
+                Analyzing Resume...
               </>
             ) : (
               <>

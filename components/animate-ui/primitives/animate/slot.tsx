@@ -21,7 +21,7 @@ type SlotProps<T extends HTMLElement = HTMLElement> = {
 } & DOMMotionProps<T>;
 
 function mergeRefs<T>(
-  …refs: (React.Ref<T> | undefined)[]
+  ...refs: (React.Ref<T> | undefined)[]
 ): React.RefCallback<T> {
   return (node) => {
     refs.forEach((ref) => {
@@ -39,7 +39,7 @@ function mergeProps<T extends HTMLElement>(
   childProps: AnyProps,
   slotProps: DOMMotionProps<T>,
 ): AnyProps {
-  const merged: AnyProps = { …childProps, …slotProps };
+  const merged: AnyProps = { ...childProps, ...slotProps };
 
   if (childProps.className || slotProps.className) {
     merged.className = cn(
@@ -50,8 +50,8 @@ function mergeProps<T extends HTMLElement>(
 
   if (childProps.style || slotProps.style) {
     merged.style = {
-      …(childProps.style as React.CSSProperties),
-      …(slotProps.style as React.CSSProperties),
+      ...(childProps.style as React.CSSProperties),
+      ...(slotProps.style as React.CSSProperties),
     };
   }
 
@@ -61,7 +61,7 @@ function mergeProps<T extends HTMLElement>(
 function Slot<T extends HTMLElement = HTMLElement>({
   children,
   ref,
-  …props
+  ...props
 }: SlotProps<T>) {
   const childType = React.isValidElement(children) ? children.type : null;
 
@@ -79,7 +79,7 @@ function Slot<T extends HTMLElement = HTMLElement>({
 
   if (!React.isValidElement(children)) return null;
 
-  const { ref: childRef, …childProps } = children.props as AnyProps;
+  const { ref: childRef, ...childProps } = children.props as AnyProps;
 
   const mergedProps = mergeProps(childProps, props);
 

@@ -30,7 +30,7 @@ function AutoHeight({
   style,
   animate,
   asChild = false,
-  …props
+  ...props
 }: AutoHeightProps) {
   const { ref, height } = useAutoHeight<HTMLDivElement>(deps);
 

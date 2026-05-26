@@ -23,7 +23,7 @@ export default function CandidateProfilePage() {
         <div className="flex items-center gap-4">
           <span className="text-[10px] font-black uppercase tracking-widest text-near-black/20">
             System ID:{" "}
-            {id && id.length > 8 ? `${id.slice(0, 6)}…${id.slice(-4)}` : id}
+            {id && id.length > 8 ? `${id.slice(0, 6)}...${id.slice(-4)}` : id}
           </span>
           <div className="size-2 rounded-full bg-wise-green shadow-[0_0_10px_rgba(159,232,112,0.8)]" />
         </div>

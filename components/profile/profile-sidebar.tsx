@@ -13,7 +13,7 @@ import {
   MapPin,
   Phone,
 } from "lucide-react";
-import { LazyMotion, m, domAnimation } from "motion/react";
+import { m } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import type {
@@ -40,10 +40,7 @@ export const ProfileSidebar = ({
 
   return (
     <aside className="lg:col-span-4 gap-y-6">
-      <m.div
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-      >
+      <m.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}>
         <div className="bg-white rounded-[2.5rem] border border-gray-100 p-8 shadow-sm text-center relative overflow-hidden group">
           <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-br from-wise-green/20 to-transparent" />
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { domAnimation, LazyMotion, m } from "framer-motion";
+import { m } from "framer-motion";
 import { AlertCircle, Check, Zap } from "lucide-react";
 import type { JobFormData, Plan } from "@/app/recruiter/jobs/create/new/types";
 import { cn } from "@/lib/utils";
@@ -44,7 +44,7 @@ export const Step5Plan = ({
                 key={p.id}
                 type="button"
                 onClick={() =>
-                  setFormData((prev) => ({ …prev, selectedPlan: p.id }))
+                  setFormData((prev) => ({ ...prev, selectedPlan: p.id }))
                 }
                 className={cn(
                   "relative text-left flex flex-col h-full rounded-[2.5rem] border-2 transition-all duration-300 p-8",

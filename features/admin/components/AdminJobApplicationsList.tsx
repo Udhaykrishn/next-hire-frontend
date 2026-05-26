@@ -39,9 +39,10 @@ export const AdminJobApplicationsList = ({ jobId }: { jobId: string }) => {
         <div className="flex flex-col sm:flex-row items-center gap-3">
           <div className="relative w-full sm:w-64">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-gray-400" />
-            <input aria-label="Control"
+            <input
+              aria-label="Control"
               type="text"
-              placeholder="Search by candidate name…"
+              placeholder="Search by candidate name..."
               value={searchTerm}
               onChange={(e) => {
                 setSearchTerm(e.target.value);

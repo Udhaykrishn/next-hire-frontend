@@ -18,8 +18,6 @@ import { cn } from "@/lib/utils";
 import { STEPS } from "./constants";
 import type { JobFormData } from "./types";
 
-
-
 const INITIAL_DATA: JobFormData = {
   belongingCompany: "",
   hiringCompany: "",
@@ -280,7 +278,7 @@ export function JobWizard({
               {isSubmitting ? (
                 <div className="flex items-center gap-2">
                   <div className="size-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                  <span>Processing…</span>
+                  <span>Processing...</span>
                 </div>
               ) : (
                 <span>

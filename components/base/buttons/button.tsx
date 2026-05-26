@@ -201,7 +201,7 @@ export const Button = ({
   isDisabled: disabled,
   isLoading: loading,
   showTextWhileLoading,
-  …otherProps
+  ...otherProps
 }: Props) => {
   const href = "href" in otherProps ? otherProps.href : undefined;
   const Component = href ? AriaLink : AriaButton;
@@ -217,13 +217,13 @@ export const Button = ({
 
   if (href) {
     props = {
-      …otherProps,
+      ...otherProps,
 
       href: disabled ? undefined : href,
     };
   } else {
     props = {
-      …otherProps,
+      ...otherProps,
 
       type: otherProps.type || "button",
       isPending: loading,

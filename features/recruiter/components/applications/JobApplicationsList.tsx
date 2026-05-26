@@ -109,7 +109,7 @@ export function JobApplicationsList({
           <div className="flex flex-col items-center justify-center min-h-[40vh] gap-4">
             <div className="size-10 border-4 border-[#e8ebe6] border-t-[#0e0f0c] rounded-full animate-spin" />
             <p className="text-[#868685] font-[500] text-[15px]">
-              Loading candidates…
+              Loading candidates...
             </p>
           </div>
         ) : applications.length > 0 ? (

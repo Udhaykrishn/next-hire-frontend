@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, domAnimation, LazyMotion, m } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import {
   ArrowLeft,
   ArrowRight,
@@ -51,10 +51,10 @@ export default function RecruiterOnboardingPage() {
   const startSetup = () => {
     setIsProcessing(true);
     const messages = [
-      "Authenticating workspace…",
-      "Syncing recruitment logic…",
-      "Building your dashboard…",
-      "Finalizing settings…",
+      "Authenticating workspace...",
+      "Syncing recruitment logic...",
+      "Building your dashboard...",
+      "Finalizing settings...",
       "Ready for takeoff!",
     ];
 
@@ -75,7 +75,7 @@ export default function RecruiterOnboardingPage() {
   };
 
   const handleChange = (id: string, value: string) => {
-    setFormData((prev) => ({ …prev, [id]: value }));
+    setFormData((prev) => ({ ...prev, [id]: value }));
   };
 
   const steps = [
@@ -487,7 +487,7 @@ export default function RecruiterOnboardingPage() {
                       {statusMessage}
                     </h2>
                     <p className="text-gray-400 font-bold text-[16px]">
-                      Engine synchronization in progress…
+                      Engine synchronization in progress...
                     </p>
                   </div>
 
@@ -532,7 +532,7 @@ export default function RecruiterOnboardingPage() {
                       System Live.
                     </h2>
                     <p className="text-gray-400 font-bold text-[18px]">
-                      Redirecting to your command center…
+                      Redirecting to your command center...
                     </p>
                   </div>
                 </m.div>

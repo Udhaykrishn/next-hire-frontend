@@ -7,7 +7,7 @@ import {
   Search,
   User as UserIcon,
 } from "lucide-react";
-import { LazyMotion, m, AnimatePresence, domAnimation } from "motion/react";
+import { AnimatePresence, m } from "motion/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type React from "react";
@@ -74,11 +74,12 @@ export function LandingNavbar() {
                   className="hidden lg:flex items-center bg-gray-50 border border-gray-100 rounded-full px-4 py-2 w-96 group focus-within:ring-2 focus-within:ring-wise-green/20 transition-all"
                 >
                   <Search className="size-4 text-gray-400 group-focus-within:text-wise-green transition-colors" />
-                  <input aria-label="Control"
+                  <input
+                    aria-label="Control"
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search jobs, skills, companies…"
+                    placeholder="Search jobs, skills, companies..."
                     className="bg-transparent border-none outline-none text-sm ml-2 w-full text-gray-900 placeholder:text-gray-400 font-medium"
                   />
                 </m.form>

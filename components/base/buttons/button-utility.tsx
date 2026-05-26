@@ -80,7 +80,7 @@ export const ButtonUtility = ({
   size = "sm",
   color = "secondary",
   tooltipPlacement = "top",
-  …otherProps
+  ...otherProps
 }: Props) => {
   const href = "href" in otherProps ? otherProps.href : undefined;
   const Component = href ? AriaLink : AriaButton;
@@ -89,18 +89,18 @@ export const ButtonUtility = ({
 
   if (href) {
     props = {
-      …otherProps,
+      ...otherProps,
 
       href: isDisabled ? undefined : href,
 
       // Since anchor elements do not support the `disabled` attribute and state,
       // we need to specify `data-rac` and `data-disabled` in order to be able
       // to use the `disabled:` selector in classes.
-      …(isDisabled ? { "data-rac": true, "data-disabled": true } : {}),
+      ...(isDisabled ? { "data-rac": true, "data-disabled": true } : {}),
     };
   } else {
     props = {
-      …otherProps,
+      ...otherProps,
 
       type: otherProps.type || "button",
       isDisabled,

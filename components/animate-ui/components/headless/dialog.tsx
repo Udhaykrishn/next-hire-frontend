@@ -44,7 +44,7 @@ type DialogBackdropProps<TTag extends React.ElementType = typeof motion.div> =
 
 function DialogBackdrop<TTag extends React.ElementType = typeof motion.div>({
   className,
-  …props
+  ...props
 }: DialogBackdropProps<TTag>) {
   return (
     <DialogBackdropPrimitive
@@ -66,7 +66,7 @@ function DialogPanel<TTag extends React.ElementType = typeof motion.div>({
   className,
   children,
   showCloseButton = true,
-  …props
+  ...props
 }: DialogPanelProps<TTag>) {
   return (
     <>
@@ -100,7 +100,7 @@ type DialogHeaderProps<TTag extends React.ElementType = "div"> =
 function DialogHeader<TTag extends React.ElementType = "div">(
   props: DialogHeaderProps<TTag>,
 ) {
-  const { as = "div", className, …rest } = props;
+  const { as = "div", className, ...rest } = props;
 
   return (
     <DialogHeaderPrimitive
@@ -116,7 +116,7 @@ type DialogFooterProps<TTag extends React.ElementType = "div"> =
 
 function DialogFooter<TTag extends React.ElementType = "div">({
   className,
-  …props
+  ...props
 }: DialogFooterProps<TTag>) {
   return (
     <DialogFooterPrimitive
@@ -134,7 +134,7 @@ type DialogTitleProps<TTag extends React.ElementType = "h2"> =
 
 function DialogTitle<TTag extends React.ElementType = "h2">({
   className,
-  …props
+  ...props
 }: DialogTitleProps<TTag>) {
   return (
     <DialogTitlePrimitive
@@ -149,7 +149,7 @@ type DialogDescriptionProps<TTag extends React.ElementType = "div"> =
 
 function DialogDescription<TTag extends React.ElementType = "div">({
   className,
-  …props
+  ...props
 }: DialogDescriptionProps<TTag>) {
   return (
     <DialogDescriptionPrimitive

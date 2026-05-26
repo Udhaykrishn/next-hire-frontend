@@ -8,8 +8,6 @@ import { useProfile } from "@/hooks/use-profile";
 import { formatSalaryAmount } from "@/lib/salary";
 import { cn } from "@/lib/utils";
 
-
-
 const CURRENCIES = [
   { code: "USD", symbol: "$", name: "USD ($)" },
   { code: "INR", symbol: "₹", name: "INR (₹)" },
@@ -73,7 +71,8 @@ export default function EditJobPreferencesPage() {
           <div className="flex flex-wrap gap-2">
             {jobTypes.map((type) => (
               <label key={type} className="cursor-pointer">
-                <input aria-label="Control"
+                <input
+                  aria-label="Control"
                   type="checkbox"
                   name="jobTypes"
                   value={type}
@@ -95,7 +94,8 @@ export default function EditJobPreferencesPage() {
           >
             Preferred Roles (comma separated)
           </label>
-          <input aria-label="Control"
+          <input
+            aria-label="Control"
             id="roles"
             name="roles"
             defaultValue={jobPreferences.roles.join(", ")}
@@ -112,7 +112,8 @@ export default function EditJobPreferencesPage() {
           <div className="flex flex-wrap gap-2">
             {workStyles.map((style) => (
               <label key={style} className="cursor-pointer">
-                <input aria-label="Control"
+                <input
+                  aria-label="Control"
                   type="checkbox"
                   name="workStyles"
                   value={style}
@@ -225,7 +226,8 @@ export default function EditJobPreferencesPage() {
                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-[14px] group-focus-within:text-wise-green transition-colors">
                   {CURRENCIES.find((c) => c.code === currency)?.symbol || "$"}
                 </span>
-                <input aria-label="Control"
+                <input
+                  aria-label="Control"
                   name="minSalary"
                   type="number"
                   value={minSalary}
@@ -243,7 +245,8 @@ export default function EditJobPreferencesPage() {
                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-[14px] group-focus-within:text-wise-green transition-colors">
                   {CURRENCIES.find((c) => c.code === currency)?.symbol || "$"}
                 </span>
-                <input aria-label="Control"
+                <input
+                  aria-label="Control"
                   name="maxSalary"
                   type="number"
                   value={maxSalary}

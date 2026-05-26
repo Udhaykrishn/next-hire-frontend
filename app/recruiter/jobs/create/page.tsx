@@ -1,6 +1,6 @@
 "use client";
 
-import { domAnimation, LazyMotion, m } from "framer-motion";
+import { m } from "framer-motion";
 import {
   ArrowRight,
   ChevronLeft,
@@ -14,8 +14,6 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-
-
 
 interface MethodologyCardProps {
   title: string;
@@ -152,9 +150,7 @@ export default function CreateJobPage() {
           description="Deploy structures from our library. Optimized for speed and consistent high-quality candidate matches."
           icon={<Layout />}
           tags={["Accelerated", "Verified"]}
-          onClick={() =>
-            push("/recruiter/jobs/create/new?template=true")
-          }
+          onClick={() => push("/recruiter/jobs/create/new?template=true")}
         />
       </div>
 

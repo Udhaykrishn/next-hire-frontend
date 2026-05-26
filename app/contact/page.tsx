@@ -4,8 +4,6 @@ import { Button } from "@/components/animate-ui/components/buttons/button";
 import { LandingFooter } from "@/components/landing-footer";
 import { LandingNavbar } from "@/components/landing-navbar";
 
-
-
 export default function ContactPage() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col font-sans selection:bg-wise-green/30 selection:text-dark-green">
@@ -17,10 +15,7 @@ export default function ContactPage() {
 
           <div className="max-w-4xl mx-auto text-center mb-16">
             <h1 className="text-[48px] font-black text-gray-900 tracking-tight leading-[56px] mb-6">
-              Get in{" "}
-              <span className="text-wise-green">
-                Touch
-              </span>
+              Get in <span className="text-wise-green">Touch</span>
             </h1>
             <p className="text-[15px] text-gray-600 font-medium leading-[19.2px] max-w-2xl mx-auto">
               Have questions about our platform, enterprise pricing, or
@@ -101,10 +96,14 @@ export default function ContactPage() {
               <form className="gap-y-6">
                 <div className="grid grid-cols-2 gap-6">
                   <div className="gap-y-2">
-                    <label htmlFor="firstName" className="text-sm font-bold text-gray-700">
+                    <label
+                      htmlFor="firstName"
+                      className="text-sm font-bold text-gray-700"
+                    >
                       First Name
                     </label>
-                    <input aria-label="Control"
+                    <input
+                      aria-label="Control"
                       id="firstName"
                       type="text"
                       className="w-full h-12 px-4 rounded-xl border-2 border-gray-100 bg-gray-50/50 focus:bg-white focus:border-wise-green focus:ring-0 transition-colors font-medium outline-none"
@@ -112,10 +111,14 @@ export default function ContactPage() {
                     />
                   </div>
                   <div className="gap-y-2">
-                    <label htmlFor="lastName" className="text-sm font-bold text-gray-700">
+                    <label
+                      htmlFor="lastName"
+                      className="text-sm font-bold text-gray-700"
+                    >
                       Last Name
                     </label>
-                    <input aria-label="Control"
+                    <input
+                      aria-label="Control"
                       id="lastName"
                       type="text"
                       className="w-full h-12 px-4 rounded-xl border-2 border-gray-100 bg-gray-50/50 focus:bg-white focus:border-wise-green focus:ring-0 transition-colors font-medium outline-none"
@@ -125,10 +128,14 @@ export default function ContactPage() {
                 </div>
 
                 <div className="gap-y-2">
-                  <label htmlFor="emailAddress" className="text-sm font-bold text-gray-700">
+                  <label
+                    htmlFor="emailAddress"
+                    className="text-sm font-bold text-gray-700"
+                  >
                     Email Address
                   </label>
-                  <input aria-label="Control"
+                  <input
+                    aria-label="Control"
                     id="emailAddress"
                     type="email"
                     className="w-full h-12 px-4 rounded-xl border-2 border-gray-100 bg-gray-50/50 focus:bg-white focus:border-wise-green focus:ring-0 transition-colors font-medium outline-none"
@@ -137,10 +144,14 @@ export default function ContactPage() {
                 </div>
 
                 <div className="gap-y-2">
-                  <label htmlFor="message" className="text-sm font-bold text-gray-700">
+                  <label
+                    htmlFor="message"
+                    className="text-sm font-bold text-gray-700"
+                  >
                     Message
                   </label>
-                  <textarea aria-label="Control"
+                  <textarea
+                    aria-label="Control"
                     id="message"
                     className="w-full p-4 rounded-xl border-2 border-gray-100 bg-gray-50/50 focus:bg-white focus:border-wise-green focus:ring-0 transition-colors font-medium outline-none resize-none min-h-[150px]"
                     placeholder="How can we help you?"

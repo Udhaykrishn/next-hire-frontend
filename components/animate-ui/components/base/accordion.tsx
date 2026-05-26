@@ -22,7 +22,7 @@ function Accordion(props: AccordionProps) {
 
 type AccordionItemProps = AccordionItemPrimitiveProps;
 
-function AccordionItem({ className, …props }: AccordionItemProps) {
+function AccordionItem({ className, ...props }: AccordionItemProps) {
   return (
     <AccordionItemPrimitive
       className={cn("border-b last:border-b-0", className)}
@@ -39,7 +39,7 @@ function AccordionTrigger({
   className,
   children,
   showArrow = true,
-  …props
+  ...props
 }: AccordionTriggerProps) {
   return (
     <AccordionHeaderPrimitive className="flex">
@@ -48,7 +48,7 @@ function AccordionTrigger({
           "focus-visible:border-ring focus-visible:ring-ring/50 flex flex-1 items-start justify-between gap-4 rounded-md py-4 text-left text-sm font-medium transition-all outline-none hover:underline focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&[data-panel-open]>svg]:rotate-180",
           className,
         )}
-        {…props}
+        {...props}
       >
         {children}
         {showArrow && (
@@ -66,7 +66,7 @@ type AccordionPanelProps = AccordionPanelPrimitiveProps & {
 function AccordionPanel({
   className,
   children,
-  …props
+  ...props
 }: AccordionPanelProps) {
   return (
     <AccordionPanelPrimitive {...props}>

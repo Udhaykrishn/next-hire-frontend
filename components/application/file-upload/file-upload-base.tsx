@@ -8,7 +8,7 @@ import {
   UploadCloud02,
   XCircle,
 } from "@untitledui/icons";
-import { LazyMotion, m, AnimatePresence, domAnimation } from "motion/react";
+import { AnimatePresence, m } from "motion/react";
 import type { ComponentProps, ComponentPropsWithRef } from "react";
 import { useId, useRef, useState } from "react";
 import { Button } from "@/components/base/buttons/button";
@@ -227,7 +227,8 @@ export const FileUploadDropZone = ({
 
       <div className="flex flex-col gap-1 text-center">
         <div className="flex justify-center gap-1 text-center">
-          <input aria-label="Control"
+          <input
+            aria-label="Control"
             ref={inputRef}
             id={id}
             type="file"
@@ -348,7 +349,7 @@ export const FileListItemProgressBar = ({
                 )}
                 {!isComplete && !failed && (
                   <p className="text-sm font-medium text-quaternary">
-                    Uploading…
+                    Uploading...
                   </p>
                 )}
 

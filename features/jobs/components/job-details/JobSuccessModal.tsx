@@ -1,5 +1,5 @@
 import { CheckCircle, X } from "lucide-react";
-import { LazyMotion, m, domAnimation } from "motion/react";
+import { m } from "motion/react";
 import Link from "next/link";
 
 interface JobSuccessModalProps {

@@ -5,8 +5,6 @@ import { EducationForm } from "@/components/profile/forms/education-form";
 import { FormPageLayout } from "@/components/profile/forms/form-page-layout";
 import { useProfile } from "@/hooks/use-profile";
 
-
-
 export default function AddEducationPage() {
   const { handleAddEducation } = useProfile();
   const { push } = useRouter();

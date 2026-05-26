@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronLeft } from "lucide-react";
-import { LazyMotion, m, domAnimation } from "motion/react";
+import { m } from "motion/react";
 import Link from "next/link";
 import { LandingFooter } from "@/components/landing-footer";
 import { LandingNavbar } from "@/components/landing-navbar";

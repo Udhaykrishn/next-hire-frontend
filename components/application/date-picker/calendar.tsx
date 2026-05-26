@@ -50,7 +50,7 @@ export const Calendar = ({
   highlightedDates,
   className,
   children,
-  …props
+  ...props
 }: CalendarProps) => {
   const context = useSlottedContext(AriaCalendarContext);
 

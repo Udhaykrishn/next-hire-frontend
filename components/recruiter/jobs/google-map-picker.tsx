@@ -69,7 +69,12 @@ export const GoogleMapPicker: React.FC<GoogleMapPickerProps> = ({
 
   // GPS Fallback
   useEffect(() => {
-    if (isLoaded && !defaultValue && !hasLocated.current && navigator.geolocation) {
+    if (
+      isLoaded &&
+      !defaultValue &&
+      !hasLocated.current &&
+      navigator.geolocation
+    ) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const pos = {
@@ -113,7 +118,7 @@ export const GoogleMapPicker: React.FC<GoogleMapPickerProps> = ({
       >
         <Loader2 className="size-8 text-wise-green animate-spin" />
         <p className="text-[13px] font-bold text-gray-400">
-          Loading Map Service…
+          Loading Map Service...
         </p>
       </div>
     );
@@ -150,7 +155,7 @@ export const GoogleMapPicker: React.FC<GoogleMapPickerProps> = ({
           <div className="bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-sm flex items-center gap-2 border border-gray-100 pointer-events-auto">
             <Loader2 className="size-3 text-wise-green animate-spin" />
             <span className="text-[11px] font-black text-near-black">
-              Finding Address…
+              Finding Address...
             </span>
           </div>
         )}

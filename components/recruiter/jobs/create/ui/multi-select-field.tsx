@@ -42,7 +42,7 @@ export const MultiSelectField = ({
   const toggleOption = (val: string) => {
     const newSelected = selected.includes(val)
       ? selected.filter((s) => s !== val)
-      : […selected, val];
+      : [...selected, val];
     onChange(newSelected);
   };
 
@@ -96,7 +96,7 @@ export const MultiSelectField = ({
           <Command className="border-none">
             <div className="px-4 py-3 border-b border-gray-50">
               <CommandInput
-                placeholder={`Search ${label.toLowerCase()}…`}
+                placeholder={`Search ${label.toLowerCase()}...`}
                 className="h-12 border-none focus:ring-0 font-medium"
               />
             </div>

@@ -2,7 +2,7 @@
 
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import React, { createContext, use, useCallback, type ReactNode } from "react";
+import React, { createContext, type ReactNode, use, useCallback } from "react";
 import { useCurrentUserQuery } from "../hooks/use-auth";
 import { authService } from "../services/auth.api";
 import type { User, UserRole } from "../types/auth.types";

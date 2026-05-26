@@ -13,7 +13,7 @@ import {
   Users,
   Zap,
 } from "lucide-react";
-import { LazyMotion, m, domAnimation } from "motion/react";
+import { m } from "motion/react";
 import Link from "next/link";
 import {
   Accordion,
@@ -383,7 +383,7 @@ export default function RecruiterLandingPage() {
                   className="p-8 rounded-3xl bg-gray-50 border border-gray-100 relative hover:-translate-y-1 transition-transform duration-300"
                 >
                   <div className="flex gap-1 mb-6">
-                    {[…Array(review.stars)].map((_, j) => (
+                    {[...Array(review.stars)].map((_, j) => (
                       <Star
                         key={j}
                         className="size-5 fill-wise-green text-wise-green"

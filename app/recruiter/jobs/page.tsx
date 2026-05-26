@@ -6,8 +6,6 @@ import Link from "next/link";
 import { useRecruiterJobsQuery } from "@/features/jobs/hooks/use-jobs-query";
 import type { JobResponse } from "@/features/jobs/types/job.types";
 
-
-
 export default function RecruiterJobsPage() {
   const { data: jobs, isLoading, error } = useRecruiterJobsQuery();
 

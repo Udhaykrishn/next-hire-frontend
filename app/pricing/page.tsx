@@ -1,16 +1,14 @@
 "use client";
 
 import { Check, Crown, Shield, Zap } from "lucide-react";
-import { LazyMotion, m, domAnimation } from "motion/react";
+import { m } from "motion/react";
 import { usePathname, useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useMemo, useState } from "react";
+import { Suspense, useMemo, useState } from "react";
 import { Button } from "@/components/animate-ui/components/buttons/button";
 import { LandingFooter } from "@/components/landing-footer";
 import { LandingNavbar } from "@/components/landing-navbar";
 import { usePricing } from "@/hooks/use-pricing";
 import { cn } from "@/lib/utils";
-
-
 
 export function PricingContent({
   hideNavbar = false,
@@ -22,12 +20,18 @@ export function PricingContent({
   const searchParams = useSearchParams();
   const roleParam = searchParams.get("role");
   const tabParam = searchParams.get("tab");
-  
+
   const isRecruiterPath = pathname?.startsWith("/recruiter");
-  const isRecruiterRole = isRecruiterPath || roleParam === "recruiter" || tabParam === "recruiter";
-  
-  const initialType = isRecruiterRole ? "recruiter" : (roleParam === "candidate" ? "candidate" : "candidate");
-  const initialForced = isRecruiterPath || roleParam === "recruiter" || roleParam === "candidate";
+  const isRecruiterRole =
+    isRecruiterPath || roleParam === "recruiter" || tabParam === "recruiter";
+
+  const initialType = isRecruiterRole
+    ? "recruiter"
+    : roleParam === "candidate"
+      ? "candidate"
+      : "candidate";
+  const initialForced =
+    isRecruiterPath || roleParam === "recruiter" || roleParam === "candidate";
 
   const [type, setType] = useState<"candidate" | "recruiter">(initialType);
   const isRoleForced = !!initialForced; // If it's forced by URL, it shouldn't change, so no need for state
@@ -48,7 +52,9 @@ export function PricingContent({
       }
     };
 
-    return allPlans.reduce<Array<(typeof allPlans)[number] & { icon: React.ReactNode }>>((acc, plan) => {
+    return allPlans.reduce<
+      Array<(typeof allPlans)[number] & { icon: React.ReactNode }>
+    >((acc, plan) => {
       if (plan.type === type) {
         acc.push({ ...plan, icon: getIcon(plan.iconType) });
       }

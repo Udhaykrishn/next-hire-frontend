@@ -106,7 +106,8 @@ export function ProfileAvatarModal({
         </>
       )}
 
-      <input aria-label="Control"
+      <input
+        aria-label="Control"
         type="file"
         ref={fileInputRef}
         onChange={(e) => {

@@ -68,7 +68,7 @@ export const JobList = () => {
         <div className="p-8 text-center">
           <div className="size-8 border-4 border-wise-green border-t-transparent rounded-full animate-spin mx-auto mb-4" />
           <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">
-            Loading job listings…
+            Loading job listings...
           </p>
         </div>
       </div>
@@ -83,7 +83,7 @@ export const JobList = () => {
           <input
             type="text"
             aria-label="Search job listings"
-            placeholder="Search by job title, hiring company…"
+            placeholder="Search by job title, hiring company..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full h-14 pl-12 pr-4 bg-white border border-gray-100 rounded-2xl text-sm font-bold focus:ring-2 focus:ring-wise-green/20 focus:border-wise-green transition-all outline-none"

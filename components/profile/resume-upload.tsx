@@ -85,7 +85,7 @@ export const ResumeUpload = () => {
       <div className="flex flex-col items-center justify-center p-6 border-2 border-dashed border-wise-green/30 rounded-2xl bg-wise-green/5 gap-3">
         <Loader2 className="size-8 text-wise-green animate-spin" />
         <p className="text-[14px] font-bold text-wise-green">
-          Uploading resume…
+          Uploading resume...
         </p>
       </div>
     );
@@ -95,7 +95,7 @@ export const ResumeUpload = () => {
     return (
       <div className="flex flex-col items-center justify-center p-6 border-2 border-dashed border-red-200 rounded-2xl bg-red-50/50 gap-3">
         <Loader2 className="size-8 text-red-500 animate-spin" />
-        <p className="text-[14px] font-bold text-red-500">Deleting resume…</p>
+        <p className="text-[14px] font-bold text-red-500">Deleting resume...</p>
       </div>
     );
   }
@@ -107,7 +107,8 @@ export const ResumeUpload = () => {
     return (
       <>
         <div className="gap-y-4">
-          <input aria-label="Control"
+          <input
+            aria-label="Control"
             type="file"
             ref={fileInputRef}
             onChange={handleFileChange}
@@ -173,7 +174,8 @@ export const ResumeUpload = () => {
 
   return (
     <div>
-      <input aria-label="Control"
+      <input
+        aria-label="Control"
         type="file"
         ref={fileInputRef}
         onChange={handleFileChange}

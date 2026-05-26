@@ -47,10 +47,7 @@ export default function RecruiterSettings() {
             </div>
 
             <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="gap-y-5"
-              >
+              <form onSubmit={form.handleSubmit(onSubmit)} className="gap-y-5">
                 <FormField
                   control={form.control}
                   name="currentPassword"
@@ -122,7 +119,7 @@ export default function RecruiterSettings() {
                     disabled={isPending}
                     className="h-11 px-8 rounded-xl bg-near-black text-white hover:bg-wise-green hover:text-near-black transition-colors font-bold text-sm shadow-sm"
                   >
-                    {isPending ? "Updating…" : "Save Password"}
+                    {isPending ? "Updating..." : "Save Password"}
                   </Button>
                 </div>
               </form>

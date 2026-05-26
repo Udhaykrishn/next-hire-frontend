@@ -1,4 +1,4 @@
-import { AnimatePresence, domAnimation, LazyMotion, m } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { Mail, Phone, User } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -55,7 +55,7 @@ export function BasicDetailsCard({
                   id="recruiter-name-input"
                   value={formData.name}
                   onChange={(e) =>
-                    setFormData((p) => ({ …p, name: e.target.value }))
+                    setFormData((p) => ({ ...p, name: e.target.value }))
                   }
                   className="h-12 bg-gray-50 border-gray-200 rounded-xl font-bold text-[15px] focus-visible:ring-wise-green focus-visible:border-wise-green"
                   placeholder="Your full name"
@@ -84,7 +84,7 @@ export function BasicDetailsCard({
                     value={formData.phone}
                     onChange={(e) =>
                       setFormData((p) => ({
-                        …p,
+                        ...p,
                         phone: e.target.value,
                       }))
                     }

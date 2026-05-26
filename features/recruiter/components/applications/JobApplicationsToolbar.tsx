@@ -39,9 +39,10 @@ export function JobApplicationsToolbar({
       <div className="bg-[#ffffff] p-3 rounded-[16px] border border-[rgba(14,15,12,0.12)] flex flex-col lg:flex-row items-center justify-between gap-4 sticky top-4 z-20">
         <div className="relative flex-1 w-full lg:max-w-md ml-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4.5 text-[#868685]" />
-          <input aria-label="Control"
+          <input
+            aria-label="Control"
             type="text"
-            placeholder="Search candidates by name or email…"
+            placeholder="Search candidates by name or email..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="w-full pl-10 pr-4 py-2 bg-transparent border-none text-[15px] font-[400] text-[#0e0f0c] placeholder:text-[#868685] focus:ring-0 outline-none"

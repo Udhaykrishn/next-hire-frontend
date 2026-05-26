@@ -82,7 +82,7 @@ export function JobHeaderCard({
         >
           {isApplying ? (
             <>
-              <Loader2 className="size-4 animate-spin" /> Applying…
+              <Loader2 className="size-4 animate-spin" /> Applying...
             </>
           ) : hasApplied ? (
             <>

@@ -21,14 +21,14 @@ export const RecruiterJobsList = ({ id }: RecruiterJobsListProps) => {
           Jobs Created
         </div>
         <span className="text-xs font-bold text-gray-400 bg-gray-50 px-3 py-1 rounded-full border border-gray-100">
-          {isJobsLoading ? "…" : jobs.length} Postings
+          {isJobsLoading ? "..." : jobs.length} Postings
         </span>
       </div>
 
       <div className="gap-y-4">
         {isJobsLoading ? (
           <div className="p-6 text-center text-gray-400 text-sm font-bold">
-            Loading jobs…
+            Loading jobs...
           </div>
         ) : jobs.length === 0 ? (
           <div className="p-6 text-center text-gray-400 text-sm font-bold">

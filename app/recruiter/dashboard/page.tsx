@@ -1,5 +1,5 @@
 "use client";
-import { domAnimation, LazyMotion, m } from "framer-motion";
+import { m } from "framer-motion";
 import {
   Briefcase,
   Clock,
@@ -102,9 +102,7 @@ export default function RecruiterDashboard() {
               {/* Middle Column: Stats Display */}
               <div
                 className="cursor-pointer hover:bg-gray-50/80 transition-colors rounded-xl"
-                onClick={() =>
-                  push(`/recruiter/jobs/${job.id}/applications`)
-                }
+                onClick={() => push(`/recruiter/jobs/${job.id}/applications`)}
               >
                 <RecruiterJobStats jobId={job.id} />
               </div>

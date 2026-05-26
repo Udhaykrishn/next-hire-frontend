@@ -1,6 +1,6 @@
 "use client";
 
-import { domAnimation, LazyMotion, m } from "framer-motion";
+import { m } from "framer-motion";
 import { Briefcase, Check, FileText, Layers } from "lucide-react";
 import type React from "react";
 import { JOB_CATEGORIES } from "@/app/recruiter/jobs/create/new/constants";
@@ -65,7 +65,7 @@ export const Step1Details = ({
                     onValueChange={(val) => {
                       const newValue = val || "";
                       setFormData((prev) => ({
-                        …prev,
+                        ...prev,
                         belongingCompany: newValue,
                         hiringCompany: newValue,
                       }));
@@ -116,7 +116,7 @@ export const Step1Details = ({
                     value={formData.jobTitle}
                     onChange={(e) =>
                       setFormData((prev) => ({
-                        …prev,
+                        ...prev,
                         jobTitle: e.target.value,
                       }))
                     }
@@ -148,7 +148,7 @@ export const Step1Details = ({
                     value={formData.jobCategory}
                     onValueChange={(val) =>
                       setFormData((prev) => ({
-                        …prev,
+                        ...prev,
                         jobCategory: val || "",
                       }))
                     }
@@ -191,7 +191,7 @@ export const Step1Details = ({
                   key={t}
                   type="button"
                   onClick={() =>
-                    setFormData((prev) => ({ …prev, jobType: t }))
+                    setFormData((prev) => ({ ...prev, jobType: t }))
                   }
                   className={cn(
                     "px-6 py-2.5 rounded-full text-[13px] font-bold border transition-all",
@@ -214,7 +214,7 @@ export const Step1Details = ({
               type="button"
               onClick={() =>
                 setFormData((prev) => ({
-                  …prev,
+                  ...prev,
                   isNightShift: !prev.isNightShift,
                 }))
               }
@@ -243,7 +243,7 @@ export const Step1Details = ({
                 key={t}
                 type="button"
                 onClick={() =>
-                  setFormData((prev) => ({ …prev, experienceType: t }))
+                  setFormData((prev) => ({ ...prev, experienceType: t }))
                 }
                 className={cn(
                   "px-6 py-2.5 rounded-full text-[13px] font-bold border transition-all",
@@ -301,7 +301,7 @@ export const Step1Details = ({
                       key={opt}
                       type="button"
                       onClick={() =>
-                        setFormData((prev) => ({ …prev, payType: opt }))
+                        setFormData((prev) => ({ ...prev, payType: opt }))
                       }
                       className={cn(
                         "px-5 py-2 rounded-full text-[13px] font-bold border transition-all",
@@ -352,7 +352,7 @@ export const Step1Details = ({
                         }
                         onChange={(e) =>
                           setFormData((prev) => ({
-                            …prev,
+                            ...prev,
                             minSalary: e.target.value.replace(/\D/g, ""),
                           }))
                         }
@@ -376,7 +376,7 @@ export const Step1Details = ({
                         }
                         onChange={(e) =>
                           setFormData((prev) => ({
-                            …prev,
+                            ...prev,
                             maxSalary: e.target.value.replace(/\D/g, ""),
                           }))
                         }
@@ -424,7 +424,7 @@ export const Step1Details = ({
                       }
                       onChange={(e) =>
                         setFormData((prev) => ({
-                          …prev,
+                          ...prev,
                           incentiveAmount: e.target.value.replace(/\D/g, ""),
                         }))
                       }
@@ -507,10 +507,10 @@ export const Step1Details = ({
                         setFormData((prev) => {
                           const prevPerks = prev.perks || [];
                           return {
-                            …prev,
+                            ...prev,
                             perks: isSelected
                               ? prevPerks.filter((p) => p !== perk)
-                              : […prevPerks, perk],
+                              : [...prevPerks, perk],
                           };
                         })
                       }
@@ -549,7 +549,7 @@ export const Step1Details = ({
                     type="button"
                     onClick={() =>
                       setFormData((prev) => ({
-                        …prev,
+                        ...prev,
                         hasJoiningFee: opt as "Yes" | "No",
                       }))
                     }
@@ -582,7 +582,7 @@ export const Step1Details = ({
                     }
                     onChange={(e) =>
                       setFormData((prev) => ({
-                        …prev,
+                        ...prev,
                         feeAmount: e.target.value.replace(/\D/g, ""),
                       }))
                     }
@@ -601,7 +601,7 @@ export const Step1Details = ({
                     value={formData.feeReason}
                     onChange={(e) =>
                       setFormData((prev) => ({
-                        …prev,
+                        ...prev,
                         feeReason: e.target.value,
                       }))
                     }
@@ -620,7 +620,7 @@ export const Step1Details = ({
                     value={formData.feeDetails}
                     onChange={(e) =>
                       setFormData((prev) => ({
-                        …prev,
+                        ...prev,
                         feeDetails: e.target.value,
                       }))
                     }
@@ -638,7 +638,7 @@ export const Step1Details = ({
                     value={formData.feePaymentTiming}
                     onValueChange={(v) =>
                       setFormData((prev) => ({
-                        …prev,
+                        ...prev,
                         feePaymentTiming: v || "",
                       }))
                     }

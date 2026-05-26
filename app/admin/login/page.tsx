@@ -1,7 +1,7 @@
 "use client";
 
 import { Lock, Mail, ShieldAlert } from "lucide-react";
-import { LazyMotion, m, domAnimation } from "motion/react";
+import { m } from "motion/react";
 import { useRouter } from "next/navigation";
 import type React from "react";
 import { useState } from "react";
@@ -60,7 +60,7 @@ export default function AdminLoginPage() {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ …prev, [e.target.id]: e.target.value }));
+    setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
   return (
@@ -157,7 +157,7 @@ export default function AdminLoginPage() {
                   className="w-full h-12 bg-wise-green text-dark-green font-black rounded-xl hover:bg-wise-green/90 transition-all text-lg shadow-[0_0_20px_rgba(159,232,112,0.2)] mt-2"
                   disabled={loginLoading}
                 >
-                  {loginLoading ? "Authenticating…" : "Secure Access"}
+                  {loginLoading ? "Authenticating..." : "Secure Access"}
                 </Button>
               </m.div>
             </form>

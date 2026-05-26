@@ -19,33 +19,48 @@ export const ProfileEditForm = ({
   <BaseSheet isOpen={isOpen} onClose={onClose} title="Edit Profile">
     <form onSubmit={onSubmit} className="gap-y-6">
       <div className="gap-y-2">
-        <label htmlFor="name" className="text-[12px] font-black text-gray-400 uppercase tracking-widest ml-1">
+        <label
+          htmlFor="name"
+          className="text-[12px] font-black text-gray-400 uppercase tracking-widest ml-1"
+        >
           Full Name
         </label>
-        <input aria-label="Control"
-           id="name" name="name"
+        <input
+          aria-label="Control"
+          id="name"
+          name="name"
           defaultValue={initialData.name}
           required
           className="w-full h-14 bg-gray-50 rounded-2xl border border-gray-100 px-5 text-[15px] font-bold focus:outline-none focus:border-wise-green transition-colors"
         />
       </div>
       <div className="gap-y-2">
-        <label htmlFor="location" className="text-[12px] font-black text-gray-400 uppercase tracking-widest ml-1">
+        <label
+          htmlFor="location"
+          className="text-[12px] font-black text-gray-400 uppercase tracking-widest ml-1"
+        >
           Location
         </label>
-        <input aria-label="Control"
-           id="location" name="location"
+        <input
+          aria-label="Control"
+          id="location"
+          name="location"
           defaultValue={initialData.location}
           required
           className="w-full h-14 bg-gray-50 rounded-2xl border border-gray-100 px-5 text-[15px] font-bold focus:outline-none focus:border-wise-green transition-colors"
         />
       </div>
       <div className="gap-y-2">
-        <label htmlFor="tagline" className="text-[12px] font-black text-gray-400 uppercase tracking-widest ml-1">
+        <label
+          htmlFor="tagline"
+          className="text-[12px] font-black text-gray-400 uppercase tracking-widest ml-1"
+        >
           Tagline
         </label>
-        <input aria-label="Control"
-           id="tagline" name="tagline"
+        <input
+          aria-label="Control"
+          id="tagline"
+          name="tagline"
           defaultValue={initialData.tagline}
           required
           className="w-full h-14 bg-gray-50 rounded-2xl border border-gray-100 px-5 text-[15px] font-bold focus:outline-none focus:border-wise-green transition-colors"

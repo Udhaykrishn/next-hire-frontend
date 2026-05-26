@@ -2,7 +2,7 @@
 
 import { type CredentialResponse, GoogleLogin } from "@react-oauth/google";
 import { ArrowRight, Mail, ShieldCheck } from "lucide-react";
-import { LazyMotion, m, AnimatePresence, domAnimation } from "motion/react";
+import { AnimatePresence, m } from "motion/react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import type React from "react";
@@ -291,7 +291,7 @@ function LoginContent() {
 
 export default function UserLoginPage() {
   return (
-    <Suspense fallback={<div>Loading…</div>}>
+    <Suspense fallback={<div>Loading...</div>}>
       <LoginContent />
     </Suspense>
   );

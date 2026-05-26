@@ -2,7 +2,7 @@
 
 import { APIProvider, useApiIsLoaded } from "@vis.gl/react-google-maps";
 import { ArrowRight, Phone, User } from "lucide-react";
-import { LazyMotion, m, domAnimation } from "motion/react";
+import { m } from "motion/react";
 import { useRouter } from "next/navigation";
 import type React from "react";
 import { useEffect, useState } from "react";
@@ -133,7 +133,7 @@ export default function ProfileSetupPage() {
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ …prev, [e.target.id]: e.target.value }));
+    setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -241,7 +241,7 @@ export default function ProfileSetupPage() {
                     id="location"
                     defaultValue={formData.location}
                     onChange={(val) =>
-                      setFormData((prev) => ({ …prev, location: val }))
+                      setFormData((prev) => ({ ...prev, location: val }))
                     }
                   />
                 </div>
@@ -250,7 +250,7 @@ export default function ProfileSetupPage() {
                   className="w-full h-12 bg-wise-green text-dark-green font-black rounded-xl hover:bg-wise-green/90 transition-all text-lg shadow-lg shadow-wise-green/20 gap-2 group mt-4"
                   disabled={isLoading}
                 >
-                  {isLoading ? "Saving…" : "Complete Setup"}
+                  {isLoading ? "Saving..." : "Complete Setup"}
                   <ArrowRight className="size-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </form>

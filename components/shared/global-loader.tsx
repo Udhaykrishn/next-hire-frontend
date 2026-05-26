@@ -1,4 +1,4 @@
-import { LazyMotion, m, domAnimation } from "motion/react";
+import { m } from "motion/react";
 
 interface GlobalLoaderProps {
   fullScreen?: boolean;

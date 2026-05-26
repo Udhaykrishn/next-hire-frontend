@@ -2,7 +2,7 @@
 
 import { useApiIsLoaded } from "@vis.gl/react-google-maps";
 import { City } from "country-state-city";
-import { AnimatePresence, domAnimation, LazyMotion, m } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { AlertCircle, ChevronDown, MapPin, Search } from "lucide-react";
 import React, { useEffect, useMemo, useState } from "react";
 import usePlacesAutocomplete from "use-places-autocomplete";
@@ -99,9 +99,11 @@ const AutocompleteInput = ({
           {data.map((suggestion) => (
             <div
               key={suggestion.place_id}
-              tabIndex={0}
               onClick={handleSelect(suggestion)}
-              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleSelect(suggestion)(); }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ")
+                  handleSelect(suggestion)();
+              }}
               className="px-5 py-3 hover:bg-wise-green/5 cursor-pointer flex items-start gap-3 group transition-colors"
             >
               <MapPin className="size-4 mt-0.5 text-gray-400 group-hover:text-wise-green" />
@@ -292,7 +294,10 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                   aria-expanded={showCityDropdown}
                   className="w-full h-12 px-5 bg-white border-gray-100 rounded-xl font-medium shadow-sm flex items-center justify-between cursor-pointer focus-within:ring-2 focus-within:ring-wise-green/20"
                   onClick={() => setShowCityDropdown(!showCityDropdown)}
-                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setShowCityDropdown(!showCityDropdown); }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ")
+                      setShowCityDropdown(!showCityDropdown);
+                  }}
                 >
                   <span
                     className={cn(
@@ -347,7 +352,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                                 setCitySearch("");
                               }}
                               onKeyDown={(e) => {
-                                if (e.key === 'Enter' || e.key === ' ') {
+                                if (e.key === "Enter" || e.key === " ") {
                                   setFormData((prev) => ({
                                     ...prev,
                                     jobCity: city.name,

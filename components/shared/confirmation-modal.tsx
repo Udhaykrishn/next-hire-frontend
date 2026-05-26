@@ -114,7 +114,7 @@ export const ConfirmationModal = ({
               )}
               disabled={isLoading}
             >
-              {isLoading ? "Processing…" : confirmText}
+              {isLoading ? "Processing..." : confirmText}
             </Button>
           </DialogFooter>
         </div>

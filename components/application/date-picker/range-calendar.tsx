@@ -72,7 +72,7 @@ export const RangePresetButton = ({
   value,
   className,
   children,
-  …props
+  ...props
 }: RangePresetButtonProps) => {
   const context = useSlottedContext(RangeCalendarContext);
 
@@ -100,9 +100,10 @@ export const RangePresetButton = ({
 const MobilePresetButton = ({
   value,
   children,
-  …props
+  ...props
 }: HTMLAttributes<HTMLButtonElement> & {
-  value: { start: DateValue; end: DateValue };
+  start: DateValue;
+  end: DateValue;
 }) => {
   const context = use(RangeCalendarStateContext);
 
@@ -141,7 +142,7 @@ export const RangeCalendar = ({
   visibleDuration,
   showOutOfRangeDates = false,
   showPresetsOnDesktop = false,
-  …props
+  ...props
 }: RangeCalendarProps) => {
   const isDesktop = useBreakpoint("md");
   const context = useSlottedContext(RangeCalendarContext);

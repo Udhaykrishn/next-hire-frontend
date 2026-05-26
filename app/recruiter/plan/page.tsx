@@ -6,8 +6,6 @@ import { Suspense } from "react";
 import { PricingContent } from "@/app/pricing/page";
 import { Button } from "@/components/animate-ui/components/buttons/button";
 
-
-
 export default function RecruiterPlanPage() {
   const { push } = useRouter();
 

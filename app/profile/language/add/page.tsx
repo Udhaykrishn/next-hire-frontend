@@ -5,8 +5,6 @@ import { FormPageLayout } from "@/components/profile/forms/form-page-layout";
 import { LanguageForm } from "@/components/profile/forms/language-form";
 import { useProfile } from "@/hooks/use-profile";
 
-
-
 export default function AddLanguagePage() {
   const { handleAddLanguage } = useProfile();
   const { push } = useRouter();

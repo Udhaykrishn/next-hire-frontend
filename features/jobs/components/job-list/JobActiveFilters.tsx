@@ -1,5 +1,5 @@
 import { X } from "lucide-react";
-import { LazyMotion, m, AnimatePresence, domAnimation } from "motion/react";
+import { AnimatePresence, m } from "motion/react";
 
 function ActiveFilterTag({
   label,

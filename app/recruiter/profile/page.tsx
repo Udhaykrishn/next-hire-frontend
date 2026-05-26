@@ -1,14 +1,12 @@
 "use client";
 
-import { domAnimation, LazyMotion, m } from "framer-motion";
+import { m } from "framer-motion";
 import { BasicDetailsCard } from "@/features/recruiter/components/profile/basic-details-card";
 import { CompanyIdentityCard } from "@/features/recruiter/components/profile/company-identity-card";
 import { HeroAvatarCard } from "@/features/recruiter/components/profile/hero-avatar-card";
 import { StickySaveBar } from "@/features/recruiter/components/profile/sticky-save-bar";
 import { TaxIdentityCard } from "@/features/recruiter/components/profile/tax-identity-card";
 import { useRecruiterProfile } from "@/features/recruiter/hooks/use-recruiter-profile";
-
-
 
 export default function ProfilePage() {
   const {

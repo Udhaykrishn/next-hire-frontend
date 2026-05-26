@@ -2,7 +2,7 @@
 
 import { type CredentialResponse, GoogleLogin } from "@react-oauth/google";
 import { ArrowRight, Mail, Phone, ShieldCheck, User } from "lucide-react";
-import { LazyMotion, m, AnimatePresence, domAnimation } from "motion/react";
+import { AnimatePresence, m } from "motion/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type React from "react";
@@ -123,7 +123,7 @@ export default function UserSignupPage() {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ …prev, [e.target.id]: e.target.value }));
+    setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
   return (
@@ -265,7 +265,7 @@ export default function UserSignupPage() {
                         <Input
                           id="phone"
                           type="tel"
-                          placeholder="+91…"
+                          placeholder="+91..."
                           className="h-11 border-gray-200 rounded-xl focus:border-wise-green focus:ring-wise-green/20 bg-gray-50/50 text-sm transition-all"
                           value={formData.phone}
                           onChange={handleChange}
@@ -336,7 +336,12 @@ export default function UserSignupPage() {
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <OtpForm id={formData.email} onVerify={handleVerifyOtp} />
+                  {/* biome-ignore lint/a11y/useValidAriaRole: custom component prop */}
+                  <OtpForm
+                    id={formData.email}
+                    role="user"
+                    onVerify={handleVerifyOtp}
+                  />
                   <div className="mt-6 text-center">
                     <button
                       type="button"

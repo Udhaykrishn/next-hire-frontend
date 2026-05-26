@@ -119,7 +119,7 @@ type HighlightProps<T extends React.ElementType = "div"> =
 
 function Highlight<T extends React.ElementType = "div">({
   ref,
-  …props
+  ...props
 }: HighlightProps<T>) {
   const {
     as: Component = "div",
@@ -393,7 +393,7 @@ function HighlightItem<T extends React.ElementType>({
   exitDelay,
   asChild = false,
   forceUpdateBounds,
-  …props
+  ...props
 }: HighlightItemProps<T>) {
   const itemId = React.useId();
   const {
@@ -517,12 +517,12 @@ function HighlightItem<T extends React.ElementType>({
           key: childValue,
           ref: refCallback,
           className: cn("relative", element.props.className),
-          …getNonOverridingDataAttributes(element, {
-            …dataAttributes,
+          ...getNonOverridingDataAttributes(element, {
+            ...dataAttributes,
             "data-slot": "motion-highlight-item-container",
           }),
-          …commonHandlers,
-          …props,
+          ...commonHandlers,
+          ...props,
         },
         <>
           <AnimatePresence initial={false} mode="wait">
@@ -568,11 +568,11 @@ function HighlightItem<T extends React.ElementType>({
 
     return React.cloneElement(element, {
       ref: refCallback,
-      …getNonOverridingDataAttributes(element, {
-        …dataAttributes,
+      ...getNonOverridingDataAttributes(element, {
+        ...dataAttributes,
         "data-slot": "motion-highlight-item",
       }),
-      …commonHandlers,
+      ...commonHandlers,
     });
   }
 
@@ -620,8 +620,8 @@ function HighlightItem<T extends React.ElementType>({
       {React.cloneElement(element, {
         style: { position: "relative", zIndex: 1 },
         className: element.props.className,
-        …getNonOverridingDataAttributes(element, {
-          …dataAttributes,
+        ...getNonOverridingDataAttributes(element, {
+          ...dataAttributes,
           "data-slot": "motion-highlight-item",
         }),
       })}

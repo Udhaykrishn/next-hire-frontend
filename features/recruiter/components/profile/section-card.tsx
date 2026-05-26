@@ -1,4 +1,4 @@
-import { domAnimation, LazyMotion, m } from "framer-motion";
+import { m } from "framer-motion";
 import { Edit3 } from "lucide-react";
 import type { EditSection } from "@/features/recruiter/hooks/use-recruiter-profile";
 import { cn } from "@/lib/utils";

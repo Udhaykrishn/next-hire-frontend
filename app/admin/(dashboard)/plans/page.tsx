@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, domAnimation, LazyMotion, m } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import {
   Activity,
   Building2,
@@ -63,7 +63,7 @@ export default function PlansAdmin() {
       <div className="min-h-[60vh] flex flex-col items-center justify-center gap-y-4">
         <div className="size-12 border-4 border-wise-green border-t-transparent rounded-full animate-spin" />
         <p className="text-xs font-black uppercase tracking-widest text-gray-400">
-          Synchronizing Ecosystem…
+          Synchronizing Ecosystem...
         </p>
       </div>
     );
@@ -147,7 +147,7 @@ export default function PlansAdmin() {
                       placeholder="e.g., Candidate Pro"
                       value={newPlan.name}
                       onChange={(e) =>
-                        setNewPlan({ …newPlan, name: e.target.value })
+                        setNewPlan({ ...newPlan, name: e.target.value })
                       }
                       className="h-16 rounded-2xl bg-white/50 border-gray-100 focus:ring-wise-green focus:border-wise-green font-bold text-lg"
                     />
@@ -164,7 +164,7 @@ export default function PlansAdmin() {
                           placeholder="499"
                           value={newPlan.price}
                           onChange={(e) =>
-                            setNewPlan({ …newPlan, price: e.target.value })
+                            setNewPlan({ ...newPlan, price: e.target.value })
                           }
                           className="h-16 pl-12 rounded-2xl bg-white/50 border-gray-100 focus:ring-wise-green focus:border-wise-green font-bold text-lg"
                         />
@@ -177,7 +177,7 @@ export default function PlansAdmin() {
                       <select
                         value={newPlan.period}
                         onChange={(e) =>
-                          setNewPlan({ …newPlan, period: e.target.value })
+                          setNewPlan({ ...newPlan, period: e.target.value })
                         }
                         className="w-full h-16 px-4 rounded-2xl bg-white/50 border-gray-100 focus:ring-wise-green focus:border-wise-green font-bold text-lg outline-none appearance-none cursor-pointer"
                       >
@@ -200,7 +200,7 @@ export default function PlansAdmin() {
                           key={type}
                           onClick={() =>
                             setNewPlan({
-                              …newPlan,
+                              ...newPlan,
                               type: type as "candidate" | "recruiter",
                             })
                           }
@@ -233,7 +233,7 @@ export default function PlansAdmin() {
                           key={icon}
                           onClick={() =>
                             setNewPlan({
-                              …newPlan,
+                              ...newPlan,
                               iconType: icon as "zap" | "crown" | "shield",
                             })
                           }
@@ -253,7 +253,7 @@ export default function PlansAdmin() {
                         type="button"
                         onClick={() =>
                           setNewPlan({
-                            …newPlan,
+                            ...newPlan,
                             highlight: !newPlan.highlight,
                           })
                         }
@@ -282,10 +282,10 @@ export default function PlansAdmin() {
                       Strategic Value Proposition
                     </Label>
                     <Textarea
-                      placeholder="Describe the primary benefit of this tier…"
+                      placeholder="Describe the primary benefit of this tier..."
                       value={newPlan.description}
                       onChange={(e) =>
-                        setNewPlan({ …newPlan, description: e.target.value })
+                        setNewPlan({ ...newPlan, description: e.target.value })
                       }
                       className="min-h-[120px] rounded-2xl bg-white/50 border-gray-100 focus:ring-wise-green focus:border-wise-green font-medium text-base resize-none"
                     />
@@ -368,7 +368,7 @@ export default function PlansAdmin() {
                     />
                     <span className="relative z-10">
                       {isDeploying
-                        ? "Deploying Tier…"
+                        ? "Deploying Tier..."
                         : "Deploy Strategic Tier"}
                     </span>
                     {isDeploying ? (
@@ -409,7 +409,7 @@ export default function PlansAdmin() {
                       <span className="text-wise-green underline decoration-wise-green/30">
                         {newPlan.type}
                       </span>{" "}
-                      interfaces…
+                      interfaces...
                     </p>
                   </m.div>
                 )}

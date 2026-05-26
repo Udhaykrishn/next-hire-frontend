@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowLeft, KeyRound } from "lucide-react";
-import { LazyMotion, m, domAnimation } from "motion/react";
+import { m } from "motion/react";
 import Link from "next/link";
 import { ForgotPasswordForm } from "@/components/auth/forgot-password-form";
 import { Logo } from "@/components/logo";

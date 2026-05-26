@@ -34,7 +34,7 @@ export default function RecruiterDetailPage() {
           <div className="min-h-[60vh] flex flex-col items-center justify-center gap-y-4">
             <div className="size-12 border-4 border-wise-green border-t-transparent rounded-full animate-spin" />
             <p className="text-xs font-black uppercase tracking-widest text-gray-400">
-              Retrieving Partner Data…
+              Retrieving Partner Data...
             </p>
           </div>
         }

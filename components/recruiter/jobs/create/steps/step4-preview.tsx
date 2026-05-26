@@ -1,6 +1,6 @@
 "use client";
 
-import { domAnimation, LazyMotion, m } from "framer-motion";
+import { m } from "framer-motion";
 import { Briefcase, ChevronUp, Info, Medal, Pencil, Users } from "lucide-react";
 import type React from "react";
 import type { JobFormData } from "@/app/recruiter/jobs/create/new/types";

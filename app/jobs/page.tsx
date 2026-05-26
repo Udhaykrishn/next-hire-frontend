@@ -7,8 +7,9 @@ import { getQueryClient } from "@/shared/lib/query-client";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: 'Browse Jobs | NextHire',
-  description: 'Search and filter thousands of job listings matched to your profile.',
+  title: "Browse Jobs | NextHire",
+  description:
+    "Search and filter thousands of job listings matched to your profile.",
 };
 
 export default async function JobsPage() {

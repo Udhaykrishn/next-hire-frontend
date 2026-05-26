@@ -63,11 +63,16 @@ export const ExperienceForm = ({
     <form onSubmit={handleSubmit} className="gap-y-6">
       <div className="gap-y-5">
         <div className="gap-y-1.5">
-          <label htmlFor="title" className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
+          <label
+            htmlFor="title"
+            className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1"
+          >
             Job Title
           </label>
-        <input aria-label="Control"
-             id="title" name="title"
+          <input
+            aria-label="Control"
+            id="title"
+            name="title"
             defaultValue={initialData?.title}
             required
             className="w-full h-11 bg-gray-50 rounded-xl border border-gray-100 px-4 text-[14px] font-bold focus:outline-none focus:border-wise-green transition-colors"
@@ -76,14 +81,18 @@ export const ExperienceForm = ({
         </div>
 
         <div className="gap-y-1.5">
-          <label htmlFor="company" className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
+          <label
+            htmlFor="company"
+            className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1"
+          >
             Job Role
           </label>
           <div className="flex flex-wrap gap-2">
             {["Frontend", "Backend", "Full-stack", "DevOps", "UI/UX"].map(
               (role) => (
                 <label key={role} className="cursor-pointer">
-                  <input aria-label="Control"
+                  <input
+                    aria-label="Control"
                     type="radio"
                     name="role"
                     value={role}
@@ -112,12 +121,13 @@ export const ExperienceForm = ({
               {initialData?.description?.length || 0}/2000
             </span>
           </div>
-          <textarea aria-label="Control"
+          <textarea
+            aria-label="Control"
             name="description"
             defaultValue={initialData?.description}
             required
             className="w-full h-28 bg-gray-50 rounded-xl border border-gray-100 p-4 text-[14px] font-bold focus:outline-none focus:border-wise-green transition-colors resize-none"
-            placeholder="Enter job description…"
+            placeholder="Enter job description..."
           />
         </div>
       </div>
@@ -131,8 +141,10 @@ export const ExperienceForm = ({
             <label className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
               Company Name
             </label>
-        <input aria-label="Control"
-               id="company" name="company"
+            <input
+              aria-label="Control"
+              id="company"
+              name="company"
               defaultValue={initialData?.company}
               required
               className="w-full h-11 bg-gray-50 rounded-xl border border-gray-100 px-4 text-[13px] font-bold focus:outline-none focus:border-wise-green transition-colors"
@@ -140,11 +152,16 @@ export const ExperienceForm = ({
             />
           </div>
           <div className="gap-y-1.5">
-            <label htmlFor="location" className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
+            <label
+              htmlFor="location"
+              className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1"
+            >
               Location / Address
             </label>
-        <input aria-label="Control"
-               id="location" name="location"
+            <input
+              aria-label="Control"
+              id="location"
+              name="location"
               defaultValue={initialData?.location}
               required
               className="w-full h-11 bg-gray-50 rounded-xl border border-gray-100 px-4 text-[13px] font-bold focus:outline-none focus:border-wise-green transition-colors"
@@ -164,7 +181,8 @@ export const ExperienceForm = ({
                 "E-commerce",
               ].map((industry) => (
                 <label key={industry} className="cursor-pointer">
-                  <input aria-label="Control"
+                  <input
+                    aria-label="Control"
                     type="radio"
                     name="industry"
                     value={industry}
@@ -193,7 +211,8 @@ export const ExperienceForm = ({
           <div className="flex bg-gray-50 p-1 rounded-xl border border-gray-100">
             {["Yes", "No"].map((opt) => (
               <label key={opt} className="cursor-pointer">
-                <input aria-label="Control"
+                <input
+                  aria-label="Control"
                   type="radio"
                   name="currentlyWorking"
                   value={opt.toLowerCase()}

@@ -1,4 +1,4 @@
-import { AnimatePresence, domAnimation, LazyMotion, m } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { Loader2, Save, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -50,7 +50,7 @@ export function StickySaveBar({
               ) : (
                 <Save className="size-3.5" />
               )}
-              {isUpdating ? "Saving…" : "Save Changes"}
+              {isUpdating ? "Saving..." : "Save Changes"}
             </Button>
           </div>
         </m.div>

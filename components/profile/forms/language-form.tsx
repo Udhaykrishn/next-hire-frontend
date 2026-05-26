@@ -80,7 +80,8 @@ export const LanguageForm = ({
             Language Name
           </label>
           <div ref={containerRef} className="relative">
-            <input aria-label="Control"
+            <input
+              aria-label="Control"
               id="language-search"
               type="text"
               value={searchQuery}
@@ -89,7 +90,7 @@ export const LanguageForm = ({
                 setIsOpen(true);
               }}
               onFocus={() => setIsOpen(true)}
-              placeholder="Search or type language…"
+              placeholder="Search or type language..."
               className="w-full h-11 bg-gray-50 rounded-xl border border-gray-100 px-4 pr-10 text-[14px] font-bold focus:outline-none focus:border-wise-green transition-colors"
             />
             <button
@@ -139,7 +140,7 @@ export const LanguageForm = ({
                     )}
                 {!filteredLanguages.length && !searchQuery.trim() && (
                   <div className="px-4 py-2.5 text-[13px] font-medium text-gray-400 text-center">
-                    Type to search languages…
+                    Type to search languages...
                   </div>
                 )}
               </div>
@@ -155,7 +156,8 @@ export const LanguageForm = ({
         <div className="flex flex-wrap gap-2">
           {proficiencyLevels.map((level) => (
             <label key={level.value} className="cursor-pointer">
-              <input aria-label="Control"
+              <input
+                aria-label="Control"
                 type="radio"
                 name="level"
                 value={level.value}

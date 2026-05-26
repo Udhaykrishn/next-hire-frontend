@@ -38,11 +38,16 @@ export const CertificateForm = ({
   return (
     <form onSubmit={handleSubmit} className="gap-y-6">
       <div className="gap-y-1.5">
-        <label htmlFor="name" className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
+        <label
+          htmlFor="name"
+          className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1"
+        >
           Certificate Name
         </label>
-        <input aria-label="Control"
-           id="name" name="name"
+        <input
+          aria-label="Control"
+          id="name"
+          name="name"
           defaultValue={initialData?.name}
           required
           className="w-full h-11 bg-gray-50 rounded-xl border border-gray-100 px-4 text-[14px] font-bold focus:outline-none focus:border-wise-green transition-colors"
@@ -50,11 +55,16 @@ export const CertificateForm = ({
         />
       </div>
       <div className="gap-y-1.5">
-        <label htmlFor="issuer" className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
+        <label
+          htmlFor="issuer"
+          className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1"
+        >
           Issuing Organization
         </label>
-        <input aria-label="Control"
-           id="issuer" name="issuer"
+        <input
+          aria-label="Control"
+          id="issuer"
+          name="issuer"
           defaultValue={initialData?.issuer}
           required
           className="w-full h-11 bg-gray-50 rounded-xl border border-gray-100 px-4 text-[14px] font-bold focus:outline-none focus:border-wise-green transition-colors"

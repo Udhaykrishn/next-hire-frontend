@@ -74,7 +74,7 @@ export const RecruiterList = () => {
         <div className="p-8 text-center">
           <div className="size-8 border-4 border-wise-green border-t-transparent rounded-full animate-spin mx-auto mb-4" />
           <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">
-            Loading recruiters…
+            Loading recruiters...
           </p>
         </div>
       </div>
@@ -86,9 +86,10 @@ export const RecruiterList = () => {
       <div className="flex flex-col md:flex-row items-center gap-4">
         <div className="relative flex-1 group">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-gray-400 group-focus-within:text-wise-green transition-colors" />
-          <input aria-label="Control"
+          <input
+            aria-label="Control"
             type="text"
-            placeholder="Search by name, company or email…"
+            placeholder="Search by name, company or email..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full h-14 pl-12 pr-4 bg-white border border-gray-100 rounded-2xl text-sm font-bold focus:ring-2 focus:ring-wise-green/20 focus:border-wise-green transition-all outline-none"

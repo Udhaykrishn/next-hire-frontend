@@ -25,8 +25,6 @@ import { ProfileSidebar } from "@/components/profile/profile-sidebar";
 import { useProfile } from "@/hooks/use-profile";
 import { formatSalaryAmount } from "@/lib/salary";
 
-
-
 export default function ProfilePage() {
   const {
     skills,
@@ -300,7 +298,8 @@ export default function ProfilePage() {
                   <div className="pt-6 border-t border-gray-50">
                     <div className="flex gap-3">
                       <div className="relative flex-1 group">
-                        <input aria-label="Control"
+                        <input
+                          aria-label="Control"
                           type="text"
                           value={newSkill}
                           onChange={(e) => setNewSkill(e.target.value)}

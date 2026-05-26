@@ -1,10 +1,8 @@
 "use client";
 
 import { CheckCircle, Filter, Users } from "lucide-react";
-import { LazyMotion, m, domAnimation } from "motion/react";
+import { m } from "motion/react";
 import { Button } from "@/components/animate-ui/components/buttons/button";
-
-
 
 export default function RecruiterApplicationsPage() {
   return (

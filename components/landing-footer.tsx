@@ -108,7 +108,10 @@ export function LandingFooter() {
           </ul>
         </div>
       </div>
-      <div suppressHydrationWarning className="max-w-7xl mx-auto mt-20 pt-8 border-t border-gray-100 text-center text-sm font-medium text-gray-400">
+      <div
+        suppressHydrationWarning
+        className="max-w-7xl mx-auto mt-20 pt-8 border-t border-gray-100 text-center text-sm font-medium text-gray-400"
+      >
         © {new Date().getFullYear()} Next Hire. All rights reserved.
       </div>
     </footer>

@@ -1,15 +1,13 @@
 "use client";
 
 import { Clock, FileText, Search } from "lucide-react";
-import { LazyMotion, m, domAnimation } from "motion/react";
+import { m } from "motion/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { LandingFooter } from "@/components/landing-footer";
 import { LandingNavbar } from "@/components/landing-navbar";
 import { useAuthContext } from "@/features/auth/context/auth-context";
-
-
 
 export default function CandidateApplicationsPage() {
   const { isAuthenticated, role, isLoading } = useAuthContext();

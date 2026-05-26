@@ -1,7 +1,7 @@
 "use client";
 
 import { Briefcase, Building, Lock, Mail, Phone } from "lucide-react";
-import { LazyMotion, m, domAnimation } from "motion/react";
+import { m } from "motion/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type React from "react";
@@ -70,7 +70,7 @@ export default function RecruiterSignupPage() {
     }
 
     try {
-      await signup({ …formData, role: "RECRUITER" });
+      await signup({ ...formData, role: "RECRUITER" });
       toast.success("Please verify your email!");
       setStep("OTP");
     } catch (_err) {
@@ -102,7 +102,7 @@ export default function RecruiterSignupPage() {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ …prev, [e.target.id]: e.target.value }));
+    setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
   return (

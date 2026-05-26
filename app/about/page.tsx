@@ -3,8 +3,9 @@ import { LandingFooter } from "@/components/landing-footer";
 import { LandingNavbar } from "@/components/landing-navbar";
 
 export const metadata = {
-  title: 'About Us | NextHire',
-  description: "Learn about NextHire's mission to connect talent with opportunity.",
+  title: "About Us | NextHire",
+  description:
+    "Learn about NextHire's mission to connect talent with opportunity.",
 };
 
 export default function AboutPage() {

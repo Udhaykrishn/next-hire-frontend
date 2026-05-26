@@ -1,6 +1,6 @@
 "use client";
 
-import { domAnimation, LazyMotion, m } from "framer-motion";
+import { m } from "framer-motion";
 import {
   ArrowRight,
   Check,
@@ -15,8 +15,6 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/animate-ui/components/buttons/button";
 import { cn } from "@/lib/utils";
-
-
 
 const plans = [
   {
@@ -154,7 +152,8 @@ export default function RecruiterPlanSetupPage() {
               >
                 Monthly
               </span>
-              <button aria-label="Control"
+              <button
+                aria-label="Control"
                 type="button"
                 onClick={() =>
                   setBillingCycle((prev) =>

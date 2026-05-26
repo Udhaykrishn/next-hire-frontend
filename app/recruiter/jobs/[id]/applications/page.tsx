@@ -7,8 +7,6 @@ import { JobApplicationsStats } from "@/features/recruiter/components/applicatio
 import { JobApplicationsToolbar } from "@/features/recruiter/components/applications/JobApplicationsToolbar";
 import { useJobApplications } from "@/features/recruiter/hooks/use-job-applications";
 
-
-
 export default function JobApplicationsPage() {
   const {
     jobId,

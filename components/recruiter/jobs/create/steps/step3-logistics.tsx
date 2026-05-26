@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, domAnimation, LazyMotion, m } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { MapPin } from "lucide-react";
 import type React from "react";
 import type { DateRange } from "react-day-picker";
@@ -72,7 +72,7 @@ export const Step3Logistics = ({
                   key={opt.label}
                   type="button"
                   onClick={() =>
-                    setFormData((prev) => ({ …prev, isWalkIn: opt.value }))
+                    setFormData((prev) => ({ ...prev, isWalkIn: opt.value }))
                   }
                   className="flex items-center gap-3 group cursor-pointer"
                 >
@@ -129,7 +129,7 @@ export const Step3Logistics = ({
                     value={formData.interviewAddress}
                     onChange={(e) =>
                       setFormData((prev) => ({
-                        …prev,
+                        ...prev,
                         interviewAddress: e.target.value,
                       }))
                     }
@@ -161,7 +161,7 @@ export const Step3Logistics = ({
                         value={formData.walkInStartTime}
                         onValueChange={(v) =>
                           setFormData((prev) => ({
-                            …prev,
+                            ...prev,
                             walkInStartTime: v || "",
                           }))
                         }
@@ -195,7 +195,7 @@ export const Step3Logistics = ({
                         value={formData.walkInEndTime}
                         onValueChange={(v) =>
                           setFormData((prev) => ({
-                            …prev,
+                            ...prev,
                             walkInEndTime: v || "",
                           }))
                         }
@@ -233,7 +233,7 @@ export const Step3Logistics = ({
                     value={formData.interviewInstructions}
                     onChange={(e) =>
                       setFormData((prev) => ({
-                        …prev,
+                        ...prev,
                         interviewInstructions: e.target.value,
                       }))
                     }
@@ -266,7 +266,7 @@ export const Step3Logistics = ({
                   type="button"
                   onClick={() =>
                     setFormData((prev) => ({
-                      …prev,
+                      ...prev,
                       contactPreference: opt,
                       canCandidateContact: opt.startsWith("Yes") ? "Yes" : "No",
                     }))
@@ -317,7 +317,7 @@ export const Step3Logistics = ({
                     value={formData.hrName}
                     onChange={(e) =>
                       setFormData((prev) => ({
-                        …prev,
+                        ...prev,
                         hrName: e.target.value,
                         otherRecruiterName: e.target.value,
                       }))
@@ -340,7 +340,7 @@ export const Step3Logistics = ({
                       value={formData.hrPhone}
                       onChange={(e) =>
                         setFormData((prev) => ({
-                          …prev,
+                          ...prev,
                           hrPhone: e.target.value,
                           otherRecruiterWhatsapp: e.target.value,
                         }))
@@ -363,7 +363,7 @@ export const Step3Logistics = ({
                       value={formData.hrEmail}
                       onChange={(e) =>
                         setFormData((prev) => ({
-                          …prev,
+                          ...prev,
                           hrEmail: e.target.value,
                           otherRecruiterEmail: e.target.value,
                         }))
@@ -396,7 +396,7 @@ export const Step3Logistics = ({
                   key={opt}
                   type="button"
                   onClick={() =>
-                    setFormData((prev) => ({ …prev, whatsappAlerts: opt }))
+                    setFormData((prev) => ({ ...prev, whatsappAlerts: opt }))
                   }
                   className="flex items-center gap-3 group cursor-pointer"
                 >

@@ -1,7 +1,7 @@
 "use client";
 
 import { Mail } from "lucide-react";
-import { LazyMotion, m, domAnimation } from "motion/react";
+import { m } from "motion/react";
 import type React from "react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -81,7 +81,7 @@ export function ForgotPasswordForm({ role }: ForgotPasswordFormProps) {
           className="w-full h-12 bg-wise-green text-dark-green font-black rounded-xl hover:bg-wise-green/90 transition-all text-lg shadow-[0_0_20px_rgba(159,232,112,0.2)] mt-2"
           disabled={isLoading}
         >
-          {isLoading ? "Sending Link…" : "Send Reset Link"}
+          {isLoading ? "Sending Link..." : "Send Reset Link"}
         </Button>
       </m.div>
 

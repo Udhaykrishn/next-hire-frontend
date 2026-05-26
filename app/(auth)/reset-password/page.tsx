@@ -1,7 +1,7 @@
 "use client";
 
 import { AlertTriangle, ArrowLeft, LockKeyhole } from "lucide-react";
-import { LazyMotion, m, domAnimation } from "motion/react";
+import { m } from "motion/react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
@@ -48,14 +48,14 @@ function ResetPasswordContent() {
 
         <CardTitle className="text-3xl font-black leading-tight text-gray-900 tracking-tight mt-2">
           {isValidating
-            ? "Validating…"
+            ? "Validating..."
             : isValid
               ? "Create New Password"
               : "Reset Link Expired"}
         </CardTitle>
         <CardDescription className="text-base text-gray-500 font-medium px-4">
           {isValidating
-            ? "Verifying secure token…"
+            ? "Verifying secure token..."
             : isValid
               ? "Your new password must be different from previously used passwords."
               : "This password reset link is invalid, expired, or has already been used."}
@@ -124,7 +124,7 @@ export default function ResetPasswordPage() {
             <Card className="border-gray-200 shadow-2xl shadow-gray-200/50 rounded-[2rem] overflow-hidden bg-white/80 backdrop-blur-xl">
               <CardHeader className="gap-y-2 pb-8 pt-10 text-center relative border-b border-gray-100">
                 <CardTitle className="text-3xl font-black leading-tight text-gray-900 tracking-tight mt-2">
-                  Loading…
+                  Loading...
                 </CardTitle>
               </CardHeader>
               <CardContent className="flex justify-center py-12">

@@ -11,8 +11,8 @@ interface PageProps {
 }
 
 export const metadata = {
-  title: 'Job Details | NextHire',
-  description: 'View full job description, requirements, and apply directly.',
+  title: "Job Details | NextHire",
+  description: "View full job description, requirements, and apply directly.",
 };
 
 export default async function JobDetailsPage({ params }: PageProps) {

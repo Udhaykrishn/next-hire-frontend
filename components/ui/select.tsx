@@ -17,7 +17,7 @@ function SelectGroup({ className, ...props }: SelectPrimitive.Group.Props) {
   );
 }
 
-function SelectValue({ className, …props }: SelectPrimitive.Value.Props) {
+function SelectValue({ className, ...props }: SelectPrimitive.Value.Props) {
   return (
     <SelectPrimitive.Value
       data-slot="select-value"
@@ -31,7 +31,7 @@ function SelectTrigger({
   className,
   size = "default",
   children,
-  …props
+  ...props
 }: SelectPrimitive.Trigger.Props & {
   size?: "sm" | "default";
 }) {
@@ -63,7 +63,7 @@ function SelectContent({
   align = "center",
   alignOffset = 0,
   alignItemWithTrigger = true,
-  …props
+  ...props
 }: SelectPrimitive.Popup.Props &
   Pick<
     SelectPrimitive.Positioner.Props,
@@ -99,7 +99,7 @@ function SelectContent({
 
 function SelectLabel({
   className,
-  …props
+  ...props
 }: SelectPrimitive.GroupLabel.Props) {
   return (
     <SelectPrimitive.GroupLabel
@@ -113,7 +113,7 @@ function SelectLabel({
 function SelectItem({
   className,
   children,
-  …props
+  ...props
 }: SelectPrimitive.Item.Props) {
   return (
     <SelectPrimitive.Item
@@ -140,7 +140,7 @@ function SelectItem({
 
 function SelectSeparator({
   className,
-  …props
+  ...props
 }: SelectPrimitive.Separator.Props) {
   return (
     <SelectPrimitive.Separator
@@ -153,7 +153,7 @@ function SelectSeparator({
 
 function SelectScrollUpButton({
   className,
-  …props
+  ...props
 }: React.ComponentProps<typeof SelectPrimitive.ScrollUpArrow>) {
   return (
     <SelectPrimitive.ScrollUpArrow
@@ -171,7 +171,7 @@ function SelectScrollUpButton({
 
 function SelectScrollDownButton({
   className,
-  …props
+  ...props
 }: React.ComponentProps<typeof SelectPrimitive.ScrollDownArrow>) {
   return (
     <SelectPrimitive.ScrollDownArrow

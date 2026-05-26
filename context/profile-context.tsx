@@ -149,12 +149,10 @@ export const ProfileProvider = ({
     const updated = {
       jobTypes: formData.getAll("jobTypes") as string[],
       roles:
-        (formData.get("roles") as string)
-          ?.split(",")
-          .flatMap((s: string) => {
-            const trimmed = s.trim();
-            return trimmed ? [trimmed] : [];
-          }) || [],
+        (formData.get("roles") as string)?.split(",").flatMap((s: string) => {
+          const trimmed = s.trim();
+          return trimmed ? [trimmed] : [];
+        }) || [],
       workStyles: formData.getAll("workStyles") as string[],
       minSalary: (formData.get("minSalary") as string) || "",
       maxSalary: (formData.get("maxSalary") as string) || "",
@@ -209,49 +207,52 @@ export const ProfileProvider = ({
   const isLoading =
     isProfileLoading || isEduLoading || isExpLoading || isCertLoading;
 
-  const contextValue = useMemo(() => ({
-    skills,
-    experience,
-    education,
-    certificates,
-    basicInfo,
-    socialLinks,
-    jobPreferences,
-    languages,
-    isLoading,
-    isUploadingAvatar: uploadAvatarMutation.isPending,
-    isDeletingAvatar: deleteAvatarMutation.isPending,
-    isUploadingResume: uploadResumeMutation.isPending,
-    isDeletingResume: deleteResumeMutation.isPending,
-    ...handlers,
-    handleUpdateJobPreferences,
-    handleClearJobPreferences,
-    handleUploadAvatar,
-    handleDeleteAvatar,
-    handleUploadResume,
-    handleDeleteResume,
-  }), [
-    skills,
-    experience,
-    education,
-    certificates,
-    basicInfo,
-    socialLinks,
-    jobPreferences,
-    languages,
-    isLoading,
-    uploadAvatarMutation.isPending,
-    deleteAvatarMutation.isPending,
-    uploadResumeMutation.isPending,
-    deleteResumeMutation.isPending,
-    handlers,
-    handleUpdateJobPreferences,
-    handleClearJobPreferences,
-    handleUploadAvatar,
-    handleDeleteAvatar,
-    handleUploadResume,
-    handleDeleteResume,
-  ]);
+  const contextValue = useMemo(
+    () => ({
+      skills,
+      experience,
+      education,
+      certificates,
+      basicInfo,
+      socialLinks,
+      jobPreferences,
+      languages,
+      isLoading,
+      isUploadingAvatar: uploadAvatarMutation.isPending,
+      isDeletingAvatar: deleteAvatarMutation.isPending,
+      isUploadingResume: uploadResumeMutation.isPending,
+      isDeletingResume: deleteResumeMutation.isPending,
+      ...handlers,
+      handleUpdateJobPreferences,
+      handleClearJobPreferences,
+      handleUploadAvatar,
+      handleDeleteAvatar,
+      handleUploadResume,
+      handleDeleteResume,
+    }),
+    [
+      skills,
+      experience,
+      education,
+      certificates,
+      basicInfo,
+      socialLinks,
+      jobPreferences,
+      languages,
+      isLoading,
+      uploadAvatarMutation.isPending,
+      deleteAvatarMutation.isPending,
+      uploadResumeMutation.isPending,
+      deleteResumeMutation.isPending,
+      handlers,
+      handleUpdateJobPreferences,
+      handleClearJobPreferences,
+      handleUploadAvatar,
+      handleDeleteAvatar,
+      handleUploadResume,
+      handleDeleteResume,
+    ],
+  );
 
   return (
     <ProfileContext.Provider value={contextValue}>

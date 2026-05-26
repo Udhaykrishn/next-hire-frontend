@@ -1,6 +1,6 @@
 "use client";
 
-import { domAnimation, LazyMotion, m } from "framer-motion";
+import { m } from "framer-motion";
 import { ArrowLeft, Building2, KeyRound, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -112,7 +112,7 @@ export function CompanyVerificationFlow() {
                   onChange={(value) => setOtp(value)}
                 >
                   <InputOTPGroup className="gap-2">
-                    {[…Array(6)].map((_, i) => (
+                    {[...Array(6)].map((_, i) => (
                       <InputOTPSlot
                         key={i}
                         index={i}

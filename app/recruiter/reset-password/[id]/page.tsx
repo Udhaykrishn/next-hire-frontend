@@ -1,12 +1,11 @@
 "use client";
 
 import { ArrowLeft, LockKeyhole } from "lucide-react";
-import { LazyMotion, m, domAnimation } from "motion/react";
+import { m } from "motion/react";
 import Link from "next/link";
 import { use } from "react";
 import { ResetPasswordForm } from "@/components/auth/reset-password-form";
 import { Logo } from "@/components/logo";
-
 
 import {
   Card,

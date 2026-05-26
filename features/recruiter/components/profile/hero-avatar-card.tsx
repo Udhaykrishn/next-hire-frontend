@@ -1,4 +1,4 @@
-import { domAnimation, LazyMotion, m } from "framer-motion";
+import { m } from "framer-motion";
 import { Mail, Phone, ShieldCheck } from "lucide-react";
 import Image from "next/image";
 import { ProfileAvatarModal } from "@/components/profile/profile-avatar-modal";

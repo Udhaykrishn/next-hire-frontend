@@ -5,8 +5,6 @@ import { CertificateForm } from "@/components/profile/forms/certificate-form";
 import { FormPageLayout } from "@/components/profile/forms/form-page-layout";
 import { useProfile } from "@/hooks/use-profile";
 
-
-
 export default function AddCertificatePage() {
   const { handleAddCertificate } = useProfile();
   const { push } = useRouter();

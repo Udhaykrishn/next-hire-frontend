@@ -1,7 +1,7 @@
 "use client";
 
 import { Lock } from "lucide-react";
-import { LazyMotion, m, domAnimation } from "motion/react";
+import { m } from "motion/react";
 import { useRouter } from "next/navigation";
 import type React from "react";
 import { useState } from "react";
@@ -39,7 +39,7 @@ export function ResetPasswordForm({ token, role }: ResetPasswordFormProps) {
         },
         role,
       );
-      toast.success("Password reset successfully! Redirecting to login…");
+      toast.success("Password reset successfully! Redirecting to login...");
       setTimeout(() => {
         push(role === "recruiter" ? "/recruiter/login" : "/login");
       }, 2000);
@@ -102,7 +102,7 @@ export function ResetPasswordForm({ token, role }: ResetPasswordFormProps) {
           className="w-full h-12 bg-wise-green text-dark-green font-black rounded-xl hover:bg-wise-green/90 transition-all text-lg shadow-[0_0_20px_rgba(159,232,112,0.2)] mt-2"
           disabled={isLoading}
         >
-          {isLoading ? "Resetting…" : "Reset Password"}
+          {isLoading ? "Resetting..." : "Reset Password"}
         </Button>
       </m.div>
 

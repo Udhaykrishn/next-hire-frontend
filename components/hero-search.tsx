@@ -1,7 +1,7 @@
 "use client";
 
 import { Search } from "lucide-react";
-import { LazyMotion, m, domAnimation } from "motion/react";
+import { m } from "motion/react";
 import { useRouter } from "next/navigation";
 import type React from "react";
 import { useState } from "react";
@@ -33,7 +33,8 @@ export function HeroSearch() {
       >
         <div className="flex-1 flex items-center px-4 group/item">
           <Search className="size-5 text-gray-400 group-focus-within:text-wise-green transition-colors shrink-0" />
-          <input aria-label="Control"
+          <input
+            aria-label="Control"
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -46,7 +47,8 @@ export function HeroSearch() {
           <div className="size-5 flex items-center justify-center shrink-0">
             <div className="size-1.5 rounded-full bg-gray-400 group-focus-within:bg-wise-green transition-colors" />
           </div>
-          <input aria-label="Control"
+          <input
+            aria-label="Control"
             type="text"
             value={location}
             onChange={(e) => setLocation(e.target.value)}

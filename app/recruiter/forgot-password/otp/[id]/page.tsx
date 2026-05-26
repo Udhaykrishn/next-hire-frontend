@@ -1,12 +1,11 @@
 "use client";
 
 import { ArrowLeft, ShieldCheck } from "lucide-react";
-import { LazyMotion, m, domAnimation } from "motion/react";
+import { m } from "motion/react";
 import Link from "next/link";
 import { use } from "react";
 import { OtpForm } from "@/components/auth/otp-form";
 import { Logo } from "@/components/logo";
-
 
 import {
   Card,

@@ -93,7 +93,7 @@ function AccordionPanel({
   transition = { duration: 0.35, ease: "easeInOut" },
   hiddenUntilFound,
   keepRendered = false,
-  …props
+  ...props
 }: AccordionPanelProps) {
   const { isOpen } = useAccordionItem();
 

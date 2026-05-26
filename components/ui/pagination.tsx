@@ -53,6 +53,7 @@ function PaginationLink({
       className={cn(className)}
       nativeButton={false}
       render={
+        // biome-ignore lint/a11y/useAriaPropsSupportedByRole: ui component
         <a
           aria-current={isActive ? "page" : undefined}
           aria-label={isActive ? "Current page" : "Go to page"}

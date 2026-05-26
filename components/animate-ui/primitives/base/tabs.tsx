@@ -48,7 +48,7 @@ type TabsHighlightProps = Omit<HighlightProps, "controlledItems" | "value">;
 
 function TabsHighlight({
   transition = { type: "spring", stiffness: 200, damping: 25 },
-  …props
+  ...props
 }: TabsHighlightProps) {
   const { value } = useTabs();
 
@@ -91,7 +91,7 @@ function TabsPanel({
   value,
   keepMounted,
   transition = { duration: 0.5, ease: "easeInOut" },
-  …props
+  ...props
 }: TabsPanelProps) {
   return (
     <AnimatePresence mode="wait">
@@ -143,7 +143,7 @@ function TabsPanels(props: TabsPanelsProps) {
   const { value } = useTabs();
 
   if (isAutoMode(props)) {
-    const { children, transition = defaultTransition, …autoProps } = props;
+    const { children, transition = defaultTransition, ...autoProps } = props;
 
     return (
       <AutoHeight
@@ -161,7 +161,7 @@ function TabsPanels(props: TabsPanelsProps) {
     children,
     style,
     transition = defaultTransition,
-    …layoutProps
+    ...layoutProps
   } = props;
 
   return (

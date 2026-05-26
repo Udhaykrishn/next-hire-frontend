@@ -1,5 +1,6 @@
 "use client";
 
+import type { JSX } from "react";
 import {
   PaginationContent,
   PaginationEllipsis,
@@ -10,7 +11,6 @@ import {
   Pagination as ShadcnPagination,
 } from "@/components/ui/pagination";
 import { cn } from "@/lib/utils";
-import { JSX } from "react";
 
 interface PaginationProps {
   currentPage: number;

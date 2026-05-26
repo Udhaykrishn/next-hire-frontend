@@ -1,6 +1,6 @@
 "use client";
 
-import { domAnimation, LazyMotion, m } from "framer-motion";
+import { m } from "framer-motion";
 import { Info, Plus, X } from "lucide-react";
 import type React from "react";
 import {
@@ -71,7 +71,7 @@ export const Step2Requirements = ({
               <Select
                 value={formData.education}
                 onValueChange={(v) =>
-                  setFormData((prev) => ({ …prev, education: v || "" }))
+                  setFormData((prev) => ({ ...prev, education: v || "" }))
                 }
               >
                 <SelectTrigger className="w-full h-12 rounded-xl border-gray-100 bg-white shadow-sm font-bold text-[14px]">
@@ -101,7 +101,7 @@ export const Step2Requirements = ({
               <Select
                 value={formData.englishLevel}
                 onValueChange={(v) =>
-                  setFormData((prev) => ({ …prev, englishLevel: v || "" }))
+                  setFormData((prev) => ({ ...prev, englishLevel: v || "" }))
                 }
               >
                 <SelectTrigger className="w-full h-12 rounded-xl border-gray-100 bg-white shadow-sm font-bold text-[14px]">
@@ -127,7 +127,7 @@ export const Step2Requirements = ({
                 value={formData.experience}
                 onValueChange={(v) =>
                   setFormData((prev) => ({
-                    …prev,
+                    ...prev,
                     experience: v || "",
                     experienceType: v || "",
                   }))
@@ -158,7 +158,7 @@ export const Step2Requirements = ({
                 <Select
                   value={formData.minExperience}
                   onValueChange={(v) =>
-                    setFormData((prev) => ({ …prev, minExperience: v || "" }))
+                    setFormData((prev) => ({ ...prev, minExperience: v || "" }))
                   }
                 >
                   <SelectTrigger className="w-full h-12 rounded-xl border-gray-100 bg-white shadow-sm font-bold text-[14px]">
@@ -265,9 +265,9 @@ export const Step2Requirements = ({
                     options={INDUSTRY_OPTIONS}
                     selected={formData.industry || []}
                     onChange={(vals) =>
-                      setFormData((prev) => ({ …prev, industry: vals }))
+                      setFormData((prev) => ({ ...prev, industry: vals }))
                     }
-                    placeholder="Select industry…"
+                    placeholder="Select industry..."
                     label="Industry Experience"
                   />
                 </div>
@@ -294,11 +294,11 @@ export const Step2Requirements = ({
                     selected={formData.degreeSpecialization || []}
                     onChange={(vals) =>
                       setFormData((prev) => ({
-                        …prev,
+                        ...prev,
                         degreeSpecialization: vals,
                       }))
                     }
-                    placeholder="Select degree or specialization…"
+                    placeholder="Select degree or specialization..."
                     label="Degree Preference"
                   />
                 </div>
@@ -324,7 +324,7 @@ export const Step2Requirements = ({
                     <Select
                       value={formData.gender}
                       onValueChange={(v) =>
-                        setFormData((prev) => ({ …prev, gender: v || "" }))
+                        setFormData((prev) => ({ ...prev, gender: v || "" }))
                       }
                     >
                       <SelectTrigger
@@ -377,7 +377,7 @@ export const Step2Requirements = ({
                           value={formData.minAge}
                           onChange={(e) =>
                             setFormData((prev) => ({
-                              …prev,
+                              ...prev,
                               minAge: e.target.value,
                             }))
                           }
@@ -396,7 +396,7 @@ export const Step2Requirements = ({
                           value={formData.maxAge}
                           onChange={(e) =>
                             setFormData((prev) => ({
-                              …prev,
+                              ...prev,
                               maxAge: e.target.value,
                             }))
                           }
@@ -435,10 +435,10 @@ export const Step2Requirements = ({
                             setFormData((prev) => {
                               const prevLangs = prev.regionalLanguages || [];
                               return {
-                                …prev,
+                                ...prev,
                                 regionalLanguages: isSelected
                                   ? prevLangs.filter((l) => l !== lang)
-                                  : […prevLangs, lang],
+                                  : [...prevLangs, lang],
                               };
                             })
                           }
@@ -488,9 +488,9 @@ export const Step2Requirements = ({
                     ]}
                     selected={formData.skills || []}
                     onChange={(vals) =>
-                      setFormData((prev) => ({ …prev, skills: vals }))
+                      setFormData((prev) => ({ ...prev, skills: vals }))
                     }
-                    placeholder="Search or select skills…"
+                    placeholder="Search or select skills..."
                     label="Skills"
                   />
                 </div>
@@ -514,9 +514,9 @@ export const Step2Requirements = ({
             <RichTextEditor
               value={formData.description}
               onChange={(content) =>
-                setFormData((prev) => ({ …prev, description: content }))
+                setFormData((prev) => ({ ...prev, description: content }))
               }
-              placeholder="Enter the job description, including the main responsibility and tasks…"
+              placeholder="Enter the job description, including the main responsibility and tasks..."
             />
             <FieldError name="description" errors={errors} />
           </div>
@@ -537,9 +537,9 @@ export const Step2Requirements = ({
             <RichTextEditor
               value={formData.jobDescription || ""}
               onChange={(content) =>
-                setFormData((prev) => ({ …prev, jobDescription: content }))
+                setFormData((prev) => ({ ...prev, jobDescription: content }))
               }
-              placeholder="Enter details about responsibilities, tools used, day-to-day tasks…"
+              placeholder="Enter details about responsibilities, tools used, day-to-day tasks..."
             />
             <FieldError name="jobDescription" errors={errors} />
           </div>

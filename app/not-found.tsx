@@ -62,7 +62,10 @@ export default function NotFound() {
       </main>
 
       {/* Simplified Footer Copyright */}
-      <footer suppressHydrationWarning className="w-full py-6 text-center text-xs text-gray-400 font-bold tracking-wider uppercase relative z-20">
+      <footer
+        suppressHydrationWarning
+        className="w-full py-6 text-center text-xs text-gray-400 font-bold tracking-wider uppercase relative z-20"
+      >
         © {new Date().getFullYear()} NextHire. All Rights Reserved.
       </footer>
     </div>
