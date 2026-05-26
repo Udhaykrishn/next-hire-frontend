@@ -2,32 +2,20 @@ import type { BackendJob } from "@/features/admin/types/admin.types";
 import { apiClient } from "@/lib/api-client";
 import type { JobStats } from "../types/applications.types";
 
-interface ApiResponseWrapper<T> {
-  statusCode: number;
-  success: boolean;
-  message: string;
-  data: T;
-}
-
 export const getJobDetails = async (id: string): Promise<BackendJob> => {
-  const response = await apiClient.get<ApiResponseWrapper<BackendJob>>(
-    `/job/${id}`,
-  );
-  // Handle cases where data is returned directly or inside response.data.data
-  const rawData = response.data as unknown as Record<string, unknown>;
-  if (rawData?.data) {
+  const response = await apiClient.get<unknown>(`/job/${id}`);
+  const rawData = response as Record<string, unknown>;
+  if (rawData && typeof rawData === "object" && "data" in rawData) {
     return rawData.data as BackendJob;
   }
-  return response.data;
+  return response as BackendJob;
 };
 
 export const getJobStats = async (id: string): Promise<JobStats> => {
-  const response = await apiClient.get<ApiResponseWrapper<JobStats>>(
-    `/job/${id}/stats`,
-  );
-  const rawData = response.data as unknown as Record<string, unknown>;
-  if (rawData?.data) {
+  const response = await apiClient.get(`/job/${id}/stats`);
+  const rawData = response as Record<string, unknown>;
+  if (rawData && typeof rawData === "object" && "data" in rawData) {
     return rawData.data as JobStats;
   }
-  return response.data;
+  return response as JobStats;
 };
