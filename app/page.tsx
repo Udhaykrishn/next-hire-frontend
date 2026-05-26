@@ -10,6 +10,7 @@ import {
   Zap,
 } from "lucide-react";
 import * as motion from "motion/react-client";
+import Image from "next/image";
 import Link from "next/link";
 import {
   Accordion,
