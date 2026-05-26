@@ -5,13 +5,15 @@ import { ExperienceForm } from "@/components/profile/forms/experience-form";
 import { FormPageLayout } from "@/components/profile/forms/form-page-layout";
 import { useProfile } from "@/hooks/use-profile";
 
+
+
 export default function AddExperiencePage() {
   const { handleAddExperience } = useProfile();
-  const router = useRouter();
+  const { push } = useRouter();
 
   const onSubmit = (formData: FormData, start?: Date, end?: Date) => {
     handleAddExperience(formData, start, end);
-    router.push("/profile");
+    push("/profile");
   };
 
   return (

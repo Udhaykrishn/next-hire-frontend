@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import { LazyMotion, m, domAnimation } from "motion/react";
 
 interface GlobalLoaderProps {
   fullScreen?: boolean;
@@ -15,34 +15,34 @@ export function GlobalLoader({
     >
       <div className="relative flex items-center justify-center size-24">
         {/* Pulsating Outer Ring */}
-        <motion.div
+        <m.div
           className="absolute inset-0 rounded-full border-[3px] border-wise-green/40"
           animate={{ scale: [1, 1.25, 1], opacity: [0.8, 0, 0.8] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         />
 
         {/* Spinning Accent Ring */}
-        <motion.div
+        <m.div
           className="absolute inset-2 rounded-full border-[3px] border-transparent border-t-dark-green border-r-wise-green"
           animate={{ rotate: 360 }}
           transition={{ duration: 1.2, repeat: Infinity, ease: "linear" }}
         />
 
         {/* Inner Pulse */}
-        <motion.div
+        <m.div
           className="absolute inset-4 rounded-full border-[3px] border-transparent border-b-dark-green border-l-wise-green/50"
           animate={{ rotate: -360 }}
           transition={{ duration: 1.8, repeat: Infinity, ease: "linear" }}
         />
 
         {/* Center Core */}
-        <motion.div
+        <m.div
           className="size-10 bg-dark-green rounded-full shadow-lg shadow-wise-green/40 flex items-center justify-center"
           animate={{ scale: [0.9, 1.1, 0.9] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         >
           <div className="size-3 bg-white rounded-full opacity-90" />
-        </motion.div>
+        </m.div>
       </div>
     </div>
   );

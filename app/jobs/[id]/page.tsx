@@ -10,6 +10,11 @@ interface PageProps {
   params: Promise<{ id: string }>;
 }
 
+export const metadata = {
+  title: 'Job Details | NextHire',
+  description: 'View full job description, requirements, and apply directly.',
+};
+
 export default async function JobDetailsPage({ params }: PageProps) {
   const resolvedParams = await params;
   const queryClient = getQueryClient();

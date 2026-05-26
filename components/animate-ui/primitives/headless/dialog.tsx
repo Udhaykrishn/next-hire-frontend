@@ -13,12 +13,7 @@ import {
   DialogTitle as DialogTitlePrimitive,
   type DialogTitleProps as DialogTitlePrimitiveProps,
 } from "@headlessui/react";
-import {
-  AnimatePresence,
-  type HTMLMotionProps,
-  motion,
-  type Transition,
-} from "motion/react";
+import { LazyMotion, m, AnimatePresence, type HTMLMotionProps, type Transition, domAnimation } from "motion/react";
 import type * as React from "react";
 
 type DialogProps<TTag extends React.ElementType = "div"> = Omit<
@@ -31,7 +26,7 @@ type DialogProps<TTag extends React.ElementType = "div"> = Omit<
 
 function Dialog<TTag extends React.ElementType = "div">({
   className,
-  ...props
+  …props
 }: DialogProps<TTag>) {
   return (
     <AnimatePresence>
@@ -59,7 +54,7 @@ function DialogBackdrop<TTag extends React.ElementType = typeof motion.div>(
   const {
     as = motion.div,
     transition = { duration: 0.2, ease: "easeInOut" },
-    ...rest
+    …rest
   } = props;
 
   return (
@@ -93,7 +88,7 @@ function DialogPanel<TTag extends React.ElementType = typeof motion.div>(
     as = motion.div,
     from = "top",
     transition = { type: "spring", stiffness: 150, damping: 25 },
-    ...rest
+    …rest
   } = props;
 
   const initialRotation =
@@ -141,7 +136,7 @@ type DialogCloseProps<TTag extends React.ElementType = "div"> =
 function DialogClose<TTag extends React.ElementType = "button">(
   props: DialogCloseProps<TTag>,
 ) {
-  const { as = "button", ...rest } = props;
+  const { as = "button", …rest } = props;
 
   return (
     <CloseButton
@@ -159,7 +154,7 @@ type DialogHeaderProps<TTag extends React.ElementType = "div"> =
 
 function DialogHeader<TTag extends React.ElementType = "div">({
   as: Component = "div",
-  ...props
+  …props
 }: DialogHeaderProps<TTag>) {
   return <Component data-slot="dialog-header" {...props} />;
 }
@@ -169,7 +164,7 @@ type DialogFooterProps<TTag extends React.ElementType = "div"> =
     as?: TTag;
   };
 
-function DialogFooter({ as: Component = "div", ...props }: DialogFooterProps) {
+function DialogFooter({ as: Component = "div", …props }: DialogFooterProps) {
   return <Component data-slot="dialog-footer" {...props} />;
 }
 

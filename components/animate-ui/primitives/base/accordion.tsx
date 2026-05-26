@@ -1,7 +1,7 @@
 "use client";
 
 import { Accordion as AccordionPrimitive } from "@base-ui-components/react/accordion";
-import { AnimatePresence, type HTMLMotionProps, motion } from "motion/react";
+import { LazyMotion, m, AnimatePresence, type HTMLMotionProps, domAnimation } from "motion/react";
 import * as React from "react";
 import { useControlledState } from "@/hooks/use-controlled-state";
 import { getStrictContext } from "@/lib/get-strict-context";
@@ -93,7 +93,7 @@ function AccordionPanel({
   transition = { duration: 0.35, ease: "easeInOut" },
   hiddenUntilFound,
   keepRendered = false,
-  ...props
+  …props
 }: AccordionPanelProps) {
   const { isOpen } = useAccordionItem();
 
@@ -105,7 +105,7 @@ function AccordionPanel({
           hiddenUntilFound={hiddenUntilFound}
           keepMounted
           render={
-            <motion.div
+            <m.div
               key="accordion-panel"
               data-slot="accordion-panel"
               initial={{ height: 0, opacity: 0, "--mask-stop": "0%", y: 20 }}
@@ -133,7 +133,7 @@ function AccordionPanel({
             hiddenUntilFound={hiddenUntilFound}
             keepMounted
             render={
-              <motion.div
+              <m.div
                 key="accordion-panel"
                 data-slot="accordion-panel"
                 initial={{ height: 0, opacity: 0, "--mask-stop": "0%", y: 20 }}

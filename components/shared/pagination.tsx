@@ -10,12 +10,101 @@ import {
   Pagination as ShadcnPagination,
 } from "@/components/ui/pagination";
 import { cn } from "@/lib/utils";
+import { JSX } from "react";
 
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
   className?: string;
+}
+
+function PageItems({
+  currentPage,
+  totalPages,
+  onPageChange,
+}: {
+  currentPage: number;
+  totalPages: number;
+  onPageChange: (page: number) => void;
+}) {
+  const items: JSX.Element[] = [];
+  const showEllipsis = totalPages > 7;
+
+  if (!showEllipsis) {
+    Array.from({ length: totalPages }, (_, index) => {
+      const i = index + 1;
+      items.push(
+        <PaginationItem key={`page-${i}`}>
+          <PaginationLink
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              onPageChange(i);
+            }}
+            isActive={i === currentPage}
+            className={cn(
+              "size-10 rounded-xl text-sm font-black transition-all duration-200 border-none",
+              i === currentPage
+                ? "bg-wise-green text-dark-green shadow-lg shadow-wise-green/20 hover:bg-wise-green/90"
+                : "text-gray-400 hover:text-near-black hover:bg-gray-50",
+            )}
+          >
+            {i}
+          </PaginationLink>
+        </PaginationItem>,
+      );
+    });
+  } else {
+    const addPage = (p: number) => {
+      items.push(
+        <PaginationItem key={`page-${p}`}>
+          <PaginationLink
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              onPageChange(p);
+            }}
+            isActive={p === currentPage}
+            className={cn(
+              "size-10 rounded-xl text-sm font-black transition-all duration-200 border-none",
+              p === currentPage
+                ? "bg-wise-green text-dark-green shadow-lg shadow-wise-green/20 hover:bg-wise-green/90"
+                : "text-gray-400 hover:text-near-black hover:bg-gray-50",
+            )}
+          >
+            {p}
+          </PaginationLink>
+        </PaginationItem>,
+      );
+    };
+
+    const addEllipsis = (key: string) => {
+      items.push(
+        <PaginationItem key={key}>
+          <PaginationEllipsis className="text-gray-400" />
+        </PaginationItem>,
+      );
+    };
+
+    if (currentPage <= 4) {
+      Array.from({ length: 5 }, (_, idx) => addPage(idx + 1));
+      addEllipsis("ellipsis-1");
+      addPage(totalPages);
+    } else if (currentPage >= totalPages - 3) {
+      addPage(1);
+      addEllipsis("ellipsis-2");
+      Array.from({ length: 5 }, (_, idx) => addPage(totalPages - 4 + idx));
+    } else {
+      addPage(1);
+      addEllipsis("ellipsis-3");
+      Array.from({ length: 3 }, (_, idx) => addPage(currentPage - 1 + idx));
+      addEllipsis("ellipsis-4");
+      addPage(totalPages);
+    }
+  }
+
+  return <>{items}</>;
 }
 
 export function Pagination({
@@ -25,85 +114,6 @@ export function Pagination({
   className,
 }: PaginationProps) {
   if (totalPages <= 1) return null;
-
-  const renderPageItems = () => {
-    const items = [];
-    const showEllipsis = totalPages > 7;
-
-    if (!showEllipsis) {
-      for (let i = 1; i <= totalPages; i++) {
-        items.push(
-          <PaginationItem key={i}>
-            <PaginationLink
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                onPageChange(i);
-              }}
-              isActive={i === currentPage}
-              className={cn(
-                "size-10 rounded-xl text-sm font-black transition-all duration-200 border-none",
-                i === currentPage
-                  ? "bg-wise-green text-dark-green shadow-lg shadow-wise-green/20 hover:bg-wise-green/90"
-                  : "text-gray-400 hover:text-near-black hover:bg-gray-50",
-              )}
-            >
-              {i}
-            </PaginationLink>
-          </PaginationItem>,
-        );
-      }
-    } else {
-      const addPage = (p: number) => {
-        items.push(
-          <PaginationItem key={p}>
-            <PaginationLink
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                onPageChange(p);
-              }}
-              isActive={p === currentPage}
-              className={cn(
-                "size-10 rounded-xl text-sm font-black transition-all duration-200 border-none",
-                p === currentPage
-                  ? "bg-wise-green text-dark-green shadow-lg shadow-wise-green/20 hover:bg-wise-green/90"
-                  : "text-gray-400 hover:text-near-black hover:bg-gray-50",
-              )}
-            >
-              {p}
-            </PaginationLink>
-          </PaginationItem>,
-        );
-      };
-
-      const addEllipsis = (key: string) => {
-        items.push(
-          <PaginationItem key={key}>
-            <PaginationEllipsis className="text-gray-400" />
-          </PaginationItem>,
-        );
-      };
-
-      if (currentPage <= 4) {
-        for (let i = 1; i <= 5; i++) addPage(i);
-        addEllipsis("ellipsis-1");
-        addPage(totalPages);
-      } else if (currentPage >= totalPages - 3) {
-        addPage(1);
-        addEllipsis("ellipsis-2");
-        for (let i = totalPages - 4; i <= totalPages; i++) addPage(i);
-      } else {
-        addPage(1);
-        addEllipsis("ellipsis-3");
-        for (let i = currentPage - 1; i <= currentPage + 1; i++) addPage(i);
-        addEllipsis("ellipsis-4");
-        addPage(totalPages);
-      }
-    }
-
-    return items;
-  };
 
   return (
     <div
@@ -135,7 +145,11 @@ export function Pagination({
             />
           </PaginationItem>
 
-          {renderPageItems()}
+          <PageItems
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={onPageChange}
+          />
 
           <PaginationItem>
             <PaginationNext

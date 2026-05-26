@@ -2,6 +2,11 @@ import { Globe2, Target, Users, Zap } from "lucide-react";
 import { LandingFooter } from "@/components/landing-footer";
 import { LandingNavbar } from "@/components/landing-navbar";
 
+export const metadata = {
+  title: 'About Us | NextHire',
+  description: "Learn about NextHire's mission to connect talent with opportunity.",
+};
+
 export default function AboutPage() {
   const stats = [
     { label: "Active Users", value: "10K+" },
@@ -43,7 +48,7 @@ export default function AboutPage() {
 
       <main className="flex-1 pt-32 pb-20">
         <section className="px-4 relative mb-24">
-          <div className="absolute top-[-20%] right-[-10%] w-[500px] h-[500px] bg-wise-green/10 rounded-full blur-[120px] -z-10 mix-blend-multiply pointer-events-none" />
+          <div className="absolute top-[-20%] right-[-10%] size-[500px] bg-wise-green/10 rounded-full blur-[120px] -z-10 mix-blend-multiply pointer-events-none" />
 
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-[48px] font-black text-gray-900 tracking-tight leading-[56px] mb-8">
@@ -84,7 +89,7 @@ export default function AboutPage() {
         <section className="px-4 mb-32">
           <div className="max-w-6xl mx-auto bg-gray-900 rounded-[3rem] p-12 md:p-20 relative overflow-hidden">
             <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
-            <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[400px] h-[400px] bg-wise-green/20 rounded-full blur-[100px] pointer-events-none" />
+            <div className="absolute top-1/2 right-0 -translate-y-1/2 size-[400px] bg-wise-green/20 rounded-full blur-[100px] pointer-events-none" />
 
             <div className="grid md:grid-cols-2 gap-12 relative z-10 items-center">
               <div>

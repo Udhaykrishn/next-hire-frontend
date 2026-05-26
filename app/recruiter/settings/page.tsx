@@ -17,7 +17,7 @@ export default function RecruiterSettings() {
   const { form, onSubmit, handleResetPassword, isPending } = useSettingsForm();
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div className="max-w-4xl mx-auto gap-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div>
         <h1 className="text-2xl font-black text-near-black flex items-center gap-2">
           <Settings className="size-6 text-wise-green" />
@@ -49,7 +49,7 @@ export default function RecruiterSettings() {
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-5"
+                className="gap-y-5"
               >
                 <FormField
                   control={form.control}
@@ -122,7 +122,7 @@ export default function RecruiterSettings() {
                     disabled={isPending}
                     className="h-11 px-8 rounded-xl bg-near-black text-white hover:bg-wise-green hover:text-near-black transition-colors font-bold text-sm shadow-sm"
                   >
-                    {isPending ? "Updating..." : "Save Password"}
+                    {isPending ? "Updating…" : "Save Password"}
                   </Button>
                 </div>
               </form>

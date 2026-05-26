@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion, type Transition } from "motion/react";
+import { LazyMotion, m, AnimatePresence, type Transition, domAnimation } from "motion/react";
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
@@ -119,7 +119,7 @@ type HighlightProps<T extends React.ElementType = "div"> =
 
 function Highlight<T extends React.ElementType = "div">({
   ref,
-  ...props
+  …props
 }: HighlightProps<T>) {
   const {
     as: Component = "div",
@@ -263,7 +263,7 @@ function Highlight<T extends React.ElementType = "div">({
         >
           <AnimatePresence initial={false} mode="wait">
             {boundsState && (
-              <motion.div
+              <m.div
                 data-slot="motion-highlight"
                 animate={{
                   top: boundsState.top,
@@ -393,7 +393,7 @@ function HighlightItem<T extends React.ElementType>({
   exitDelay,
   asChild = false,
   forceUpdateBounds,
-  ...props
+  …props
 }: HighlightItemProps<T>) {
   const itemId = React.useId();
   const {
@@ -517,17 +517,17 @@ function HighlightItem<T extends React.ElementType>({
           key: childValue,
           ref: refCallback,
           className: cn("relative", element.props.className),
-          ...getNonOverridingDataAttributes(element, {
-            ...dataAttributes,
+          …getNonOverridingDataAttributes(element, {
+            …dataAttributes,
             "data-slot": "motion-highlight-item-container",
           }),
-          ...commonHandlers,
-          ...props,
+          …commonHandlers,
+          …props,
         },
         <>
           <AnimatePresence initial={false} mode="wait">
             {isActive && !isDisabled && (
-              <motion.div
+              <m.div
                 layoutId={`transition-background-${contextId}`}
                 data-slot="motion-highlight"
                 style={{
@@ -568,11 +568,11 @@ function HighlightItem<T extends React.ElementType>({
 
     return React.cloneElement(element, {
       ref: refCallback,
-      ...getNonOverridingDataAttributes(element, {
-        ...dataAttributes,
+      …getNonOverridingDataAttributes(element, {
+        …dataAttributes,
         "data-slot": "motion-highlight-item",
       }),
-      ...commonHandlers,
+      …commonHandlers,
     });
   }
 
@@ -589,7 +589,7 @@ function HighlightItem<T extends React.ElementType>({
       {mode === "children" && (
         <AnimatePresence initial={false} mode="wait">
           {isActive && !isDisabled && (
-            <motion.div
+            <m.div
               layoutId={`transition-background-${contextId}`}
               data-slot="motion-highlight"
               style={{
@@ -620,8 +620,8 @@ function HighlightItem<T extends React.ElementType>({
       {React.cloneElement(element, {
         style: { position: "relative", zIndex: 1 },
         className: element.props.className,
-        ...getNonOverridingDataAttributes(element, {
-          ...dataAttributes,
+        …getNonOverridingDataAttributes(element, {
+          …dataAttributes,
           "data-slot": "motion-highlight-item",
         }),
       })}

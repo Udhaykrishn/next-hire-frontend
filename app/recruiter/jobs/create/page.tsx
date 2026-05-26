@@ -15,6 +15,8 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
+
+
 interface MethodologyCardProps {
   title: string;
   description: string;
@@ -64,7 +66,7 @@ const MethodologyCard = ({
       })}
     </div>
 
-    <div className="flex-1 space-y-3">
+    <div className="flex-1 gap-y-3">
       <h3 className="text-[22px] font-black leading-none tracking-tight text-near-black">
         {title}
       </h3>
@@ -99,15 +101,15 @@ const MethodologyCard = ({
 );
 
 export default function CreateJobPage() {
-  const router = useRouter();
+  const { push, back } = useRouter();
 
   return (
-    <div className="max-w-5xl mx-auto space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
+    <div className="max-w-5xl mx-auto gap-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
       {/* Navigation Header */}
       <div className="flex items-center justify-between">
         <Button
           variant="ghost"
-          onClick={() => router.back()}
+          onClick={() => back()}
           className="group flex items-center gap-2 hover:bg-transparent px-0"
         >
           <div className="size-8 rounded-full border border-gray-100 flex items-center justify-center group-hover:border-wise-green transition-colors">
@@ -127,7 +129,7 @@ export default function CreateJobPage() {
       </div>
 
       {/* Main Content */}
-      <div className="text-center space-y-3 max-w-xl mx-auto">
+      <div className="text-center gap-y-3 max-w-xl mx-auto">
         <h1 className="text-[36px] font-black text-near-black leading-none tracking-tight">
           Create <span className="text-wise-green">New Job.</span>
         </h1>
@@ -142,7 +144,7 @@ export default function CreateJobPage() {
           description="Build a custom job configuration from the ground up. Best for unique roles and specialized requirements."
           icon={<Plus />}
           tags={["Custom", "Precise"]}
-          onClick={() => router.push("/recruiter/jobs/create/new")}
+          onClick={() => push("/recruiter/jobs/create/new")}
         />
         <MethodologyCard
           isTemplate
@@ -151,7 +153,7 @@ export default function CreateJobPage() {
           icon={<Layout />}
           tags={["Accelerated", "Verified"]}
           onClick={() =>
-            router.push("/recruiter/jobs/create/new?template=true")
+            push("/recruiter/jobs/create/new?template=true")
           }
         />
       </div>

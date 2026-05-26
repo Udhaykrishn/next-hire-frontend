@@ -5,13 +5,15 @@ import { FormPageLayout } from "@/components/profile/forms/form-page-layout";
 import { LanguageForm } from "@/components/profile/forms/language-form";
 import { useProfile } from "@/hooks/use-profile";
 
+
+
 export default function AddLanguagePage() {
   const { handleAddLanguage } = useProfile();
-  const router = useRouter();
+  const { push } = useRouter();
 
   const onSubmit = (formData: FormData) => {
     handleAddLanguage(formData);
-    router.push("/profile");
+    push("/profile");
   };
 
   return (

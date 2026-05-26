@@ -27,7 +27,7 @@ export function ApplicationDetails({
   resumeUrl,
 }: ApplicationDetailsProps) {
   return (
-    <div className="bg-[#ffffff] p-6 rounded-[20px] border border-[rgba(14,15,12,0.08)] shadow-sm space-y-5">
+    <div className="bg-[#ffffff] p-6 rounded-[20px] border border-[rgba(14,15,12,0.08)] shadow-sm gap-y-5">
       <h3 className="text-[16px] font-[800] text-[#0e0f0c] border-b border-[rgba(14,15,12,0.08)] pb-3">
         Application Details
       </h3>

@@ -2,7 +2,7 @@
 
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { createContext, type ReactNode, useCallback, useContext } from "react";
+import React, { createContext, use, useCallback, type ReactNode } from "react";
 import { useCurrentUserQuery } from "../hooks/use-auth";
 import { authService } from "../services/auth.api";
 import type { User, UserRole } from "../types/auth.types";
@@ -20,7 +20,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const router = useRouter();
+  const { push } = useRouter();
   const queryClient = useQueryClient();
 
   const {
@@ -31,45 +31,54 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const user = (currentUserResponse as { data?: User } | null)?.data || null;
 
-  const setUserState = (newUser: User | null) => {
-    queryClient.setQueryData(
-      ["current-user"],
-      newUser ? { data: newUser } : null,
-    );
-  };
+  const setUserState = useCallback(
+    (newUser: User | null) => {
+      queryClient.setQueryData(
+        ["current-user"],
+        newUser ? { data: newUser } : null,
+      );
+    },
+    [queryClient],
+  );
 
   const checkAuth = useCallback(async () => {
     await refetch();
   }, [refetch]);
 
-  const logout = async (redirectTo?: string) => {
-    try {
-      let role: "admin" | "recruiter" | "user" = "user";
-      if (user?.role === "ADMIN") role = "admin";
-      else if (user?.role === "RECRUITER") role = "recruiter";
-      await authService.logout(role);
-      setUserState(null);
-      router.push(redirectTo || "/login");
-    } catch (error) {
-      console.error("Logout failed:", error);
-    }
-  };
+  const logout = useCallback(
+    async (redirectTo?: string) => {
+      try {
+        let role: "admin" | "recruiter" | "user" = "user";
+        if (user?.role === "ADMIN") role = "admin";
+        else if (user?.role === "RECRUITER") role = "recruiter";
+        await authService.logout(role);
+        setUserState(null);
+        push(redirectTo || "/login");
+      } catch (error) {
+        console.error("Logout failed:", error);
+      }
+    },
+    [user, push, setUserState],
+  );
 
-  const value = {
-    user,
-    role: user?.role || null,
-    isAuthenticated: !!user,
-    isLoading,
-    setUser: setUserState,
-    checkAuth,
-    logout,
-  };
+  const value = React.useMemo(
+    () => ({
+      user,
+      role: user?.role || null,
+      isAuthenticated: !!user,
+      isLoading,
+      setUser: setUserState,
+      checkAuth,
+      logout,
+    }),
+    [user, isLoading, setUserState, checkAuth, logout],
+  );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export const useAuthContext = () => {
-  const context = useContext(AuthContext);
+  const context = use(AuthContext);
   if (context === undefined) {
     throw new Error("useAuthContext must be used within an AuthProvider");
   }

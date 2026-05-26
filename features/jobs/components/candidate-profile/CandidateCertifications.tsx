@@ -22,9 +22,9 @@ export function CandidateCertifications({
         <Award className="size-6 text-[#054d28]" /> Certifications
       </h3>
       <div className="grid gap-5 md:grid-cols-2">
-        {certificates.map((cert, idx: number) => (
+        {certificates.map((cert) => (
           <div
-            key={idx}
+            key={`${cert.certificateName}-${cert.issuingOrganization}`}
             className="p-5 rounded-[16px] bg-[#f9faf9] border border-[rgba(14,15,12,0.05)] flex items-start gap-4 hover:shadow-sm transition-shadow"
           >
             <div className="size-10 rounded-full bg-[#054d28]/10 flex items-center justify-center shrink-0">

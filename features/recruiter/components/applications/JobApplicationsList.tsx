@@ -109,7 +109,7 @@ export function JobApplicationsList({
           <div className="flex flex-col items-center justify-center min-h-[40vh] gap-4">
             <div className="size-10 border-4 border-[#e8ebe6] border-t-[#0e0f0c] rounded-full animate-spin" />
             <p className="text-[#868685] font-[500] text-[15px]">
-              Loading candidates...
+              Loading candidates…
             </p>
           </div>
         ) : applications.length > 0 ? (
@@ -150,14 +150,15 @@ export function JobApplicationsList({
                         )}
                       </div>
                       <div className="flex flex-col">
-                        <h3
-                          className="font-[700] text-[16px] text-[#0e0f0c] group-hover:text-[#054d28] transition-colors cursor-pointer"
+                        <button
+                          type="button"
+                          className="font-[700] text-[16px] text-[#0e0f0c] group-hover:text-[#054d28] transition-colors cursor-pointer text-left"
                           onClick={() =>
                             onViewProfile(app.id, app.candidate.id)
                           }
                         >
                           {app.candidate.name}
-                        </h3>
+                        </button>
                         <p className="text-[14px] font-[500] text-[#868685] flex items-center gap-1 mt-0.5">
                           <Mail className="size-3.5" /> {app.candidate.email}
                         </p>

@@ -1,5 +1,5 @@
 import { X } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { LazyMotion, m, AnimatePresence, domAnimation } from "motion/react";
 
 function ActiveFilterTag({
   label,
@@ -9,7 +9,7 @@ function ActiveFilterTag({
   onRemove: () => void;
 }) {
   return (
-    <motion.span
+    <m.span
       layout
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
@@ -24,7 +24,7 @@ function ActiveFilterTag({
       >
         <X className="size-3" />
       </button>
-    </motion.span>
+    </m.span>
   );
 }
 
@@ -52,7 +52,7 @@ export function JobActiveFilters({
   return (
     <AnimatePresence>
       {activeFilterCount > 0 && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: "auto" }}
           exit={{ opacity: 0, height: 0 }}
@@ -93,7 +93,7 @@ export function JobActiveFilters({
               Clear all
             </button>
           </div>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

@@ -27,7 +27,7 @@ function Tabs({ className, ...props }: TabsProps) {
 
 type TabsListProps = TabsListPrimitiveProps;
 
-function TabsList({ className, ...props }: TabsListProps) {
+function TabsList({ className, …props }: TabsListProps) {
   return (
     <TabsHighlightPrimitive className="absolute z-0 inset-0 border border-transparent rounded-md bg-background dark:border-input dark:bg-input/30 shadow-sm">
       <TabsListPrimitive
@@ -43,7 +43,7 @@ function TabsList({ className, ...props }: TabsListProps) {
 
 type TabsTriggerProps = TabsTriggerPrimitiveProps;
 
-function TabsTrigger({ className, ...props }: TabsTriggerProps) {
+function TabsTrigger({ className, …props }: TabsTriggerProps) {
   return (
     <TabsHighlightItemPrimitive value={props.value} className="flex-1">
       <TabsTriggerPrimitive
@@ -65,7 +65,7 @@ function TabsContents(props: TabsContentsProps) {
 
 type TabsContentProps = TabsContentPrimitiveProps;
 
-function TabsContent({ className, ...props }: TabsContentProps) {
+function TabsContent({ className, …props }: TabsContentProps) {
   return (
     <TabsContentPrimitive
       className={cn("flex-1 outline-none", className)}

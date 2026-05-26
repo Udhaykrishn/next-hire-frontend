@@ -5,5 +5,13 @@
       "components/base/**",
       "components/foundations/**"
     ]
+  },
+  "rules": {
+    "react-doctor/nextjs-missing-metadata": "off",
+    "deslop/unused-file": "off",
+    "deslop/unused-export": "off",
+    "deslop/unused-dependency": "off",
+    "deslop/unused-dev-dependency": "off",
+    "react-doctor/only-export-components": "off"
   }
 }

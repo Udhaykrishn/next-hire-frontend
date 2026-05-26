@@ -5,6 +5,8 @@ import { LandingFooter } from "@/components/landing-footer";
 import { LandingNavbar } from "@/components/landing-navbar";
 import { CandidateApplications } from "@/features/jobs/components/CandidateApplications";
 
+
+
 export default function JobStatusPage() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col font-satoshi selection:bg-wise-green selection:text-dark-green">
@@ -23,7 +25,7 @@ export default function JobStatusPage() {
         <Suspense
           fallback={
             <div className="flex items-center justify-center p-20 text-gray-400 font-bold">
-              Loading your applications...
+              Loading your applications…
             </div>
           }
         >

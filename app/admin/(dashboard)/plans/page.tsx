@@ -60,17 +60,17 @@ export default function PlansAdmin() {
 
   if (isLoading) {
     return (
-      <div className="min-h-[60vh] flex flex-col items-center justify-center space-y-4">
+      <div className="min-h-[60vh] flex flex-col items-center justify-center gap-y-4">
         <div className="size-12 border-4 border-wise-green border-t-transparent rounded-full animate-spin" />
         <p className="text-xs font-black uppercase tracking-widest text-gray-400">
-          Synchronizing Ecosystem...
+          Synchronizing Ecosystem…
         </p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+    <div className="gap-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
         <div>
           <div className="flex items-center gap-3 mb-2">
@@ -110,7 +110,7 @@ export default function PlansAdmin() {
             className="max-w-4xl mx-auto"
           >
             {/* Form Section */}
-            <div className="bg-white/70 backdrop-blur-xl rounded-[3rem] border border-white shadow-[0_32px_64px_-12px_rgba(0,0,0,0.04)] p-12 space-y-12 relative overflow-hidden">
+            <div className="bg-white/70 backdrop-blur-xl rounded-[3rem] border border-white shadow-[0_32px_64px_-12px_rgba(0,0,0,0.04)] p-12 gap-y-12 relative overflow-hidden">
               <div className="absolute top-0 right-0 size-96 bg-wise-green/5 rounded-full blur-[100px] -mr-32 -mt-32 pointer-events-none" />
 
               <div className="flex items-center justify-between relative z-10">
@@ -138,8 +138,8 @@ export default function PlansAdmin() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10 relative z-10">
-                <div className="space-y-6">
-                  <div className="space-y-3">
+                <div className="gap-y-6">
+                  <div className="gap-y-3">
                     <Label className="text-[10px] font-black uppercase tracking-widest text-near-black/40 ml-1">
                       Tier Designation
                     </Label>
@@ -147,14 +147,14 @@ export default function PlansAdmin() {
                       placeholder="e.g., Candidate Pro"
                       value={newPlan.name}
                       onChange={(e) =>
-                        setNewPlan({ ...newPlan, name: e.target.value })
+                        setNewPlan({ …newPlan, name: e.target.value })
                       }
                       className="h-16 rounded-2xl bg-white/50 border-gray-100 focus:ring-wise-green focus:border-wise-green font-bold text-lg"
                     />
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-3">
+                    <div className="gap-y-3">
                       <Label className="text-[10px] font-black uppercase tracking-widest text-near-black/40 ml-1">
                         Strategic Price (₹)
                       </Label>
@@ -164,20 +164,20 @@ export default function PlansAdmin() {
                           placeholder="499"
                           value={newPlan.price}
                           onChange={(e) =>
-                            setNewPlan({ ...newPlan, price: e.target.value })
+                            setNewPlan({ …newPlan, price: e.target.value })
                           }
                           className="h-16 pl-12 rounded-2xl bg-white/50 border-gray-100 focus:ring-wise-green focus:border-wise-green font-bold text-lg"
                         />
                       </div>
                     </div>
-                    <div className="space-y-3">
+                    <div className="gap-y-3">
                       <Label className="text-[10px] font-black uppercase tracking-widest text-near-black/40 ml-1">
                         Billing Cycle
                       </Label>
                       <select
                         value={newPlan.period}
                         onChange={(e) =>
-                          setNewPlan({ ...newPlan, period: e.target.value })
+                          setNewPlan({ …newPlan, period: e.target.value })
                         }
                         className="w-full h-16 px-4 rounded-2xl bg-white/50 border-gray-100 focus:ring-wise-green focus:border-wise-green font-bold text-lg outline-none appearance-none cursor-pointer"
                       >
@@ -189,7 +189,7 @@ export default function PlansAdmin() {
                     </div>
                   </div>
 
-                  <div className="space-y-3">
+                  <div className="gap-y-3">
                     <Label className="text-[10px] font-black uppercase tracking-widest text-near-black/40 ml-1">
                       Target Segment
                     </Label>
@@ -200,7 +200,7 @@ export default function PlansAdmin() {
                           key={type}
                           onClick={() =>
                             setNewPlan({
-                              ...newPlan,
+                              …newPlan,
                               type: type as "candidate" | "recruiter",
                             })
                           }
@@ -222,7 +222,7 @@ export default function PlansAdmin() {
                     </div>
                   </div>
 
-                  <div className="p-6 bg-near-black rounded-3xl space-y-4">
+                  <div className="p-6 bg-near-black rounded-3xl gap-y-4">
                     <Label className="text-[10px] font-black uppercase tracking-widest text-wise-green/60">
                       Tier Visual Signature
                     </Label>
@@ -233,7 +233,7 @@ export default function PlansAdmin() {
                           key={icon}
                           onClick={() =>
                             setNewPlan({
-                              ...newPlan,
+                              …newPlan,
                               iconType: icon as "zap" | "crown" | "shield",
                             })
                           }
@@ -253,7 +253,7 @@ export default function PlansAdmin() {
                         type="button"
                         onClick={() =>
                           setNewPlan({
-                            ...newPlan,
+                            …newPlan,
                             highlight: !newPlan.highlight,
                           })
                         }
@@ -276,8 +276,8 @@ export default function PlansAdmin() {
                   </div>
                 </div>
 
-                <div className="space-y-6">
-                  <div className="space-y-3">
+                <div className="gap-y-6">
+                  <div className="gap-y-3">
                     <Label className="text-[10px] font-black uppercase tracking-widest text-near-black/40 ml-1">
                       Strategic Value Proposition
                     </Label>
@@ -285,13 +285,13 @@ export default function PlansAdmin() {
                       placeholder="Describe the primary benefit of this tier…"
                       value={newPlan.description}
                       onChange={(e) =>
-                        setNewPlan({ ...newPlan, description: e.target.value })
+                        setNewPlan({ …newPlan, description: e.target.value })
                       }
                       className="min-h-[120px] rounded-2xl bg-white/50 border-gray-100 focus:ring-wise-green focus:border-wise-green font-medium text-base resize-none"
                     />
                   </div>
 
-                  <div className="space-y-4">
+                  <div className="gap-y-4">
                     <div className="flex items-center justify-between ml-1">
                       <Label className="text-[10px] font-black uppercase tracking-widest text-near-black/40">
                         Core Value Drivers
@@ -304,7 +304,7 @@ export default function PlansAdmin() {
                         Add Metric
                       </button>
                     </div>
-                    <div className="space-y-3 max-h-[280px] overflow-y-auto pr-2 custom-scrollbar">
+                    <div className="gap-y-3 max-h-[280px] overflow-y-auto pr-2 custom-scrollbar">
                       {newPlan.features.map((feature, idx) => (
                         <div key={idx} className="flex gap-2 group">
                           <Input
@@ -329,7 +329,7 @@ export default function PlansAdmin() {
 
               <div className="pt-8 border-t border-gray-50 flex items-center justify-between relative z-10">
                 <div className="flex items-center gap-4">
-                  <div className="flex -space-x-3">
+                  <div className="flex -gap-x-3">
                     {[1, 2, 3].map((i) => (
                       <div
                         key={i}
@@ -368,7 +368,7 @@ export default function PlansAdmin() {
                     />
                     <span className="relative z-10">
                       {isDeploying
-                        ? "Deploying Tier..."
+                        ? "Deploying Tier…"
                         : "Deploy Strategic Tier"}
                     </span>
                     {isDeploying ? (
@@ -409,7 +409,7 @@ export default function PlansAdmin() {
                       <span className="text-wise-green underline decoration-wise-green/30">
                         {newPlan.type}
                       </span>{" "}
-                      interfaces...
+                      interfaces…
                     </p>
                   </m.div>
                 )}
@@ -421,7 +421,7 @@ export default function PlansAdmin() {
             key="list"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="space-y-12"
+            className="gap-y-12"
           >
             <div className="flex items-center gap-2 bg-gray-100 p-1.5 rounded-2xl w-fit">
               {["candidate", "recruiter"].map((tab) => (

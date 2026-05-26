@@ -29,7 +29,7 @@ export function TaxIdentityCard({
   editSection: EditSection;
   startEdit: (section: EditSection) => void;
 }) {
-  const router = useRouter();
+  const { push } = useRouter();
 
   const isVerified = recruiterProfile?.is_verified_company === true;
   const isRevoked =
@@ -98,7 +98,7 @@ export function TaxIdentityCard({
           initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.18 }}
-          className="space-y-6"
+          className="gap-y-6"
         >
           <FieldView
             label="Registered CIN"
@@ -117,9 +117,9 @@ export function TaxIdentityCard({
           {!isVerified && (
             <div className="pt-2">
               {isRevoked ? (
-                <div className="space-y-2">
+                <div className="gap-y-2">
                   <Button
-                    onClick={() => router.push("/recruiter/verify-company")}
+                    onClick={() => push("/recruiter/verify-company")}
                     className="h-11 px-6 rounded-xl font-bold bg-red-600 text-white hover:bg-red-700 shadow-lg shadow-red-600/20 gap-2"
                   >
                     <RefreshCw className="size-4" />
@@ -131,7 +131,7 @@ export function TaxIdentityCard({
                 </div>
               ) : (
                 <Button
-                  onClick={() => router.push("/recruiter/verify-company")}
+                  onClick={() => push("/recruiter/verify-company")}
                   className="h-11 px-6 rounded-xl font-bold bg-near-black text-white hover:bg-near-black/90 shadow-lg shadow-near-black/20 gap-2"
                 >
                   Click to Verify

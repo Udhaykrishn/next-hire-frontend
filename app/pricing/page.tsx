@@ -1,7 +1,7 @@
 "use client";
 
 import { Check, Crown, Shield, Zap } from "lucide-react";
-import { motion } from "motion/react";
+import { LazyMotion, m, domAnimation } from "motion/react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/animate-ui/components/buttons/button";
@@ -9,6 +9,8 @@ import { LandingFooter } from "@/components/landing-footer";
 import { LandingNavbar } from "@/components/landing-navbar";
 import { usePricing } from "@/hooks/use-pricing";
 import { cn } from "@/lib/utils";
+
+
 
 export function PricingContent({
   hideNavbar = false,
@@ -20,47 +22,39 @@ export function PricingContent({
   const searchParams = useSearchParams();
   const roleParam = searchParams.get("role");
   const tabParam = searchParams.get("tab");
-  const [type, setType] = useState<"candidate" | "recruiter">("candidate");
-  const [isRoleForced, setIsRoleForced] = useState(false);
+  
+  const isRecruiterPath = pathname?.startsWith("/recruiter");
+  const isRecruiterRole = isRecruiterPath || roleParam === "recruiter" || tabParam === "recruiter";
+  
+  const initialType = isRecruiterRole ? "recruiter" : (roleParam === "candidate" ? "candidate" : "candidate");
+  const initialForced = isRecruiterPath || roleParam === "recruiter" || roleParam === "candidate";
 
-  useEffect(() => {
-    const isRecruiterPath = pathname?.startsWith("/recruiter");
-
-    if (
-      isRecruiterPath ||
-      roleParam === "recruiter" ||
-      tabParam === "recruiter"
-    ) {
-      setType("recruiter");
-      if (isRecruiterPath || roleParam === "recruiter") setIsRoleForced(true);
-    } else if (roleParam === "candidate") {
-      setType("candidate");
-      setIsRoleForced(true);
-    }
-  }, [roleParam, tabParam, pathname]);
-
-  const getIcon = (iconType: string) => {
-    switch (iconType) {
-      case "zap":
-        return <Zap className="size-6 text-gray-400" />;
-      case "crown":
-        return <Crown className="size-6 text-wise-green" />;
-      case "shield":
-        return <Shield className="size-6 text-gray-400" />;
-      default:
-        return <Zap className="size-6 text-gray-400" />;
-    }
-  };
+  const [type, setType] = useState<"candidate" | "recruiter">(initialType);
+  const isRoleForced = !!initialForced; // If it's forced by URL, it shouldn't change, so no need for state
 
   const filteredPlans = useMemo(() => {
     if (!allPlans) return [];
-    return allPlans
-      .filter((plan) => plan.type === type)
-      .map((plan) => ({
-        ...plan,
-        icon: getIcon(plan.iconType),
-      }));
-  }, [allPlans, type, getIcon]);
+
+    const getIcon = (iconType: string) => {
+      switch (iconType) {
+        case "zap":
+          return <Zap className="size-6 text-gray-400" />;
+        case "crown":
+          return <Crown className="size-6 text-wise-green" />;
+        case "shield":
+          return <Shield className="size-6 text-gray-400" />;
+        default:
+          return <Zap className="size-6 text-gray-400" />;
+      }
+    };
+
+    return allPlans.reduce<Array<(typeof allPlans)[number] & { icon: React.ReactNode }>>((acc, plan) => {
+      if (plan.type === type) {
+        acc.push({ ...plan, icon: getIcon(plan.iconType) });
+      }
+      return acc;
+    }, []);
+  }, [allPlans, type]);
 
   if (isLoading) {
     return (
@@ -85,18 +79,18 @@ export function PricingContent({
 
       <main className={cn("flex-1 pb-20", !hideNavbar ? "pt-32" : "pt-10")}>
         <section className="px-4 relative mb-12 text-center">
-          <div className="absolute top-[-20%] right-[-10%] w-[500px] h-[500px] bg-wise-green/10 rounded-full blur-[120px] -z-10 mix-blend-multiply pointer-events-none" />
+          <div className="absolute top-[-20%] right-[-10%] size-[500px] bg-wise-green/10 rounded-full blur-[120px] -z-10 mix-blend-multiply pointer-events-none" />
 
-          <motion.h1
+          <m.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-[48px] font-black text-gray-900 tracking-tight leading-[56px] mb-6"
           >
             Invest in your <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-wise-green">
+            <span className="text-wise-green">
               {type === "candidate" ? "Future Career" : "Hiring Success"}
             </span>
-          </motion.h1>
+          </m.h1>
 
           {!isRoleForced && (
             <div className="flex justify-center mb-12">
@@ -129,7 +123,7 @@ export function PricingContent({
             </div>
           )}
 
-          <motion.p
+          <m.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
@@ -138,13 +132,13 @@ export function PricingContent({
             {type === "candidate"
               ? "Choose the plan that fits your current career goals. Our professional insights are designed to help you land your dream job faster."
               : "Scale your recruitment with precision tools. From small teams to large enterprises, find the perfect plan for your hiring needs."}
-          </motion.p>
+          </m.p>
         </section>
 
         <section className="px-4 max-w-6xl mx-auto mb-32">
           <div className="grid md:grid-cols-3 gap-8">
             {filteredPlans.map((plan, idx) => (
-              <motion.div
+              <m.div
                 key={plan.id}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -185,9 +179,9 @@ export function PricingContent({
                   </p>
                 </div>
 
-                <div className="space-y-4 mb-10 flex-1">
-                  {plan.features.map((feature, fIdx) => (
-                    <div key={fIdx} className="flex items-center gap-3">
+                <div className="gap-y-4 mb-10 flex-1">
+                  {plan.features.map((feature) => (
+                    <div key={feature} className="flex items-center gap-3">
                       <div
                         className={`size-5 rounded-full flex items-center justify-center shrink-0 ${plan.highlight ? "bg-wise-green text-dark-green" : "bg-gray-100 text-gray-400"}`}
                       >
@@ -209,7 +203,7 @@ export function PricingContent({
                 >
                   {plan.cta}
                 </Button>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </section>

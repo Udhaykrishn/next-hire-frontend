@@ -16,6 +16,8 @@ import { useState } from "react";
 import { Button } from "@/components/animate-ui/components/buttons/button";
 import { cn } from "@/lib/utils";
 
+
+
 const plans = [
   {
     id: "free",
@@ -74,15 +76,15 @@ const plans = [
 ];
 
 export default function CandidatePlanSetupPage() {
-  const router = useRouter();
+  const { push, back } = useRouter();
   const [selectedPlan, setSelectedPlan] = useState("pro");
 
   return (
     <div className="min-h-screen bg-white font-satoshi selection:bg-wise-green/30 text-near-black overflow-x-hidden">
       {/* Background Decor */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-wise-green/[0.04] rounded-full blur-[120px]" />
-        <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-near-black/[0.02] rounded-full blur-[120px]" />
+        <div className="absolute top-[-10%] right-[-10%] size-[50%] bg-wise-green/[0.04] rounded-full blur-[120px]" />
+        <div className="absolute bottom-[-10%] left-[-10%] size-[50%] bg-near-black/[0.02] rounded-full blur-[120px]" />
       </div>
 
       <div className="relative z-10 max-w-[1400px] mx-auto min-h-screen flex flex-col px-6 py-12">
@@ -190,9 +192,9 @@ export default function CandidatePlanSetupPage() {
                   </p>
                 </div>
 
-                <div className="space-y-4 mb-10 flex-1">
-                  {plan.features.map((feature, fIdx) => (
-                    <div key={fIdx} className="flex items-center gap-3">
+                <div className="gap-y-4 mb-10 flex-1">
+                  {plan.features.map((feature) => (
+                    <div key={feature} className="flex items-center gap-3">
                       <div
                         className={cn(
                           "size-5 rounded-full flex items-center justify-center shrink-0",
@@ -249,13 +251,13 @@ export default function CandidatePlanSetupPage() {
           <div className="flex gap-4">
             <Button
               variant="ghost"
-              onClick={() => router.back()}
+              onClick={() => back()}
               className="h-16 px-10 rounded-3xl font-black text-xs uppercase tracking-[0.2em] text-gray-400 hover:text-near-black"
             >
               Skip for now
             </Button>
             <Button
-              onClick={() => router.push("/profile")}
+              onClick={() => push("/profile")}
               className="h-16 px-12 rounded-3xl bg-near-black text-white hover:bg-wise-green hover:text-near-black transition-all font-black text-xs uppercase tracking-[0.3em] shadow-2xl shadow-near-black/20 group"
             >
               Complete Setup

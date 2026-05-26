@@ -13,7 +13,7 @@ import {
   MapPin,
   Phone,
 } from "lucide-react";
-import { motion } from "motion/react";
+import { LazyMotion, m, domAnimation } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import type {
@@ -39,8 +39,8 @@ export const ProfileSidebar = ({
   } = useProfile();
 
   return (
-    <aside className="lg:col-span-4 space-y-6">
-      <motion.div
+    <aside className="lg:col-span-4 gap-y-6">
+      <m.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
       >
@@ -106,12 +106,12 @@ export const ProfileSidebar = ({
         </div>
 
         {/* Contact & Social Quick Info */}
-        <div className="bg-white rounded-[2.5rem] border border-gray-100 p-8 shadow-sm space-y-8 mt-6">
-          <div className="space-y-4">
+        <div className="bg-white rounded-[2.5rem] border border-gray-100 p-8 shadow-sm gap-y-8 mt-6">
+          <div className="gap-y-4">
             <h4 className="text-[12px] font-black text-gray-400 uppercase tracking-widest">
               Direct Contact
             </h4>
-            <div className="space-y-3">
+            <div className="gap-y-3">
               <div className="flex items-center gap-3 text-[14px] font-bold text-gray-600 bg-gray-50 p-3 rounded-2xl border border-gray-50">
                 <div className="size-8 rounded-lg bg-white flex items-center justify-center border border-gray-100">
                   <Mail className="size-4 text-wise-green" />
@@ -139,7 +139,7 @@ export const ProfileSidebar = ({
             </div>
           </div>
 
-          <div className="space-y-4">
+          <div className="gap-y-4">
             <h4 className="text-[12px] font-black text-gray-400 uppercase tracking-widest">
               Professional Links
             </h4>
@@ -201,17 +201,17 @@ export const ProfileSidebar = ({
             </div>
           </div>
         </div>
-      </motion.div>
+      </m.div>
 
       {/* Resume Vault Card */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.2 }}
         className="bg-white rounded-[2.5rem] border border-gray-100 p-8 shadow-sm relative overflow-hidden group"
       >
         <div className="absolute -right-4 -top-4 size-24 bg-wise-green/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700" />
-        <div className="relative z-10 space-y-6">
+        <div className="relative z-10 gap-y-6">
           <div className="flex items-center justify-between">
             <div className="size-12 rounded-2xl bg-wise-green/5 flex items-center justify-center border border-wise-green/10">
               <FileText className="size-6 text-wise-green" />
@@ -221,7 +221,7 @@ export const ProfileSidebar = ({
             </span>
           </div>
 
-          <div className="space-y-1">
+          <div className="gap-y-1">
             <h3 className="text-[18px] font-black text-gray-900 tracking-tight">
               Resume Vault
             </h3>
@@ -232,7 +232,7 @@ export const ProfileSidebar = ({
 
           <ResumeUpload />
         </div>
-      </motion.div>
+      </m.div>
     </aside>
   );
 };

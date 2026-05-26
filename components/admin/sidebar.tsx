@@ -49,7 +49,7 @@ export function AdminSidebar() {
         </div>
       </div>
 
-      <nav className="flex-1 px-4 space-y-1">
+      <nav className="flex-1 px-4 gap-y-1">
         {menuItems.map((item) => {
           const isActive = pathname === item.href;
           return (

@@ -70,7 +70,7 @@ export const ConfirmationModal = ({
   return (
     <Dialog open={isOpen} onClose={onClose}>
       <DialogPanel className="max-w-md">
-        <div className="flex flex-col items-center text-center space-y-6">
+        <div className="flex flex-col items-center text-center gap-y-6">
           <div
             className={cn(
               "size-20 rounded-3xl flex items-center justify-center",
@@ -80,7 +80,7 @@ export const ConfirmationModal = ({
             {currentVariant.icon}
           </div>
 
-          <DialogHeader className="space-y-2">
+          <DialogHeader className="gap-y-2">
             <DialogTitle
               className={cn(
                 "text-2xl font-black tracking-tight",
@@ -114,7 +114,7 @@ export const ConfirmationModal = ({
               )}
               disabled={isLoading}
             >
-              {isLoading ? "Processing..." : confirmText}
+              {isLoading ? "Processing…" : confirmText}
             </Button>
           </DialogFooter>
         </div>

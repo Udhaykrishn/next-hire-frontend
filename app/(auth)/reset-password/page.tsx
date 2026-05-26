@@ -1,7 +1,7 @@
 "use client";
 
 import { AlertTriangle, ArrowLeft, LockKeyhole } from "lucide-react";
-import { motion } from "motion/react";
+import { LazyMotion, m, domAnimation } from "motion/react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
@@ -32,8 +32,8 @@ function ResetPasswordContent() {
 
   return (
     <Card className="border-gray-200 shadow-2xl shadow-gray-200/50 rounded-[2rem] overflow-hidden bg-white/80 backdrop-blur-xl">
-      <CardHeader className="space-y-2 pb-8 pt-10 text-center relative border-b border-gray-100">
-        <motion.div
+      <CardHeader className="gap-y-2 pb-8 pt-10 text-center relative border-b border-gray-100">
+        <m.div
           initial={{ scale: 0.95 }}
           animate={{ scale: 1 }}
           transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
@@ -42,29 +42,29 @@ function ResetPasswordContent() {
           {isValidating || isValid ? (
             <LockKeyhole className="size-8 text-dark-green" />
           ) : (
-            <AlertTriangle className="size-8 text-red-700 animate-bounce" />
+            <AlertTriangle className="size-8 text-red-700 animate-pulse" />
           )}
-        </motion.div>
+        </m.div>
 
         <CardTitle className="text-3xl font-black leading-tight text-gray-900 tracking-tight mt-2">
           {isValidating
-            ? "Validating..."
+            ? "Validating…"
             : isValid
               ? "Create New Password"
               : "Reset Link Expired"}
         </CardTitle>
         <CardDescription className="text-base text-gray-500 font-medium px-4">
           {isValidating
-            ? "Verifying secure token..."
+            ? "Verifying secure token…"
             : isValid
               ? "Your new password must be different from previously used passwords."
               : "This password reset link is invalid, expired, or has already been used."}
         </CardDescription>
       </CardHeader>
 
-      <CardContent className="space-y-6 pt-8 px-10">
+      <CardContent className="gap-y-6 pt-8 px-10">
         {isValidating ? (
-          <div className="flex flex-col items-center justify-center py-10 space-y-4">
+          <div className="flex flex-col items-center justify-center py-10 gap-y-4">
             <div className="size-10 border-4 border-wise-green border-t-transparent rounded-full animate-spin" />
             <p className="text-sm font-bold text-gray-500 uppercase tracking-widest">
               Checking Link Security
@@ -73,7 +73,7 @@ function ResetPasswordContent() {
         ) : isValid && token ? (
           <ResetPasswordForm token={token} role={role} />
         ) : (
-          <div className="space-y-4 text-center py-6">
+          <div className="gap-y-4 text-center py-6">
             <p className="text-sm text-gray-500 font-medium max-w-sm mx-auto leading-relaxed">
               Please request a new password reset link. Security tokens expire
               quickly to protect your account.
@@ -105,11 +105,11 @@ function ResetPasswordContent() {
 export default function ResetPasswordPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4 font-satoshi selection:bg-wise-green selection:text-dark-green relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-wise-green/40 rounded-full blur-[100px] pointer-events-none translate-x-1/3 -translate-y-1/4" />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-wise-green/20 rounded-full blur-[100px] pointer-events-none -translate-x-1/3 translate-y-1/3" />
+      <div className="absolute top-0 right-0 size-[800px] bg-wise-green/40 rounded-full blur-[100px] pointer-events-none translate-x-1/3 -translate-y-1/4" />
+      <div className="absolute bottom-0 left-0 size-[600px] bg-wise-green/20 rounded-full blur-[100px] pointer-events-none -translate-x-1/3 translate-y-1/3" />
       <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 pointer-events-none mix-blend-overlay"></div>
 
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
@@ -122,9 +122,9 @@ export default function ResetPasswordPage() {
         <Suspense
           fallback={
             <Card className="border-gray-200 shadow-2xl shadow-gray-200/50 rounded-[2rem] overflow-hidden bg-white/80 backdrop-blur-xl">
-              <CardHeader className="space-y-2 pb-8 pt-10 text-center relative border-b border-gray-100">
+              <CardHeader className="gap-y-2 pb-8 pt-10 text-center relative border-b border-gray-100">
                 <CardTitle className="text-3xl font-black leading-tight text-gray-900 tracking-tight mt-2">
-                  Loading...
+                  Loading…
                 </CardTitle>
               </CardHeader>
               <CardContent className="flex justify-center py-12">
@@ -135,7 +135,7 @@ export default function ResetPasswordPage() {
         >
           <ResetPasswordContent />
         </Suspense>
-      </motion.div>
+      </m.div>
     </div>
   );
 }

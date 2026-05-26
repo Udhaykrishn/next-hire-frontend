@@ -1,9 +1,9 @@
 import { Briefcase } from "lucide-react";
-import { motion } from "motion/react";
+import { LazyMotion, m, domAnimation } from "motion/react";
 
 export function CandidateApplicationsEmptyState() {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ delay: 0.3, duration: 0.5, ease: "easeOut" }}
@@ -18,6 +18,6 @@ export function CandidateApplicationsEmptyState() {
       <p className="text-[15px] text-gray-500 font-medium max-w-sm">
         You haven't submitted any applications that match your current filters.
       </p>
-    </motion.div>
+    </m.div>
   );
 }

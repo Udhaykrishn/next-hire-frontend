@@ -9,11 +9,11 @@ function DropdownMenu({ ...props }: MenuPrimitive.Root.Props) {
   return <MenuPrimitive.Root data-slot="dropdown-menu" {...props} />;
 }
 
-function DropdownMenuPortal({ ...props }: MenuPrimitive.Portal.Props) {
+function DropdownMenuPortal({ …props }: MenuPrimitive.Portal.Props) {
   return <MenuPrimitive.Portal data-slot="dropdown-menu-portal" {...props} />;
 }
 
-function DropdownMenuTrigger({ ...props }: MenuPrimitive.Trigger.Props) {
+function DropdownMenuTrigger({ …props }: MenuPrimitive.Trigger.Props) {
   return <MenuPrimitive.Trigger data-slot="dropdown-menu-trigger" {...props} />;
 }
 
@@ -23,7 +23,7 @@ function DropdownMenuContent({
   side = "bottom",
   sideOffset = 4,
   className,
-  ...props
+  …props
 }: MenuPrimitive.Popup.Props &
   Pick<
     MenuPrimitive.Positioner.Props,
@@ -51,14 +51,14 @@ function DropdownMenuContent({
   );
 }
 
-function DropdownMenuGroup({ ...props }: MenuPrimitive.Group.Props) {
+function DropdownMenuGroup({ …props }: MenuPrimitive.Group.Props) {
   return <MenuPrimitive.Group data-slot="dropdown-menu-group" {...props} />;
 }
 
 function DropdownMenuLabel({
   className,
   inset,
-  ...props
+  …props
 }: MenuPrimitive.GroupLabel.Props & {
   inset?: boolean;
 }) {
@@ -79,7 +79,7 @@ function DropdownMenuItem({
   className,
   inset,
   variant = "default",
-  ...props
+  …props
 }: MenuPrimitive.Item.Props & {
   inset?: boolean;
   variant?: "default" | "destructive";
@@ -98,7 +98,7 @@ function DropdownMenuItem({
   );
 }
 
-function DropdownMenuSub({ ...props }: MenuPrimitive.SubmenuRoot.Props) {
+function DropdownMenuSub({ …props }: MenuPrimitive.SubmenuRoot.Props) {
   return <MenuPrimitive.SubmenuRoot data-slot="dropdown-menu-sub" {...props} />;
 }
 
@@ -106,7 +106,7 @@ function DropdownMenuSubTrigger({
   className,
   inset,
   children,
-  ...props
+  …props
 }: MenuPrimitive.SubmenuTrigger.Props & {
   inset?: boolean;
 }) {
@@ -132,7 +132,7 @@ function DropdownMenuSubContent({
   side = "right",
   sideOffset = 0,
   className,
-  ...props
+  …props
 }: React.ComponentProps<typeof DropdownMenuContent>) {
   return (
     <DropdownMenuContent
@@ -155,7 +155,7 @@ function DropdownMenuCheckboxItem({
   children,
   checked,
   inset,
-  ...props
+  …props
 }: MenuPrimitive.CheckboxItem.Props & {
   inset?: boolean;
 }) {
@@ -183,7 +183,7 @@ function DropdownMenuCheckboxItem({
   );
 }
 
-function DropdownMenuRadioGroup({ ...props }: MenuPrimitive.RadioGroup.Props) {
+function DropdownMenuRadioGroup({ …props }: MenuPrimitive.RadioGroup.Props) {
   return (
     <MenuPrimitive.RadioGroup
       data-slot="dropdown-menu-radio-group"
@@ -196,7 +196,7 @@ function DropdownMenuRadioItem({
   className,
   children,
   inset,
-  ...props
+  …props
 }: MenuPrimitive.RadioItem.Props & {
   inset?: boolean;
 }) {
@@ -225,7 +225,7 @@ function DropdownMenuRadioItem({
 
 function DropdownMenuSeparator({
   className,
-  ...props
+  …props
 }: MenuPrimitive.Separator.Props) {
   return (
     <MenuPrimitive.Separator
@@ -238,7 +238,7 @@ function DropdownMenuSeparator({
 
 function DropdownMenuShortcut({
   className,
-  ...props
+  …props
 }: React.ComponentProps<"span">) {
   return (
     <span

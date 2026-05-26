@@ -6,6 +6,8 @@ import { CertificateForm } from "@/components/profile/forms/certificate-form";
 import { FormPageLayout } from "@/components/profile/forms/form-page-layout";
 import { useProfile } from "@/hooks/use-profile";
 
+
+
 export default function EditCertificatePage({
   params,
 }: {
@@ -13,7 +15,7 @@ export default function EditCertificatePage({
 }) {
   const { certificates, handleUpdateCertificate } = useProfile();
   const { id } = use(params);
-  const router = useRouter();
+  const { push } = useRouter();
 
   const cert = certificates.find((c) => c.id === id);
 
@@ -23,7 +25,7 @@ export default function EditCertificatePage({
 
   const onSubmit = (formData: FormData, date?: Date) => {
     handleUpdateCertificate(id, formData, date);
-    router.push("/profile");
+    push("/profile");
   };
 
   return (

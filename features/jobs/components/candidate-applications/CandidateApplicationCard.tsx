@@ -4,7 +4,7 @@ import {
   IndianRupee,
   MoreVertical,
 } from "lucide-react";
-import { motion } from "motion/react";
+import { LazyMotion, m, domAnimation } from "motion/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -28,7 +28,7 @@ export function CandidateApplicationCard({
   applicationData,
   index,
 }: CandidateApplicationCardProps) {
-  const router = useRouter();
+  const { push } = useRouter();
   const { application, job } = applicationData;
   const statusConfig = getStatusConfig(application.status);
 
@@ -49,7 +49,7 @@ export function CandidateApplicationCard({
   );
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.3 + index * 0.05, duration: 0.4, ease: "easeOut" }}
@@ -118,7 +118,7 @@ export function CandidateApplicationCard({
               </DropdownMenuLabel>
               <DropdownMenuSeparator className="bg-gray-100/50 my-1" />
               <DropdownMenuItem
-                onClick={() => router.push(`/jobs/${job.id}`)}
+                onClick={() => push(`/jobs/${job.id}`)}
                 className="rounded-lg cursor-pointer hover:bg-gray-50 focus:bg-gray-50 focus:text-gray-900 w-full flex items-center text-[13px] font-medium py-2"
               >
                 View Job Details
@@ -132,13 +132,13 @@ export function CandidateApplicationCard({
           <Link href={`/jobs/${job.id}`} passHref>
             <button
               type="button"
-              className="w-[42px] h-[42px] flex items-center justify-center bg-gray-900 text-white hover:bg-wise-green hover:text-dark-green rounded-xl transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-wise-green/20 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-wise-green focus-visible:ring-offset-2 group/btn"
+              className="size-[42px] flex items-center justify-center bg-gray-900 text-white hover:bg-wise-green hover:text-dark-green rounded-xl transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-wise-green/20 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-wise-green focus-visible:ring-offset-2 group/btn"
             >
               <ChevronRight className="size-4 group-hover/btn:translate-x-0.5 transition-transform" />
             </button>
           </Link>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 }

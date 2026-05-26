@@ -6,11 +6,13 @@ import Link from "next/link";
 import { useRecruiterJobsQuery } from "@/features/jobs/hooks/use-jobs-query";
 import type { JobResponse } from "@/features/jobs/types/job.types";
 
+
+
 export default function RecruiterJobsPage() {
   const { data: jobs, isLoading, error } = useRecruiterJobsQuery();
 
   return (
-    <div className="p-8 max-w-7xl mx-auto space-y-8">
+    <div className="p-8 max-w-7xl mx-auto gap-y-8">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-black text-near-black tracking-tight">

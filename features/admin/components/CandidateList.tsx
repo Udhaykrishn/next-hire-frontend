@@ -78,7 +78,7 @@ export const CandidateList = () => {
         <div className="p-8 text-center">
           <div className="size-8 border-4 border-wise-green border-t-transparent rounded-full animate-spin mx-auto mb-4" />
           <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">
-            Loading candidates...
+            Loading candidates…
           </p>
         </div>
       </div>
@@ -88,11 +88,11 @@ export const CandidateList = () => {
   const totalPages = Math.ceil(total / itemsPerPage);
 
   return (
-    <div className="space-y-6">
+    <div className="gap-y-6">
       <div className="flex flex-col md:flex-row items-center gap-4">
         <div className="relative flex-1 group">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-gray-400 group-focus-within:text-wise-green transition-colors" />
-          <input
+          <input aria-label="Control"
             type="text"
             placeholder="Search by name, role or email…"
             value={searchQuery}
@@ -122,7 +122,7 @@ export const CandidateList = () => {
             <h4 className="text-[10px] font-black uppercase tracking-widest text-near-black/40 mb-4 ml-1">
               Filter by Status
             </h4>
-            <div className="space-y-3">
+            <div className="gap-y-3">
               {["Active", "Pending", "Blocked"].map((status) => (
                 <div
                   key={status}

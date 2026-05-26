@@ -21,7 +21,7 @@ export function CandidateApplications() {
   } = useCandidateApplications();
 
   return (
-    <div className="w-full space-y-10">
+    <div className="w-full gap-y-10">
       <CandidateApplicationsStats
         statsData={stats}
         statusFilter={statusFilter}
@@ -37,7 +37,7 @@ export function CandidateApplications() {
         refetch={refetch}
       />
 
-      <div className="space-y-4 relative min-h-[300px]">
+      <div className="gap-y-4 relative min-h-[300px]">
         {isLoading ? (
           <GlobalLoader
             fullScreen={false}

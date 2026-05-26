@@ -19,7 +19,7 @@ import { useUpdateJobMutation } from "@/features/jobs/hooks/use-jobs-query";
 import { type JobListing, useRecruiter } from "@/hooks/use-recruiter";
 
 export default function RecruiterDashboard() {
-  const router = useRouter();
+  const { push } = useRouter();
   const { jobs, isLoading, isJobModalOpen, setIsJobModalOpen } = useRecruiter();
   const [publishingJob, setPublishingJob] = useState<string | null>(null);
   const { mutateAsync: updateJob } = useUpdateJobMutation();
@@ -38,14 +38,14 @@ export default function RecruiterDashboard() {
   }
 
   return (
-    <div className="space-y-6 animate-in fade-in duration-700">
+    <div className="gap-y-6 animate-in fade-in duration-700">
       {/* Top Header Row */}
       <div className="flex items-center justify-between">
         <h1 className="text-[20px] font-black text-near-black tracking-tight">
           All Jobs <span className="text-gray-300 ml-1">({jobs.length})</span>
         </h1>
         <Button
-          onClick={() => router.push("/recruiter/jobs/create")}
+          onClick={() => push("/recruiter/jobs/create")}
           className="h-10 px-5 bg-wise-green text-near-black hover:bg-near-black hover:text-white transition-all rounded-xl font-black text-[13px] shadow-lg shadow-wise-green/10 group"
         >
           <Plus className="size-4 mr-2 group-hover:rotate-90 transition-transform duration-300" />
@@ -54,7 +54,7 @@ export default function RecruiterDashboard() {
       </div>
 
       {/* Jobs List - Compact Satoshi Style */}
-      <div className="space-y-4">
+      <div className="gap-y-4">
         {jobs.map((job: JobListing) => (
           <m.div
             key={job.id}
@@ -64,7 +64,7 @@ export default function RecruiterDashboard() {
           >
             <div className="p-6 flex flex-col md:flex-row md:items-center justify-between gap-8">
               {/* Left Column: Job Primary Info */}
-              <div className="flex-1 space-y-3">
+              <div className="flex-1 gap-y-3">
                 <div className="flex items-center gap-3">
                   <h2 className="text-[18px] font-black text-near-black group-hover:text-wise-green transition-colors leading-none tracking-tight">
                     {job.title}
@@ -103,7 +103,7 @@ export default function RecruiterDashboard() {
               <div
                 className="cursor-pointer hover:bg-gray-50/80 transition-colors rounded-xl"
                 onClick={() =>
-                  router.push(`/recruiter/jobs/${job.id}/applications`)
+                  push(`/recruiter/jobs/${job.id}/applications`)
                 }
               >
                 <RecruiterJobStats jobId={job.id} />
@@ -130,7 +130,7 @@ export default function RecruiterDashboard() {
                 ) : null}
 
                 <Button
-                  onClick={() => router.push(`/recruiter/jobs/edit/${job.id}`)}
+                  onClick={() => push(`/recruiter/jobs/edit/${job.id}`)}
                   variant="ghost"
                   size="icon"
                   className="size-10 rounded-full text-slate-500 hover:text-near-black hover:bg-slate-50 transition-all"
@@ -164,7 +164,7 @@ export default function RecruiterDashboard() {
               matching with elite talent.
             </p>
             <Button
-              onClick={() => router.push("/recruiter/jobs/create")}
+              onClick={() => push("/recruiter/jobs/create")}
               className="h-12 px-8 bg-wise-green text-near-black hover:bg-near-black hover:text-white transition-all rounded-full font-black text-sm shadow-xl shadow-wise-green/10"
             >
               Initialize Deployment

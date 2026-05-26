@@ -36,7 +36,7 @@ const recentActivities = [
 
 export default function AdminDashboard() {
   return (
-    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+    <div className="gap-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-black text-near-black tracking-tight">
@@ -126,7 +126,7 @@ export default function AdminDashboard() {
         <div className="p-8 bg-near-black rounded-3xl shadow-2xl shadow-near-black/20 text-white relative overflow-hidden">
           <div className="absolute top-0 right-0 size-32 bg-wise-green/10 rounded-full blur-3xl" />
           <h3 className="text-xl font-black mb-6 relative z-10">Live Feed</h3>
-          <div className="space-y-6 relative z-10">
+          <div className="gap-y-6 relative z-10">
             {recentActivities.map((activity) => (
               <div
                 key={activity.id}

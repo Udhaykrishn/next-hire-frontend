@@ -53,7 +53,7 @@ export default function JobDetails() {
           </div>
 
           <div className="grid lg:grid-cols-12 gap-8">
-            <div className="lg:col-span-8 space-y-6">
+            <div className="lg:col-span-8 gap-y-6">
               <JobHeaderCard
                 job={job}
                 formattedSalary={formattedSalary}

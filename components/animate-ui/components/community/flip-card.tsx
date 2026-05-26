@@ -1,6 +1,6 @@
 "use client";
 
-import { easeOut, motion } from "motion/react";
+import { LazyMotion, m, easeOut, domAnimation } from "motion/react";
 import * as React from "react";
 import { Button } from "@/components/ui/button";
 
@@ -56,7 +56,7 @@ export function FlipCard({ data }: FlipCardProps) {
       onMouseLeave={handleMouseLeave}
     >
       {/* FRONT: Profile */}
-      <motion.div
+      <m.div
         className="absolute inset-0 backface-hidden rounded-md border-2 border-foreground/20 px-4 py-6 flex flex-col items-center justify-center bg-gradient-to-br from-muted via-background to-muted text-center"
         animate={isFlipped ? "back" : "front"}
         variants={cardVariants}
@@ -69,10 +69,10 @@ export function FlipCard({ data }: FlipCardProps) {
         />
         <h2 className="text-lg font-bold text-foreground">{data.name}</h2>
         <p className="text-sm text-muted-foreground">@{data.username}</p>
-      </motion.div>
+      </m.div>
 
       {/* BACK: Bio + Stats + Socials */}
-      <motion.div
+      <m.div
         className="absolute inset-0 backface-hidden rounded-md border-2 border-foreground/20 px-4 py-6 flex flex-col justify-between items-center gap-y-4 bg-gradient-to-tr from-muted via-background to-muted "
         initial={{ rotateY: 180 }}
         animate={isFlipped ? "front" : "back"}
@@ -106,7 +106,7 @@ export function FlipCard({ data }: FlipCardProps) {
         </div>
 
         <Button>Follow</Button>
-      </motion.div>
+      </m.div>
     </div>
   );
 }

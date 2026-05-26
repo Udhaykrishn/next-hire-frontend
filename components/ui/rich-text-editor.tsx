@@ -28,7 +28,7 @@ interface RichTextEditorProps {
 const RichTextEditor = ({
   value,
   onChange,
-  placeholder = "Write something...",
+  placeholder = "Write something…",
   className,
 }: RichTextEditorProps) => {
   const lastInternalValue = React.useRef(value);

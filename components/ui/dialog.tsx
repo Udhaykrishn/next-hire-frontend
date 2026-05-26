@@ -20,7 +20,7 @@ interface DialogProps
   onOpenChange?: (open: boolean) => void;
 }
 
-function Dialog({ open, onOpenChange, onClose, ...props }: DialogProps) {
+function Dialog({ open, onOpenChange, onClose, …props }: DialogProps) {
   const handleClose = React.useCallback(() => {
     if (onClose) {
       onClose(false);
@@ -38,7 +38,7 @@ function DialogClose(props: React.ComponentProps<typeof DialogClosePrimitive>) {
 
 function DialogBackdrop({
   className,
-  ...props
+  …props
 }: React.ComponentProps<typeof DialogBackdropPrimitive>) {
   return (
     <DialogBackdropPrimitive
@@ -55,7 +55,7 @@ function DialogPanel({
   className,
   children,
   showCloseButton = true,
-  ...props
+  …props
 }: React.ComponentProps<typeof DialogPanelPrimitive> & {
   showCloseButton?: boolean;
 }) {
@@ -87,7 +87,7 @@ function DialogPanel({
 
 function DialogHeader({
   className,
-  ...props
+  …props
 }: React.ComponentProps<typeof DialogHeaderPrimitive>) {
   return (
     <DialogHeaderPrimitive
@@ -99,7 +99,7 @@ function DialogHeader({
 
 function DialogFooter({
   className,
-  ...props
+  …props
 }: React.ComponentProps<typeof DialogFooterPrimitive>) {
   return (
     <DialogFooterPrimitive
@@ -114,7 +114,7 @@ function DialogFooter({
 
 function DialogTitle({
   className,
-  ...props
+  …props
 }: React.ComponentProps<typeof DialogTitlePrimitive>) {
   return (
     <DialogTitlePrimitive
@@ -129,7 +129,7 @@ function DialogTitle({
 
 function DialogDescription({
   className,
-  ...props
+  …props
 }: React.ComponentProps<typeof DialogDescriptionPrimitive>) {
   return (
     <DialogDescriptionPrimitive

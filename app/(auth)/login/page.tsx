@@ -2,7 +2,7 @@
 
 import { type CredentialResponse, GoogleLogin } from "@react-oauth/google";
 import { ArrowRight, Mail, ShieldCheck } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { LazyMotion, m, AnimatePresence, domAnimation } from "motion/react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import type React from "react";
@@ -27,7 +27,7 @@ import { useAuthRedirect } from "@/features/auth/hooks/use-role-redirect";
 function LoginContent() {
   const { login, googleAuth, isLoading: loginLoading, error } = useAuth();
   const { setUser, isAuthenticated, isLoading: authLoading } = useAuthContext();
-  const router = useRouter();
+  const { push } = useRouter();
   const searchParams = useSearchParams();
   const urlError = searchParams.get("error");
 
@@ -76,7 +76,7 @@ function LoginContent() {
       setUser(authResult.user);
       toast.success("Successfully signed in with Google!");
       if (authResult.isProfileComplete === false) {
-        router.push("/profile/setup");
+        push("/profile/setup");
       }
     } catch (err) {
       console.error("Google Auth failed:", err);
@@ -103,16 +103,16 @@ function LoginContent() {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+    setFormData((prev) => ({ …prev, [e.target.id]: e.target.value }));
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4 font-satoshi selection:bg-wise-green selection:text-dark-green relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-wise-green/40 rounded-full blur-[100px] pointer-events-none translate-x-1/3 -translate-y-1/4" />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-wise-green/20 rounded-full blur-[100px] pointer-events-none -translate-x-1/3 translate-y-1/3" />
+      <div className="absolute top-0 right-0 size-[800px] bg-wise-green/40 rounded-full blur-[100px] pointer-events-none translate-x-1/3 -translate-y-1/4" />
+      <div className="absolute bottom-0 left-0 size-[600px] bg-wise-green/20 rounded-full blur-[100px] pointer-events-none -translate-x-1/3 translate-y-1/3" />
       <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 pointer-events-none mix-blend-overlay"></div>
 
-      <motion.div
+      <m.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
@@ -123,9 +123,9 @@ function LoginContent() {
         </div>
 
         <Card className="border-gray-200 shadow-2xl shadow-gray-200/50 rounded-[2rem] overflow-hidden bg-white/80 backdrop-blur-xl">
-          <CardHeader className="space-y-2 pb-8 pt-10 text-center relative">
+          <CardHeader className="gap-y-2 pb-8 pt-10 text-center relative">
             <AnimatePresence mode="wait">
-              <motion.div
+              <m.div
                 key={step}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -140,20 +140,20 @@ function LoginContent() {
                     ? "Sign in to access your NextHire profile."
                     : "Enter your credentials to proceed."}
                 </CardDescription>
-              </motion.div>
+              </m.div>
             </AnimatePresence>
           </CardHeader>
 
-          <CardContent className="space-y-6 pt-2 px-8">
+          <CardContent className="gap-y-6 pt-2 px-8">
             <AnimatePresence mode="wait">
               {step === "INITIAL" ? (
-                <motion.div
+                <m.div
                   key="initial"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: 20 }}
                   transition={{ duration: 0.3 }}
-                  className="space-y-6"
+                  className="gap-y-6"
                 >
                   <div className="flex flex-col items-center gap-4 w-full">
                     <div className="w-full flex justify-center">
@@ -187,17 +187,17 @@ function LoginContent() {
                     <Mail className="size-5" />
                     Continue with Email
                   </Button>
-                </motion.div>
+                </m.div>
               ) : (
-                <motion.div
+                <m.div
                   key="email"
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <form onSubmit={handleEmailSubmit} className="space-y-5">
-                    <div className="space-y-2">
+                  <form onSubmit={handleEmailSubmit} className="gap-y-5">
+                    <div className="gap-y-2">
                       <Label
                         htmlFor="email"
                         className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
@@ -215,7 +215,7 @@ function LoginContent() {
                         autoFocus
                       />
                     </div>
-                    <div className="space-y-2">
+                    <div className="gap-y-2">
                       <div className="flex justify-between items-center">
                         <Label
                           htmlFor="password"
@@ -258,21 +258,21 @@ function LoginContent() {
                       </Button>
                     </div>
                   </form>
-                </motion.div>
+                </m.div>
               )}
             </AnimatePresence>
             {error && (
-              <motion.p
+              <m.p
                 initial={{ opacity: 0, y: 5 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="text-sm text-red-500 text-center font-bold bg-red-50 p-3 rounded-lg"
               >
                 {error}
-              </motion.p>
+              </m.p>
             )}
           </CardContent>
 
-          <CardFooter className="flex flex-col space-y-4 pb-8 pt-4 px-8">
+          <CardFooter className="flex flex-col gap-y-4 pb-8 pt-4 px-8">
             <p className="text-sm text-gray-600 text-center font-medium">
               Don't have an account?{" "}
               <Link
@@ -284,7 +284,7 @@ function LoginContent() {
             </p>
           </CardFooter>
         </Card>
-      </motion.div>
+      </m.div>
     </div>
   );
 }

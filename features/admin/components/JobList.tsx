@@ -16,7 +16,7 @@ import { useAdminJobs } from "../hooks/use-admin-jobs";
 import type { AdminJobDetail } from "../types/admin.types";
 
 export const JobList = () => {
-  const router = useRouter();
+  const { push } = useRouter();
   const {
     jobs,
     total,
@@ -43,7 +43,7 @@ export const JobList = () => {
     action: "block" | "unblock" | "details",
   ) => {
     if (action === "details") {
-      router.push(`/admin/jobs/${job.id}`);
+      push(`/admin/jobs/${job.id}`);
       return;
     }
     setSelectedJob(job);
@@ -68,7 +68,7 @@ export const JobList = () => {
         <div className="p-8 text-center">
           <div className="size-8 border-4 border-wise-green border-t-transparent rounded-full animate-spin mx-auto mb-4" />
           <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">
-            Loading job listings...
+            Loading job listings…
           </p>
         </div>
       </div>
@@ -76,12 +76,13 @@ export const JobList = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="gap-y-6">
       <div className="flex flex-col md:flex-row items-center gap-4">
         <div className="relative flex-1 group">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-gray-400 group-focus-within:text-wise-green transition-colors" />
           <input
             type="text"
+            aria-label="Search job listings"
             placeholder="Search by job title, hiring company…"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -105,16 +106,19 @@ export const JobList = () => {
             <h4 className="text-[10px] font-black uppercase tracking-widest text-near-black/40 mb-4 ml-1">
               Filter by Status
             </h4>
-            <div className="space-y-3">
+            <div className="gap-y-3">
               {["OPEN", "BLOCKED"].map((status) => (
-                <label
+                <button
+                  type="button"
                   key={status}
-                  className="flex items-center gap-3 cursor-pointer group"
+                  role="checkbox"
+                  aria-checked={selectedStatuses.includes(status)}
+                  onClick={() => handleStatusToggle(status)}
+                  className="flex items-center gap-3 cursor-pointer group outline-none"
                 >
                   <div
-                    onClick={() => handleStatusToggle(status)}
                     className={cn(
-                      "size-5 rounded-lg border-2 transition-all flex items-center justify-center",
+                      "size-5 rounded-lg border-2 transition-all flex items-center justify-center group-focus-visible:ring-2 group-focus-visible:ring-wise-green group-focus-visible:ring-offset-1",
                       selectedStatuses.includes(status)
                         ? "bg-near-black border-near-black"
                         : "border-gray-200 group-hover:border-wise-green",
@@ -127,7 +131,7 @@ export const JobList = () => {
                   <span className="text-xs font-bold text-near-black uppercase tracking-widest">
                     {status}
                   </span>
-                </label>
+                </button>
               ))}
             </div>
           </PopoverContent>

@@ -18,7 +18,7 @@ export function LandingFooter() {
           <h4 className="text-sm font-black mb-6 text-gray-900 uppercase tracking-widest">
             Candidates
           </h4>
-          <ul className="space-y-4">
+          <ul className="gap-y-4">
             <li>
               <Link
                 href="/jobs"
@@ -49,7 +49,7 @@ export function LandingFooter() {
           <h4 className="text-sm font-black mb-6 text-gray-900 uppercase tracking-widest">
             Recruiters
           </h4>
-          <ul className="space-y-4">
+          <ul className="gap-y-4">
             <li>
               <Link
                 href="/recruiter/signup"
@@ -80,7 +80,7 @@ export function LandingFooter() {
           <h4 className="text-sm font-black mb-6 text-gray-900 uppercase tracking-widest">
             Company
           </h4>
-          <ul className="space-y-4">
+          <ul className="gap-y-4">
             <li>
               <Link
                 href="/about"
@@ -108,7 +108,7 @@ export function LandingFooter() {
           </ul>
         </div>
       </div>
-      <div className="max-w-7xl mx-auto mt-20 pt-8 border-t border-gray-100 text-center text-sm font-medium text-gray-400">
+      <div suppressHydrationWarning className="max-w-7xl mx-auto mt-20 pt-8 border-t border-gray-100 text-center text-sm font-medium text-gray-400">
         © {new Date().getFullYear()} Next Hire. All rights reserved.
       </div>
     </footer>

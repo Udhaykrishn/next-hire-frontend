@@ -8,7 +8,7 @@ interface JobDescriptionCardProps {
 
 export function JobDescriptionCard({ job }: JobDescriptionCardProps) {
   return (
-    <div className="bg-white rounded-2xl p-6 md:p-8 border border-gray-200 shadow-sm space-y-8">
+    <div className="bg-white rounded-2xl p-6 md:p-8 border border-gray-200 shadow-sm gap-y-8">
       <section>
         <h2 className="text-[18px] font-bold text-dark-green mb-4 flex items-center gap-2">
           <span className="w-1 h-5 bg-wise-green rounded-full"></span>
@@ -100,9 +100,9 @@ export function JobDescriptionCard({ job }: JobDescriptionCardProps) {
               Additional perks & benefits
             </h2>
             <div className="flex flex-wrap gap-2.5">
-              {job.perks.map((perk, index) => (
+              {job.perks.map((perk) => (
                 <div
-                  key={index}
+                  key={perk}
                   className="flex items-center gap-2 px-4 py-2 bg-wise-green/10 text-dark-green rounded-xl text-[14px] font-medium border border-wise-green/20"
                 >
                   <span className="size-1.5 rounded-full bg-wise-green"></span>
@@ -138,7 +138,7 @@ export function JobDescriptionCard({ job }: JobDescriptionCardProps) {
               </span>
             )}
           </div>
-          <div className="space-y-3">
+          <div className="gap-y-3">
             <div>
               <p className="text-[13px] text-gray-500 mb-0.5">Name</p>
               <p className="text-[15px] font-bold text-gray-900">

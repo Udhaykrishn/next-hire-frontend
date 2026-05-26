@@ -14,7 +14,7 @@ export function AIMatchAnalysis({
   onAnalyze,
 }: AIMatchAnalysisProps) {
   return (
-    <div className="bg-[#ffffff] p-6 rounded-[20px] border border-[#38c8ff]/30 shadow-sm space-y-4 relative overflow-hidden group">
+    <div className="bg-[#ffffff] p-6 rounded-[20px] border border-[#38c8ff]/30 shadow-sm gap-y-4 relative overflow-hidden group">
       <div className="absolute top-0 right-0 size-32 bg-[#38c8ff]/5 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none transition-all group-hover:bg-[#38c8ff]/10"></div>
       <h3 className="text-[16px] font-[800] text-[#0e0f0c] border-b border-[rgba(14,15,12,0.08)] pb-3 flex items-center gap-2">
         <BrainCircuit className="size-5 text-[#38c8ff]" /> AI Match Analysis
@@ -35,7 +35,7 @@ export function AIMatchAnalysis({
             {isAnalyzing ? (
               <>
                 <div className="size-4 border-2 border-[#38c8ff] border-t-transparent rounded-full animate-spin"></div>
-                Analyzing Resume...
+                Analyzing Resume…
               </>
             ) : (
               <>
@@ -46,7 +46,7 @@ export function AIMatchAnalysis({
           </button>
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center py-2 space-y-3 relative z-10">
+        <div className="flex flex-col items-center justify-center py-2 gap-y-3 relative z-10">
           <div className="relative flex items-center justify-center size-28">
             <svg className="size-full transform -rotate-90">
               <circle
@@ -97,7 +97,7 @@ export function AIMatchAnalysis({
           </div>
 
           {matchBreakdown && (
-            <div className="mt-4 w-full text-left space-y-3 bg-[#f4f6f3] p-4 rounded-[12px] border border-[rgba(14,15,12,0.05)]">
+            <div className="mt-4 w-full text-left gap-y-3 bg-[#f4f6f3] p-4 rounded-[12px] border border-[rgba(14,15,12,0.05)]">
               <div>
                 <p className="text-[12px] font-[600] text-[#868685] uppercase tracking-wider mb-1.5">
                   AI Notes
@@ -113,9 +113,9 @@ export function AIMatchAnalysis({
                       Matched Keywords
                     </p>
                     <div className="flex flex-wrap gap-1.5">
-                      {matchBreakdown.keywords.map((kw, i) => (
+                      {matchBreakdown.keywords.map((kw) => (
                         <span
-                          key={i}
+                          key={kw}
                           className="text-[11px] font-[600] text-[#054d28] bg-[#054d28]/10 px-2 py-0.5 rounded-full border border-[#054d28]/20"
                         >
                           {kw}

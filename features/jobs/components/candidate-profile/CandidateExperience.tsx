@@ -24,10 +24,10 @@ export function CandidateExperience({ experience }: CandidateExperienceProps) {
         <Briefcase className="size-6 text-[#054d28]" /> Work Experience
       </h3>
       {experience && experience.length > 0 ? (
-        <div className="space-y-6 relative before:absolute before:inset-0 before:ml-[1.4rem] before:-translate-x-px md:before:translate-x-0 before:h-full before:w-[2px] before:bg-gradient-to-b before:from-[#054d28]/20 before:via-[#054d28]/10 before:to-transparent">
-          {experience.map((exp, idx: number) => (
+        <div className="gap-y-6 relative before:absolute before:inset-0 before:ml-[1.4rem] before:-translate-x-px md:before:translate-x-0 before:h-full before:w-[2px] before:bg-gradient-to-b before:from-[#054d28]/20 before:via-[#054d28]/10 before:to-transparent">
+          {experience.map((exp) => (
             <div
-              key={idx}
+              key={`${exp.projectName}-${exp.company}`}
               className="relative flex items-start gap-6 md:justify-start"
             >
               <div className="flex items-center justify-center size-12 rounded-full bg-[#f4f6f3] border-2 border-[#ffffff] shadow-sm z-10 shrink-0">
@@ -77,9 +77,9 @@ export function CandidateExperience({ experience }: CandidateExperienceProps) {
 
                 {exp.skillsLearned && exp.skillsLearned.length > 0 && (
                   <div className="flex flex-wrap gap-2 mt-2 pt-4 border-t border-[rgba(14,15,12,0.05)]">
-                    {exp.skillsLearned.map((skill: string, sIdx: number) => (
+                    {exp.skillsLearned.map((skill: string) => (
                       <span
-                        key={sIdx}
+                        key={skill}
                         className="px-2.5 py-1 bg-[#ffffff] border border-[rgba(14,15,12,0.08)] text-[#454745] font-[500] text-[12px] rounded-md"
                       >
                         {skill}

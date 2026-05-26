@@ -12,6 +12,8 @@ import { CandidateLanguages } from "@/features/jobs/components/candidate-profile
 import { CandidateSkills } from "@/features/jobs/components/candidate-profile/CandidateSkills";
 import { useCandidateProfile } from "@/features/jobs/hooks/use-candidate-profile";
 
+
+
 export default function CandidateProfilePage() {
   const {
     candidateId,
@@ -40,7 +42,7 @@ export default function CandidateProfilePage() {
       <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
         <div className="size-10 border-4 border-[#e8ebe6] border-t-[#0e0f0c] rounded-full animate-spin" />
         <p className="text-[#868685] font-[500] text-[15px]">
-          Loading full profile...
+          Loading full profile…
         </p>
       </div>
     );
@@ -67,7 +69,7 @@ export default function CandidateProfilePage() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto p-4 md:p-8 font-satoshi space-y-8 bg-[#f9faf9] min-h-screen">
+    <div className="max-w-6xl mx-auto p-4 md:p-8 font-satoshi gap-y-8 bg-[#f9faf9] min-h-screen">
       <CandidateHeader
         status={application.status}
         onGoBack={handleGoBack}
@@ -76,7 +78,7 @@ export default function CandidateProfilePage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Left Column: Basic Info & Application Meta */}
-        <div className="lg:col-span-4 space-y-6">
+        <div className="lg:col-span-4 gap-y-6">
           <CandidateBasicInfo
             profile={profile}
             profileImage={application.candidate.profileImage}
@@ -99,7 +101,7 @@ export default function CandidateProfilePage() {
         </div>
 
         {/* Right Column: Detailed Profile */}
-        <div className="lg:col-span-8 space-y-6">
+        <div className="lg:col-span-8 gap-y-6">
           <CandidateBio bio={profile.bio || profile.about} />
           <CandidateSkills skills={profile.skills} />
           <CandidateExperience experience={experience} />

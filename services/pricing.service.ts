@@ -55,7 +55,7 @@ export const pricingService = {
   ): Promise<PricingPlan> => {
     await new Promise((resolve) => setTimeout(resolve, 1500));
     return {
-      ...plan,
+      …plan,
       id: `P${Math.floor(Math.random() * 1000)}`,
       subscribers: 0,
       status: "Active",
@@ -67,7 +67,7 @@ export const pricingService = {
     plan: Partial<PricingPlan>,
   ): Promise<PricingPlan> => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    return { id, ...plan } as PricingPlan;
+    return { id, …plan } as PricingPlan;
   },
 
   deletePlan: async (_id: string): Promise<void> => {

@@ -69,10 +69,10 @@ export const LanguageForm = ({
   const isSubmitDisabled = !selectedLanguage.trim() && !searchQuery.trim();
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="space-y-4">
+    <form onSubmit={handleSubmit} className="gap-y-6">
+      <div className="gap-y-4">
         {/* Language Selector */}
-        <div className="space-y-1.5">
+        <div className="gap-y-1.5">
           <label
             htmlFor="language-search"
             className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1"
@@ -80,7 +80,7 @@ export const LanguageForm = ({
             Language Name
           </label>
           <div ref={containerRef} className="relative">
-            <input
+            <input aria-label="Control"
               id="language-search"
               type="text"
               value={searchQuery}
@@ -139,7 +139,7 @@ export const LanguageForm = ({
                     )}
                 {!filteredLanguages.length && !searchQuery.trim() && (
                   <div className="px-4 py-2.5 text-[13px] font-medium text-gray-400 text-center">
-                    Type to search languages...
+                    Type to search languages…
                   </div>
                 )}
               </div>
@@ -148,14 +148,14 @@ export const LanguageForm = ({
         </div>
       </div>
 
-      <div className="space-y-2">
+      <div className="gap-y-2">
         <span className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1 block">
           Proficiency Level
         </span>
         <div className="flex flex-wrap gap-2">
           {proficiencyLevels.map((level) => (
             <label key={level.value} className="cursor-pointer">
-              <input
+              <input aria-label="Control"
                 type="radio"
                 name="level"
                 value={level.value}

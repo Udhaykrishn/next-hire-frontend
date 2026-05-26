@@ -81,7 +81,7 @@ export default function RecruiterLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const router = useRouter();
+  const { push, replace } = useRouter();
   const pathname = usePathname();
   const { logout, isAuthenticated, isLoading } = useAuthContext();
 
@@ -105,7 +105,7 @@ export default function RecruiterLayout({
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated && !isAuthRoute) {
-      router.replace("/recruiter/login");
+      replace("/recruiter/login");
     }
   }, [isLoading, isAuthenticated, isAuthRoute, router]);
 
@@ -138,24 +138,24 @@ export default function RecruiterLayout({
           </div>
 
           <div className="flex-1 overflow-y-auto py-2">
-            <nav className="space-y-0.5">
+            <nav className="gap-y-0.5">
               <SidebarItem
                 icon={<Briefcase className="size-4" />}
                 label="Jobs"
                 active={pathname === "/recruiter/dashboard"}
-                onClick={() => router.push("/recruiter/dashboard")}
+                onClick={() => push("/recruiter/dashboard")}
               />
               <SidebarItem
                 icon={<User className="size-4" />}
                 label="Profile"
                 active={pathname === "/recruiter/profile"}
-                onClick={() => router.push("/recruiter/profile")}
+                onClick={() => push("/recruiter/profile")}
               />
               <SidebarItem
                 icon={<Settings className="size-4" />}
                 label="Settings"
                 active={pathname === "/recruiter/settings"}
-                onClick={() => router.push("/recruiter/settings")}
+                onClick={() => push("/recruiter/settings")}
               />
               <SidebarItem
                 icon={<Database className="size-4" />}
@@ -192,7 +192,7 @@ export default function RecruiterLayout({
             </nav>
           </div>
 
-          <div className="p-3 border-t border-gray-50 space-y-0.5">
+          <div className="p-3 border-t border-gray-50 gap-y-0.5">
             <SidebarItem
               icon={<HelpCircle className="size-4" />}
               label="Help & Support"
@@ -205,7 +205,7 @@ export default function RecruiterLayout({
 
             <div className="mt-4 px-2 pb-2">
               <div className="bg-gradient-to-br from-wise-green/20 via-wise-green/5 to-transparent rounded-[1.5rem] p-5 relative overflow-hidden border border-wise-green/10">
-                <div className="relative z-10 space-y-3">
+                <div className="relative z-10 gap-y-3">
                   <div className="flex items-center gap-2">
                     <div className="size-5 rounded-md bg-wise-green flex items-center justify-center">
                       <ShoppingBag className="size-3 text-near-black" />
@@ -248,7 +248,7 @@ export default function RecruiterLayout({
             </div>
 
             <div
-              onClick={() => router.push("/recruiter/profile")}
+              onClick={() => push("/recruiter/profile")}
               className="flex items-center gap-3 border-l border-gray-100 pl-5 cursor-pointer group"
             >
               <div className="size-9 rounded-full bg-near-black text-white flex items-center justify-center font-black text-xs transition-transform group-hover:scale-105">

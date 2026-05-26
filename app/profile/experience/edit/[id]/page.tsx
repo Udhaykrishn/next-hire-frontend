@@ -6,6 +6,8 @@ import { ExperienceForm } from "@/components/profile/forms/experience-form";
 import { FormPageLayout } from "@/components/profile/forms/form-page-layout";
 import { useProfile } from "@/hooks/use-profile";
 
+
+
 export default function EditExperiencePage({
   params,
 }: {
@@ -13,7 +15,7 @@ export default function EditExperiencePage({
 }) {
   const { experience, handleUpdateExperience } = useProfile();
   const { id } = use(params);
-  const router = useRouter();
+  const { push } = useRouter();
 
   const exp = experience.find((e) => e.id === id);
 
@@ -23,7 +25,7 @@ export default function EditExperiencePage({
 
   const onSubmit = (formData: FormData, start?: Date, end?: Date) => {
     handleUpdateExperience(id, formData, start, end);
-    router.push("/profile");
+    push("/profile");
   };
 
   return (

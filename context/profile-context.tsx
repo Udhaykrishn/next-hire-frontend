@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import type React from "react";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, use, useMemo, useState } from "react";
 import { useProfileHandlers } from "@/features/profile/hooks/use-profile-handlers";
 import {
   useCertificateQuery,
@@ -110,22 +110,19 @@ export const ProfileProvider = ({
   const [basicInfo, setBasicInfo] = useState<BasicInfo>(DEFAULT_BASIC_INFO);
   const [socialLinks, setSocialLinks] =
     useState<SocialLinks>(DEFAULT_SOCIAL_LINKS);
-  const [jobPreferences, setJobPreferences] = useState<JobPreferences>(
-    DEFAULT_JOB_PREFERENCES,
-  );
-
-  useEffect(() => {
+  const [jobPreferences, setJobPreferences] = useState<JobPreferences>(() => {
     if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("jobPreferences");
+      const stored = localStorage.getItem("jobPreferences:v1");
       if (stored) {
         try {
-          setJobPreferences(JSON.parse(stored));
+          return JSON.parse(stored);
         } catch (e) {
           console.error("Error parsing job preferences from localStorage", e);
         }
       }
     }
-  }, []);
+    return DEFAULT_JOB_PREFERENCES;
+  });
 
   useProfileStateSync({
     profileData,
@@ -154,8 +151,10 @@ export const ProfileProvider = ({
       roles:
         (formData.get("roles") as string)
           ?.split(",")
-          .map((s: string) => s.trim())
-          .filter(Boolean) || [],
+          .flatMap((s: string) => {
+            const trimmed = s.trim();
+            return trimmed ? [trimmed] : [];
+          }) || [],
       workStyles: formData.getAll("workStyles") as string[],
       minSalary: (formData.get("minSalary") as string) || "",
       maxSalary: (formData.get("maxSalary") as string) || "",
@@ -165,7 +164,7 @@ export const ProfileProvider = ({
     };
     setJobPreferences(updated);
     if (typeof window !== "undefined") {
-      localStorage.setItem("jobPreferences", JSON.stringify(updated));
+      localStorage.setItem("jobPreferences:v1", JSON.stringify(updated));
     }
   };
 
@@ -182,7 +181,7 @@ export const ProfileProvider = ({
     };
     setJobPreferences(cleared);
     if (typeof window !== "undefined") {
-      localStorage.removeItem("jobPreferences");
+      localStorage.removeItem("jobPreferences:v1");
     }
   };
 
@@ -210,38 +209,59 @@ export const ProfileProvider = ({
   const isLoading =
     isProfileLoading || isEduLoading || isExpLoading || isCertLoading;
 
+  const contextValue = useMemo(() => ({
+    skills,
+    experience,
+    education,
+    certificates,
+    basicInfo,
+    socialLinks,
+    jobPreferences,
+    languages,
+    isLoading,
+    isUploadingAvatar: uploadAvatarMutation.isPending,
+    isDeletingAvatar: deleteAvatarMutation.isPending,
+    isUploadingResume: uploadResumeMutation.isPending,
+    isDeletingResume: deleteResumeMutation.isPending,
+    ...handlers,
+    handleUpdateJobPreferences,
+    handleClearJobPreferences,
+    handleUploadAvatar,
+    handleDeleteAvatar,
+    handleUploadResume,
+    handleDeleteResume,
+  }), [
+    skills,
+    experience,
+    education,
+    certificates,
+    basicInfo,
+    socialLinks,
+    jobPreferences,
+    languages,
+    isLoading,
+    uploadAvatarMutation.isPending,
+    deleteAvatarMutation.isPending,
+    uploadResumeMutation.isPending,
+    deleteResumeMutation.isPending,
+    handlers,
+    handleUpdateJobPreferences,
+    handleClearJobPreferences,
+    handleUploadAvatar,
+    handleDeleteAvatar,
+    handleUploadResume,
+    handleDeleteResume,
+  ]);
+
   return (
-    <ProfileContext.Provider
-      value={{
-        skills,
-        experience,
-        education,
-        certificates,
-        basicInfo,
-        socialLinks,
-        jobPreferences,
-        languages,
-        isLoading,
-        isUploadingAvatar: uploadAvatarMutation.isPending,
-        isDeletingAvatar: deleteAvatarMutation.isPending,
-        isUploadingResume: uploadResumeMutation.isPending,
-        isDeletingResume: deleteResumeMutation.isPending,
-        ...handlers,
-        handleUpdateJobPreferences,
-        handleClearJobPreferences,
-        handleUploadAvatar,
-        handleDeleteAvatar,
-        handleUploadResume,
-        handleDeleteResume,
-      }}
-    >
+    <ProfileContext.Provider value={contextValue}>
       {children}
     </ProfileContext.Provider>
   );
 };
 
 export const useProfileContext = () => {
-  const context = useContext(ProfileContext);
+  const context = use(ProfileContext);
   if (context === undefined) {
     throw new Error("useProfileContext must be used within a ProfileProvider");
   }

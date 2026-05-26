@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  type HTMLMotionProps,
-  type LegacyAnimationControls,
-  motion,
-  type TargetAndTransition,
-  type Transition,
-} from "motion/react";
+import { LazyMotion, m, type HTMLMotionProps, type LegacyAnimationControls, type TargetAndTransition, type Transition, domAnimation } from "motion/react";
 import type * as React from "react";
 import {
   Slot,
@@ -36,7 +30,7 @@ function AutoHeight({
   style,
   animate,
   asChild = false,
-  ...props
+  …props
 }: AutoHeightProps) {
   const { ref, height } = useAutoHeight<HTMLDivElement>(deps);
 

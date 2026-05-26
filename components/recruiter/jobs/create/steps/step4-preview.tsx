@@ -69,7 +69,7 @@ export const Step4Preview = ({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      className="space-y-6 max-w-5xl mx-auto pb-12"
+      className="gap-y-6 max-w-5xl mx-auto pb-12"
     >
       <div className="bg-white rounded-3xl border border-gray-200 overflow-hidden shadow-sm">
         <SectionHeader
@@ -78,7 +78,7 @@ export const Step4Preview = ({
           step={1}
           setCurrentStep={setCurrentStep}
         />
-        <div className="py-6 space-y-1">
+        <div className="py-6 gap-y-1">
           <InfoRow label="Company name" value={formData.hiringCompany} />
           <InfoRow label="Job title" value={formData.jobTitle} />
           <InfoRow label="Job role/ category" value={formData.jobCategory} />
@@ -120,7 +120,7 @@ export const Step4Preview = ({
           step={2}
           setCurrentStep={setCurrentStep}
         />
-        <div className="py-6 space-y-1">
+        <div className="py-6 gap-y-1">
           <div className="mx-8 mb-6 p-4 rounded-xl bg-wise-green/10 border border-wise-green/20 flex items-start gap-3">
             <div className="size-8 rounded-lg bg-wise-green flex items-center justify-center shrink-0">
               <Users className="size-4 text-dark-green" />
@@ -204,7 +204,7 @@ export const Step4Preview = ({
           step={3}
           setCurrentStep={setCurrentStep}
         />
-        <div className="py-6 space-y-1">
+        <div className="py-6 gap-y-1">
           <InfoRow
             label="Is this a walk-in interview?"
             value={

@@ -1,5 +1,5 @@
 import { Award, Briefcase, FileText, PlayCircle } from "lucide-react";
-import { motion } from "motion/react";
+import { LazyMotion, m, domAnimation } from "motion/react";
 
 interface CandidateApplicationsStatsProps {
   statsData: {
@@ -65,7 +65,7 @@ export function CandidateApplicationsStats({
       {stats.map((stat, i) => {
         const isActive = statusFilter === stat.id;
         return (
-          <motion.button
+          <m.button
             type="button"
             key={stat.id}
             initial={{ opacity: 0, y: 15 }}
@@ -100,7 +100,7 @@ export function CandidateApplicationsStats({
             <p className="text-[28px] md:text-[32px] font-black leading-none tracking-tight relative z-10">
               {stat.value}
             </p>
-          </motion.button>
+          </m.button>
         );
       })}
     </div>

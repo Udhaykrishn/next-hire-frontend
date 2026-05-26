@@ -47,7 +47,7 @@ export function BasicDetailsCard({
               transition={{ duration: 0.18 }}
               className="grid grid-cols-1 sm:grid-cols-2 gap-5"
             >
-              <div className="space-y-2">
+              <div className="gap-y-2">
                 <Label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">
                   Full Name *
                 </Label>
@@ -55,13 +55,13 @@ export function BasicDetailsCard({
                   id="recruiter-name-input"
                   value={formData.name}
                   onChange={(e) =>
-                    setFormData((p) => ({ ...p, name: e.target.value }))
+                    setFormData((p) => ({ …p, name: e.target.value }))
                   }
                   className="h-12 bg-gray-50 border-gray-200 rounded-xl font-bold text-[15px] focus-visible:ring-wise-green focus-visible:border-wise-green"
                   placeholder="Your full name"
                 />
               </div>
-              <div className="space-y-2">
+              <div className="gap-y-2">
                 <Label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">
                   Email Address
                 </Label>
@@ -71,7 +71,7 @@ export function BasicDetailsCard({
                   className="h-12 bg-gray-50 border-gray-100 rounded-xl font-bold text-[15px] opacity-50 cursor-not-allowed"
                 />
               </div>
-              <div className="space-y-2">
+              <div className="gap-y-2">
                 <Label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">
                   Mobile Contact *
                 </Label>
@@ -84,7 +84,7 @@ export function BasicDetailsCard({
                     value={formData.phone}
                     onChange={(e) =>
                       setFormData((p) => ({
-                        ...p,
+                        …p,
                         phone: e.target.value,
                       }))
                     }

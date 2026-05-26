@@ -75,7 +75,7 @@ const MetaField = ({
 };
 
 export const AdminJobDetails = ({ id }: { id: string }) => {
-  const router = useRouter();
+  const { back } = useRouter();
   const { data: job } = useAdminJobDetails(id);
   const { data: statsData } = useAdminJobStats(id);
   const { handleConfirmBlock } = useAdminJobs();
@@ -110,11 +110,11 @@ export const AdminJobDetails = ({ id }: { id: string }) => {
   const isBlocked = job.status !== "OPEN";
 
   return (
-    <div className="max-w-7xl mx-auto pb-16 space-y-6">
+    <div className="max-w-7xl mx-auto pb-16 gap-y-6">
       {/* Navigation */}
       <Button
         variant="ghost"
-        onClick={() => router.back()}
+        onClick={() => back()}
         className="text-gray-500 hover:text-near-black flex items-center gap-2 px-0"
       >
         <ArrowLeft className="size-4" />
@@ -124,7 +124,7 @@ export const AdminJobDetails = ({ id }: { id: string }) => {
       {/* Main Layout Grid */}
       <div className="grid lg:grid-cols-12 gap-8 items-start">
         {/* LEFT COLUMN - MAIN CONTENT (Span 8) */}
-        <div className="lg:col-span-8 space-y-8">
+        <div className="lg:col-span-8 gap-y-8">
           {/* Hero Header Card */}
           <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-8 relative overflow-hidden">
             <div className="absolute top-0 right-0 size-64 bg-gradient-to-bl from-wise-green/10 to-transparent rounded-bl-full pointer-events-none" />
@@ -263,7 +263,7 @@ export const AdminJobDetails = ({ id }: { id: string }) => {
             />
 
             <div className="grid md:grid-cols-2 gap-8 mb-8">
-              <div className="space-y-5">
+              <div className="gap-y-5">
                 <MetaField label="Minimum Education" value={job.education} />
                 <MetaField
                   label="Degree Specializations"
@@ -275,7 +275,7 @@ export const AdminJobDetails = ({ id }: { id: string }) => {
                   value={job.regionalLanguages?.join(", ")}
                 />
               </div>
-              <div className="space-y-5">
+              <div className="gap-y-5">
                 <MetaField
                   label="Minimum Experience"
                   value={`${job.minExperience} Years`}
@@ -320,7 +320,7 @@ export const AdminJobDetails = ({ id }: { id: string }) => {
             <SectionHeader icon={Heart} title="Perks, Benefits & Financials" />
 
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="space-y-5">
+              <div className="gap-y-5">
                 <MetaField
                   icon={Gift}
                   label="Additional Perks"
@@ -333,13 +333,13 @@ export const AdminJobDetails = ({ id }: { id: string }) => {
                 />
                 <MetaField label="Pay Type Structure" value={job.payType} />
               </div>
-              <div className="space-y-5">
+              <div className="gap-y-5">
                 <div className="flex flex-col gap-1 p-4 rounded-2xl border border-gray-100 bg-gray-50/50">
                   <span className="text-[11px] font-bold text-gray-500 uppercase tracking-widest flex items-center gap-1.5">
                     <ShieldAlert className="size-3.5" /> Joining Fee Status
                   </span>
                   {job.hasJoiningFee === "Yes" ? (
-                    <div className="mt-1 space-y-2">
+                    <div className="mt-1 gap-y-2">
                       <span className="text-sm font-black text-red-600 block">
                         Requires Fee: {job.feeAmount}
                       </span>
@@ -367,7 +367,7 @@ export const AdminJobDetails = ({ id }: { id: string }) => {
         </div>
 
         {/* RIGHT COLUMN - SIDEBAR (Span 4) */}
-        <div className="lg:col-span-4 space-y-6 lg:sticky lg:top-8">
+        <div className="lg:col-span-4 gap-y-6 lg:sticky lg:top-8">
           {/* Application Insights Compact */}
           <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6">
             <h4 className="font-bold text-near-black mb-5 flex items-center gap-2 border-b border-gray-100 pb-4">
@@ -414,7 +414,7 @@ export const AdminJobDetails = ({ id }: { id: string }) => {
             <h4 className="font-bold text-near-black mb-5 flex items-center gap-2 border-b border-gray-100 pb-4">
               <Phone className="size-4 text-gray-400" /> Contact & Hiring Rep
             </h4>
-            <div className="space-y-4">
+            <div className="gap-y-4">
               <MetaField label="HR Name" value={job.hrName} />
               <MetaField label="Contact Number" value={job.hrPhone} />
               <MetaField label="Email Address" value={job.hrEmail} />
@@ -433,7 +433,7 @@ export const AdminJobDetails = ({ id }: { id: string }) => {
                   <span className="text-[11px] font-bold text-gray-400 uppercase tracking-widest block mb-2">
                     Secondary Recruiter
                   </span>
-                  <div className="bg-gray-50 p-3 rounded-xl border border-gray-100 space-y-1">
+                  <div className="bg-gray-50 p-3 rounded-xl border border-gray-100 gap-y-1">
                     <p className="text-sm font-bold text-near-black">
                       {job.otherRecruiterName}
                     </p>
@@ -454,7 +454,7 @@ export const AdminJobDetails = ({ id }: { id: string }) => {
             <h4 className="font-bold text-near-black mb-5 flex items-center gap-2 border-b border-gray-100 pb-4">
               <MapPin className="size-4 text-gray-400" /> Location Details
             </h4>
-            <div className="space-y-4">
+            <div className="gap-y-4">
               <MetaField label="Job City" value={job.jobCity} />
               <MetaField label="Office Address" value={job.officeAddress} />
               <MetaField
@@ -467,7 +467,7 @@ export const AdminJobDetails = ({ id }: { id: string }) => {
                   <span className="text-[11px] font-bold text-blue-500 uppercase tracking-widest flex items-center gap-1.5 mb-3">
                     <Calendar className="size-3.5" /> Walk-In Drive
                   </span>
-                  <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 space-y-3">
+                  <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 gap-y-3">
                     <div>
                       <span className="text-[10px] font-bold text-blue-400 uppercase tracking-widest block">
                         Dates

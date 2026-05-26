@@ -34,10 +34,10 @@ export const Step1Details = ({
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
-      className="space-y-12"
+      className="gap-y-12"
     >
-      <div className="space-y-8">
-        <div className="space-y-2 pb-4 border-b border-gray-100">
+      <div className="gap-y-8">
+        <div className="gap-y-2 pb-4 border-b border-gray-100">
           <h2 className="text-[20px] font-black text-near-black">
             Job details
           </h2>
@@ -49,7 +49,7 @@ export const Step1Details = ({
           </p>
         </div>
 
-        <div className="space-y-4">
+        <div className="gap-y-4">
           <div className="flex items-center justify-between px-4 py-3 rounded-xl bg-slate-50/80 border border-slate-100 relative">
             <div className="flex items-center gap-3 w-full">
               <div className="size-10 rounded-lg bg-white flex items-center justify-center shadow-sm shrink-0">
@@ -65,7 +65,7 @@ export const Step1Details = ({
                     onValueChange={(val) => {
                       const newValue = val || "";
                       setFormData((prev) => ({
-                        ...prev,
+                        …prev,
                         belongingCompany: newValue,
                         hiringCompany: newValue,
                       }));
@@ -116,7 +116,7 @@ export const Step1Details = ({
                     value={formData.jobTitle}
                     onChange={(e) =>
                       setFormData((prev) => ({
-                        ...prev,
+                        …prev,
                         jobTitle: e.target.value,
                       }))
                     }
@@ -148,7 +148,7 @@ export const Step1Details = ({
                     value={formData.jobCategory}
                     onValueChange={(val) =>
                       setFormData((prev) => ({
-                        ...prev,
+                        …prev,
                         jobCategory: val || "",
                       }))
                     }
@@ -180,7 +180,7 @@ export const Step1Details = ({
           </div>
         </div>
 
-        <div className="space-y-4" id="field-jobType">
+        <div className="gap-y-4" id="field-jobType">
           <Label className="text-[13px] font-black text-near-black">
             Type of Job *
           </Label>
@@ -191,7 +191,7 @@ export const Step1Details = ({
                   key={t}
                   type="button"
                   onClick={() =>
-                    setFormData((prev) => ({ ...prev, jobType: t }))
+                    setFormData((prev) => ({ …prev, jobType: t }))
                   }
                   className={cn(
                     "px-6 py-2.5 rounded-full text-[13px] font-bold border transition-all",
@@ -214,7 +214,7 @@ export const Step1Details = ({
               type="button"
               onClick={() =>
                 setFormData((prev) => ({
-                  ...prev,
+                  …prev,
                   isNightShift: !prev.isNightShift,
                 }))
               }
@@ -233,7 +233,7 @@ export const Step1Details = ({
           </div>
         </div>
 
-        <div className="space-y-4" id="field-experienceType">
+        <div className="gap-y-4" id="field-experienceType">
           <Label className="text-[13px] font-black text-near-black">
             Experience Type *
           </Label>
@@ -243,7 +243,7 @@ export const Step1Details = ({
                 key={t}
                 type="button"
                 onClick={() =>
-                  setFormData((prev) => ({ ...prev, experienceType: t }))
+                  setFormData((prev) => ({ …prev, experienceType: t }))
                 }
                 className={cn(
                   "px-6 py-2.5 rounded-full text-[13px] font-bold border transition-all",
@@ -268,8 +268,8 @@ export const Step1Details = ({
         errors={errors}
       />
 
-      <div className="space-y-8">
-        <div className="space-y-2 pb-4 border-b border-gray-100">
+      <div className="gap-y-8">
+        <div className="gap-y-2 pb-4 border-b border-gray-100">
           <h2 className="text-[20px] font-black text-near-black">
             Compensation & Fees
           </h2>
@@ -279,8 +279,8 @@ export const Step1Details = ({
         </div>
 
         <div className="bg-white rounded-[24px] border border-gray-100 overflow-hidden shadow-sm shadow-black/[0.02]">
-          <div className="p-8 space-y-8">
-            <div className="space-y-1">
+          <div className="p-8 gap-y-8">
+            <div className="gap-y-1">
               <h3 className="text-[18px] font-bold text-near-black">
                 Compensation
               </h3>
@@ -290,7 +290,7 @@ export const Step1Details = ({
               </p>
             </div>
 
-            <div className="space-y-4" id="field-payType">
+            <div className="gap-y-4" id="field-payType">
               <Label className="text-[14px] font-bold text-near-black">
                 What is the pay type? <span className="text-red-500">*</span>
               </Label>
@@ -301,7 +301,7 @@ export const Step1Details = ({
                       key={opt}
                       type="button"
                       onClick={() =>
-                        setFormData((prev) => ({ ...prev, payType: opt }))
+                        setFormData((prev) => ({ …prev, payType: opt }))
                       }
                       className={cn(
                         "px-5 py-2 rounded-full text-[13px] font-bold border transition-all",
@@ -322,7 +322,7 @@ export const Step1Details = ({
 
             <div className="flex gap-4 items-start">
               {formData.payType !== "Incentive Only" && (
-                <div className="flex-1 space-y-4">
+                <div className="flex-1 gap-y-4">
                   <div
                     className="flex items-center gap-1.5"
                     id="field-minSalary"
@@ -352,7 +352,7 @@ export const Step1Details = ({
                         }
                         onChange={(e) =>
                           setFormData((prev) => ({
-                            ...prev,
+                            …prev,
                             minSalary: e.target.value.replace(/\D/g, ""),
                           }))
                         }
@@ -376,7 +376,7 @@ export const Step1Details = ({
                         }
                         onChange={(e) =>
                           setFormData((prev) => ({
-                            ...prev,
+                            …prev,
                             maxSalary: e.target.value.replace(/\D/g, ""),
                           }))
                         }
@@ -400,7 +400,7 @@ export const Step1Details = ({
 
               {(formData.payType === "Fixed + Incentive" ||
                 formData.payType === "Incentive Only") && (
-                <div className="flex-1 space-y-4" id="field-incentiveAmount">
+                <div className="flex-1 gap-y-4" id="field-incentiveAmount">
                   <div className="flex items-center gap-1.5">
                     <Label className="text-[14px] font-bold text-near-black">
                       Average Incentive / month{" "}
@@ -424,7 +424,7 @@ export const Step1Details = ({
                       }
                       onChange={(e) =>
                         setFormData((prev) => ({
-                          ...prev,
+                          …prev,
                           incentiveAmount: e.target.value.replace(/\D/g, ""),
                         }))
                       }
@@ -440,11 +440,11 @@ export const Step1Details = ({
               )}
             </div>
 
-            <div className="bg-slate-50 border border-slate-200 rounded-lg p-5 space-y-4">
+            <div className="bg-slate-50 border border-slate-200 rounded-lg p-5 gap-y-4">
               <h4 className="text-[14px] font-bold text-near-black">
                 Salary breakup shown to candidates
               </h4>
-              <div className="space-y-3">
+              <div className="gap-y-3">
                 <div className="flex justify-between text-[13px] text-gray-500 font-medium">
                   <span>Fixed Salary / Month</span>
                   <span className="font-bold text-near-black">
@@ -473,7 +473,7 @@ export const Step1Details = ({
               </div>
             </div>
 
-            <div className="space-y-4 pt-2">
+            <div className="gap-y-4 pt-2">
               <Label className="text-[14px] font-bold text-near-black">
                 Do you offer any additional perks ?
               </Label>
@@ -507,10 +507,10 @@ export const Step1Details = ({
                         setFormData((prev) => {
                           const prevPerks = prev.perks || [];
                           return {
-                            ...prev,
+                            …prev,
                             perks: isSelected
                               ? prevPerks.filter((p) => p !== perk)
-                              : [...prevPerks, perk],
+                              : […prevPerks, perk],
                           };
                         })
                       }
@@ -537,7 +537,7 @@ export const Step1Details = ({
               </button>
             </div>
 
-            <div className="space-y-4 pt-2" id="field-hasJoiningFee">
+            <div className="gap-y-4 pt-2" id="field-hasJoiningFee">
               <Label className="text-[14px] font-bold text-near-black">
                 Is there any joining fee or deposit required from the candidate?{" "}
                 <span className="text-red-500">*</span>
@@ -549,7 +549,7 @@ export const Step1Details = ({
                     type="button"
                     onClick={() =>
                       setFormData((prev) => ({
-                        ...prev,
+                        …prev,
                         hasJoiningFee: opt as "Yes" | "No",
                       }))
                     }
@@ -568,7 +568,7 @@ export const Step1Details = ({
 
             {formData.hasJoiningFee === "Yes" && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                <div className="space-y-2" id="field-feeAmount">
+                <div className="gap-y-2" id="field-feeAmount">
                   <Label className="text-[13px] font-medium">
                     Fee Amount *
                   </Label>
@@ -582,7 +582,7 @@ export const Step1Details = ({
                     }
                     onChange={(e) =>
                       setFormData((prev) => ({
-                        ...prev,
+                        …prev,
                         feeAmount: e.target.value.replace(/\D/g, ""),
                       }))
                     }
@@ -592,7 +592,7 @@ export const Step1Details = ({
                     <p className="text-red-500 text-xs">{errors.feeAmount}</p>
                   )}
                 </div>
-                <div className="space-y-2" id="field-feeReason">
+                <div className="gap-y-2" id="field-feeReason">
                   <Label className="text-[13px] font-medium">
                     Fee Reason *
                   </Label>
@@ -601,7 +601,7 @@ export const Step1Details = ({
                     value={formData.feeReason}
                     onChange={(e) =>
                       setFormData((prev) => ({
-                        ...prev,
+                        …prev,
                         feeReason: e.target.value,
                       }))
                     }
@@ -611,7 +611,7 @@ export const Step1Details = ({
                     <p className="text-red-500 text-xs">{errors.feeReason}</p>
                   )}
                 </div>
-                <div className="space-y-2" id="field-feeDetails">
+                <div className="gap-y-2" id="field-feeDetails">
                   <Label className="text-[13px] font-medium">
                     Fee Details *
                   </Label>
@@ -620,7 +620,7 @@ export const Step1Details = ({
                     value={formData.feeDetails}
                     onChange={(e) =>
                       setFormData((prev) => ({
-                        ...prev,
+                        …prev,
                         feeDetails: e.target.value,
                       }))
                     }
@@ -630,7 +630,7 @@ export const Step1Details = ({
                     <p className="text-red-500 text-xs">{errors.feeDetails}</p>
                   )}
                 </div>
-                <div className="space-y-2" id="field-feePaymentTiming">
+                <div className="gap-y-2" id="field-feePaymentTiming">
                   <Label className="text-[13px] font-medium">
                     Payment Timing *
                   </Label>
@@ -638,7 +638,7 @@ export const Step1Details = ({
                     value={formData.feePaymentTiming}
                     onValueChange={(v) =>
                       setFormData((prev) => ({
-                        ...prev,
+                        …prev,
                         feePaymentTiming: v || "",
                       }))
                     }

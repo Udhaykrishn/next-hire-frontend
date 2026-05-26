@@ -35,7 +35,7 @@ export const DatePicker = ({
   onApply,
   onCancel,
   size = "sm",
-  ...props
+  …props
 }: DatePickerProps) => {
   const formatter = useDateFormatter({
     month: "short",

@@ -6,6 +6,8 @@ import { EducationForm } from "@/components/profile/forms/education-form";
 import { FormPageLayout } from "@/components/profile/forms/form-page-layout";
 import { useProfile } from "@/hooks/use-profile";
 
+
+
 export default function EditEducationPage({
   params,
 }: {
@@ -13,7 +15,7 @@ export default function EditEducationPage({
 }) {
   const { education, handleUpdateEducation } = useProfile();
   const { id } = use(params);
-  const router = useRouter();
+  const { push } = useRouter();
 
   const edu = education.find((e) => e.id === id);
 
@@ -23,7 +25,7 @@ export default function EditEducationPage({
 
   const onSubmit = (formData: FormData, start?: Date, end?: Date) => {
     handleUpdateEducation(id, formData, start, end);
-    router.push("/profile");
+    push("/profile");
   };
 
   return (

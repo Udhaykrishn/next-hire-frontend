@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import { LazyMotion, m, domAnimation } from "motion/react";
 import { useRouter } from "next/navigation";
 import type React from "react";
 import { useState } from "react";
@@ -20,7 +20,7 @@ interface OtpFormProps {
 export function OtpForm({ id, role, onVerify }: OtpFormProps) {
   const [otp, setOtp] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
+  const { push } = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,16 +35,15 @@ export function OtpForm({ id, role, onVerify }: OtpFormProps) {
         await new Promise((resolve) => setTimeout(resolve, 1000));
       }
       // Assuming successful verification redirects to reset password
-      router.push(`/${role}/reset-password/${id}`);
+      push(`/${role}/reset-password/${id}`);
     } catch (err) {
       console.error(err);
-    } finally {
-      setIsLoading(false);
     }
+    setIsLoading(false);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="gap-y-6">
       <div className="flex justify-center">
         <InputOTP maxLength={6} value={otp} onChange={(value) => setOtp(value)}>
           <InputOTPGroup className="gap-2">
@@ -59,15 +58,15 @@ export function OtpForm({ id, role, onVerify }: OtpFormProps) {
         </InputOTP>
       </div>
 
-      <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+      <m.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
         <Button
           type="submit"
           className="w-full h-12 bg-wise-green text-dark-green font-black rounded-xl hover:bg-wise-green/90 transition-all text-lg shadow-[0_0_20px_rgba(159,232,112,0.2)] mt-2"
           disabled={isLoading || otp.length !== 6}
         >
-          {isLoading ? "Verifying..." : "Verify OTP"}
+          {isLoading ? "Verifying…" : "Verify OTP"}
         </Button>
-      </motion.div>
+      </m.div>
     </form>
   );
 }

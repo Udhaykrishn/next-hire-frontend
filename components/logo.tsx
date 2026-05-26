@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import { LazyMotion, m, domAnimation } from "motion/react";
 
 interface LogoProps {
   className?: string;
@@ -29,17 +29,17 @@ export function Logo({
 
   return (
     <div className={`flex items-center gap-3 ${className}`}>
-      <motion.div
+      <m.div
         className={`${sizeClasses[size]} relative flex-shrink-0`}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
-        <motion.div
+        <m.div
           className="absolute inset-0 bg-wise-green rounded-xl rotate-45 opacity-20"
           animate={{ rotate: [45, 90, 45] }}
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
         />
-        <motion.div
+        <m.div
           className="absolute inset-0 bg-wise-green rounded-xl"
           animate={{ rotate: [0, 45, 0] }}
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
@@ -48,7 +48,7 @@ export function Logo({
           <svg
             viewBox="0 0 24 24"
             fill="none"
-            className="w-3/4 h-3/4"
+            className="size-3/4"
             stroke="currentColor"
             strokeWidth="2.5"
             strokeLinecap="round"
@@ -58,7 +58,7 @@ export function Logo({
             <polyline points="22 4 12 14.01 9 11.01" />
           </svg>
         </div>
-      </motion.div>
+      </m.div>
 
       {withText && (
         <div
@@ -66,7 +66,7 @@ export function Logo({
         >
           <span className="text-foreground">Next</span>
           <span className="text-wise-green">Hire</span>
-          <motion.div
+          <m.div
             className="size-1.5 rounded-full bg-wise-green ml-1 mb-1"
             animate={{ opacity: [1, 0, 1] }}
             transition={{ duration: 2, repeat: Infinity }}

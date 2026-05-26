@@ -53,15 +53,15 @@ export const EducationForm = ({
   ];
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="space-y-1.5">
-        <label className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
+    <form onSubmit={handleSubmit} className="gap-y-6">
+      <div className="gap-y-1.5">
+        <label htmlFor="school" className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
           Education Level
         </label>
         <div className="flex flex-wrap gap-2">
           {eduLevels.map((lvl) => (
             <label key={lvl} className="cursor-pointer">
-              <input
+              <input aria-label="Control"
                 type="radio"
                 name="level"
                 value={lvl}
@@ -80,12 +80,12 @@ export const EducationForm = ({
         </div>
       </div>
 
-      <div className="space-y-1.5">
+      <div className="gap-y-1.5">
         <label className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
           Institution / School Name
         </label>
-        <input
-          name="school"
+        <input aria-label="Control"
+           id="school" name="school"
           defaultValue={initialData?.school}
           required
           className="w-full h-11 bg-gray-50 rounded-xl border border-gray-100 px-4 text-[14px] font-bold focus:outline-none focus:border-wise-green transition-colors"
@@ -94,24 +94,24 @@ export const EducationForm = ({
       </div>
 
       <div className="grid md:grid-cols-2 gap-4">
-        <div className="space-y-1.5">
-          <label className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
+        <div className="gap-y-1.5">
+          <label htmlFor="degree" className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
             Degree
           </label>
-          <input
-            name="degree"
+        <input aria-label="Control"
+             id="degree" name="degree"
             defaultValue={initialData?.degree}
             required
             className="w-full h-11 bg-gray-50 rounded-xl border border-gray-100 px-4 text-[14px] font-bold focus:outline-none focus:border-wise-green transition-colors"
             placeholder="e.g. Bachelor of Science"
           />
         </div>
-        <div className="space-y-1.5">
-          <label className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
+        <div className="gap-y-1.5">
+          <label htmlFor="specialisation" className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
             Specialisation
           </label>
-          <input
-            name="specialisation"
+        <input aria-label="Control"
+             id="specialisation" name="specialisation"
             defaultValue={initialData?.specialisation}
             required
             className="w-full h-11 bg-gray-50 rounded-xl border border-gray-100 px-4 text-[14px] font-bold focus:outline-none focus:border-wise-green transition-colors"
@@ -121,7 +121,7 @@ export const EducationForm = ({
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
-        <div className="space-y-1.5">
+        <div className="gap-y-1.5">
           <label className="text-[11px] font-black text-gray-400 uppercase tracking-widest block ml-1">
             Start Date{" "}
             {eduStartDate && (
@@ -138,7 +138,7 @@ export const EducationForm = ({
             size="sm"
           />
         </div>
-        <div className="space-y-1.5">
+        <div className="gap-y-1.5">
           <label className="text-[11px] font-black text-gray-400 uppercase tracking-widest block ml-1">
             End Date{" "}
             {eduEndDate && (

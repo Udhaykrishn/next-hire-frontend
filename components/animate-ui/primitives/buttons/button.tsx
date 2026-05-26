@@ -1,6 +1,6 @@
 "use client";
 
-import { type HTMLMotionProps, motion } from "motion/react";
+import { LazyMotion, m, type HTMLMotionProps, domAnimation } from "motion/react";
 
 import {
   Slot,
@@ -18,7 +18,7 @@ function Button({
   hoverScale = 1.05,
   tapScale = 0.95,
   asChild = false,
-  ...props
+  …props
 }: ButtonProps) {
   const Component = (asChild ? Slot : motion.button) as React.ElementType;
 

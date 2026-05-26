@@ -8,7 +8,7 @@ export function AdminHeader() {
       <div className="flex items-center gap-4 flex-1 max-w-xl">
         <div className="relative w-full group">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-gray-400 group-focus-within:text-wise-green transition-colors" />
-          <input
+          <input aria-label="Control"
             type="text"
             placeholder="Search anything…"
             className="w-full h-10 pl-10 pr-12 bg-gray-50 border border-gray-100 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-wise-green/20 focus:border-wise-green transition-all"

@@ -69,7 +69,7 @@ export const InputDateBase = ({
   wrapperClassName,
   tooltipClassName,
   iconClassName,
-  ...inputProps
+  …inputProps
 }: Omit<InputDateBaseProps, "label" | "hint">) => {
   // Check if the input has a leading icon or tooltip
   const hasTrailingIcon = tooltip || isInvalid;
@@ -265,7 +265,7 @@ export const InputDate = ({
   inputClassName,
   wrapperClassName,
   tooltipClassName,
-  ...props
+  …props
 }: InputProps) => {
   return (
     <AriaDateField

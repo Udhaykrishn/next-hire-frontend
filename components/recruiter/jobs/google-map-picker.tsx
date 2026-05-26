@@ -8,7 +8,7 @@ import {
 } from "@vis.gl/react-google-maps";
 import { Loader2 } from "lucide-react";
 import type React from "react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { getGeocode, getLatLng } from "use-places-autocomplete";
 
 interface GoogleMapPickerProps {
@@ -30,25 +30,25 @@ export const GoogleMapPicker: React.FC<GoogleMapPickerProps> = ({
   const isLoaded = useApiIsLoaded();
   const [markerPos, setMarkerPos] = useState(MUMBAI_CENTER);
   const [loading, setLoading] = useState(false);
-  const [hasLocated, setHasLocated] = useState(false);
+  const hasLocated = useRef(false);
 
   // Auto-geocode default address
   useEffect(() => {
-    if (isLoaded && defaultValue && !hasLocated) {
+    if (isLoaded && defaultValue && !hasLocated.current) {
       const initFromAddress = async () => {
         try {
           const results = await getGeocode({ address: defaultValue });
           const { lat, lng } = await getLatLng(results[0]);
           const pos = { lat, lng };
           setMarkerPos(pos);
-          setHasLocated(true);
+          hasLocated.current = true;
         } catch (_e) {
           console.warn("Could not find default address on map");
         }
       };
       initFromAddress();
     }
-  }, [isLoaded, defaultValue, hasLocated]);
+  }, [isLoaded, defaultValue]);
 
   const handleGeocode = useCallback(
     async (pos: { lat: number; lng: number }) => {
@@ -61,16 +61,15 @@ export const GoogleMapPicker: React.FC<GoogleMapPickerProps> = ({
         }
       } catch (error) {
         console.error("Geocoding error:", error);
-      } finally {
-        setLoading(false);
       }
+      setLoading(false);
     },
     [onLocationChange],
   );
 
   // GPS Fallback
   useEffect(() => {
-    if (isLoaded && !defaultValue && !hasLocated && navigator.geolocation) {
+    if (isLoaded && !defaultValue && !hasLocated.current && navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const pos = {
@@ -79,15 +78,15 @@ export const GoogleMapPicker: React.FC<GoogleMapPickerProps> = ({
           };
           setMarkerPos(pos);
           handleGeocode(pos);
-          setHasLocated(true);
+          hasLocated.current = true;
         },
         () => {
           handleGeocode(MUMBAI_CENTER);
-          setHasLocated(true);
+          hasLocated.current = true;
         },
       );
     }
-  }, [isLoaded, defaultValue, hasLocated, handleGeocode]);
+  }, [isLoaded, defaultValue, handleGeocode]);
 
   const handleMapClick = useCallback(
     (e: MapMouseEvent) => {
@@ -114,7 +113,7 @@ export const GoogleMapPicker: React.FC<GoogleMapPickerProps> = ({
       >
         <Loader2 className="size-8 text-wise-green animate-spin" />
         <p className="text-[13px] font-bold text-gray-400">
-          Loading Map Service...
+          Loading Map Service…
         </p>
       </div>
     );
@@ -151,7 +150,7 @@ export const GoogleMapPicker: React.FC<GoogleMapPickerProps> = ({
           <div className="bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-sm flex items-center gap-2 border border-gray-100 pointer-events-auto">
             <Loader2 className="size-3 text-wise-green animate-spin" />
             <span className="text-[11px] font-black text-near-black">
-              Finding Address...
+              Finding Address…
             </span>
           </div>
         )}

@@ -54,7 +54,7 @@ export const Tooltip = ({
   crossOffset,
   placement = "top",
   onOpenChange,
-  ...tooltipProps
+  …tooltipProps
 }: TooltipProps) => {
   const isTopOrBottomLeft = [
     "top left",
@@ -143,14 +143,14 @@ interface TooltipTriggerProps extends AriaButtonProps {}
 export const TooltipTrigger = ({
   children,
   className,
-  ...buttonProps
+  …buttonProps
 }: TooltipTriggerProps) => {
   return (
     <AriaButton
       {...buttonProps}
       className={(values) =>
         cx(
-          "h-max w-max outline-hidden",
+          "size-max outline-hidden",
           typeof className === "function" ? className(values) : className,
         )
       }

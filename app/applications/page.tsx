@@ -1,7 +1,7 @@
 "use client";
 
 import { Clock, FileText, Search } from "lucide-react";
-import { motion } from "motion/react";
+import { LazyMotion, m, domAnimation } from "motion/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -9,15 +9,17 @@ import { LandingFooter } from "@/components/landing-footer";
 import { LandingNavbar } from "@/components/landing-navbar";
 import { useAuthContext } from "@/features/auth/context/auth-context";
 
+
+
 export default function CandidateApplicationsPage() {
   const { isAuthenticated, role, isLoading } = useAuthContext();
-  const router = useRouter();
+  const { push } = useRouter();
 
   useEffect(() => {
     if (!isLoading && (!isAuthenticated || role !== "CANDIDATE")) {
-      router.push("/login");
+      push("/login");
     }
-  }, [isLoading, isAuthenticated, role, router]);
+  }, [isLoading, isAuthenticated, role, push]);
 
   if (isLoading || !isAuthenticated || role !== "CANDIDATE") {
     return null;
@@ -39,7 +41,7 @@ export default function CandidateApplicationsPage() {
           </div>
 
           {/* Empty State / Coming Soon Mock */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="bg-white rounded-[2rem] p-12 border border-gray-100 shadow-xl shadow-[#258265]/5 flex flex-col items-center justify-center text-center relative overflow-hidden"
@@ -69,7 +71,7 @@ export default function CandidateApplicationsPage() {
               <Search className="size-4 mr-2" />
               Explore Jobs
             </Link>
-          </motion.div>
+          </m.div>
         </div>
       </main>
 

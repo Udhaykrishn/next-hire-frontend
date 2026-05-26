@@ -26,7 +26,7 @@ import { cn } from "@/lib/utils";
 type OnboardingType = "individual" | "company";
 
 export default function RecruiterOnboardingPage() {
-  const router = useRouter();
+  const { push } = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
   const [onboardingType, setOnboardingType] =
     useState<OnboardingType>("company");
@@ -51,10 +51,10 @@ export default function RecruiterOnboardingPage() {
   const startSetup = () => {
     setIsProcessing(true);
     const messages = [
-      "Authenticating workspace...",
-      "Syncing recruitment logic...",
-      "Building your dashboard...",
-      "Finalizing settings...",
+      "Authenticating workspace…",
+      "Syncing recruitment logic…",
+      "Building your dashboard…",
+      "Finalizing settings…",
       "Ready for takeoff!",
     ];
 
@@ -69,13 +69,13 @@ export default function RecruiterOnboardingPage() {
       if (progress >= 100) {
         clearInterval(interval);
         setIsSuccess(true);
-        setTimeout(() => router.push("/recruiter/dashboard"), 1200);
+        setTimeout(() => push("/recruiter/dashboard"), 1200);
       }
     }, 40);
   };
 
   const handleChange = (id: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [id]: value }));
+    setFormData((prev) => ({ …prev, [id]: value }));
   };
 
   const steps = [
@@ -88,8 +88,8 @@ export default function RecruiterOnboardingPage() {
     <div className="min-h-screen bg-white font-satoshi selection:bg-wise-green/30 text-near-black overflow-x-hidden">
       {/* Premium Background Elements */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-wise-green/[0.03] rounded-full blur-[120px]" />
-        <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-wise-green/[0.03] rounded-full blur-[120px]" />
+        <div className="absolute top-[-10%] right-[-10%] size-[50%] bg-wise-green/[0.03] rounded-full blur-[120px]" />
+        <div className="absolute bottom-[-10%] left-[-10%] size-[50%] bg-wise-green/[0.03] rounded-full blur-[120px]" />
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.02] mix-blend-overlay" />
       </div>
 
@@ -104,7 +104,7 @@ export default function RecruiterOnboardingPage() {
               className="w-full flex flex-col items-center"
             >
               {/* Header Section */}
-              <div className="text-center mb-12 space-y-4">
+              <div className="text-center mb-12 gap-y-4">
                 <m.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -167,9 +167,9 @@ export default function RecruiterOnboardingPage() {
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -20 }}
-                      className="space-y-8"
+                      className="gap-y-8"
                     >
-                      <div className="space-y-2">
+                      <div className="gap-y-2">
                         <h2 className="text-[24px] font-black tracking-tight">
                           Select your profile
                         </h2>
@@ -253,9 +253,9 @@ export default function RecruiterOnboardingPage() {
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -20 }}
-                      className="space-y-8"
+                      className="gap-y-8"
                     >
-                      <div className="space-y-2">
+                      <div className="gap-y-2">
                         <h2 className="text-[24px] font-black tracking-tight">
                           Workspace Identity
                         </h2>
@@ -264,8 +264,8 @@ export default function RecruiterOnboardingPage() {
                         </p>
                       </div>
 
-                      <div className="space-y-5">
-                        <div className="space-y-2">
+                      <div className="gap-y-5">
+                        <div className="gap-y-2">
                           <Label className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
                             {onboardingType === "company"
                               ? "Company Identity"
@@ -298,7 +298,7 @@ export default function RecruiterOnboardingPage() {
                         </div>
 
                         <div className="grid grid-cols-2 gap-4">
-                          <div className="space-y-2">
+                          <div className="gap-y-2">
                             <Label className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
                               Base Location
                             </Label>
@@ -311,7 +311,7 @@ export default function RecruiterOnboardingPage() {
                               }
                             />
                           </div>
-                          <div className="space-y-2">
+                          <div className="gap-y-2">
                             <Label className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
                               {onboardingType === "company"
                                 ? "Scale"
@@ -366,9 +366,9 @@ export default function RecruiterOnboardingPage() {
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -20 }}
-                      className="space-y-8"
+                      className="gap-y-8"
                     >
-                      <div className="space-y-2">
+                      <div className="gap-y-2">
                         <h2 className="text-[24px] font-black tracking-tight">
                           Mission Strategy
                         </h2>
@@ -377,8 +377,8 @@ export default function RecruiterOnboardingPage() {
                         </p>
                       </div>
 
-                      <div className="space-y-6">
-                        <div className="space-y-2">
+                      <div className="gap-y-6">
+                        <div className="gap-y-2">
                           <Label className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
                             Core Industry
                           </Label>
@@ -395,7 +395,7 @@ export default function RecruiterOnboardingPage() {
                           </div>
                         </div>
 
-                        <div className="space-y-3">
+                        <div className="gap-y-3">
                           <Label className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
                             Hiring Velocity
                           </Label>
@@ -464,7 +464,7 @@ export default function RecruiterOnboardingPage() {
               key="processing"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="w-full max-w-[500px] flex flex-col items-center text-center space-y-12"
+              className="w-full max-w-[500px] flex flex-col items-center text-center gap-y-12"
             >
               {!isSuccess ? (
                 <>
@@ -482,16 +482,16 @@ export default function RecruiterOnboardingPage() {
                     </div>
                   </div>
 
-                  <div className="space-y-4">
+                  <div className="gap-y-4">
                     <h2 className="text-[32px] font-black tracking-tight">
                       {statusMessage}
                     </h2>
                     <p className="text-gray-400 font-bold text-[16px]">
-                      Engine synchronization in progress...
+                      Engine synchronization in progress…
                     </p>
                   </div>
 
-                  <div className="w-full space-y-4">
+                  <div className="w-full gap-y-4">
                     <div className="h-3 w-full bg-gray-50 rounded-full overflow-hidden border-4 border-white shadow-inner">
                       <m.div
                         initial={{ width: 0 }}
@@ -513,7 +513,7 @@ export default function RecruiterOnboardingPage() {
                 <m.div
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="space-y-10"
+                  className="gap-y-10"
                 >
                   <div className="relative mx-auto size-32">
                     <m.div
@@ -527,12 +527,12 @@ export default function RecruiterOnboardingPage() {
                     </div>
                   </div>
 
-                  <div className="space-y-3">
+                  <div className="gap-y-3">
                     <h2 className="text-[40px] font-black tracking-tighter">
                       System Live.
                     </h2>
                     <p className="text-gray-400 font-bold text-[18px]">
-                      Redirecting to your command center...
+                      Redirecting to your command center…
                     </p>
                   </div>
                 </m.div>

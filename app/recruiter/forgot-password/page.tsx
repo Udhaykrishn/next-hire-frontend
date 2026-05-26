@@ -1,10 +1,12 @@
 "use client";
 
 import { ArrowLeft, KeyRound } from "lucide-react";
-import { motion } from "motion/react";
+import { LazyMotion, m, domAnimation } from "motion/react";
 import Link from "next/link";
 import { ForgotPasswordForm } from "@/components/auth/forgot-password-form";
 import { Logo } from "@/components/logo";
+
+
 import {
   Card,
   CardContent,
@@ -17,11 +19,11 @@ import {
 export default function RecruiterForgotPasswordPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4 font-satoshi selection:bg-wise-green selection:text-dark-green relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-wise-green/40 rounded-full blur-[100px] pointer-events-none translate-x-1/3 -translate-y-1/4" />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-wise-green/20 rounded-full blur-[100px] pointer-events-none -translate-x-1/3 translate-y-1/3" />
+      <div className="absolute top-0 right-0 size-[800px] bg-wise-green/40 rounded-full blur-[100px] pointer-events-none translate-x-1/3 -translate-y-1/4" />
+      <div className="absolute bottom-0 left-0 size-[600px] bg-wise-green/20 rounded-full blur-[100px] pointer-events-none -translate-x-1/3 translate-y-1/3" />
       <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 pointer-events-none mix-blend-overlay"></div>
 
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
@@ -32,15 +34,15 @@ export default function RecruiterForgotPasswordPage() {
         </div>
 
         <Card className="border-gray-200 shadow-2xl shadow-gray-200/50 rounded-[2rem] overflow-hidden bg-white/80 backdrop-blur-xl">
-          <CardHeader className="space-y-2 pb-8 pt-10 text-center relative border-b border-gray-100">
-            <motion.div
+          <CardHeader className="gap-y-2 pb-8 pt-10 text-center relative border-b border-gray-100">
+            <m.div
               initial={{ scale: 0.95 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
               className="absolute top-0 right-10 translate-y-[-50%] size-16 bg-wise-green rounded-2xl flex items-center justify-center shadow-[0_0_40px_rgba(159,232,112,0.3)] rotate-12"
             >
               <KeyRound className="size-8 text-dark-green" />
-            </motion.div>
+            </m.div>
 
             <CardTitle className="text-3xl font-black leading-tight text-gray-900 tracking-tight mt-2">
               Forgot Password
@@ -50,7 +52,7 @@ export default function RecruiterForgotPasswordPage() {
             </CardDescription>
           </CardHeader>
 
-          <CardContent className="space-y-6 pt-8 px-10">
+          <CardContent className="gap-y-6 pt-8 px-10">
             <ForgotPasswordForm />
           </CardContent>
 
@@ -63,7 +65,7 @@ export default function RecruiterForgotPasswordPage() {
             </Link>
           </CardFooter>
         </Card>
-      </motion.div>
+      </m.div>
     </div>
   );
 }

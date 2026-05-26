@@ -10,14 +10,14 @@ export default function ProfileLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const router = useRouter();
+  const { replace } = useRouter();
   const { isAuthenticated, isLoading } = useAuthContext();
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
-      router.replace("/login");
+      replace("/login");
     }
-  }, [isLoading, isAuthenticated, router]);
+  }, [isLoading, isAuthenticated, replace]);
 
   if (isLoading) {
     return (

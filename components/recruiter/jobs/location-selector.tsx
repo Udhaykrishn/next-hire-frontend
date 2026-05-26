@@ -95,20 +95,22 @@ const AutocompleteInput = ({
       </div>
 
       {isReady && status === "OK" && (
-        <ul className="absolute z-50 w-full mt-2 bg-white border border-gray-100 rounded-xl shadow-xl max-h-60 overflow-y-auto overflow-x-hidden py-2 animate-in fade-in zoom-in-95 duration-200">
+        <div className="absolute z-50 w-full mt-2 bg-white border border-gray-100 rounded-xl shadow-xl max-h-60 overflow-y-auto overflow-x-hidden py-2 animate-in fade-in zoom-in-95 duration-200">
           {data.map((suggestion) => (
-            <li
+            <div
               key={suggestion.place_id}
+              tabIndex={0}
               onClick={handleSelect(suggestion)}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleSelect(suggestion)(); }}
               className="px-5 py-3 hover:bg-wise-green/5 cursor-pointer flex items-start gap-3 group transition-colors"
             >
               <MapPin className="size-4 mt-0.5 text-gray-400 group-hover:text-wise-green" />
               <span className="text-[13px] font-medium text-near-black">
                 {suggestion.description}
               </span>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );
@@ -158,16 +160,16 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
   }, [citySearch, indianCities]);
 
   return (
-    <div className="space-y-10 pt-10 border-t border-gray-100">
-      <div className="space-y-1">
+    <div className="gap-y-10 pt-10 border-t border-gray-100">
+      <div className="gap-y-1">
         <h2 className="text-[18px] font-black text-near-black">Location</h2>
         <p className="text-[12px] font-medium text-gray-400">
           Specify the primary work location for this role.
         </p>
       </div>
 
-      <div className="space-y-6">
-        <div className="space-y-4">
+      <div className="gap-y-6">
+        <div className="gap-y-4">
           <Label className="text-[13px] font-black text-near-black">
             Work location type *
           </Label>
@@ -202,9 +204,9 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
               initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -5 }}
-              className="space-y-4"
+              className="gap-y-4"
             >
-              <div className="space-y-3">
+              <div className="gap-y-3">
                 <div className="flex items-center justify-between">
                   <Label className="text-[13px] font-black text-near-black">
                     Office address / landmark *
@@ -241,7 +243,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
               initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -5 }}
-              className="space-y-3"
+              className="gap-y-3"
             >
               <div className="flex items-center justify-between">
                 <Label className="text-[13px] font-black text-near-black">
@@ -278,15 +280,19 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
               initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -5 }}
-              className="space-y-3"
+              className="gap-y-3"
             >
               <Label className="text-[13px] font-black text-near-black">
                 Job City *
               </Label>
               <div className="relative">
-                <div
+                <button
+                  type="button"
+                  tabIndex={0}
+                  aria-expanded={showCityDropdown}
                   className="w-full h-12 px-5 bg-white border-gray-100 rounded-xl font-medium shadow-sm flex items-center justify-between cursor-pointer focus-within:ring-2 focus-within:ring-wise-green/20"
                   onClick={() => setShowCityDropdown(!showCityDropdown)}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setShowCityDropdown(!showCityDropdown); }}
                 >
                   <span
                     className={cn(
@@ -302,7 +308,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                       showCityDropdown && "rotate-180",
                     )}
                   />
-                </div>
+                </button>
 
                 <AnimatePresence>
                   {showCityDropdown && (
@@ -316,7 +322,8 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                         <div className="relative">
                           <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-gray-400" />
                           <input
-                            placeholder="Search city…"
+                            aria-label="Search city"
+                            placeholder="Search city..."
                             className="w-full h-10 pl-10 pr-4 bg-white border-gray-200 rounded-lg text-[13px] outline-none focus:border-wise-green transition-colors"
                             value={citySearch}
                             onChange={(e) => setCitySearch(e.target.value)}
@@ -327,9 +334,10 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                       <div className="max-h-60 overflow-y-auto py-1">
                         {filteredCities.length > 0 ? (
                           filteredCities.map((city) => (
-                            <div
+                            <button
+                              type="button"
                               key={`${city.name}-${city.latitude}`}
-                              className="px-5 py-3 hover:bg-wise-green/5 cursor-pointer text-[13px] font-medium text-near-black transition-colors"
+                              className="w-full text-left px-5 py-3 hover:bg-wise-green/5 cursor-pointer text-[13px] font-medium text-near-black transition-colors"
                               onClick={() => {
                                 setFormData((prev) => ({
                                   ...prev,
@@ -338,9 +346,19 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                                 setShowCityDropdown(false);
                                 setCitySearch("");
                               }}
+                              onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                  setFormData((prev) => ({
+                                    ...prev,
+                                    jobCity: city.name,
+                                  }));
+                                  setShowCityDropdown(false);
+                                  setCitySearch("");
+                                }
+                              }}
                             >
                               {city.name}, {city.stateCode}
-                            </div>
+                            </button>
                           ))
                         ) : (
                           <div className="px-5 py-8 text-center text-gray-400 text-[12px] font-bold">

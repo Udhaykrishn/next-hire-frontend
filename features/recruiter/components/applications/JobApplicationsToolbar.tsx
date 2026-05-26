@@ -38,8 +38,8 @@ export function JobApplicationsToolbar({
       {/* Filter Toolbar */}
       <div className="bg-[#ffffff] p-3 rounded-[16px] border border-[rgba(14,15,12,0.12)] flex flex-col lg:flex-row items-center justify-between gap-4 sticky top-4 z-20">
         <div className="relative flex-1 w-full lg:max-w-md ml-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-[#868685]" />
-          <input
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4.5 text-[#868685]" />
+          <input aria-label="Control"
             type="text"
             placeholder="Search candidates by name or email…"
             value={search}

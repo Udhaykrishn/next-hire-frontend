@@ -26,11 +26,11 @@ export const Step5Plan = ({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      className="space-y-10"
+      className="gap-y-10"
     >
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-10 items-start">
-        <div className="space-y-8">
-          <div className="space-y-2">
+        <div className="gap-y-8">
+          <div className="gap-y-2">
             <h2 className="text-[32px] font-black text-near-black tracking-tight">
               Choose a hiring strategy
             </h2>
@@ -44,7 +44,7 @@ export const Step5Plan = ({
                 key={p.id}
                 type="button"
                 onClick={() =>
-                  setFormData((prev) => ({ ...prev, selectedPlan: p.id }))
+                  setFormData((prev) => ({ …prev, selectedPlan: p.id }))
                 }
                 className={cn(
                   "relative text-left flex flex-col h-full rounded-[2.5rem] border-2 transition-all duration-300 p-8",
@@ -89,7 +89,7 @@ export const Step5Plan = ({
                     )}
                   </div>
                 </div>
-                <div className="space-y-1 mb-6">
+                <div className="gap-y-1 mb-6">
                   <h3 className="text-[18px] font-black text-near-black tracking-tight">
                     {p.name}
                   </h3>
@@ -99,7 +99,7 @@ export const Step5Plan = ({
                     </span>
                   </div>
                 </div>
-                <div className="space-y-4 flex-1">
+                <div className="gap-y-4 flex-1">
                   {p.features.map((f, i) => (
                     <div key={i} className="flex items-start gap-3">
                       <Check className="size-4 text-wise-green shrink-0 mt-0.5" />
@@ -114,10 +114,10 @@ export const Step5Plan = ({
           </div>
         </div>
 
-        <div className="space-y-6 lg:sticky lg:top-8">
-          <div className="bg-near-black rounded-[2.5rem] p-10 text-white space-y-8 relative overflow-hidden shadow-2xl">
+        <div className="gap-y-6 lg:sticky lg:top-8">
+          <div className="bg-near-black rounded-[2.5rem] p-10 text-white gap-y-8 relative overflow-hidden shadow-2xl">
             <Zap className="absolute -top-10 -right-10 size-40 text-white/5 rotate-12" />
-            <div className="space-y-1 relative z-10">
+            <div className="gap-y-1 relative z-10">
               <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest">
                 Selected Strategy
               </p>
@@ -126,7 +126,7 @@ export const Step5Plan = ({
               </h4>
             </div>
 
-            <div className="space-y-4 relative z-10 pt-8 border-t border-white/5">
+            <div className="gap-y-4 relative z-10 pt-8 border-t border-white/5">
               <div className="flex justify-between items-center text-[14px] font-bold">
                 <span className="text-gray-500">Job Deployment</span>
                 <span>
@@ -156,7 +156,7 @@ export const Step5Plan = ({
             </div>
 
             <div className="pt-8 relative z-10">
-              <div className="p-4 rounded-2xl bg-white/5 border border-white/5 space-y-2">
+              <div className="p-4 rounded-2xl bg-white/5 border border-white/5 gap-y-2">
                 <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest">
                   Hiring Mission
                 </p>

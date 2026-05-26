@@ -46,10 +46,10 @@ export function CompanyIdentityCard({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: 0.18 }}
-              className="space-y-5"
+              className="gap-y-5"
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <div className="space-y-2">
+                <div className="gap-y-2">
                   <Label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">
                     Company Role / Title
                   </Label>
@@ -69,7 +69,7 @@ export function CompanyIdentityCard({
                     />
                   </div>
                 </div>
-                <div className="space-y-2">
+                <div className="gap-y-2">
                   <Label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">
                     Company Website
                   </Label>
@@ -90,7 +90,7 @@ export function CompanyIdentityCard({
                   </div>
                 </div>
               </div>
-              <div className="space-y-2">
+              <div className="gap-y-2">
                 <Label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">
                   Industry / Category
                 </Label>
@@ -110,7 +110,7 @@ export function CompanyIdentityCard({
                   />
                 </div>
               </div>
-              <div className="space-y-2">
+              <div className="gap-y-2">
                 <Label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">
                   Company Description
                 </Label>
@@ -135,7 +135,7 @@ export function CompanyIdentityCard({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: 0.18 }}
-              className="space-y-5"
+              className="gap-y-5"
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <FieldView
@@ -158,7 +158,7 @@ export function CompanyIdentityCard({
                 />
               </div>
               {formData.description && (
-                <div className="space-y-1.5 pt-1 border-t border-gray-50">
+                <div className="gap-y-1.5 pt-1 border-t border-gray-50">
                   <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mt-3">
                     Description
                   </p>
@@ -172,7 +172,7 @@ export function CompanyIdentityCard({
                 !formData.category &&
                 !formData.description && (
                   <p className="text-[13px] font-bold text-gray-300 italic text-center py-3">
-                    No company details added yet — click Edit to get started.
+                  No company details added yet; click Edit to get started.
                   </p>
                 )}
             </m.div>

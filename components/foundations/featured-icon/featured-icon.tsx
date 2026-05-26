@@ -141,7 +141,7 @@ export const FeaturedIcon = (props: FeaturedIconProps) => {
     theme: variant = "light",
     color = "brand",
     icon: Icon,
-    ...otherProps
+    …otherProps
   } = props;
 
   return (

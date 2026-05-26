@@ -1,14 +1,14 @@
 "use client";
 
 import { Search } from "lucide-react";
-import { motion } from "motion/react";
+import { LazyMotion, m, domAnimation } from "motion/react";
 import { useRouter } from "next/navigation";
 import type React from "react";
 import { useState } from "react";
 import { Button } from "@/components/animate-ui/components/buttons/button";
 
 export function HeroSearch() {
-  const router = useRouter();
+  const { push } = useRouter();
   const [query, setQuery] = useState("");
   const [location, setLocation] = useState("");
 
@@ -17,11 +17,11 @@ export function HeroSearch() {
     const params = new URLSearchParams();
     if (query) params.append("q", query);
     if (location) params.append("l", location);
-    router.push(`/jobs?${params.toString()}`);
+    push(`/jobs?${params.toString()}`);
   };
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.3 }}
@@ -33,7 +33,7 @@ export function HeroSearch() {
       >
         <div className="flex-1 flex items-center px-4 group/item">
           <Search className="size-5 text-gray-400 group-focus-within:text-wise-green transition-colors shrink-0" />
-          <input
+          <input aria-label="Control"
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -46,7 +46,7 @@ export function HeroSearch() {
           <div className="size-5 flex items-center justify-center shrink-0">
             <div className="size-1.5 rounded-full bg-gray-400 group-focus-within:bg-wise-green transition-colors" />
           </div>
-          <input
+          <input aria-label="Control"
             type="text"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
@@ -61,6 +61,6 @@ export function HeroSearch() {
           Search
         </Button>
       </form>
-    </motion.div>
+    </m.div>
   );
 }

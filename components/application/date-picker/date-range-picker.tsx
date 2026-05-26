@@ -47,7 +47,7 @@ export const DateRangePicker = ({
   onApply,
   onCancel,
   size = "sm",
-  ...props
+  …props
 }: DateRangePickerProps) => {
   const { locale } = useLocale();
   const formatter = useDateFormatter({

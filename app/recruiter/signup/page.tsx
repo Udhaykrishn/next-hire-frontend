@@ -1,7 +1,7 @@
 "use client";
 
 import { Briefcase, Building, Lock, Mail, Phone } from "lucide-react";
-import { motion } from "motion/react";
+import { LazyMotion, m, domAnimation } from "motion/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type React from "react";
@@ -25,7 +25,7 @@ import { useAuth } from "@/features/auth/hooks/use-auth";
 import { useRoleRedirect } from "@/features/auth/hooks/use-role-redirect";
 
 export default function RecruiterSignupPage() {
-  const router = useRouter();
+  const { push } = useRouter();
   const {
     signup,
     verifyOtp,
@@ -70,7 +70,7 @@ export default function RecruiterSignupPage() {
     }
 
     try {
-      await signup({ ...formData, role: "RECRUITER" });
+      await signup({ …formData, role: "RECRUITER" });
       toast.success("Please verify your email!");
       setStep("OTP");
     } catch (_err) {
@@ -84,7 +84,7 @@ export default function RecruiterSignupPage() {
       if (response && "user" in response) {
         setUser(response.user);
         toast.success("Recruiter account created successfully!");
-        router.push("/recruiter/dashboard");
+        push("/recruiter/dashboard");
       }
     } catch (err) {
       toast.error("Invalid OTP. Please try again.");
@@ -102,17 +102,17 @@ export default function RecruiterSignupPage() {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+    setFormData((prev) => ({ …prev, [e.target.id]: e.target.value }));
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4 font-satoshi selection:bg-wise-green selection:text-dark-green relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-wise-green/40 rounded-full blur-[100px] pointer-events-none translate-x-1/3 -translate-y-1/4" />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-wise-green/20 rounded-full blur-[100px] pointer-events-none -translate-x-1/3 translate-y-1/3" />
+      <div className="absolute top-0 right-0 size-[800px] bg-wise-green/40 rounded-full blur-[100px] pointer-events-none translate-x-1/3 -translate-y-1/4" />
+      <div className="absolute bottom-0 left-0 size-[600px] bg-wise-green/20 rounded-full blur-[100px] pointer-events-none -translate-x-1/3 translate-y-1/3" />
 
       <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 pointer-events-none mix-blend-overlay"></div>
 
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
@@ -123,15 +123,15 @@ export default function RecruiterSignupPage() {
         </div>
 
         <Card className="border-gray-200 shadow-2xl shadow-gray-200/50 rounded-[2rem] overflow-hidden bg-white/80 backdrop-blur-xl">
-          <CardHeader className="space-y-2 pb-8 pt-10 text-center relative border-b border-gray-100">
-            <motion.div
+          <CardHeader className="gap-y-2 pb-8 pt-10 text-center relative border-b border-gray-100">
+            <m.div
               initial={{ scale: 0.95 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
               className="absolute top-0 right-10 translate-y-[-50%] size-16 bg-wise-green rounded-2xl flex items-center justify-center shadow-[0_0_40px_rgba(159,232,112,0.3)] rotate-12"
             >
               <Building className="size-8 text-dark-green" />
-            </motion.div>
+            </m.div>
 
             <CardTitle className="text-3xl font-black leading-tight text-gray-900 tracking-tight mt-2">
               {step === "FORM" ? "Recruit the Best" : "Verify Email"}
@@ -143,11 +143,11 @@ export default function RecruiterSignupPage() {
             </CardDescription>
           </CardHeader>
 
-          <CardContent className="space-y-6 pt-8 px-10">
+          <CardContent className="gap-y-6 pt-8 px-10">
             {step === "FORM" ? (
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <form onSubmit={handleSubmit} className="gap-y-5">
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2 col-span-2">
+                  <div className="gap-y-2 col-span-2">
                     <Label
                       htmlFor="name"
                       className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
@@ -164,7 +164,7 @@ export default function RecruiterSignupPage() {
                     />
                   </div>
 
-                  <div className="space-y-2 col-span-2">
+                  <div className="gap-y-2 col-span-2">
                     <Label
                       htmlFor="email"
                       className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
@@ -182,7 +182,7 @@ export default function RecruiterSignupPage() {
                     />
                   </div>
 
-                  <div className="space-y-2 col-span-2">
+                  <div className="gap-y-2 col-span-2">
                     <Label
                       htmlFor="phone"
                       className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
@@ -200,7 +200,7 @@ export default function RecruiterSignupPage() {
                     />
                   </div>
 
-                  <div className="space-y-2 col-span-1">
+                  <div className="gap-y-2 col-span-1">
                     <Label
                       htmlFor="password"
                       className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
@@ -218,7 +218,7 @@ export default function RecruiterSignupPage() {
                     />
                   </div>
 
-                  <div className="space-y-2 col-span-1">
+                  <div className="gap-y-2 col-span-1">
                     <Label
                       htmlFor="confirmPassword"
                       className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
@@ -237,7 +237,7 @@ export default function RecruiterSignupPage() {
                   </div>
                 </div>
 
-                <motion.div
+                <m.div
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   className="pt-2"
@@ -249,10 +249,10 @@ export default function RecruiterSignupPage() {
                   >
                     Create Recruiter Account
                   </Button>
-                </motion.div>
+                </m.div>
               </form>
             ) : (
-              <motion.div
+              <m.div
                 key="otp"
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -269,17 +269,17 @@ export default function RecruiterSignupPage() {
                     Resend Code
                   </button>
                 </div>
-              </motion.div>
+              </m.div>
             )}
 
             {error && (
-              <motion.p
+              <m.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 className="text-sm text-red-600 text-center font-bold bg-red-50 border border-red-200 p-3 rounded-lg"
               >
                 {error}
-              </motion.p>
+              </m.p>
             )}
           </CardContent>
 
@@ -295,7 +295,7 @@ export default function RecruiterSignupPage() {
             </p>
           </CardFooter>
         </Card>
-      </motion.div>
+      </m.div>
     </div>
   );
 }

@@ -7,7 +7,7 @@ import {
   Search,
   User as UserIcon,
 } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { LazyMotion, m, AnimatePresence, domAnimation } from "motion/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type React from "react";
@@ -20,12 +20,12 @@ export function LandingNavbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const { user, isAuthenticated, logout } = useAuthContext();
-  const router = useRouter();
+  const { push } = useRouter();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      router.push(`/jobs?q=${encodeURIComponent(searchQuery)}`);
+      push(`/jobs?q=${encodeURIComponent(searchQuery)}`);
     }
   };
 
@@ -33,7 +33,7 @@ export function LandingNavbar() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 100);
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -66,7 +66,7 @@ export function LandingNavbar() {
 
             <AnimatePresence>
               {isScrolled && (
-                <motion.form
+                <m.form
                   onSubmit={handleSearch}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -74,20 +74,20 @@ export function LandingNavbar() {
                   className="hidden lg:flex items-center bg-gray-50 border border-gray-100 rounded-full px-4 py-2 w-96 group focus-within:ring-2 focus-within:ring-wise-green/20 transition-all"
                 >
                   <Search className="size-4 text-gray-400 group-focus-within:text-wise-green transition-colors" />
-                  <input
+                  <input aria-label="Control"
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search jobs, skills, companies…"
                     className="bg-transparent border-none outline-none text-sm ml-2 w-full text-gray-900 placeholder:text-gray-400 font-medium"
                   />
-                </motion.form>
+                </m.form>
               )}
             </AnimatePresence>
           </div>
 
-          <div className="hidden md:flex items-center space-x-8">
-            <div className="flex items-center space-x-6">
+          <div className="hidden md:flex items-center gap-x-8">
+            <div className="flex items-center gap-x-6">
               <Link
                 href="/#features"
                 className="text-xs font-black text-gray-500 hover:text-wise-green transition-colors uppercase tracking-widest"

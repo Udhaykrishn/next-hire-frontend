@@ -1,12 +1,7 @@
 "use client";
 
 import { Tabs as TabsPrimitive } from "@base-ui-components/react/tabs";
-import {
-  AnimatePresence,
-  type HTMLMotionProps,
-  motion,
-  type Transition,
-} from "motion/react";
+import { LazyMotion, m, AnimatePresence, type HTMLMotionProps, type Transition, domAnimation } from "motion/react";
 import * as React from "react";
 import {
   AutoHeight,
@@ -53,7 +48,7 @@ type TabsHighlightProps = Omit<HighlightProps, "controlledItems" | "value">;
 
 function TabsHighlight({
   transition = { type: "spring", stiffness: 200, damping: 25 },
-  ...props
+  …props
 }: TabsHighlightProps) {
   const { value } = useTabs();
 
@@ -96,13 +91,13 @@ function TabsPanel({
   value,
   keepMounted,
   transition = { duration: 0.5, ease: "easeInOut" },
-  ...props
+  …props
 }: TabsPanelProps) {
   return (
     <AnimatePresence mode="wait">
       <TabsPrimitive.Panel
         render={
-          <motion.div
+          <m.div
             data-slot="tabs-panel"
             layout
             layoutDependency={value}
@@ -148,7 +143,7 @@ function TabsPanels(props: TabsPanelsProps) {
   const { value } = useTabs();
 
   if (isAutoMode(props)) {
-    const { children, transition = defaultTransition, ...autoProps } = props;
+    const { children, transition = defaultTransition, …autoProps } = props;
 
     return (
       <AutoHeight
@@ -166,11 +161,11 @@ function TabsPanels(props: TabsPanelsProps) {
     children,
     style,
     transition = defaultTransition,
-    ...layoutProps
+    …layoutProps
   } = props;
 
   return (
-    <motion.div
+    <m.div
       data-slot="tabs-panels"
       layout="size"
       layoutDependency={value}
@@ -179,7 +174,7 @@ function TabsPanels(props: TabsPanelsProps) {
       {...layoutProps}
     >
       <React.Fragment key={value}>{children}</React.Fragment>
-    </motion.div>
+    </m.div>
   );
 }
 

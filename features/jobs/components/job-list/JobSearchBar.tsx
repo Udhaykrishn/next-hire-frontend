@@ -17,8 +17,8 @@ export function JobSearchBar({
     <div className="mb-8">
       <div className="bg-white rounded-2xl border border-gray-100 shadow-[0_1px_3px_rgba(0,0,0,0.04)] p-2 flex flex-col md:flex-row items-center gap-2">
         <div className="flex-1 flex items-center bg-gray-50/80 rounded-xl px-4 py-3 group focus-within:bg-white focus-within:ring-1 focus-within:ring-wise-green/30 focus-within:shadow-sm transition-all">
-          <Search className="w-[18px] h-[18px] text-gray-400 group-focus-within:text-dark-green transition-colors shrink-0" />
-          <input
+          <Search className="size-[18px] text-gray-400 group-focus-within:text-dark-green transition-colors shrink-0" />
+          <input aria-label="Control"
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -28,8 +28,8 @@ export function JobSearchBar({
         </div>
         <div className="w-px h-8 bg-gray-100 hidden md:block" />
         <div className="flex-1 flex items-center bg-gray-50/80 rounded-xl px-4 py-3 group focus-within:bg-white focus-within:ring-1 focus-within:ring-wise-green/30 focus-within:shadow-sm transition-all">
-          <MapPin className="w-[18px] h-[18px] text-gray-400 group-focus-within:text-dark-green transition-colors shrink-0" />
-          <input
+          <MapPin className="size-[18px] text-gray-400 group-focus-within:text-dark-green transition-colors shrink-0" />
+          <input aria-label="Control"
             type="text"
             value={location}
             onChange={(e) => setLocation(e.target.value)}

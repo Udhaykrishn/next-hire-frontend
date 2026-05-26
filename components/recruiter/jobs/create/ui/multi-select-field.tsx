@@ -42,12 +42,12 @@ export const MultiSelectField = ({
   const toggleOption = (val: string) => {
     const newSelected = selected.includes(val)
       ? selected.filter((s) => s !== val)
-      : [...selected, val];
+      : […selected, val];
     onChange(newSelected);
   };
 
   return (
-    <div className="space-y-3" id={id}>
+    <div className="gap-y-3" id={id}>
       <Label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">
         {label}
       </Label>

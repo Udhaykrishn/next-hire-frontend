@@ -15,16 +15,16 @@ interface RecruiterDetailsProps {
 }
 
 export const RecruiterDetails = ({ id }: RecruiterDetailsProps) => {
-  const router = useRouter();
+  const { back } = useRouter();
   const { data: recruiter } = useRecruiterDetails(id);
 
   if (!recruiter) return null;
 
   return (
-    <div className="space-y-6 max-w-5xl mx-auto">
+    <div className="gap-y-6 max-w-5xl mx-auto">
       <Button
         variant="ghost"
-        onClick={() => router.back()}
+        onClick={() => back()}
         className="text-gray-500 hover:text-near-black flex items-center gap-2 px-0"
       >
         <ArrowLeft className="size-4" />
@@ -36,14 +36,14 @@ export const RecruiterDetails = ({ id }: RecruiterDetailsProps) => {
 
         <div className="p-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-2 space-y-8">
+            <div className="lg:col-span-2 gap-y-8">
               <RecruiterCompanyInfo recruiter={recruiter} />
               <RecruiterActivityList activity={recruiter.activity} />
               <RecruiterJobsList id={id} />
             </div>
 
             {/* Sidebar */}
-            <div className="space-y-8">
+            <div className="gap-y-8">
               <RecruiterSidebar recruiter={recruiter} />
             </div>
           </div>

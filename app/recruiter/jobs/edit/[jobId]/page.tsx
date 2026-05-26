@@ -5,6 +5,8 @@ import { useJobDetailsQuery } from "@/features/jobs/hooks/use-jobs-query";
 import { JobWizard } from "../../create/new/page";
 import type { JobFormData } from "../../create/new/types";
 
+
+
 export default function EditJobPage() {
   const params = useParams();
   const jobId = params.jobId as string;

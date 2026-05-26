@@ -33,7 +33,7 @@ export const useProfileQuery = (role: string | null, options = {}) => {
     queryFn: () => getProfile(role),
     staleTime: 5 * 60 * 1000, // 5 minutes
     refetchOnWindowFocus: false,
-    ...options,
+    …options,
   });
 };
 
@@ -117,7 +117,7 @@ export const useEducationQuery = (options = {}) => {
     queryFn: getEducations,
     staleTime: 5 * 60 * 1000,
     refetchOnWindowFocus: false,
-    ...options,
+    …options,
   });
 };
 
@@ -166,7 +166,7 @@ export const useExperienceQuery = (options = {}) => {
     queryFn: getExperiences,
     staleTime: 5 * 60 * 1000,
     refetchOnWindowFocus: false,
-    ...options,
+    …options,
   });
 };
 
@@ -216,7 +216,7 @@ export const useCertificateQuery = (options = {}) => {
     queryFn: getCertificates,
     staleTime: 5 * 60 * 1000,
     refetchOnWindowFocus: false,
-    ...options,
+    …options,
   });
 };
 

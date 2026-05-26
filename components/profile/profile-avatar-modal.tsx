@@ -106,7 +106,7 @@ export function ProfileAvatarModal({
         </>
       )}
 
-      <input
+      <input aria-label="Control"
         type="file"
         ref={fileInputRef}
         onChange={(e) => {
@@ -140,7 +140,7 @@ export function ProfileAvatarModal({
                 <div className="size-14 rounded-2xl bg-gray-50 flex items-center justify-center border border-gray-100 group-hover:scale-105 transition-transform shadow-sm">
                   <Upload className="size-6 text-gray-400 group-hover:text-wise-green transition-colors" />
                 </div>
-                <div className="space-y-1.5">
+                <div className="gap-y-1.5">
                   <p className="text-[15px] font-black text-gray-900">
                     Drag and drop or click to upload
                   </p>
@@ -154,7 +154,7 @@ export function ProfileAvatarModal({
                 </div>
               </div>
             ) : (
-              <div className="space-y-6">
+              <div className="gap-y-6">
                 <div className="relative w-full h-80 bg-gray-900 rounded-[2rem] overflow-hidden border border-gray-100 shadow-inner">
                   <Cropper
                     image={selectedImage}

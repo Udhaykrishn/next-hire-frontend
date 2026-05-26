@@ -2,7 +2,7 @@
 
 import { type CredentialResponse, GoogleLogin } from "@react-oauth/google";
 import { ArrowRight, Mail, Phone, ShieldCheck, User } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { LazyMotion, m, AnimatePresence, domAnimation } from "motion/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type React from "react";
@@ -35,7 +35,7 @@ export default function UserSignupPage() {
     error,
   } = useAuth();
   const { setUser, isAuthenticated, isLoading: authLoading } = useAuthContext();
-  const router = useRouter();
+  const { push } = useRouter();
 
   const [step, setStep] = useState<"INITIAL" | "FORM" | "OTP">("INITIAL");
   const [formData, setFormData] = useState({
@@ -106,7 +106,7 @@ export default function UserSignupPage() {
       const response = await verifyOtp(formData.email, otp, "user");
       setUser(response.user);
       toast.success("Account created successfully!");
-      router.push("/dashboard");
+      push("/dashboard");
     } catch (err) {
       toast.error("Invalid OTP. Please try again.");
       throw err;
@@ -123,16 +123,16 @@ export default function UserSignupPage() {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+    setFormData((prev) => ({ …prev, [e.target.id]: e.target.value }));
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4 font-satoshi selection:bg-wise-green selection:text-dark-green relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-wise-green/40 rounded-full blur-[100px] pointer-events-none translate-x-1/3 -translate-y-1/4" />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-wise-green/20 rounded-full blur-[100px] pointer-events-none -translate-x-1/3 translate-y-1/3" />
+      <div className="absolute top-0 right-0 size-[800px] bg-wise-green/40 rounded-full blur-[100px] pointer-events-none translate-x-1/3 -translate-y-1/4" />
+      <div className="absolute bottom-0 left-0 size-[600px] bg-wise-green/20 rounded-full blur-[100px] pointer-events-none -translate-x-1/3 translate-y-1/3" />
       <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 pointer-events-none mix-blend-overlay"></div>
 
-      <motion.div
+      <m.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
@@ -143,9 +143,9 @@ export default function UserSignupPage() {
         </div>
 
         <Card className="border-gray-200 shadow-2xl shadow-gray-200/50 rounded-[2rem] overflow-hidden bg-white/80 backdrop-blur-xl">
-          <CardHeader className="space-y-2 pb-8 pt-10 text-center relative">
+          <CardHeader className="gap-y-2 pb-8 pt-10 text-center relative">
             <AnimatePresence mode="wait">
-              <motion.div
+              <m.div
                 key={step}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -163,20 +163,20 @@ export default function UserSignupPage() {
                   {step === "FORM" && "Fill in your details to get started."}
                   {step === "OTP" && `We've sent a code to ${formData.email}`}
                 </CardDescription>
-              </motion.div>
+              </m.div>
             </AnimatePresence>
           </CardHeader>
 
-          <CardContent className="space-y-6 pt-2 px-8">
+          <CardContent className="gap-y-6 pt-2 px-8">
             <AnimatePresence mode="wait">
               {step === "INITIAL" ? (
-                <motion.div
+                <m.div
                   key="initial"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: 20 }}
                   transition={{ duration: 0.3 }}
-                  className="space-y-6"
+                  className="gap-y-6"
                 >
                   <div className="flex flex-col items-center gap-4 w-full">
                     <div className="w-full flex justify-center">
@@ -210,17 +210,17 @@ export default function UserSignupPage() {
                     <Mail className="size-5" />
                     Sign up with Email
                   </Button>
-                </motion.div>
+                </m.div>
               ) : step === "FORM" ? (
-                <motion.div
+                <m.div
                   key="form"
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    <div className="space-y-1.5">
+                  <form onSubmit={handleSubmit} className="gap-y-4">
+                    <div className="gap-y-1.5">
                       <Label
                         htmlFor="name"
                         className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
@@ -238,7 +238,7 @@ export default function UserSignupPage() {
                       />
                     </div>
                     <div className="grid grid-cols-2 gap-4">
-                      <div className="space-y-1.5">
+                      <div className="gap-y-1.5">
                         <Label
                           htmlFor="email"
                           className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
@@ -255,7 +255,7 @@ export default function UserSignupPage() {
                           required
                         />
                       </div>
-                      <div className="space-y-1.5">
+                      <div className="gap-y-1.5">
                         <Label
                           htmlFor="phone"
                           className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
@@ -274,7 +274,7 @@ export default function UserSignupPage() {
                       </div>
                     </div>
                     <div className="grid grid-cols-2 gap-4">
-                      <div className="space-y-1.5">
+                      <div className="gap-y-1.5">
                         <Label
                           htmlFor="password"
                           className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
@@ -291,7 +291,7 @@ export default function UserSignupPage() {
                           required
                         />
                       </div>
-                      <div className="space-y-1.5">
+                      <div className="gap-y-1.5">
                         <Label
                           htmlFor="confirmPassword"
                           className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
@@ -327,9 +327,9 @@ export default function UserSignupPage() {
                       </Button>
                     </div>
                   </form>
-                </motion.div>
+                </m.div>
               ) : (
-                <motion.div
+                <m.div
                   key="otp"
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -346,21 +346,21 @@ export default function UserSignupPage() {
                       Resend Code
                     </button>
                   </div>
-                </motion.div>
+                </m.div>
               )}
             </AnimatePresence>
             {error && (
-              <motion.p
+              <m.p
                 initial={{ opacity: 0, y: 5 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="text-sm text-red-500 text-center font-bold bg-red-50 p-3 rounded-lg"
               >
                 {error}
-              </motion.p>
+              </m.p>
             )}
           </CardContent>
 
-          <CardFooter className="flex flex-col space-y-4 pb-8 pt-4 px-8">
+          <CardFooter className="flex flex-col gap-y-4 pb-8 pt-4 px-8">
             <p className="text-sm text-gray-600 text-center font-medium">
               Already have an account?{" "}
               <Link
@@ -372,7 +372,7 @@ export default function UserSignupPage() {
             </p>
           </CardFooter>
         </Card>
-      </motion.div>
+      </m.div>
     </div>
   );
 }

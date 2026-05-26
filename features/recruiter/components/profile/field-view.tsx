@@ -12,7 +12,7 @@ export function FieldView({
   placeholder?: string;
 }) {
   return (
-    <div className="space-y-1.5">
+    <div className="gap-y-1.5">
       <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">
         {label}
       </p>

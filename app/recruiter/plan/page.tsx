@@ -6,15 +6,17 @@ import { Suspense } from "react";
 import { PricingContent } from "@/app/pricing/page";
 import { Button } from "@/components/animate-ui/components/buttons/button";
 
+
+
 export default function RecruiterPlanPage() {
-  const router = useRouter();
+  const { push } = useRouter();
 
   return (
     <div className="min-h-screen bg-gray-50">
       <header className="h-16 px-8 border-b border-gray-100 bg-white/80 backdrop-blur-md flex items-center justify-between sticky top-0 z-50">
         <Button
           variant="ghost"
-          onClick={() => router.push("/recruiter/dashboard")}
+          onClick={() => push("/recruiter/dashboard")}
           className="flex items-center gap-2 font-black text-xs uppercase tracking-wider text-gray-500 hover:text-near-black"
         >
           <ChevronLeft className="size-4" />

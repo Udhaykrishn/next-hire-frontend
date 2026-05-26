@@ -36,32 +36,32 @@ export const CertificateForm = ({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="space-y-1.5">
-        <label className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
+    <form onSubmit={handleSubmit} className="gap-y-6">
+      <div className="gap-y-1.5">
+        <label htmlFor="name" className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
           Certificate Name
         </label>
-        <input
-          name="name"
+        <input aria-label="Control"
+           id="name" name="name"
           defaultValue={initialData?.name}
           required
           className="w-full h-11 bg-gray-50 rounded-xl border border-gray-100 px-4 text-[14px] font-bold focus:outline-none focus:border-wise-green transition-colors"
           placeholder="e.g. AWS Solution Architect"
         />
       </div>
-      <div className="space-y-1.5">
-        <label className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
+      <div className="gap-y-1.5">
+        <label htmlFor="issuer" className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
           Issuing Organization
         </label>
-        <input
-          name="issuer"
+        <input aria-label="Control"
+           id="issuer" name="issuer"
           defaultValue={initialData?.issuer}
           required
           className="w-full h-11 bg-gray-50 rounded-xl border border-gray-100 px-4 text-[14px] font-bold focus:outline-none focus:border-wise-green transition-colors"
           placeholder="e.g. Amazon Web Services"
         />
       </div>
-      <div className="space-y-1.5">
+      <div className="gap-y-1.5">
         <label className="text-[11px] font-black text-gray-400 uppercase tracking-widest block ml-1">
           Date Earned{" "}
           {certDate && (

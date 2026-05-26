@@ -30,7 +30,7 @@ export const RecruiterCompanyInfo = ({
   const wasRevoked = !isVerified && !!recruiter.verification_revoked_reason;
 
   return (
-    <section className="space-y-6">
+    <section className="gap-y-6">
       <div className="flex items-center gap-3 border-b border-gray-200/60 pb-4">
         <div className="size-8 bg-wise-green/20 rounded-xl flex items-center justify-center">
           <Briefcase className="size-4 text-wise-green" />

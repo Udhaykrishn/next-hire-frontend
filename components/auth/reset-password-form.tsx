@@ -1,7 +1,7 @@
 "use client";
 
 import { Lock } from "lucide-react";
-import { motion } from "motion/react";
+import { LazyMotion, m, domAnimation } from "motion/react";
 import { useRouter } from "next/navigation";
 import type React from "react";
 import { useState } from "react";
@@ -21,7 +21,7 @@ export function ResetPasswordForm({ token, role }: ResetPasswordFormProps) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [localError, setLocalError] = useState("");
   const { resetPassword, isLoading, error: authError } = useAuth();
-  const router = useRouter();
+  const { push } = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,9 +39,9 @@ export function ResetPasswordForm({ token, role }: ResetPasswordFormProps) {
         },
         role,
       );
-      toast.success("Password reset successfully! Redirecting to login...");
+      toast.success("Password reset successfully! Redirecting to login…");
       setTimeout(() => {
-        router.push(role === "recruiter" ? "/recruiter/login" : "/login");
+        push(role === "recruiter" ? "/recruiter/login" : "/login");
       }, 2000);
     } catch (err: unknown) {
       console.error(err);
@@ -51,9 +51,9 @@ export function ResetPasswordForm({ token, role }: ResetPasswordFormProps) {
   const displayError = localError || authError;
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
-      <div className="space-y-4">
-        <div className="space-y-2">
+    <form onSubmit={handleSubmit} className="gap-y-5">
+      <div className="gap-y-4">
+        <div className="gap-y-2">
           <Label
             htmlFor="password"
             className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
@@ -72,7 +72,7 @@ export function ResetPasswordForm({ token, role }: ResetPasswordFormProps) {
           />
         </div>
 
-        <div className="space-y-2">
+        <div className="gap-y-2">
           <Label
             htmlFor="confirmPassword"
             className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
@@ -92,7 +92,7 @@ export function ResetPasswordForm({ token, role }: ResetPasswordFormProps) {
         </div>
       </div>
 
-      <motion.div
+      <m.div
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         className="pt-2"
@@ -102,18 +102,18 @@ export function ResetPasswordForm({ token, role }: ResetPasswordFormProps) {
           className="w-full h-12 bg-wise-green text-dark-green font-black rounded-xl hover:bg-wise-green/90 transition-all text-lg shadow-[0_0_20px_rgba(159,232,112,0.2)] mt-2"
           disabled={isLoading}
         >
-          {isLoading ? "Resetting..." : "Reset Password"}
+          {isLoading ? "Resetting…" : "Reset Password"}
         </Button>
-      </motion.div>
+      </m.div>
 
       {displayError && (
-        <motion.p
+        <m.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           className="text-sm text-red-600 text-center font-bold bg-red-50 border border-red-200 p-3 rounded-lg mt-4"
         >
           {displayError}
-        </motion.p>
+        </m.p>
       )}
     </form>
   );

@@ -8,6 +8,8 @@ import { useProfile } from "@/hooks/use-profile";
 import { formatSalaryAmount } from "@/lib/salary";
 import { cn } from "@/lib/utils";
 
+
+
 const CURRENCIES = [
   { code: "USD", symbol: "$", name: "USD ($)" },
   { code: "INR", symbol: "₹", name: "INR (₹)" },
@@ -30,7 +32,7 @@ const FORMATS = [
 
 export default function EditJobPreferencesPage() {
   const { jobPreferences, handleUpdateJobPreferences } = useProfile();
-  const router = useRouter();
+  const { push } = useRouter();
 
   const [currency, setCurrency] = useState(jobPreferences.currency || "USD");
   const [frequency, setFrequency] = useState(
@@ -46,7 +48,7 @@ export default function EditJobPreferencesPage() {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     handleUpdateJobPreferences(formData);
-    router.push("/profile");
+    push("/profile");
   };
 
   const jobTypes = [
@@ -63,15 +65,15 @@ export default function EditJobPreferencesPage() {
       title="Job Preferences"
       subtitle="Define your ideal role to help AI personalize your job recommendations."
     >
-      <form onSubmit={onSubmit} className="space-y-6">
-        <div className="space-y-2">
+      <form onSubmit={onSubmit} className="gap-y-6">
+        <div className="gap-y-2">
           <span className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1 block">
             Preferred Job Types
           </span>
           <div className="flex flex-wrap gap-2">
             {jobTypes.map((type) => (
               <label key={type} className="cursor-pointer">
-                <input
+                <input aria-label="Control"
                   type="checkbox"
                   name="jobTypes"
                   value={type}
@@ -86,14 +88,14 @@ export default function EditJobPreferencesPage() {
           </div>
         </div>
 
-        <div className="space-y-1.5">
+        <div className="gap-y-1.5">
           <label
             htmlFor="roles"
             className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1"
           >
             Preferred Roles (comma separated)
           </label>
-          <input
+          <input aria-label="Control"
             id="roles"
             name="roles"
             defaultValue={jobPreferences.roles.join(", ")}
@@ -103,14 +105,14 @@ export default function EditJobPreferencesPage() {
           />
         </div>
 
-        <div className="space-y-2">
+        <div className="gap-y-2">
           <span className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1 block">
             Work Styles
           </span>
           <div className="flex flex-wrap gap-2">
             {workStyles.map((style) => (
               <label key={style} className="cursor-pointer">
-                <input
+                <input aria-label="Control"
                   type="checkbox"
                   name="workStyles"
                   value={style}
@@ -125,14 +127,14 @@ export default function EditJobPreferencesPage() {
           </div>
         </div>
 
-        <div className="space-y-6 pt-6 border-t border-gray-100">
+        <div className="gap-y-6 pt-6 border-t border-gray-100">
           <h3 className="text-[12px] font-black text-near-black uppercase tracking-wider ml-1">
             Compensation Settings
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Currency Selector */}
-            <div className="space-y-2">
+            <div className="gap-y-2">
               <span className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1 block">
                 Currency
               </span>
@@ -157,7 +159,7 @@ export default function EditJobPreferencesPage() {
             </div>
 
             {/* Frequency Selector */}
-            <div className="space-y-2">
+            <div className="gap-y-2">
               <span className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1 block">
                 Salary Period (Frequency)
               </span>
@@ -183,7 +185,7 @@ export default function EditJobPreferencesPage() {
           </div>
 
           {/* Format Selector */}
-          <div className="space-y-2">
+          <div className="gap-y-2">
             <span className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1 block">
               Salary Formatting Format
             </span>
@@ -207,7 +209,7 @@ export default function EditJobPreferencesPage() {
             <input type="hidden" name="salaryFormat" value={format} />
           </div>
 
-          <div className="space-y-1.5">
+          <div className="gap-y-1.5">
             <span className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1 block">
               Expected Salary Range (
               {CURRENCIES.find((c) => c.code === currency)?.symbol}{" "}
@@ -223,7 +225,7 @@ export default function EditJobPreferencesPage() {
                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-[14px] group-focus-within:text-wise-green transition-colors">
                   {CURRENCIES.find((c) => c.code === currency)?.symbol || "$"}
                 </span>
-                <input
+                <input aria-label="Control"
                   name="minSalary"
                   type="number"
                   value={minSalary}
@@ -241,7 +243,7 @@ export default function EditJobPreferencesPage() {
                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-[14px] group-focus-within:text-wise-green transition-colors">
                   {CURRENCIES.find((c) => c.code === currency)?.symbol || "$"}
                 </span>
-                <input
+                <input aria-label="Control"
                   name="maxSalary"
                   type="number"
                   value={maxSalary}
@@ -260,7 +262,7 @@ export default function EditJobPreferencesPage() {
 
           {/* Live Preview Card */}
           {(minSalary || maxSalary) && (
-            <div className="p-5 rounded-[2rem] bg-wise-green/[0.03] border border-wise-green/10 space-y-2 mt-4 relative overflow-hidden">
+            <div className="p-5 rounded-[2rem] bg-wise-green/[0.03] border border-wise-green/10 gap-y-2 mt-4 relative overflow-hidden">
               <div className="absolute top-0 right-0 size-24 bg-wise-green/10 rounded-full blur-2xl" />
               <p className="text-[10px] font-black text-wise-green uppercase tracking-widest flex items-center gap-1.5">
                 <span className="size-1.5 rounded-full bg-wise-green animate-pulse" />

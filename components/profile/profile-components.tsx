@@ -1,5 +1,5 @@
 import { Edit2, MapPin, Plus, Trash2 } from "lucide-react";
-import { motion } from "motion/react";
+import { LazyMotion, m, domAnimation } from "motion/react";
 import Link from "next/link";
 
 interface ProfileSectionProps {
@@ -18,7 +18,7 @@ export const ProfileSection = ({
   children,
 }: ProfileSectionProps) => {
   return (
-    <motion.section
+    <m.section
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -52,8 +52,8 @@ export const ProfileSection = ({
           )
         )}
       </div>
-      <div className="space-y-6">{children}</div>
-    </motion.section>
+      <div className="gap-y-6">{children}</div>
+    </m.section>
   );
 };
 
@@ -93,7 +93,7 @@ export const ProfileItemCard = ({
       <div className="size-12 rounded-2xl bg-gray-50 border border-gray-100 flex items-center justify-center text-[18px] font-black text-wise-green shrink-0 group-hover:scale-105 transition-all shadow-sm">
         {logo}
       </div>
-      <div className="flex-1 space-y-2">
+      <div className="flex-1 gap-y-2">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex-1">
             <div className="flex items-center gap-3">
@@ -167,9 +167,9 @@ export const ProfileItemCard = ({
         )}
         {badges && badges.length > 0 && (
           <div className="flex flex-wrap gap-2 pt-1">
-            {badges.map((badge, idx) => (
+            {badges.map((badge) => (
               <span
-                key={idx}
+                key={badge}
                 className="px-3 py-1 bg-gray-50 border border-gray-100 rounded-lg text-[11px] font-bold text-gray-500 uppercase tracking-wider"
               >
                 {badge}

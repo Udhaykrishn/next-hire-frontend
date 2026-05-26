@@ -1,5 +1,5 @@
 import { CheckCircle, X } from "lucide-react";
-import { motion } from "motion/react";
+import { LazyMotion, m, domAnimation } from "motion/react";
 import Link from "next/link";
 
 interface JobSuccessModalProps {
@@ -12,7 +12,7 @@ export function JobSuccessModal({ show, onClose }: JobSuccessModalProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
-      <motion.div
+      <m.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         className="bg-white w-full max-w-md rounded-[2rem] p-8 relative shadow-2xl"
@@ -60,7 +60,7 @@ export function JobSuccessModal({ show, onClose }: JobSuccessModalProps) {
             Explore similar jobs
           </Link>
         </div>
-      </motion.div>
+      </m.div>
     </div>
   );
 }

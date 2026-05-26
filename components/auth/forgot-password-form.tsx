@@ -1,7 +1,7 @@
 "use client";
 
 import { Mail } from "lucide-react";
-import { motion } from "motion/react";
+import { LazyMotion, m, domAnimation } from "motion/react";
 import type React from "react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -37,7 +37,7 @@ export function ForgotPasswordForm({ role }: ForgotPasswordFormProps) {
 
   if (isSubmitted) {
     return (
-      <div className="space-y-4 text-center py-6">
+      <div className="gap-y-4 text-center py-6">
         <div className="size-12 bg-wise-green/10 text-wise-green rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
           <Mail className="size-6" />
         </div>
@@ -52,8 +52,8 @@ export function ForgotPasswordForm({ role }: ForgotPasswordFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
-      <div className="space-y-2">
+    <form onSubmit={handleSubmit} className="gap-y-5">
+      <div className="gap-y-2">
         <Label
           htmlFor="email"
           className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
@@ -71,7 +71,7 @@ export function ForgotPasswordForm({ role }: ForgotPasswordFormProps) {
         />
       </div>
 
-      <motion.div
+      <m.div
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         className="pt-2"
@@ -81,18 +81,18 @@ export function ForgotPasswordForm({ role }: ForgotPasswordFormProps) {
           className="w-full h-12 bg-wise-green text-dark-green font-black rounded-xl hover:bg-wise-green/90 transition-all text-lg shadow-[0_0_20px_rgba(159,232,112,0.2)] mt-2"
           disabled={isLoading}
         >
-          {isLoading ? "Sending Link..." : "Send Reset Link"}
+          {isLoading ? "Sending Link…" : "Send Reset Link"}
         </Button>
-      </motion.div>
+      </m.div>
 
       {error && (
-        <motion.p
+        <m.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           className="text-sm text-red-600 text-center font-bold bg-red-50 border border-red-200 p-3 rounded-lg mt-4"
         >
           {error}
-        </motion.p>
+        </m.p>
       )}
     </form>
   );

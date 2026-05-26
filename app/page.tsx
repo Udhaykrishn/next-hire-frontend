@@ -23,6 +23,11 @@ import { HeroSearch } from "@/components/hero-search";
 import { LandingFooter } from "@/components/landing-footer";
 import { LandingNavbar } from "@/components/landing-navbar";
 
+export const metadata = {
+  title: 'NextHire — Find Your Dream Job',
+  description: 'Discover thousands of jobs matched to your skills and experience.',
+};
+
 export default function LandingPage() {
   const companies = [
     "Google",
@@ -137,8 +142,8 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-white text-gray-900 font-satoshi selection:bg-wise-green selection:text-dark-green relative overflow-hidden">
-      <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-wise-green/10 rounded-full blur-[120px] -z-10 mix-blend-multiply pointer-events-none" />
-      <div className="absolute top-[40%] left-[20%] w-[400px] h-[400px] bg-emerald-500/5 rounded-full blur-[100px] -z-10 mix-blend-multiply pointer-events-none" />
+      <div className="absolute top-[-10%] right-[-5%] size-[600px] bg-wise-green/10 rounded-full blur-[120px] -z-10 mix-blend-multiply pointer-events-none" />
+      <div className="absolute top-[40%] left-[20%] size-[400px] bg-emerald-500/5 rounded-full blur-[100px] -z-10 mix-blend-multiply pointer-events-none" />
       <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 pointer-events-none mix-blend-overlay"></div>
 
       <LandingNavbar />
@@ -166,7 +171,7 @@ export default function LandingPage() {
                 className="text-[48px] font-black leading-[56px] mb-6 text-gray-900 tracking-tight"
               >
                 Land your dream job with{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-wise-green">
+                <span className="text-wise-green">
                   precision.
                 </span>
               </motion.h1>
@@ -229,7 +234,7 @@ export default function LandingPage() {
               </motion.div>
 
               <div className="mt-10 flex items-center gap-4 text-sm font-bold text-gray-500">
-                <div className="flex -space-x-3">
+                <div className="flex -gap-x-3">
                   {[1, 2, 3, 4].map((i) => (
                     <Image
                       key={i}
@@ -302,7 +307,7 @@ export default function LandingPage() {
             transition={{ repeat: Infinity, ease: "linear", duration: 20 }}
             className="flex items-center gap-16 px-8 whitespace-nowrap"
           >
-            {[...companies, ...companies].map((company, idx) => (
+            {[…companies, …companies].map((company, idx) => (
               <div
                 key={idx}
                 className="text-2xl font-black text-gray-300 uppercase tracking-wider flex items-center gap-2"
@@ -317,7 +322,7 @@ export default function LandingPage() {
 
       <section className="py-24 bg-dark-green text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay"></div>
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-wise-green/10 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute top-0 right-0 size-[500px] bg-wise-green/10 rounded-full blur-[100px] pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-12 relative z-10">
           <div className="text-center">
@@ -355,7 +360,7 @@ export default function LandingPage() {
             </h2>
             <p className="text-[32px] font-extrabold leading-[40px] text-gray-900">
               Everything you need to{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-wise-green">
+              <span className="text-wise-green">
                 supercharge
               </span>{" "}
               your career.
@@ -385,7 +390,7 @@ export default function LandingPage() {
       </section>
 
       <section className="py-24 px-4 bg-gray-50 border-t border-gray-100 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-wise-green/5 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute top-0 right-0 size-[400px] bg-wise-green/5 rounded-full blur-[100px] pointer-events-none" />
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center mb-16 max-w-3xl mx-auto">
             <h2 className="text-xs font-black text-dark-green mb-4 uppercase tracking-widest">
@@ -393,7 +398,7 @@ export default function LandingPage() {
             </h2>
             <p className="text-[32px] font-extrabold leading-[40px] text-gray-900">
               Hear from candidates who found their{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-wise-green">
+              <span className="text-wise-green">
                 dream roles.
               </span>
             </p>
@@ -485,12 +490,12 @@ export default function LandingPage() {
             </h2>
             <p className="text-[32px] font-extrabold leading-[40px] text-gray-900">
               Got questions? We've got{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-wise-green">
+              <span className="text-wise-green">
                 answers.
               </span>
             </p>
           </div>
-          <Accordion className="space-y-4">
+          <Accordion className="gap-y-4">
             {faqs.map((faq, idx) => (
               <AccordionItem
                 key={idx}
@@ -513,7 +518,7 @@ export default function LandingPage() {
       <section className="py-24 px-4">
         <div className="max-w-5xl mx-auto bg-gray-900 rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden">
           <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-wise-green/20 rounded-full blur-[100px] pointer-events-none" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[500px] bg-wise-green/20 rounded-full blur-[100px] pointer-events-none" />
 
           <h2 className="text-[32px] font-black text-white mb-6 relative z-10 leading-[40px]">
             Ready to find your next role?

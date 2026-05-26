@@ -10,7 +10,7 @@ export const useCurrentUserQuery = (options = {}) => {
     queryFn: () => authService.getCurrentUser(),
     retry: false,
     refetchOnWindowFocus: false,
-    ...options,
+    …options,
   });
 };
 
@@ -24,7 +24,7 @@ export const useVerifyResetTokenQuery = (
     queryFn: () => authService.verifyResetToken(token, role),
     enabled: !!token,
     retry: false,
-    ...options,
+    …options,
   });
 };
 

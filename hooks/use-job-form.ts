@@ -45,7 +45,7 @@ export const useJobForm = (initialData: JobFormData, jobId?: string) => {
           : [];
         parsed.perks = Array.isArray(parsed.perks) ? parsed.perks : [];
 
-        setFormData((prev) => ({ ...prev, ...parsed }));
+        setFormData((prev) => ({ …prev, …parsed }));
       } catch (_e) {
         console.error("Failed to parse saved job data");
       }
@@ -84,7 +84,7 @@ export const useJobForm = (initialData: JobFormData, jobId?: string) => {
 
   const handleWalkInDateChange = (range: DateRange | undefined) => {
     setFormData((prev) => ({
-      ...prev,
+      …prev,
       walkInStartDate: range?.from ? formatDate(range.from, "yyyy-MM-dd") : "",
       walkInEndDate: range?.to ? formatDate(range.to, "yyyy-MM-dd") : "",
     }));

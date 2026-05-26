@@ -36,13 +36,13 @@ export function BulkConfirmationModal({
     >
       {action === "SHORTLISTED" && (
         <div className="py-4">
-          <label className="flex items-start space-x-3 cursor-pointer">
+          <label className="flex items-start gap-x-3 cursor-pointer">
             <Checkbox
               checked={rejectOthers}
               onCheckedChange={(checked) => setRejectOthers(checked as boolean)}
               className="mt-1"
             />
-            <div className="space-y-1">
+            <div className="gap-y-1">
               <p className="text-sm font-medium text-near-black">
                 Reject remaining unselected candidates
               </p>

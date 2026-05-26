@@ -18,6 +18,8 @@ import { cn } from "@/lib/utils";
 import { STEPS } from "./constants";
 import type { JobFormData } from "./types";
 
+
+
 const INITIAL_DATA: JobFormData = {
   belongingCompany: "",
   hiringCompany: "",
@@ -81,7 +83,7 @@ export function JobWizard({
   initialData?: JobFormData;
   jobId?: string;
 }) {
-  const router = useRouter();
+  const { push } = useRouter();
   const {
     currentStep,
     formData,
@@ -109,7 +111,7 @@ export function JobWizard({
       toast.error(
         `Please verify your company with a CIN number to ${jobId ? "edit" : "post"} jobs.`,
       );
-      router.push("/recruiter/profile");
+      push("/recruiter/profile");
     }
   }, [recruiterProfile?.is_verified_company, isProfileLoading, router, jobId]);
 

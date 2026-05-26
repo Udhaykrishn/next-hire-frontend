@@ -1,5 +1,5 @@
 import { AlertTriangle, ArrowRight, ShieldCheck } from "lucide-react";
-import { motion } from "motion/react";
+import { LazyMotion, m, domAnimation } from "motion/react";
 import Link from "next/link";
 import type {
   CandidateApplicationResponse,
@@ -29,10 +29,10 @@ export function JobSidebar({
   missingFields,
 }: JobSidebarProps) {
   return (
-    <aside className="lg:col-span-4 space-y-8">
+    <aside className="lg:col-span-4 gap-y-8">
       {(hasApplied ||
         (isAuthenticated && isCandidate && !isProfileComplete)) && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           className="bg-white rounded-[2.5rem] p-8 relative overflow-hidden border border-gray-100 shadow-xl shadow-wise-green/5"
@@ -43,7 +43,7 @@ export function JobSidebar({
 
           <div className="relative z-10">
             {hasApplied ? (
-              <div className="space-y-6">
+              <div className="gap-y-6">
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="text-[16px] font-black text-gray-900 uppercase tracking-widest">
                     Application Status
@@ -83,12 +83,12 @@ export function JobSidebar({
               isAuthenticated &&
               isCandidate &&
               !isProfileComplete && (
-                <div className="p-5 rounded-2xl bg-amber-50 border border-amber-100 mb-6 space-y-4 text-left">
+                <div className="p-5 rounded-2xl bg-amber-50 border border-amber-100 mb-6 gap-y-4 text-left">
                   <div className="flex items-start gap-3">
                     <div className="size-8 rounded-lg bg-amber-100 flex items-center justify-center shrink-0 mt-0.5">
                       <AlertTriangle className="size-4 text-amber-600" />
                     </div>
-                    <div className="space-y-1">
+                    <div className="gap-y-1">
                       <h4 className="text-[14px] font-black text-amber-900 leading-tight">
                         Profile Incomplete
                       </h4>
@@ -99,7 +99,7 @@ export function JobSidebar({
                     </div>
                   </div>
 
-                  <div className="pl-11 space-y-2">
+                  <div className="pl-11 gap-y-2">
                     <p className="text-[11px] font-black text-amber-800 uppercase tracking-wider">
                       Missing Fields:
                     </p>
@@ -129,7 +129,7 @@ export function JobSidebar({
               )
             )}
           </div>
-        </motion.div>
+        </m.div>
       )}
 
       {/* Safety/Verification Widget */}

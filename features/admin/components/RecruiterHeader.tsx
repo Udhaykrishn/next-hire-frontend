@@ -60,7 +60,7 @@ export const RecruiterHeader = ({ recruiter, id }: RecruiterHeaderProps) => {
               <div className="size-2.5 rounded-full bg-wise-green shadow-[0_0_10px_rgba(159,232,112,0.8)]" />
             </div>
           </div>
-          <div className="flex-1 space-y-3 text-center md:text-left">
+          <div className="flex-1 gap-y-3 text-center md:text-left">
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
               <h1 className="text-3xl font-black text-near-black tracking-tight uppercase">
                 {recruiter.name}
@@ -164,7 +164,7 @@ export const RecruiterHeader = ({ recruiter, id }: RecruiterHeaderProps) => {
       {/* Revoke Verification Modal */}
       {isRevokingModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-          <div className="bg-white rounded-[2rem] p-8 shadow-2xl w-full max-w-md mx-4 space-y-6">
+          <div className="bg-white rounded-[2rem] p-8 shadow-2xl w-full max-w-md mx-4 gap-y-6">
             <div className="flex items-center gap-3">
               <div className="size-12 rounded-2xl bg-orange-50 flex items-center justify-center">
                 <ShieldX className="size-6 text-orange-500" />
@@ -180,7 +180,7 @@ export const RecruiterHeader = ({ recruiter, id }: RecruiterHeaderProps) => {
               </div>
             </div>
 
-            <div className="space-y-3">
+            <div className="gap-y-3">
               <label
                 htmlFor="revoke-preset"
                 className="text-[10px] font-black text-gray-500 uppercase tracking-widest"
@@ -211,7 +211,7 @@ export const RecruiterHeader = ({ recruiter, id }: RecruiterHeaderProps) => {
 
               {/* Custom reason — only shown when "Other" is selected */}
               {selectedPreset === "Other" && (
-                <textarea
+                <textarea aria-label="Control"
                   id="revoke-reason-custom"
                   value={revokeReason}
                   onChange={(e) => setRevokeReason(e.target.value)}
@@ -243,7 +243,7 @@ export const RecruiterHeader = ({ recruiter, id }: RecruiterHeaderProps) => {
                 disabled={isRevoking || !revokeReason.trim()}
                 className="flex-1 h-11 rounded-xl text-xs font-black uppercase tracking-widest bg-orange-500 hover:bg-orange-600 text-white border-0"
               >
-                {isRevoking ? "Revoking..." : "Confirm Revoke"}
+                {isRevoking ? "Revoking…" : "Confirm Revoke"}
               </Button>
             </div>
           </div>

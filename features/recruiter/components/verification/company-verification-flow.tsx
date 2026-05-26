@@ -12,7 +12,7 @@ import {
 import { useCompanyVerification } from "../../hooks/use-company-verification";
 
 export function CompanyVerificationFlow() {
-  const router = useRouter();
+  const { push } = useRouter();
   const {
     step,
     cin,
@@ -38,10 +38,10 @@ export function CompanyVerificationFlow() {
   }
 
   return (
-    <div className="max-w-md mx-auto w-full space-y-8">
+    <div className="max-w-md mx-auto w-full gap-y-8">
       <button
         type="button"
-        onClick={() => router.push("/recruiter/profile")}
+        onClick={() => push("/recruiter/profile")}
         className="flex items-center text-sm font-medium text-gray-500 hover:text-near-black transition-colors"
       >
         <ArrowLeft className="size-4 mr-1.5" /> Back to Profile
@@ -76,8 +76,8 @@ export function CompanyVerificationFlow() {
         </div>
 
         {step === "CIN" ? (
-          <form onSubmit={handleStartSession} className="space-y-6">
-            <div className="space-y-2">
+          <form onSubmit={handleStartSession} className="gap-y-6">
+            <div className="gap-y-2">
               <label className="text-sm font-bold text-gray-700">
                 Company CIN
               </label>
@@ -103,8 +103,8 @@ export function CompanyVerificationFlow() {
             </Button>
           </form>
         ) : step === "OTP" ? (
-          <form onSubmit={handleVerifyOtp} className="space-y-6">
-            <div className="space-y-2">
+          <form onSubmit={handleVerifyOtp} className="gap-y-6">
+            <div className="gap-y-2">
               <div className="flex justify-center">
                 <InputOTP
                   maxLength={6}
@@ -112,7 +112,7 @@ export function CompanyVerificationFlow() {
                   onChange={(value) => setOtp(value)}
                 >
                   <InputOTPGroup className="gap-2">
-                    {[...Array(6)].map((_, i) => (
+                    {[…Array(6)].map((_, i) => (
                       <InputOTPSlot
                         key={i}
                         index={i}
@@ -136,7 +136,7 @@ export function CompanyVerificationFlow() {
             </Button>
           </form>
         ) : step === "SESSION_EXISTS" ? (
-          <div className="space-y-4">
+          <div className="gap-y-4">
             <Button
               onClick={handleResumeSession}
               className="w-full h-12 bg-near-black text-white hover:bg-near-black/90 font-bold rounded-xl text-base shadow-lg shadow-near-black/20"

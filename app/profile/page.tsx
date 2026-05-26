@@ -25,6 +25,8 @@ import { ProfileSidebar } from "@/components/profile/profile-sidebar";
 import { useProfile } from "@/hooks/use-profile";
 import { formatSalaryAmount } from "@/lib/salary";
 
+
+
 export default function ProfilePage() {
   const {
     skills,
@@ -63,7 +65,7 @@ export default function ProfilePage() {
         <div className="grid lg:grid-cols-12 gap-8">
           <ProfileSidebar basicInfo={basicInfo} socialLinks={socialLinks} />
 
-          <div className="lg:col-span-8 space-y-10">
+          <div className="lg:col-span-8 gap-y-10">
             <ProfileSection
               title="Professional Experience"
               icon={<Briefcase className="size-6" />}
@@ -119,7 +121,7 @@ export default function ProfilePage() {
                     )}
                     <Link
                       href="/profile/job-preferences/edit"
-                      className="h-10 px-5 rounded-xl bg-gray-900 text-white hover:bg-black transition-all text-[12px] font-black flex items-center gap-2 shadow-lg shadow-gray-900/10"
+                      className="h-10 px-5 rounded-xl bg-gray-900 text-white hover:bg-gray-950 transition-all text-[12px] font-black flex items-center gap-2 shadow-lg shadow-gray-900/10"
                     >
                       <Edit2 className="size-3.5" />
                       Edit Preferences
@@ -128,9 +130,9 @@ export default function ProfilePage() {
                 </div>
 
                 {jobPreferences.roles.length > 0 ? (
-                  <div className="space-y-8">
+                  <div className="gap-y-8">
                     <div className="grid md:grid-cols-2 gap-10">
-                      <div className="space-y-4">
+                      <div className="gap-y-4">
                         <div className="flex items-center gap-2">
                           <div className="size-1.5 rounded-full bg-wise-green" />
                           <h4 className="text-[11px] font-black text-gray-400 uppercase tracking-[0.15em]">
@@ -148,7 +150,7 @@ export default function ProfilePage() {
                           ))}
                         </div>
                       </div>
-                      <div className="space-y-4">
+                      <div className="gap-y-4">
                         <div className="flex items-center gap-2">
                           <div className="size-1.5 rounded-full bg-gray-300" />
                           <h4 className="text-[11px] font-black text-gray-400 uppercase tracking-[0.15em]">
@@ -228,7 +230,7 @@ export default function ProfilePage() {
                       </div>
                     </div>
 
-                    <div className="space-y-1.5 relative z-10 mb-6 max-w-[380px]">
+                    <div className="gap-y-1.5 relative z-10 mb-6 max-w-[380px]">
                       <h3 className="text-[16px] font-black text-gray-900 tracking-tight">
                         Personalize Your Journey
                       </h3>
@@ -274,7 +276,7 @@ export default function ProfilePage() {
                   </span>
                 </div>
 
-                <div className="space-y-8">
+                <div className="gap-y-8">
                   <div className="flex flex-wrap gap-3">
                     {skills.map((skill) => (
                       <div
@@ -298,7 +300,7 @@ export default function ProfilePage() {
                   <div className="pt-6 border-t border-gray-50">
                     <div className="flex gap-3">
                       <div className="relative flex-1 group">
-                        <input
+                        <input aria-label="Control"
                           type="text"
                           value={newSkill}
                           onChange={(e) => setNewSkill(e.target.value)}
@@ -319,7 +321,7 @@ export default function ProfilePage() {
                           setNewSkill("");
                         }}
                         disabled={!newSkill.trim()}
-                        className="h-12 px-6 bg-dark-green text-white rounded-xl text-[14px] font-black hover:bg-black transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                        className="h-12 px-6 bg-dark-green text-white rounded-xl text-[14px] font-black hover:bg-gray-950 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                       >
                         <Plus className="size-4" />
                         Add Skill

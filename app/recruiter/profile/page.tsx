@@ -8,6 +8,8 @@ import { StickySaveBar } from "@/features/recruiter/components/profile/sticky-sa
 import { TaxIdentityCard } from "@/features/recruiter/components/profile/tax-identity-card";
 import { useRecruiterProfile } from "@/features/recruiter/hooks/use-recruiter-profile";
 
+
+
 export default function ProfilePage() {
   const {
     recruiterProfile,
@@ -37,7 +39,7 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-[#fafafa] pb-32">
-      <div className="max-w-3xl mx-auto px-4 pt-8 space-y-6">
+      <div className="max-w-3xl mx-auto px-4 pt-8 gap-y-6">
         <div className="mb-2">
           <m.h1
             initial={{ opacity: 0, y: -8 }}

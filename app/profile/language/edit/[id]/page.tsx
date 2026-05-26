@@ -6,6 +6,8 @@ import { FormPageLayout } from "@/components/profile/forms/form-page-layout";
 import { LanguageForm } from "@/components/profile/forms/language-form";
 import { useProfile } from "@/hooks/use-profile";
 
+
+
 export default function EditLanguagePage({
   params,
 }: {
@@ -13,7 +15,7 @@ export default function EditLanguagePage({
 }) {
   const { languages, handleUpdateLanguage } = useProfile();
   const { id } = use(params);
-  const router = useRouter();
+  const { push } = useRouter();
 
   const lang = languages.find((l) => l.id === id);
 
@@ -23,7 +25,7 @@ export default function EditLanguagePage({
 
   const onSubmit = (formData: FormData) => {
     handleUpdateLanguage(id, formData);
-    router.push("/profile");
+    push("/profile");
   };
 
   return (

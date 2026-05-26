@@ -78,11 +78,11 @@ export function UpgradeModal({ isOpen, onClose }: ModalProps) {
         <div className="md:w-[40%] bg-near-black p-10 relative overflow-hidden flex flex-col justify-between">
           <div className="absolute top-0 right-0 size-64 bg-wise-green/10 rounded-full blur-[80px] -mr-32 -mt-32" />
 
-          <div className="relative z-10 space-y-8">
+          <div className="relative z-10 gap-y-8">
             <div className="size-14 rounded-2xl bg-wise-green flex items-center justify-center shadow-[0_0_30px_rgba(159,232,112,0.3)]">
               <Crown className="size-8 text-near-black" />
             </div>
-            <div className="space-y-4">
+            <div className="gap-y-4">
               <h2 className="text-[32px] font-black text-white leading-none tracking-tighter">
                 Deploy <br />
                 <span className="text-wise-green italic">Satoshi Pro.</span>
@@ -96,7 +96,7 @@ export function UpgradeModal({ isOpen, onClose }: ModalProps) {
 
           <div className="relative z-10 pt-10 border-t border-white/10">
             <div className="flex items-center gap-3">
-              <div className="flex -space-x-2">
+              <div className="flex -gap-x-2">
                 {[1, 2, 3].map((i) => (
                   <div
                     key={i}
@@ -114,10 +114,10 @@ export function UpgradeModal({ isOpen, onClose }: ModalProps) {
         </div>
 
         {/* Content */}
-        <div className="md:w-[60%] p-10 md:p-14 space-y-12">
+        <div className="md:w-[60%] p-10 md:p-14 gap-y-12">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-8">
             {features.map((feat) => (
-              <div key={feat.title} className="space-y-3 group">
+              <div key={feat.title} className="gap-y-3 group">
                 <div className="size-10 rounded-xl bg-gray-50 flex items-center justify-center group-hover:bg-wise-green/10 group-hover:text-wise-green transition-all duration-500">
                   {React.cloneElement(
                     feat.icon as React.ReactElement<{ className?: string }>,
@@ -137,7 +137,7 @@ export function UpgradeModal({ isOpen, onClose }: ModalProps) {
           </div>
 
           <div className="pt-10 border-t border-gray-100 flex items-center justify-between gap-6">
-            <div className="space-y-1">
+            <div className="gap-y-1">
               <p className="text-[32px] font-black text-near-black leading-none tracking-tighter">
                 $299
                 <span className="text-[14px] text-gray-300 ml-1">/month</span>
@@ -191,8 +191,8 @@ export function JobCreationModal({ isOpen, onClose }: ModalProps) {
           <X className="size-6" />
         </button>
 
-        <div className="relative z-10 space-y-10">
-          <div className="space-y-2">
+        <div className="relative z-10 gap-y-10">
+          <div className="gap-y-2">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-wise-green/10 text-wise-green text-[9px] font-black uppercase tracking-widest border border-wise-green/10 mb-2">
               <Command className="size-3" />
               Deployment Console
@@ -205,8 +205,8 @@ export function JobCreationModal({ isOpen, onClose }: ModalProps) {
             </p>
           </div>
 
-          <div className="space-y-6">
-            <div className="space-y-2">
+          <div className="gap-y-6">
+            <div className="gap-y-2">
               <Label className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
                 Job Designation
               </Label>
@@ -220,7 +220,7 @@ export function JobCreationModal({ isOpen, onClose }: ModalProps) {
             </div>
 
             <div className="grid grid-cols-2 gap-6">
-              <div className="space-y-2">
+              <div className="gap-y-2">
                 <Label className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
                   Deployment Location
                 </Label>
@@ -232,7 +232,7 @@ export function JobCreationModal({ isOpen, onClose }: ModalProps) {
                   <MapPin className="absolute right-5 top-1/2 -translate-y-1/2 size-5 text-gray-200 group-focus-within:text-wise-green transition-colors" />
                 </div>
               </div>
-              <div className="space-y-2">
+              <div className="gap-y-2">
                 <Label className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
                   Projected Budget
                 </Label>

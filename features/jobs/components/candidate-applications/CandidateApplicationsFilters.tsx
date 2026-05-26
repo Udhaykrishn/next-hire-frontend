@@ -1,5 +1,5 @@
 import { ChevronDown, Filter, RefreshCw, Search } from "lucide-react";
-import { motion } from "motion/react";
+import { LazyMotion, m, domAnimation } from "motion/react";
 
 interface CandidateApplicationsFiltersProps {
   searchQuery: string;
@@ -19,7 +19,7 @@ export function CandidateApplicationsFilters({
   refetch,
 }: CandidateApplicationsFiltersProps) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2, duration: 0.4, ease: "easeOut" }}
@@ -29,7 +29,7 @@ export function CandidateApplicationsFilters({
         {/* Search */}
         <div className="relative w-full md:w-80 group">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-gray-400 group-focus-within:text-wise-green transition-colors duration-300" />
-          <input
+          <input aria-label="Control"
             type="text"
             placeholder="Filter by company or role…"
             value={searchQuery}
@@ -72,6 +72,6 @@ export function CandidateApplicationsFilters({
           Refresh
         </button>
       </div>
-    </motion.div>
+    </m.div>
   );
 }

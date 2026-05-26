@@ -13,7 +13,7 @@ import {
   Users,
   Zap,
 } from "lucide-react";
-import { motion } from "motion/react";
+import { LazyMotion, m, domAnimation } from "motion/react";
 import Link from "next/link";
 import {
   Accordion,
@@ -29,8 +29,8 @@ export default function RecruiterLandingPage() {
   return (
     <div className="min-h-screen bg-[#fcfdfd] font-satoshi selection:bg-wise-green selection:text-dark-green relative flex flex-col">
       {/* Background Effects */}
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-wise-green/30 rounded-full blur-[120px] pointer-events-none translate-x-1/3 -translate-y-1/4" />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-wise-green/10 rounded-full blur-[100px] pointer-events-none -translate-x-1/3 translate-y-1/3" />
+      <div className="absolute top-0 right-0 size-[800px] bg-wise-green/30 rounded-full blur-[120px] pointer-events-none translate-x-1/3 -translate-y-1/4" />
+      <div className="absolute bottom-0 left-0 size-[600px] bg-wise-green/10 rounded-full blur-[100px] pointer-events-none -translate-x-1/3 translate-y-1/3" />
       <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 brightness-100 contrast-150 pointer-events-none mix-blend-overlay z-0"></div>
 
       {/* Recruiter Navbar */}
@@ -41,7 +41,7 @@ export default function RecruiterLandingPage() {
               <Logo size="sm" />
             </Link>
 
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden md:flex items-center gap-x-8">
               <Link
                 href="/#features"
                 className="text-xs font-black text-gray-500 hover:text-wise-green transition-colors uppercase tracking-widest"
@@ -83,7 +83,7 @@ export default function RecruiterLandingPage() {
       <main className="flex-1 relative z-10 flex flex-col">
         <section className="pt-24 pb-32 px-4 sm:px-6 lg:px-8 flex-1 flex flex-col justify-center">
           <div className="max-w-5xl mx-auto text-center">
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
@@ -91,9 +91,9 @@ export default function RecruiterLandingPage() {
             >
               <Sparkles className="size-4 text-wise-green" />
               <span>The Next Generation ATS is Here</span>
-            </motion.div>
+            </m.div>
 
-            <motion.h1
+            <m.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
@@ -102,9 +102,9 @@ export default function RecruiterLandingPage() {
               Hire the <span className="text-wise-green">Top 1%</span> of{" "}
               <br className="hidden md:block" />
               Talent, Faster.
-            </motion.h1>
+            </m.h1>
 
-            <motion.p
+            <m.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
@@ -113,9 +113,9 @@ export default function RecruiterLandingPage() {
               Streamline your entire recruitment workflow with AI-driven
               applicant tracking, collaborative hiring tools, and powerful
               talent discovery.
-            </motion.p>
+            </m.p>
 
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
@@ -135,7 +135,7 @@ export default function RecruiterLandingPage() {
                   Explore Features
                 </Button>
               </Link>
-            </motion.div>
+            </m.div>
           </div>
         </section>
 
@@ -174,7 +174,7 @@ export default function RecruiterLandingPage() {
                 { number: "40%", label: "Reduction in cost per hire" },
                 { number: "98%", label: "Client satisfaction rate" },
               ].map((stat, i) => (
-                <motion.div
+                <m.div
                   key={i}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -188,7 +188,7 @@ export default function RecruiterLandingPage() {
                   <div className="text-gray-600 font-medium text-lg">
                     {stat.label}
                   </div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -240,7 +240,7 @@ export default function RecruiterLandingPage() {
                   desc: "Built-in GDPR compliance, diversity tracking, and fair hiring guardrails out of the box.",
                 },
               ].map((feature, i) => (
-                <motion.div
+                <m.div
                   key={i}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -257,7 +257,7 @@ export default function RecruiterLandingPage() {
                   <p className="text-gray-500 font-medium leading-relaxed">
                     {feature.desc}
                   </p>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -287,7 +287,7 @@ export default function RecruiterLandingPage() {
                   interview stages. Drag and drop candidates through custom
                   workflows designed for your team's unique hiring process.
                 </p>
-                <ul className="space-y-4">
+                <ul className="gap-y-4">
                   {[
                     "Customizable Kanban-style pipelines",
                     "Automated candidate stage progression",
@@ -315,7 +315,7 @@ export default function RecruiterLandingPage() {
                   proprietary AI analyzes experience, skills, and potential to
                   highlight the candidates who actually fit your requirements.
                 </p>
-                <ul className="space-y-4">
+                <ul className="gap-y-4">
                   {[
                     "Context-aware resume parsing",
                     "Automated skill validation",
@@ -383,7 +383,7 @@ export default function RecruiterLandingPage() {
                   className="p-8 rounded-3xl bg-gray-50 border border-gray-100 relative hover:-translate-y-1 transition-transform duration-300"
                 >
                   <div className="flex gap-1 mb-6">
-                    {[...Array(review.stars)].map((_, j) => (
+                    {[…Array(review.stars)].map((_, j) => (
                       <Star
                         key={j}
                         className="size-5 fill-wise-green text-wise-green"
@@ -466,7 +466,7 @@ export default function RecruiterLandingPage() {
         {/* CTA Section */}
         <section className="py-24 relative overflow-hidden">
           <div className="absolute inset-0 bg-near-black"></div>
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-wise-green/20 rounded-full blur-[100px] pointer-events-none translate-x-1/3 -translate-y-1/2" />
+          <div className="absolute top-0 right-0 size-[500px] bg-wise-green/20 rounded-full blur-[100px] pointer-events-none translate-x-1/3 -translate-y-1/2" />
 
           <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
             <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight mb-8">

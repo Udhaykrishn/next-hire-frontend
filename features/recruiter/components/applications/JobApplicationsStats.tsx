@@ -15,9 +15,9 @@ export function JobApplicationsStats({ stats }: JobApplicationsStatsProps) {
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-      {statItems.map((stat, i) => (
+      {statItems.map((stat) => (
         <div
-          key={i}
+          key={stat.label}
           className="bg-[#ffffff] p-[24px] rounded-[16px] border border-[rgba(14,15,12,0.12)] flex flex-col justify-between h-28"
         >
           <div className="text-[#454745] font-[500] text-[12px] uppercase tracking-wider flex items-center justify-between">

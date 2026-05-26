@@ -7,6 +7,8 @@ import { JobApplicationsStats } from "@/features/recruiter/components/applicatio
 import { JobApplicationsToolbar } from "@/features/recruiter/components/applications/JobApplicationsToolbar";
 import { useJobApplications } from "@/features/recruiter/hooks/use-job-applications";
 
+
+
 export default function JobApplicationsPage() {
   const {
     jobId,
@@ -37,7 +39,7 @@ export default function JobApplicationsPage() {
   } = useJobApplications();
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6 pb-24 font-satoshi">
+    <div className="max-w-6xl mx-auto gap-y-6 pb-24 font-satoshi">
       {/* Top Header & Job Context */}
       <JobApplicationsHeader
         job={job}

@@ -44,10 +44,10 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
 
   if (isPending) {
     return (
-      <div className="min-h-[60vh] flex flex-col items-center justify-center space-y-4">
+      <div className="min-h-[60vh] flex flex-col items-center justify-center gap-y-4">
         <div className="size-12 border-4 border-wise-green border-t-transparent rounded-full animate-spin" />
         <p className="text-xs font-black uppercase tracking-widest text-gray-400">
-          Analyzing Profile Data...
+          Analyzing Profile Data…
         </p>
       </div>
     );
@@ -56,13 +56,13 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
   if (!candidate) return null;
 
   return (
-    <div className="space-y-8">
+    <div className="gap-y-8">
       {isBlocked && (
         <div className="bg-red-50/70 border border-red-100 rounded-[2rem] p-6 flex items-start gap-4 animate-in fade-in slide-in-from-top-4 duration-500">
           <div className="size-12 rounded-2xl bg-red-500 flex items-center justify-center text-white shadow-lg shadow-red-500/20 shrink-0">
             <Ban className="size-6" />
           </div>
-          <div className="space-y-1">
+          <div className="gap-y-1">
             <h4 className="text-sm font-black text-red-600 uppercase tracking-widest">
               Profile Restricted
             </h4>
@@ -79,11 +79,11 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
       )}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
         {/* Left Column: Profile Card */}
-        <div className="space-y-8">
+        <div className="gap-y-8">
           <section className="bg-white border border-gray-100 rounded-[3rem] p-10 shadow-sm overflow-hidden relative group">
             <div className="absolute top-0 right-0 size-32 bg-wise-green/10 rounded-full blur-3xl -mr-10 -mt-10 group-hover:bg-wise-green/20 transition-all" />
 
-            <div className="relative z-10 space-y-6">
+            <div className="relative z-10 gap-y-6">
               <div className="size-32 rounded-[2.5rem] bg-wise-green flex items-center justify-center text-4xl font-black text-near-black shadow-2xl">
                 {candidate.name.charAt(0)}
               </div>
@@ -97,7 +97,7 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
                 </p>
               </div>
 
-              <div className="space-y-4 pt-4 border-t border-gray-100">
+              <div className="gap-y-4 pt-4 border-t border-gray-100">
                 <div className="flex items-center gap-3">
                   <div className="size-8 rounded-xl bg-gray-50 flex items-center justify-center">
                     <Mail className="size-4 text-wise-green" />
@@ -133,9 +133,9 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
             </h3>
             <div className="flex flex-wrap gap-2">
               {candidate.skills && candidate.skills.length > 0 ? (
-                candidate.skills.map((skill: string, idx: number) => (
+                candidate.skills.map((skill: string) => (
                   <span
-                    key={idx}
+                    key={skill}
                     className="px-4 py-2 bg-gray-50 text-near-black text-xs font-black uppercase tracking-widest rounded-xl border border-gray-100 hover:border-wise-green/30 hover:bg-white transition-all cursor-default"
                   >
                     {skill}
@@ -151,8 +151,8 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
         </div>
 
         {/* Right Column: Details & Experience */}
-        <div className="lg:col-span-2 space-y-10">
-          <section className="bg-white border border-gray-100 rounded-[2.5rem] p-8 shadow-sm space-y-6">
+        <div className="lg:col-span-2 gap-y-10">
+          <section className="bg-white border border-gray-100 rounded-[2.5rem] p-8 shadow-sm gap-y-6">
             <div className="flex items-center gap-3">
               <div className="w-1.5 h-6 bg-wise-green rounded-full" />
               <h2 className="text-lg font-extrabold text-slate-800 uppercase tracking-wider">
@@ -171,7 +171,7 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
                 <Briefcase className="size-5 text-wise-green" />
                 Work History & Experience
               </h3>
-              <div className="space-y-8">
+              <div className="gap-y-8">
                 {experience && experience.length > 0 ? (
                   experience.map((exp) => (
                     <div
@@ -199,7 +199,7 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
                           month: "short",
                           year: "numeric",
                         })}{" "}
-                        —{" "}
+                        to{" "}
                         {exp.currentlyWorking
                           ? "Present"
                           : new Date(exp.endDate).toLocaleDateString("en-US", {
@@ -212,9 +212,9 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
                       </p>
                       {exp.skillsLearned && exp.skillsLearned.length > 0 && (
                         <div className="flex flex-wrap gap-1.5 mt-3">
-                          {exp.skillsLearned.map((s, sIdx) => (
+                          {exp.skillsLearned.map((s) => (
                             <span
-                              key={sIdx}
+                              key={s}
                               className="text-[10px] font-black uppercase tracking-wider text-slate-600 bg-slate-100 px-2.5 py-1 rounded-lg"
                             >
                               {s}
@@ -239,7 +239,7 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
                 <GraduationCap className="size-5 text-wise-green" />
                 Educational Background
               </h3>
-              <div className="space-y-6">
+              <div className="gap-y-6">
                 {education && education.length > 0 ? (
                   education.map((edu) => (
                     <div
@@ -259,7 +259,7 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
                             month: "short",
                             year: "numeric",
                           })}{" "}
-                          —{" "}
+                          to{" "}
                           {edu.endDate
                             ? new Date(edu.endDate).toLocaleDateString(
                                 "en-US",
@@ -340,11 +340,11 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
                 {candidate.applications?.length || 0} Ongoing
               </span>
             </div>
-            <div className="space-y-4">
+            <div className="gap-y-4">
               {candidate.applications && candidate.applications.length > 0 ? (
-                candidate.applications.map((app, idx: number) => (
+                candidate.applications.map((app) => (
                   <div
-                    key={idx}
+                    key={`${app.jobTitle}-${app.company}`}
                     className="p-6 bg-gray-50 hover:bg-white hover:shadow-xl hover:shadow-gray-200/50 rounded-3xl border border-transparent hover:border-gray-100 transition-all"
                   >
                     <div className="flex items-center justify-between">
@@ -390,9 +390,9 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {candidate.documents && candidate.documents.length > 0 ? (
-                candidate.documents.map((doc, idx: number) => (
+                candidate.documents.map((doc) => (
                   <a
-                    key={idx}
+                    key={doc.url}
                     href={doc.url}
                     target="_blank"
                     rel="noreferrer"

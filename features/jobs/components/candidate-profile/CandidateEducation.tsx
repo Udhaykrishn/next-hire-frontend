@@ -21,9 +21,9 @@ export function CandidateEducation({ education }: CandidateEducationProps) {
       </h3>
       {education && education.length > 0 ? (
         <div className="grid gap-5">
-          {education.map((edu, idx: number) => (
+          {education.map((edu) => (
             <div
-              key={idx}
+              key={`${edu.institutionName}-${edu.degree}`}
               className="flex gap-5 p-6 rounded-[16px] bg-[#f9faf9] border border-[rgba(14,15,12,0.05)] hover:shadow-sm transition-shadow"
             >
               <div className="size-12 rounded-full bg-[#ffffff] shadow-sm border border-[rgba(14,15,12,0.08)] flex items-center justify-center shrink-0">

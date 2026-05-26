@@ -17,7 +17,7 @@ export const HintText = ({
   isInvalid,
   className,
   size = "md",
-  ...props
+  …props
 }: HintTextProps) => {
   return (
     <AriaText

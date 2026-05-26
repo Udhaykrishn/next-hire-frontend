@@ -8,7 +8,7 @@ import {
   UploadCloud02,
   XCircle,
 } from "@untitledui/icons";
-import { AnimatePresence, motion } from "motion/react";
+import { LazyMotion, m, AnimatePresence, domAnimation } from "motion/react";
 import type { ComponentProps, ComponentPropsWithRef } from "react";
 import { useId, useRef, useState } from "react";
 import { Button } from "@/components/base/buttons/button";
@@ -227,7 +227,7 @@ export const FileUploadDropZone = ({
 
       <div className="flex flex-col gap-1 text-center">
         <div className="flex justify-center gap-1 text-center">
-          <input
+          <input aria-label="Control"
             ref={inputRef}
             id={id}
             type="file"
@@ -298,7 +298,7 @@ export const FileListItemProgressBar = ({
   const isComplete = progress === 100;
 
   return (
-    <motion.li
+    <m.li
       layout="position"
       className={cx(
         "relative flex gap-3 rounded-xl bg-primary p-4 ring-1 ring-secondary transition-shadow duration-100 ease-linear ring-inset",
@@ -348,7 +348,7 @@ export const FileListItemProgressBar = ({
                 )}
                 {!isComplete && !failed && (
                   <p className="text-sm font-medium text-quaternary">
-                    Uploading...
+                    Uploading…
                   </p>
                 )}
 
@@ -394,7 +394,7 @@ export const FileListItemProgressBar = ({
           </Button>
         )}
       </div>
-    </motion.li>
+    </m.li>
   );
 };
 
@@ -412,7 +412,7 @@ export const FileListItemProgressFill = ({
   const isComplete = progress === 100;
 
   return (
-    <motion.li
+    <m.li
       layout="position"
       className={cx(
         "relative flex gap-3 overflow-hidden rounded-xl bg-primary p-4",
@@ -504,7 +504,7 @@ export const FileListItemProgressFill = ({
           onClick={onDelete}
         />
       </div>
-    </motion.li>
+    </m.li>
   );
 };
 

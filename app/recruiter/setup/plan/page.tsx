@@ -16,6 +16,8 @@ import { useState } from "react";
 import { Button } from "@/components/animate-ui/components/buttons/button";
 import { cn } from "@/lib/utils";
 
+
+
 const plans = [
   {
     id: "free",
@@ -77,7 +79,7 @@ const plans = [
 ];
 
 export default function RecruiterPlanSetupPage() {
-  const router = useRouter();
+  const { push, back } = useRouter();
   const [selectedPlan, setSelectedPlan] = useState("growth");
   const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">(
     "monthly",
@@ -87,8 +89,8 @@ export default function RecruiterPlanSetupPage() {
     <div className="min-h-screen bg-white font-satoshi selection:bg-wise-green/30 text-near-black overflow-x-hidden">
       {/* Premium Background */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-wise-green/[0.05] rounded-full blur-[120px]" />
-        <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-wise-green/[0.05] rounded-full blur-[120px]" />
+        <div className="absolute top-[-10%] right-[-10%] size-[50%] bg-wise-green/[0.05] rounded-full blur-[120px]" />
+        <div className="absolute bottom-[-10%] left-[-10%] size-[50%] bg-wise-green/[0.05] rounded-full blur-[120px]" />
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay" />
       </div>
 
@@ -116,7 +118,7 @@ export default function RecruiterPlanSetupPage() {
 
         {/* Main Content */}
         <div className="flex-1 flex flex-col items-center justify-center max-w-6xl mx-auto w-full">
-          <div className="text-center mb-12 space-y-4">
+          <div className="text-center mb-12 gap-y-4">
             <m.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -152,7 +154,7 @@ export default function RecruiterPlanSetupPage() {
               >
                 Monthly
               </span>
-              <button
+              <button aria-label="Control"
                 type="button"
                 onClick={() =>
                   setBillingCycle((prev) =>
@@ -241,7 +243,7 @@ export default function RecruiterPlanSetupPage() {
                     </p>
                   </div>
 
-                  <div className="space-y-4 mb-10 flex-1">
+                  <div className="gap-y-4 mb-10 flex-1">
                     {plan.features.map((feature, fIdx) => (
                       <div key={fIdx} className="flex items-center gap-3">
                         <div
@@ -292,13 +294,13 @@ export default function RecruiterPlanSetupPage() {
             <div className="flex gap-4">
               <Button
                 variant="ghost"
-                onClick={() => router.back()}
+                onClick={() => back()}
                 className="h-16 px-10 rounded-[2rem] font-black text-sm uppercase tracking-widest hover:bg-gray-50"
               >
                 Previous Step
               </Button>
               <Button
-                onClick={() => router.push("/recruiter/dashboard")}
+                onClick={() => push("/recruiter/dashboard")}
                 className="h-16 px-12 rounded-[2rem] bg-near-black text-white hover:bg-wise-green hover:text-near-black transition-all font-black text-sm uppercase tracking-[0.2em] shadow-2xl shadow-near-black/20 group"
               >
                 Confirm & Launch

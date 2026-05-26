@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronRight, Search, Sparkles } from "lucide-react";
-import { motion } from "motion/react";
+import { LazyMotion, m, domAnimation } from "motion/react";
 import Link from "next/link";
 import { LandingFooter } from "@/components/landing-footer";
 import { LandingNavbar } from "@/components/landing-navbar";
@@ -121,21 +121,21 @@ export default function JobList() {
                 </div>
               )}
               <div
-                className={`space-y-4 transition-opacity duration-300 ${
+                className={`gap-y-4 transition-opacity duration-300 ${
                   isListLoading
                     ? "opacity-30 pointer-events-none"
                     : "opacity-100"
                 }`}
               >
                 {jobs.map((job, index) => (
-                  <motion.div
-                    key={`${job.id || "job"}-${index}`}
+                  <m.div
+                    key={job.id}
                     initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.04, duration: 0.35 }}
                   >
                     <JobCard job={job} />
-                  </motion.div>
+                  </m.div>
                 ))}
 
                 {jobs.length === 0 && !isListLoading && (
@@ -156,14 +156,14 @@ export default function JobList() {
           </section>
 
           {/* ── Right Sidebar ── */}
-          <aside className="lg:col-span-3 space-y-5">
+          <aside className="lg:col-span-3 gap-y-5">
             {/* AI Matching Card */}
             <div className="bg-dark-green rounded-2xl p-6 text-white relative overflow-hidden">
               <div className="absolute -top-8 -right-8 size-24 bg-wise-green/10 rounded-full blur-xl pointer-events-none" />
               <div className="absolute bottom-0 left-0 size-16 bg-wise-green/5 rounded-tr-full pointer-events-none" />
               <div className="relative z-10">
                 <div className="size-9 rounded-xl bg-wise-green/20 flex items-center justify-center mb-4">
-                  <Sparkles className="w-4.5 h-4.5 text-wise-green" />
+                  <Sparkles className="size-4.5 text-wise-green" />
                 </div>
                 <h3 className="text-[16px] font-black mb-2 leading-tight">
                   AI-Powered Matching
@@ -186,7 +186,7 @@ export default function JobList() {
               <h3 className="text-[11px] font-black text-gray-400 uppercase tracking-widest mb-4">
                 Trending Companies
               </h3>
-              <div className="space-y-2">
+              <div className="gap-y-2">
                 {["Google", "Microsoft", "Amazon", "Meta"].map((comp) => (
                   <div
                     key={comp}

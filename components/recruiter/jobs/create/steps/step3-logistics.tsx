@@ -45,9 +45,9 @@ export const Step3Logistics = ({
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -20 }}
-      className="space-y-12"
+      className="gap-y-12"
     >
-      <div className="space-y-1 text-center">
+      <div className="gap-y-1 text-center">
         <h2 className="text-[32px] font-black text-near-black tracking-tight">
           Interviewer information
         </h2>
@@ -56,9 +56,9 @@ export const Step3Logistics = ({
         </p>
       </div>
 
-      <div className="bg-white rounded-[2.5rem] border border-gray-100 p-10 space-y-8 shadow-sm">
-        <div className="space-y-6">
-          <div className="space-y-2">
+      <div className="bg-white rounded-[2.5rem] border border-gray-100 p-10 gap-y-8 shadow-sm">
+        <div className="gap-y-6">
+          <div className="gap-y-2">
             <Label className="text-[15px] font-black text-near-black">
               Is this a walk-in interview?{" "}
               <span className="text-red-500">*</span>
@@ -72,7 +72,7 @@ export const Step3Logistics = ({
                   key={opt.label}
                   type="button"
                   onClick={() =>
-                    setFormData((prev) => ({ ...prev, isWalkIn: opt.value }))
+                    setFormData((prev) => ({ …prev, isWalkIn: opt.value }))
                   }
                   className="flex items-center gap-3 group cursor-pointer"
                 >
@@ -109,9 +109,9 @@ export const Step3Logistics = ({
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
-                className="space-y-8 pt-6 border-t border-gray-100 overflow-hidden"
+                className="gap-y-8 pt-6 border-t border-gray-100 overflow-hidden"
               >
-                <div className="space-y-3" id="field-interviewAddress">
+                <div className="gap-y-3" id="field-interviewAddress">
                   <div className="flex items-center justify-between">
                     <Label className="text-[14px] font-black text-near-black">
                       Walk-in Interview address{" "}
@@ -129,7 +129,7 @@ export const Step3Logistics = ({
                     value={formData.interviewAddress}
                     onChange={(e) =>
                       setFormData((prev) => ({
-                        ...prev,
+                        …prev,
                         interviewAddress: e.target.value,
                       }))
                     }
@@ -151,7 +151,7 @@ export const Step3Logistics = ({
                   <FieldError name="walkInStartDate" errors={errors} />
                 </div>
 
-                <div className="space-y-3" id="field-walkInStartTime">
+                <div className="gap-y-3" id="field-walkInStartTime">
                   <Label className="text-[14px] font-black text-near-black">
                     Walk-in timings <span className="text-red-500">*</span>
                   </Label>
@@ -161,7 +161,7 @@ export const Step3Logistics = ({
                         value={formData.walkInStartTime}
                         onValueChange={(v) =>
                           setFormData((prev) => ({
-                            ...prev,
+                            …prev,
                             walkInStartTime: v || "",
                           }))
                         }
@@ -195,7 +195,7 @@ export const Step3Logistics = ({
                         value={formData.walkInEndTime}
                         onValueChange={(v) =>
                           setFormData((prev) => ({
-                            ...prev,
+                            …prev,
                             walkInEndTime: v || "",
                           }))
                         }
@@ -225,7 +225,7 @@ export const Step3Logistics = ({
                   </div>
                 </div>
 
-                <div className="space-y-3">
+                <div className="gap-y-3">
                   <Label className="text-[14px] font-black text-near-black">
                     Other Instructions
                   </Label>
@@ -233,7 +233,7 @@ export const Step3Logistics = ({
                     value={formData.interviewInstructions}
                     onChange={(e) =>
                       setFormData((prev) => ({
-                        ...prev,
+                        …prev,
                         interviewInstructions: e.target.value,
                       }))
                     }
@@ -246,8 +246,8 @@ export const Step3Logistics = ({
           </AnimatePresence>
         </div>
 
-        <div className="pt-10 border-t border-gray-100 space-y-8">
-          <div className="space-y-4">
+        <div className="pt-10 border-t border-gray-100 gap-y-8">
+          <div className="gap-y-4">
             <h3 className="text-[16px] font-black text-near-black">
               Communication Preferences
             </h3>
@@ -255,7 +255,7 @@ export const Step3Logistics = ({
               Do you want candidates to contact you via Call / Whatsapp after
               they apply? <span className="text-red-500">*</span>
             </Label>
-            <div className="space-y-4 mt-2">
+            <div className="gap-y-4 mt-2">
               {[
                 "Yes, to myself",
                 "Yes, to other recruiter",
@@ -266,7 +266,7 @@ export const Step3Logistics = ({
                   type="button"
                   onClick={() =>
                     setFormData((prev) => ({
-                      ...prev,
+                      …prev,
                       contactPreference: opt,
                       canCandidateContact: opt.startsWith("Yes") ? "Yes" : "No",
                     }))
@@ -307,9 +307,9 @@ export const Step3Logistics = ({
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
-                className="space-y-6 pt-6 bg-slate-50/50 p-6 rounded-3xl border border-gray-100 overflow-hidden"
+                className="gap-y-6 pt-6 bg-slate-50/50 p-6 rounded-3xl border border-gray-100 overflow-hidden"
               >
-                <div className="space-y-3" id="field-hrName">
+                <div className="gap-y-3" id="field-hrName">
                   <Label className="text-[14px] font-black text-near-black">
                     Recruiter's Name <span className="text-red-500">*</span>
                   </Label>
@@ -317,7 +317,7 @@ export const Step3Logistics = ({
                     value={formData.hrName}
                     onChange={(e) =>
                       setFormData((prev) => ({
-                        ...prev,
+                        …prev,
                         hrName: e.target.value,
                         otherRecruiterName: e.target.value,
                       }))
@@ -331,7 +331,7 @@ export const Step3Logistics = ({
                   <FieldError name="hrName" errors={errors} />
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-3" id="field-hrPhone">
+                  <div className="gap-y-3" id="field-hrPhone">
                     <Label className="text-[14px] font-black text-near-black">
                       Recruiter's Whatsapp No.{" "}
                       <span className="text-red-500">*</span>
@@ -340,7 +340,7 @@ export const Step3Logistics = ({
                       value={formData.hrPhone}
                       onChange={(e) =>
                         setFormData((prev) => ({
-                          ...prev,
+                          …prev,
                           hrPhone: e.target.value,
                           otherRecruiterWhatsapp: e.target.value,
                         }))
@@ -353,7 +353,7 @@ export const Step3Logistics = ({
                     />
                     <FieldError name="hrPhone" errors={errors} />
                   </div>
-                  <div className="space-y-3" id="field-hrEmail">
+                  <div className="gap-y-3" id="field-hrEmail">
                     <Label className="text-[14px] font-black text-near-black">
                       Recruiter's Email ID{" "}
                       <span className="text-red-500">*</span>
@@ -363,7 +363,7 @@ export const Step3Logistics = ({
                       value={formData.hrEmail}
                       onChange={(e) =>
                         setFormData((prev) => ({
-                          ...prev,
+                          …prev,
                           hrEmail: e.target.value,
                           otherRecruiterEmail: e.target.value,
                         }))
@@ -381,12 +381,12 @@ export const Step3Logistics = ({
             )}
           </AnimatePresence>
 
-          <div className="space-y-4 pt-6 border-t border-gray-100">
+          <div className="gap-y-4 pt-6 border-t border-gray-100">
             <Label className="text-[14px] font-black text-near-black leading-snug">
               Where would you like to receive Whatsapp alerts for candidate
               applications? <span className="text-red-500">*</span>
             </Label>
-            <div className="space-y-4 mt-2">
+            <div className="gap-y-4 mt-2">
               {[
                 "Yes, to myself",
                 "Yes, to other recruiter",
@@ -396,7 +396,7 @@ export const Step3Logistics = ({
                   key={opt}
                   type="button"
                   onClick={() =>
-                    setFormData((prev) => ({ ...prev, whatsappAlerts: opt }))
+                    setFormData((prev) => ({ …prev, whatsappAlerts: opt }))
                   }
                   className="flex items-center gap-3 group cursor-pointer"
                 >

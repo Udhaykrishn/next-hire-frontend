@@ -31,7 +31,7 @@ export const RecruiterActivityList = ({
         <div className="size-1.5 rounded-full bg-wise-green" />
         User Activity
       </div>
-      <div className="space-y-8">
+      <div className="gap-y-8">
         {activity.map((act, idx) => (
           <div
             key={`${act.type}-${act.date}-${idx}`}

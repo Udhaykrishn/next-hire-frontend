@@ -54,8 +54,8 @@ export const BlockStatusModal = ({
       isLoading={isLoading}
     >
       {!isBlocked && (
-        <div className="space-y-4 mt-4 w-full animate-in fade-in duration-300">
-          <div className="space-y-2">
+        <div className="gap-y-4 mt-4 w-full animate-in fade-in duration-300">
+          <div className="gap-y-2">
             <label className="text-[10px] font-black text-near-black uppercase tracking-wider block">
               Choose Reason <span className="text-red-500">*</span>
             </label>
@@ -81,11 +81,11 @@ export const BlockStatusModal = ({
           </div>
 
           {selectedReason === "Other" && (
-            <div className="space-y-2 animate-in fade-in slide-in-from-top-2 duration-300">
+            <div className="gap-y-2 animate-in fade-in slide-in-from-top-2 duration-300">
               <label className="text-[10px] font-black text-near-black uppercase tracking-wider block">
                 Custom Description <span className="text-red-500">*</span>
               </label>
-              <textarea
+              <textarea aria-label="Control"
                 value={customReason}
                 onChange={(e) => setCustomReason(e.target.value)}
                 placeholder="Enter details of policy violation…"

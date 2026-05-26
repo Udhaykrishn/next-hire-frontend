@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronLeft } from "lucide-react";
-import { motion } from "motion/react";
+import { LazyMotion, m, domAnimation } from "motion/react";
 import Link from "next/link";
 import { LandingFooter } from "@/components/landing-footer";
 import { LandingNavbar } from "@/components/landing-navbar";
@@ -34,7 +34,7 @@ export const FormPageLayout = ({
           </Link>
         </div>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="bg-white rounded-[2rem] border border-gray-100 p-8 md:p-10 shadow-sm"
@@ -51,7 +51,7 @@ export const FormPageLayout = ({
           </div>
 
           {children}
-        </motion.div>
+        </m.div>
       </main>
 
       <LandingFooter />

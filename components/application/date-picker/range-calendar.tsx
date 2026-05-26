@@ -3,7 +3,7 @@
 import type { CalendarDate } from "@internationalized/date";
 import { ChevronLeft, ChevronRight } from "@untitledui/icons";
 import type { HTMLAttributes, PropsWithChildren } from "react";
-import { Fragment, useContext, useState } from "react";
+import { Fragment, use, useState } from "react";
 import { useDateFormatter } from "react-aria";
 import type {
   RangeCalendarProps as AriaRangeCalendarProps,
@@ -44,7 +44,7 @@ export const RangeCalendarContextProvider = ({
 };
 
 const RangeCalendarTitle = ({ part }: { part: "start" | "end" }) => {
-  const context = useContext(RangeCalendarStateContext);
+  const context = use(RangeCalendarStateContext);
 
   if (!context) {
     throw new Error(
@@ -72,7 +72,7 @@ export const RangePresetButton = ({
   value,
   className,
   children,
-  ...props
+  …props
 }: RangePresetButtonProps) => {
   const context = useSlottedContext(RangeCalendarContext);
 
@@ -100,11 +100,11 @@ export const RangePresetButton = ({
 const MobilePresetButton = ({
   value,
   children,
-  ...props
+  …props
 }: HTMLAttributes<HTMLButtonElement> & {
   value: { start: DateValue; end: DateValue };
 }) => {
-  const context = useContext(RangeCalendarStateContext);
+  const context = use(RangeCalendarStateContext);
 
   return (
     <Button
@@ -141,7 +141,7 @@ export const RangeCalendar = ({
   visibleDuration,
   showOutOfRangeDates = false,
   showPresetsOnDesktop = false,
-  ...props
+  …props
 }: RangeCalendarProps) => {
   const isDesktop = useBreakpoint("md");
   const context = useSlottedContext(RangeCalendarContext);

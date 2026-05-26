@@ -4,6 +4,8 @@ import { Button } from "@/components/animate-ui/components/buttons/button";
 import { LandingFooter } from "@/components/landing-footer";
 import { LandingNavbar } from "@/components/landing-navbar";
 
+
+
 export default function ContactPage() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col font-sans selection:bg-wise-green/30 selection:text-dark-green">
@@ -11,12 +13,12 @@ export default function ContactPage() {
 
       <main className="flex-1 pt-32 pb-20">
         <section className="px-4 relative mb-24">
-          <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-wise-green/10 rounded-full blur-[120px] -z-10 mix-blend-multiply pointer-events-none" />
+          <div className="absolute top-[-20%] left-[-10%] size-[500px] bg-wise-green/10 rounded-full blur-[120px] -z-10 mix-blend-multiply pointer-events-none" />
 
           <div className="max-w-4xl mx-auto text-center mb-16">
             <h1 className="text-[48px] font-black text-gray-900 tracking-tight leading-[56px] mb-6">
               Get in{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-wise-green">
+              <span className="text-wise-green">
                 Touch
               </span>
             </h1>
@@ -36,7 +38,7 @@ export default function ContactPage() {
                 hours.
               </p>
 
-              <div className="space-y-8">
+              <div className="gap-y-8">
                 <div className="flex items-start gap-4">
                   <div className="size-12 bg-wise-green/10 rounded-2xl flex items-center justify-center shrink-0">
                     <Mail className="size-5 text-wise-green" />
@@ -96,23 +98,25 @@ export default function ContactPage() {
                 Send us a message
               </h3>
 
-              <form className="space-y-6">
+              <form className="gap-y-6">
                 <div className="grid grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-gray-700">
+                  <div className="gap-y-2">
+                    <label htmlFor="firstName" className="text-sm font-bold text-gray-700">
                       First Name
                     </label>
-                    <input
+                    <input aria-label="Control"
+                      id="firstName"
                       type="text"
                       className="w-full h-12 px-4 rounded-xl border-2 border-gray-100 bg-gray-50/50 focus:bg-white focus:border-wise-green focus:ring-0 transition-colors font-medium outline-none"
                       placeholder="Jane"
                     />
                   </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-gray-700">
+                  <div className="gap-y-2">
+                    <label htmlFor="lastName" className="text-sm font-bold text-gray-700">
                       Last Name
                     </label>
-                    <input
+                    <input aria-label="Control"
+                      id="lastName"
                       type="text"
                       className="w-full h-12 px-4 rounded-xl border-2 border-gray-100 bg-gray-50/50 focus:bg-white focus:border-wise-green focus:ring-0 transition-colors font-medium outline-none"
                       placeholder="Doe"
@@ -120,22 +124,24 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-bold text-gray-700">
+                <div className="gap-y-2">
+                  <label htmlFor="emailAddress" className="text-sm font-bold text-gray-700">
                     Email Address
                   </label>
-                  <input
+                  <input aria-label="Control"
+                    id="emailAddress"
                     type="email"
                     className="w-full h-12 px-4 rounded-xl border-2 border-gray-100 bg-gray-50/50 focus:bg-white focus:border-wise-green focus:ring-0 transition-colors font-medium outline-none"
                     placeholder="jane@example.com"
                   />
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-bold text-gray-700">
+                <div className="gap-y-2">
+                  <label htmlFor="message" className="text-sm font-bold text-gray-700">
                     Message
                   </label>
-                  <textarea
+                  <textarea aria-label="Control"
+                    id="message"
                     className="w-full p-4 rounded-xl border-2 border-gray-100 bg-gray-50/50 focus:bg-white focus:border-wise-green focus:ring-0 transition-colors font-medium outline-none resize-none min-h-[150px]"
                     placeholder="How can we help you?"
                   />

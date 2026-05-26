@@ -9,6 +9,8 @@ import { Button } from "@/components/animate-ui/components/buttons/button";
 import { FormPageLayout } from "@/components/profile/forms/form-page-layout";
 import { useProfile } from "@/hooks/use-profile";
 
+
+
 const basicInfoSchema = z.object({
   name: z
     .string()
@@ -67,20 +69,14 @@ const GoogleLocationInput = ({
   onChange: (val: string) => void;
 }) => {
   const isLoaded = useApiIsLoaded();
-  const [isReady, setIsReady] = useState(false);
+  const isReady =
+    isLoaded &&
+    typeof window !== "undefined" &&
+    !!window.google?.maps?.places;
+
   const [inputValue, setInputValue] = useState(
     defaultValue === "Not set" ? "" : defaultValue,
   );
-
-  useEffect(() => {
-    if (
-      isLoaded &&
-      typeof window !== "undefined" &&
-      window.google?.maps?.places
-    ) {
-      setIsReady(true);
-    }
-  }, [isLoaded]);
 
   const {
     suggestions: { status, data },
@@ -99,10 +95,10 @@ const GoogleLocationInput = ({
     }
   }, [isReady, init]);
 
+  // Initialize usePlacesAutocomplete value on mount if ready
   useEffect(() => {
-    const val = defaultValue === "Not set" ? "" : defaultValue;
-    setInputValue(val);
     if (isReady) {
+      const val = defaultValue === "Not set" ? "" : defaultValue;
       setValue(val, false);
     }
   }, [defaultValue, setValue, isReady]);
@@ -128,7 +124,7 @@ const GoogleLocationInput = ({
 
   return (
     <div className="relative w-full">
-      <input
+      <input aria-label="Control"
         id={id}
         type="text"
         name="location"
@@ -165,16 +161,9 @@ const GoogleLocationInput = ({
 export default function EditBasicInfoPage() {
   const { basicInfo, socialLinks, handleUpdateProfile, isLoading } =
     useProfile();
-  const router = useRouter();
+  const { push } = useRouter();
   const [locationValue, setLocationValue] = useState(basicInfo.location);
   const [errors, setErrors] = useState<Record<string, string>>({});
-
-  // Sync basicInfo location value once loaded
-  useEffect(() => {
-    if (basicInfo.location) {
-      setLocationValue(basicInfo.location);
-    }
-  }, [basicInfo.location]);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -215,7 +204,7 @@ export default function EditBasicInfoPage() {
 
     setErrors({});
     handleUpdateProfile(formData);
-    router.push("/profile");
+    push("/profile");
   };
 
   if (isLoading) {
@@ -232,15 +221,15 @@ export default function EditBasicInfoPage() {
         title="Basic Information"
         subtitle="Update your personal details and professional headline."
       >
-        <form onSubmit={onSubmit} className="space-y-6">
-          <div className="space-y-1.5">
+        <form onSubmit={onSubmit} className="gap-y-6">
+          <div className="gap-y-1.5">
             <label
               htmlFor="name-input"
               className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1"
             >
               Full Name
             </label>
-            <input
+            <input aria-label="Control"
               id="name-input"
               name="name"
               defaultValue={basicInfo.name}
@@ -259,14 +248,14 @@ export default function EditBasicInfoPage() {
             )}
           </div>
 
-          <div className="space-y-1.5">
+          <div className="gap-y-1.5">
             <label
               htmlFor="tagline-input"
               className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1"
             >
               Professional Tagline
             </label>
-            <input
+            <input aria-label="Control"
               id="tagline-input"
               name="tagline"
               defaultValue={basicInfo.tagline}
@@ -285,7 +274,7 @@ export default function EditBasicInfoPage() {
             )}
           </div>
 
-          <div className="space-y-1.5">
+          <div className="gap-y-1.5">
             <label
               htmlFor="location-input"
               className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1"
@@ -304,14 +293,14 @@ export default function EditBasicInfoPage() {
             )}
           </div>
 
-          <div className="space-y-1.5">
+          <div className="gap-y-1.5">
             <label
               htmlFor="phone-input"
               className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1"
             >
               Phone Number
             </label>
-            <input
+            <input aria-label="Control"
               id="phone-input"
               name="phone"
               type="tel"
@@ -330,14 +319,14 @@ export default function EditBasicInfoPage() {
             )}
           </div>
 
-          <div className="space-y-1.5">
+          <div className="gap-y-1.5">
             <label
               htmlFor="bio-input"
               className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1"
             >
               Bio
             </label>
-            <textarea
+            <textarea aria-label="Control"
               id="bio-input"
               name="bio"
               rows={4}
@@ -357,14 +346,14 @@ export default function EditBasicInfoPage() {
             )}
           </div>
 
-          <div className="space-y-1.5">
+          <div className="gap-y-1.5">
             <label
               htmlFor="experience-input"
               className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1"
             >
               Years of Experience
             </label>
-            <input
+            <input aria-label="Control"
               id="experience-input"
               name="experience"
               type="text"
@@ -383,14 +372,14 @@ export default function EditBasicInfoPage() {
             )}
           </div>
 
-          <div className="space-y-1.5">
+          <div className="gap-y-1.5">
             <label
               htmlFor="linkedin-input"
               className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1"
             >
               LinkedIn Profile Link
             </label>
-            <input
+            <input aria-label="Control"
               id="linkedin-input"
               name="linkedin"
               type="url"
@@ -409,14 +398,14 @@ export default function EditBasicInfoPage() {
             )}
           </div>
 
-          <div className="space-y-1.5">
+          <div className="gap-y-1.5">
             <label
               htmlFor="portfolio-input"
               className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1"
             >
               Personal Portfolio Link
             </label>
-            <input
+            <input aria-label="Control"
               id="portfolio-input"
               name="portfolio"
               type="url"
@@ -435,14 +424,14 @@ export default function EditBasicInfoPage() {
             )}
           </div>
 
-          <div className="space-y-1.5">
+          <div className="gap-y-1.5">
             <label
               htmlFor="github-input"
               className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1"
             >
               GitHub Profile Link
             </label>
-            <input
+            <input aria-label="Control"
               id="github-input"
               name="github"
               type="url"

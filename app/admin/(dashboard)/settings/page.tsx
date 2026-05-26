@@ -56,7 +56,7 @@ const settingGroups = [
 
 export default function AdminSettings() {
   return (
-    <div className="max-w-4xl space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
+    <div className="max-w-4xl gap-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div>
         <h1 className="text-3xl font-black text-near-black tracking-tight">
           System Settings
@@ -66,7 +66,7 @@ export default function AdminSettings() {
         </p>
       </div>
 
-      <div className="space-y-8">
+      <div className="gap-y-8">
         {settingGroups.map((group) => (
           <div
             key={group.title}

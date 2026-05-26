@@ -10,7 +10,7 @@ export default function CandidateProfilePage() {
   const id = params.id as string;
 
   return (
-    <div className="max-w-[1400px] mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+    <div className="max-w-[1400px] mx-auto gap-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
       {/* Header Navigation */}
       <div className="flex items-center justify-between mb-8">
         <Link
@@ -23,7 +23,7 @@ export default function CandidateProfilePage() {
         <div className="flex items-center gap-4">
           <span className="text-[10px] font-black uppercase tracking-widest text-near-black/20">
             System ID:{" "}
-            {id && id.length > 8 ? `${id.slice(0, 6)}...${id.slice(-4)}` : id}
+            {id && id.length > 8 ? `${id.slice(0, 6)}…${id.slice(-4)}` : id}
           </span>
           <div className="size-2 rounded-full bg-wise-green shadow-[0_0_10px_rgba(159,232,112,0.8)]" />
         </div>

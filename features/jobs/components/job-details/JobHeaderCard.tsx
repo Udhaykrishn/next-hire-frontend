@@ -44,7 +44,7 @@ export function JobHeaderCard({
         </div>
       </div>
 
-      <div className="space-y-3 mb-6">
+      <div className="gap-y-3 mb-6">
         <div className="flex items-center gap-2 text-gray-600 text-[14px]">
           <MapPin className="size-4 text-gray-400" />
           <span>{job.jobCity || "Remote"}</span>

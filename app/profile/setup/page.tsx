@@ -2,7 +2,7 @@
 
 import { APIProvider, useApiIsLoaded } from "@vis.gl/react-google-maps";
 import { ArrowRight, Phone, User } from "lucide-react";
-import { motion } from "motion/react";
+import { LazyMotion, m, domAnimation } from "motion/react";
 import { useRouter } from "next/navigation";
 import type React from "react";
 import { useEffect, useState } from "react";
@@ -124,7 +124,7 @@ const GoogleLocationInput = ({
 };
 
 export default function ProfileSetupPage() {
-  const router = useRouter();
+  const { push } = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     phone: "",
@@ -133,7 +133,7 @@ export default function ProfileSetupPage() {
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+    setFormData((prev) => ({ …prev, [e.target.id]: e.target.value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -150,7 +150,7 @@ export default function ProfileSetupPage() {
         location: formData.location.trim() || undefined,
       });
       toast.success("Profile set up! Welcome to NextHire.");
-      router.push("/profile");
+      push("/profile");
     } catch (err) {
       const message = err instanceof Error ? err.message : "Setup failed";
       toast.error(message);
@@ -162,10 +162,10 @@ export default function ProfileSetupPage() {
   return (
     <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ""}>
       <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4 font-satoshi selection:bg-wise-green selection:text-dark-green relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-wise-green/40 rounded-full blur-[100px] pointer-events-none translate-x-1/3 -translate-y-1/4" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-wise-green/20 rounded-full blur-[100px] pointer-events-none -translate-x-1/3 translate-y-1/3" />
+        <div className="absolute top-0 right-0 size-[800px] bg-wise-green/40 rounded-full blur-[100px] pointer-events-none translate-x-1/3 -translate-y-1/4" />
+        <div className="absolute bottom-0 left-0 size-[600px] bg-wise-green/20 rounded-full blur-[100px] pointer-events-none -translate-x-1/3 translate-y-1/3" />
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
@@ -176,7 +176,7 @@ export default function ProfileSetupPage() {
           </div>
 
           <Card className="border-gray-200 shadow-2xl shadow-gray-200/50 rounded-[2rem] overflow-hidden bg-white/80 backdrop-blur-xl">
-            <CardHeader className="space-y-2 pb-6 pt-10 text-center">
+            <CardHeader className="gap-y-2 pb-6 pt-10 text-center">
               <CardTitle className="text-3xl font-black leading-tight text-gray-900 tracking-tight">
                 One Last Step
               </CardTitle>
@@ -186,8 +186,8 @@ export default function ProfileSetupPage() {
             </CardHeader>
 
             <CardContent className="px-8 pb-10">
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div className="space-y-2">
+              <form onSubmit={handleSubmit} className="gap-y-5">
+                <div className="gap-y-2">
                   <Label
                     htmlFor="phone"
                     className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
@@ -207,7 +207,7 @@ export default function ProfileSetupPage() {
                   />
                 </div>
 
-                <div className="space-y-2">
+                <div className="gap-y-2">
                   <Label
                     htmlFor="role_of_title"
                     className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
@@ -227,7 +227,7 @@ export default function ProfileSetupPage() {
                   />
                 </div>
 
-                <div className="space-y-2">
+                <div className="gap-y-2">
                   <Label
                     htmlFor="location"
                     className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
@@ -241,7 +241,7 @@ export default function ProfileSetupPage() {
                     id="location"
                     defaultValue={formData.location}
                     onChange={(val) =>
-                      setFormData((prev) => ({ ...prev, location: val }))
+                      setFormData((prev) => ({ …prev, location: val }))
                     }
                   />
                 </div>
@@ -250,13 +250,13 @@ export default function ProfileSetupPage() {
                   className="w-full h-12 bg-wise-green text-dark-green font-black rounded-xl hover:bg-wise-green/90 transition-all text-lg shadow-lg shadow-wise-green/20 gap-2 group mt-4"
                   disabled={isLoading}
                 >
-                  {isLoading ? "Saving..." : "Complete Setup"}
+                  {isLoading ? "Saving…" : "Complete Setup"}
                   <ArrowRight className="size-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </form>
             </CardContent>
           </Card>
-        </motion.div>
+        </m.div>
       </div>
     </APIProvider>
   );

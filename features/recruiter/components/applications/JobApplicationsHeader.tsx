@@ -30,13 +30,13 @@ export function JobApplicationsHeader({
         <div className="absolute top-0 right-0 size-64 bg-gradient-to-br from-[#9fe870]/10 to-transparent rounded-bl-full pointer-events-none" />
 
         <div className="flex flex-col md:flex-row justify-between gap-6 relative z-10">
-          <div className="space-y-4">
+          <div className="gap-y-4">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#163300]/[0.08] text-[#0e0f0c] font-[600] text-[12px]">
               <Briefcase className="size-3.5" /> Job Context
             </div>
 
             {isJobLoading ? (
-              <div className="space-y-3">
+              <div className="gap-y-3">
                 <div className="h-8 w-64 bg-[#e8ebe6] rounded animate-pulse" />
                 <div className="h-4 w-96 bg-[#e8ebe6] rounded animate-pulse" />
               </div>
