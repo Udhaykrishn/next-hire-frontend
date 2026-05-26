@@ -6,6 +6,7 @@ import type {
 } from "@/features/profile/types/profile.types";
 import { apiClient } from "@/lib/api-client";
 import type {
+  AdminJobApplication,
   AdminJobDetail,
   BackendJob,
   BackendRecruiter,
@@ -316,18 +317,21 @@ export const adminService = {
     limit = 10,
     search?: string,
     status?: string,
-  ): Promise<{ data: unknown[]; total: number }> => {
+  ): Promise<{ data: AdminJobApplication[]; total: number }> => {
     const params: Record<string, unknown> = { page, limit };
     if (search) params.search = search;
     if (status && status !== "ALL") params.status = status;
 
     const response = await apiClient.get<
-      BackendResponse<{ data: unknown[]; total: number }>
+      BackendResponse<{ data: AdminJobApplication[]; total: number }>
     >(`/job/${id}/applications`, {
       params,
     });
     return (
-      response as unknown as BackendResponse<{ data: unknown[]; total: number }>
+      response as unknown as BackendResponse<{
+        data: AdminJobApplication[];
+        total: number;
+      }>
     ).data;
   },
 

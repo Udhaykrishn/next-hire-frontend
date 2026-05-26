@@ -269,3 +269,16 @@ export interface BackendJob {
     offers: number;
   };
 }
+
+export interface AdminJobApplication {
+  id: string;
+  createdAt: string;
+  status: string;
+  candidate: {
+    id: string;
+    name: string;
+    email: string;
+    profileImage: string | null;
+    resume: string | null;
+  };
+}
