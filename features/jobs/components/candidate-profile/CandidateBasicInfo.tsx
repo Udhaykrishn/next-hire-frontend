@@ -9,6 +9,7 @@ import {
   Phone,
   User,
 } from "lucide-react";
+import Image from "next/image";
 
 export interface CandidateProfileData {
   name?: string;
@@ -45,9 +46,12 @@ export function CandidateBasicInfo({
       <div className="flex flex-col items-center text-center relative z-10 pt-4">
         <div className="w-32 h-32 rounded-full bg-[#f4f6f3] overflow-hidden border-4 border-[#ffffff] shadow-md mb-5">
           {profileImage ? (
-            <img
+            <Image
               src={profileImage}
-              alt={profile.name}
+              alt={profile.name || "Profile"}
+              width={128}
+              height={128}
+              unoptimized
               className="w-full h-full object-cover"
             />
           ) : (

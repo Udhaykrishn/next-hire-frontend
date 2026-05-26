@@ -230,10 +230,13 @@ export default function LandingPage() {
               <div className="mt-10 flex items-center gap-4 text-sm font-bold text-gray-500">
                 <div className="flex -space-x-3">
                   {[1, 2, 3, 4].map((i) => (
-                    <img
+                    <Image
                       key={i}
                       src={`https://i.pravatar.cc/100?img=${i + 10}`}
                       alt="User"
+                      width={40}
+                      height={40}
+                      unoptimized
                       className="w-10 h-10 rounded-full border-2 border-white"
                     />
                   ))}
@@ -252,9 +255,12 @@ export default function LandingPage() {
               className="relative hidden lg:block"
             >
               <div className="absolute inset-0 bg-gradient-to-tr from-wise-green/20 to-transparent rounded-3xl -rotate-6 scale-105 blur-lg" />
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&q=80"
                 alt="Team working"
+                width={600}
+                height={600}
+                unoptimized
                 className="relative rounded-3xl shadow-2xl object-cover h-[600px] w-full border border-gray-100"
               />
               <motion.div
@@ -430,9 +436,12 @@ export default function LandingPage() {
 
                 <div className="flex items-center gap-4 mt-auto pt-8 border-t border-gray-50 relative z-10">
                   <div className="relative">
-                    <img
+                    <Image
                       src={testimonial.image}
                       alt={testimonial.name}
+                      width={56}
+                      height={56}
+                      unoptimized
                       className="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm ring-2 ring-gray-50 group-hover:ring-wise-green/30 transition-all"
                     />
                     <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-wise-green border-2 border-white rounded-full flex items-center justify-center">

@@ -14,6 +14,7 @@ import {
   Phone,
 } from "lucide-react";
 import { motion } from "motion/react";
+import Image from "next/image";
 import Link from "next/link";
 import type {
   BasicInfo,
@@ -62,9 +63,12 @@ export const ProfileSidebar = ({
                 </div>
               ) : null}
               {basicInfo.avatar ? (
-                <img
+                <Image
                   src={basicInfo.avatar}
                   alt={basicInfo.name}
+                  width={96}
+                  height={96}
+                  unoptimized
                   className="w-full h-full object-cover"
                 />
               ) : (

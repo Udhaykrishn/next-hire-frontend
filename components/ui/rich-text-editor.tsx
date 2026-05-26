@@ -187,6 +187,7 @@ const ToolbarButton = ({
     disabled={disabled}
     className={cn(
       "p-2 rounded-xl transition-all duration-200 text-gray-600 hover:bg-slate-100 hover:text-near-black",
+      active && "bg-slate-200 text-near-black shadow-inner",
       disabled && "opacity-20 cursor-not-allowed",
     )}
     title={tooltip}

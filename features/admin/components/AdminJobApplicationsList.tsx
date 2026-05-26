@@ -2,6 +2,7 @@
 
 import { useDebouncedValue } from "@tanstack/react-pacer";
 import { ExternalLink, FileText, Filter, Search, Users } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { Button } from "@/components/animate-ui/components/buttons/button";
@@ -113,9 +114,12 @@ export const AdminJobApplicationsList = ({ jobId }: { jobId: string }) => {
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 bg-gray-200 rounded-full overflow-hidden flex-shrink-0">
                           {app.candidate.profileImage ? (
-                            <img
+                            <Image
                               src={app.candidate.profileImage}
                               alt={app.candidate.name}
+                              width={40}
+                              height={40}
+                              unoptimized
                               className="w-full h-full object-cover"
                             />
                           ) : (

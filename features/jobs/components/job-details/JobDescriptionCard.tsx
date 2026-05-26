@@ -1,4 +1,5 @@
 import { Building, Clock, Target } from "lucide-react";
+import Image from "next/image";
 import type { JobWithMatchScore } from "@/features/jobs/types/job.types";
 
 interface JobDescriptionCardProps {
@@ -123,9 +124,12 @@ export function JobDescriptionCard({ job }: JobDescriptionCardProps) {
         <div className="flex items-start gap-4">
           <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center border-2 border-wise-green/20 shadow-md shadow-wise-green/5 shrink-0 overflow-hidden">
             {job.companyLogo ? (
-              <img
+              <Image
                 src={job.companyLogo}
                 alt={job.hiringCompany}
+                width={64}
+                height={64}
+                unoptimized
                 className="w-full h-full object-cover"
               />
             ) : (

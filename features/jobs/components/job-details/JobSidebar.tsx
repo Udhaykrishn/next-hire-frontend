@@ -16,8 +16,6 @@ interface JobSidebarProps {
   isCandidate: boolean;
   isProfileComplete: boolean;
   missingFields: string[];
-  isApplying: boolean;
-  handleApply: () => void;
 }
 
 export function JobSidebar({
@@ -29,8 +27,6 @@ export function JobSidebar({
   isCandidate,
   isProfileComplete,
   missingFields,
-  isApplying,
-  handleApply,
 }: JobSidebarProps) {
   return (
     <aside className="lg:col-span-4 space-y-8">

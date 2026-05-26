@@ -21,6 +21,7 @@ import {
   X,
   XCircle,
 } from "lucide-react";
+import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { ConfirmationModal } from "@/components/shared/confirmation-modal";
@@ -31,6 +32,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import type { BackendJob } from "@/features/admin/types/admin.types";
 import {
   useBulkUpdateApplicationStatusMutation,
   useRecruiterJobApplicationsQuery,
@@ -63,7 +65,9 @@ export default function JobApplicationsPage() {
   const { data: jobData, isLoading: isJobLoading } = useQuery({
     queryKey: ["job-details", id],
     queryFn: async () => {
-      const response = await apiClient.get<unknown>(`/job/${id}`);
+      const response = await apiClient.get<Record<string, unknown>>(
+        `/job/${id}`,
+      );
       return response.data;
     },
   });
@@ -71,7 +75,7 @@ export default function JobApplicationsPage() {
   const { data: statsData } = useQuery({
     queryKey: ["job-stats", id],
     queryFn: async () => {
-      const response = await apiClient.get<unknown>(`/job/${id}/stats`);
+      const response = await apiClient.get(`/job/${id}/stats`);
       return response.data;
     },
   });
@@ -161,7 +165,10 @@ export default function JobApplicationsPage() {
     }
   };
 
-  const job = jobData?.data || jobData || null;
+  const job =
+    ((jobData as Record<string, unknown>)?.data as BackendJob) ||
+    (jobData as unknown as BackendJob) ||
+    null;
   const stats = statsData?.data ||
     statsData || {
       total: 0,
@@ -427,9 +434,12 @@ export default function JobApplicationsPage() {
                       </button>
                       <div className="w-12 h-12 rounded-full bg-[#e8ebe6] overflow-hidden shrink-0">
                         {app.candidate.profileImage ? (
-                          <img
+                          <Image
                             src={app.candidate.profileImage}
                             alt={app.candidate.name}
+                            width={48}
+                            height={48}
+                            unoptimized
                             className="w-full h-full object-cover"
                           />
                         ) : (

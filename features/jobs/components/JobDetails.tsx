@@ -75,8 +75,6 @@ export default function JobDetails() {
               isCandidate={isCandidate}
               isProfileComplete={isProfileComplete}
               missingFields={missingFields}
-              isApplying={isApplying}
-              handleApply={handleApply}
             />
           </div>
         </div>

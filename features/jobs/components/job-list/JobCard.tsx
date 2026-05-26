@@ -5,12 +5,16 @@ import {
   Clock,
   MapPin,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import type { JobResponse } from "@/features/jobs/types/job.types";
 
-const formatSalary = (min: number | undefined, max: number | undefined) => {
-  const minVal = min || 0;
-  const maxVal = max || 0;
+const formatSalary = (
+  min: number | string | undefined,
+  max: number | string | undefined,
+) => {
+  const minVal = Number(min) || 0;
+  const maxVal = Number(max) || 0;
   const formatINR = (val: number) => `₹${val.toLocaleString("en-IN")}`;
   if (minVal && maxVal) return `${formatINR(minVal)} – ${formatINR(maxVal)}`;
   if (minVal) return `${formatINR(minVal)}+`;
@@ -52,9 +56,12 @@ export function JobCard({ job }: JobCardProps) {
         {/* Company Logo */}
         <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center shrink-0 border border-gray-100 group-hover:border-wise-green/20 group-hover:bg-wise-green/5 transition-all overflow-hidden">
           {job.companyLogo ? (
-            <img
+            <Image
               src={job.companyLogo}
               alt={job.hiringCompany}
+              width={48}
+              height={48}
+              unoptimized
               className="w-full h-full object-cover"
             />
           ) : (

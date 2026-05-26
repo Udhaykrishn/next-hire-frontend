@@ -83,7 +83,7 @@ export default function RecruiterLayout({
 }) {
   const router = useRouter();
   const pathname = usePathname();
-  const { logout, user, isAuthenticated, isLoading } = useAuthContext();
+  const { logout, isAuthenticated, isLoading } = useAuthContext();
 
   const handleLogout = async () => {
     await logout("/login");

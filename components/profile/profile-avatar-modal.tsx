@@ -1,6 +1,7 @@
 "use client";
 
 import { Check, Eye, Trash2, Upload, ZoomIn, ZoomOut } from "lucide-react";
+import Image from "next/image";
 import Cropper from "react-easy-crop";
 import { Button } from "@/components/ui/button";
 import {
@@ -241,10 +242,12 @@ export function ProfileAvatarModal({
 
           <div className="mt-4 flex justify-center">
             <div className="relative w-64 h-64 rounded-[3rem] bg-gray-50 border-4 border-white shadow-2xl overflow-hidden flex items-center justify-center">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={avatarUrl}
                 alt={name}
+                width={256}
+                height={256}
+                unoptimized
                 className="w-full h-full object-cover"
               />
             </div>

@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Mail, Phone, ShieldCheck } from "lucide-react";
+import Image from "next/image";
 import { ProfileAvatarModal } from "@/components/profile/profile-avatar-modal";
 import type { RecruiterFormValues } from "@/features/recruiter/hooks/use-recruiter-profile";
 import type { RecruiterProfile } from "@/features/recruiter/types/recruiter.types";
@@ -37,9 +38,12 @@ export function HeroAvatarCard({
       <div className="relative group shrink-0 flex flex-col items-center">
         <div className="w-24 h-24 rounded-[1.5rem] bg-near-black text-white flex items-center justify-center font-black text-3xl overflow-hidden border-4 border-white shadow-xl ring-2 ring-gray-100">
           {avatarUrl ? (
-            <img
+            <Image
               src={avatarUrl}
-              alt={formData.name}
+              alt={formData.name || "Avatar"}
+              width={96}
+              height={96}
+              unoptimized
               className="w-full h-full object-cover"
             />
           ) : (
