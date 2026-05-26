@@ -57,7 +57,6 @@ export function ProfileAvatarModal({
   } = useAvatarManager({
     handleUploadAvatar,
     handleDeleteAvatar,
-    avatarUrl,
   });
 
   const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
