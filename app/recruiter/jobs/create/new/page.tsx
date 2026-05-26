@@ -97,7 +97,7 @@ export function JobWizard({
     setIsWalkInMapOpen,
     setCurrentStep,
     handlePostJob,
-  } = useJobForm(initialData);
+  } = useJobForm(initialData, jobId);
 
   // Use jobId in handlePostJob if needed (you may want to pass it to useJobForm or handle it in the hook)
 

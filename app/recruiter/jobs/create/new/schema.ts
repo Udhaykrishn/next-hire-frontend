@@ -25,6 +25,7 @@ export const jobStep1Schema = z
     feeReason: z.string().default(""),
     feeDetails: z.string().default(""),
     feePaymentTiming: z.string().default(""),
+    perks: z.array(z.string()).default([]),
   })
   .superRefine((data, ctx) => {
     if (data.locationType === "Work From Office" && !data.officeAddress) {
@@ -104,7 +105,6 @@ export const jobStep1Schema = z
 
 export const jobStep2Schema = z
   .object({
-    perks: z.array(z.string()),
     gender: z.string().default(""),
     minAge: z.string().default(""),
     maxAge: z.string().default(""),

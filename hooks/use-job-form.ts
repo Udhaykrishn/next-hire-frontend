@@ -13,9 +13,10 @@ import {
   jobStep5Schema,
 } from "@/app/recruiter/jobs/create/new/schema";
 import type { JobFormData } from "@/app/recruiter/jobs/create/new/types";
-import { useCreateJobMutation } from "@/features/jobs/hooks/use-jobs-query";
+import { useCreateJobMutation, useUpdateJobMutation } from "@/features/jobs/hooks/use-jobs-query";
+import { toast } from "sonner";
 
-export const useJobForm = (initialData: JobFormData) => {
+export const useJobForm = (initialData: JobFormData, jobId?: string) => {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [formData, setFormData] = useState<JobFormData>(initialData);
@@ -144,24 +145,30 @@ export const useJobForm = (initialData: JobFormData) => {
   };
 
   const { mutateAsync: createJob } = useCreateJobMutation();
+  const { mutateAsync: updateJob } = useUpdateJobMutation();
 
   const handlePostJob = async () => {
     setIsSubmitting(true);
     try {
-      await createJob(formData);
+      if (jobId) {
+        await updateJob({ jobId, data: formData });
+      } else {
+        await createJob(formData);
+      }
+      
       localStorage.removeItem("jobFormData");
       localStorage.removeItem("jobCurrentStep");
 
-      if (isPremium) {
-        alert("Job posted successfully!");
+      if (isPremium || jobId) {
+        toast.success(jobId ? "Job updated successfully!" : "Job posted successfully!");
         router.push("/recruiter/jobs");
       } else {
         router.push("/recruiter/plan");
       }
     } catch (error) {
-      console.error("Failed to post job:", error);
-      alert(
-        "Failed to post job. Please check your company verification status and subscription limits.",
+      console.error(`Failed to ${jobId ? "update" : "post"} job:`, error);
+      toast.error(
+        `Failed to ${jobId ? "update" : "post"} job. Please check your company verification status and subscription limits.`
       );
     } finally {
       setIsSubmitting(false);
