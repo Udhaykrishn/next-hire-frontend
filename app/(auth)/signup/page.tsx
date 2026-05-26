@@ -4,10 +4,11 @@ import { type CredentialResponse, GoogleLogin } from "@react-oauth/google";
 import { ArrowRight, Mail, Phone, ShieldCheck, User } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
-
 import type React from "react";
+
 import { useState } from "react";
 import { toast } from "sonner";
+import { OtpForm } from "@/components/auth/otp-form";
 import { Button } from "@/components/animate-ui/components/buttons/button";
 import { Logo } from "@/components/logo";
 import {
@@ -23,12 +24,14 @@ import { Label } from "@/components/ui/label";
 import { useAuthContext } from "@/features/auth/context/auth-context";
 import { useAuth } from "@/features/auth/hooks/use-auth";
 import { useAuthRedirect } from "@/features/auth/hooks/use-role-redirect";
+import { useRouter } from "next/navigation";
 
 export default function UserSignupPage() {
-  const { signup, googleAuth, isLoading: signupLoading, error } = useAuth();
+  const { signup, googleAuth, verifyOtp, resendOtp, isLoading: signupLoading, error } = useAuth();
   const { setUser, isAuthenticated, isLoading: authLoading } = useAuthContext();
+  const router = useRouter();
 
-  const [step, setStep] = useState<"INITIAL" | "FORM">("INITIAL");
+  const [step, setStep] = useState<"INITIAL" | "FORM" | "OTP">("INITIAL");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -79,7 +82,7 @@ export default function UserSignupPage() {
     }
 
     try {
-      const response = await signup({
+      await signup({
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
@@ -87,9 +90,30 @@ export default function UserSignupPage() {
         confirmPassword: formData.confirmPassword,
         role: "CANDIDATE",
       });
+      toast.success("Please verify your email!");
+      setStep("OTP");
+    } catch (_err) {}
+  };
+
+  const handleVerifyOtp = async (otp: string) => {
+    try {
+      const response = await verifyOtp(formData.email, otp, "user");
       setUser(response.user);
       toast.success("Account created successfully!");
-    } catch (_err) {}
+      router.push("/dashboard");
+    } catch (err) {
+      toast.error("Invalid OTP. Please try again.");
+      throw err;
+    }
+  };
+
+  const handleResendOtp = async () => {
+    try {
+      await resendOtp(formData.email, "user");
+      toast.success("OTP resent to your email.");
+    } catch (err) {
+      toast.error("Failed to resend OTP.");
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -123,12 +147,14 @@ export default function UserSignupPage() {
                 transition={{ duration: 0.3 }}
               >
                 <CardTitle className="text-3xl font-black leading-tight text-gray-900 tracking-tight">
-                  {step === "INITIAL" ? "Join NextHire" : "Create Account"}
+                  {step === "INITIAL" && "Join NextHire"}
+                  {step === "FORM" && "Create Account"}
+                  {step === "OTP" && "Verify Email"}
                 </CardTitle>
                 <CardDescription className="text-base text-gray-500 font-medium mt-2">
-                  {step === "INITIAL"
-                    ? "Start your professional career journey today."
-                    : "Fill in your details to get started."}
+                  {step === "INITIAL" && "Start your professional career journey today."}
+                  {step === "FORM" && "Fill in your details to get started."}
+                  {step === "OTP" && `We've sent a code to ${formData.email}`}
                 </CardDescription>
               </motion.div>
             </AnimatePresence>
@@ -179,7 +205,7 @@ export default function UserSignupPage() {
                     Sign up with Email
                   </Button>
                 </motion.div>
-              ) : (
+              ) : step === "FORM" ? (
                 <motion.div
                   key="form"
                   initial={{ opacity: 0, x: 20 }}
@@ -296,6 +322,25 @@ export default function UserSignupPage() {
                       </Button>
                     </div>
                   </form>
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="otp"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <OtpForm id={formData.email} role="user" onVerify={handleVerifyOtp} />
+                  <div className="mt-6 text-center">
+                    <button
+                      type="button"
+                      onClick={handleResendOtp}
+                      className="text-sm font-bold text-wise-green hover:text-dark-green transition-colors"
+                    >
+                      Resend Code
+                    </button>
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>

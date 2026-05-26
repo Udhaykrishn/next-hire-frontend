@@ -13,11 +13,12 @@ import {
   Pencil,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { JobCreationModal } from "@/components/recruiter/modals";
 import { Button } from "@/components/ui/button";
+import { JobCreationModal } from "@/components/recruiter/modals";
 import { type JobListing, useRecruiter } from "@/hooks/use-recruiter";
 import { useUpdateJobMutation } from "@/features/jobs/hooks/use-jobs-query";
 import { ConfirmationModal } from "@/components/shared/confirmation-modal";
+import { RecruiterJobStats } from "@/features/jobs/components/recruiter-job-stats";
 
 export default function RecruiterDashboard() {
   const router = useRouter();
@@ -99,26 +100,11 @@ export default function RecruiterDashboard() {
               </div>
 
               {/* Middle Column: Stats Display */}
-              <div className="flex items-center gap-10 md:border-x border-gray-100 md:px-10 h-16">
-                <div className="flex flex-col items-center">
-                  <span className="text-[18px] font-black text-gray-200 leading-none">
-                    -
-                  </span>
-                  <span className="text-[10px] font-bold text-gray-400 mt-1.5 text-center leading-tight">
-                    Applied
-                  </span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <div className="flex items-center gap-1 leading-none">
-                    <span className="text-[18px] font-black text-near-black">
-                      0
-                    </span>
-                    <Database className="w-3.5 h-3.5 text-wise-green/50" />
-                  </div>
-                  <span className="text-[10px] font-bold text-gray-400 mt-1.5 text-center leading-tight">
-                    Matches
-                  </span>
-                </div>
+              <div
+                className="cursor-pointer hover:bg-gray-50/80 transition-colors rounded-xl"
+                onClick={() => router.push(`/recruiter/jobs/${job.id}/applications`)}
+              >
+                <RecruiterJobStats jobId={job.id} />
               </div>
 
               <div className="flex items-center gap-3">

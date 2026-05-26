@@ -85,6 +85,22 @@ export const useAuth = () => {
     mutationFn: ({ data, role }) => authService.resetPassword(data, role),
   });
 
+  const verifyOtpMutation = useMutation<
+    AuthResponse,
+    Error,
+    { email: string; otp: string; role: "recruiter" | "user" }
+  >({
+    mutationFn: ({ email, otp, role }) => authService.verifyOtp(email, otp, role),
+  });
+
+  const resendOtpMutation = useMutation<
+    { message: string },
+    Error,
+    { email: string; role: "recruiter" | "user" }
+  >({
+    mutationFn: ({ email, role }) => authService.resendOtp(email, role),
+  });
+
   const login = async (
     email: string,
     password: string,
@@ -120,13 +136,23 @@ export const useAuth = () => {
     return resetPasswordMutation.mutateAsync({ data, role });
   };
 
+  const verifyOtp = async (email: string, otp: string, role: "recruiter" | "user") => {
+    return verifyOtpMutation.mutateAsync({ email, otp, role });
+  };
+
+  const resendOtp = async (email: string, role: "recruiter" | "user") => {
+    return resendOtpMutation.mutateAsync({ email, role });
+  };
+
   const isLoading =
     loginMutation.isPending ||
     signupMutation.isPending ||
     googleAuthMutation.isPending ||
     logoutMutation.isPending ||
     forgotPasswordMutation.isPending ||
-    resetPasswordMutation.isPending;
+    resetPasswordMutation.isPending ||
+    verifyOtpMutation.isPending ||
+    resendOtpMutation.isPending;
 
   const error =
     loginMutation.error?.message ||
@@ -135,6 +161,8 @@ export const useAuth = () => {
     logoutMutation.error?.message ||
     forgotPasswordMutation.error?.message ||
     resetPasswordMutation.error?.message ||
+    verifyOtpMutation.error?.message ||
+    resendOtpMutation.error?.message ||
     null;
 
   return {
@@ -144,6 +172,8 @@ export const useAuth = () => {
     logout,
     forgotPassword,
     resetPassword,
+    verifyOtp,
+    resendOtp,
     isLoading,
     error,
   };
