@@ -102,6 +102,7 @@ export function PricingContent({
             <div className="flex justify-center mb-12">
               <div className="bg-gray-100 p-1 rounded-2xl flex items-center gap-1 border border-gray-200">
                 <button
+                  type="button"
                   onClick={() => setType("candidate")}
                   className={cn(
                     "px-6 py-2 rounded-xl text-[14px] font-black transition-all",
@@ -216,7 +217,10 @@ export function PricingContent({
         <section className="px-4 text-center">
           <p className="text-[14px] text-gray-500 font-medium">
             Need a custom plan for your organization?{" "}
-            <button className="text-wise-green font-black hover:underline ml-1">
+            <button
+              type="button"
+              className="text-wise-green font-black hover:underline ml-1"
+            >
               Contact our team
             </button>
           </p>

@@ -40,6 +40,7 @@ export function CompanyVerificationFlow() {
   return (
     <div className="max-w-md mx-auto w-full space-y-8">
       <button
+        type="button"
         onClick={() => router.push("/recruiter/profile")}
         className="flex items-center text-sm font-medium text-gray-500 hover:text-near-black transition-colors"
       >

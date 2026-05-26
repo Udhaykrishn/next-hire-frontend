@@ -242,7 +242,7 @@ function LoginContent() {
                     </div>
                     <div className="flex gap-3 mt-2 pt-2">
                       <Button
-                        type="button"
+                        type="submit"
                         variant="outline"
                         onClick={() => setStep("INITIAL")}
                         className="h-12 border-gray-200 text-gray-600 rounded-xl flex-1 hover:bg-gray-50"
@@ -250,7 +250,6 @@ function LoginContent() {
                         Back
                       </Button>
                       <Button
-                        type="submit"
                         className="h-12 bg-wise-green text-dark-green font-black rounded-xl hover:bg-wise-green/90 transition-all text-lg shadow-lg shadow-wise-green/20 flex-[2] gap-2 group"
                         disabled={loginLoading}
                       >

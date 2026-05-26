@@ -60,6 +60,7 @@ export function ApplicationDetails({
       {resumeUrl && (
         <div className="pt-3">
           <button
+            type="button"
             onClick={() => window.open(resumeUrl, "_blank")}
             className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-[12px] bg-[#054d28] text-white font-[600] text-[15px] hover:bg-[#054d28]/90 transition-all shadow-sm"
           >

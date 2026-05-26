@@ -2,16 +2,15 @@
 
 import { ChevronRight, Search, Sparkles } from "lucide-react";
 import { motion } from "motion/react";
+import Link from "next/link";
 import { LandingFooter } from "@/components/landing-footer";
 import { LandingNavbar } from "@/components/landing-navbar";
 import { GlobalLoader } from "@/components/shared/global-loader";
 import { useJobList } from "../hooks/use-job-list";
-
-import { JobCard } from "./job-list/JobCard";
-import { JobSearchBar } from "./job-list/JobSearchBar";
 import { JobActiveFilters } from "./job-list/JobActiveFilters";
+import { JobCard } from "./job-list/JobCard";
 import { JobFiltersSidebar } from "./job-list/JobFiltersSidebar";
-import Link from "next/link";
+import { JobSearchBar } from "./job-list/JobSearchBar";
 
 export default function JobList() {
   const {
@@ -90,7 +89,10 @@ export default function JobList() {
                   Sort by:
                 </span>
                 <div className="relative group/sort">
-                  <button className="text-[13px] font-bold text-gray-900 flex items-center gap-1 hover:text-dark-green transition-colors">
+                  <button
+                    type="button"
+                    className="text-[13px] font-bold text-gray-900 flex items-center gap-1 hover:text-dark-green transition-colors"
+                  >
                     {sort}{" "}
                     <ChevronRight className="w-3.5 h-3.5 group-hover/sort:rotate-90 transition-transform" />
                   </button>
@@ -98,6 +100,7 @@ export default function JobList() {
                     {["Relevance", "Newest", "Salary (High to Low)"].map(
                       (opt) => (
                         <button
+                          type="button"
                           key={opt}
                           onClick={() => setSort(opt)}
                           className={`w-full text-left px-4 py-2 text-[12px] font-bold hover:bg-gray-50 transition-colors ${sort === opt ? "text-wise-green" : "text-gray-600"}`}
@@ -118,10 +121,11 @@ export default function JobList() {
                 </div>
               )}
               <div
-                className={`space-y-4 transition-opacity duration-300 ${isListLoading
-                  ? "opacity-30 pointer-events-none"
-                  : "opacity-100"
-                  }`}
+                className={`space-y-4 transition-opacity duration-300 ${
+                  isListLoading
+                    ? "opacity-30 pointer-events-none"
+                    : "opacity-100"
+                }`}
               >
                 {jobs.map((job, index) => (
                   <motion.div

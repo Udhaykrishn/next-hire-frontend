@@ -316,18 +316,18 @@ export const adminService = {
     limit = 10,
     search?: string,
     status?: string,
-  ): Promise<{ data: any[]; total: number }> => {
-    const params: any = { page, limit };
+  ): Promise<{ data: unknown[]; total: number }> => {
+    const params: Record<string, unknown> = { page, limit };
     if (search) params.search = search;
     if (status && status !== "ALL") params.status = status;
 
     const response = await apiClient.get<
-      BackendResponse<{ data: any[]; total: number }>
+      BackendResponse<{ data: unknown[]; total: number }>
     >(`/job/${id}/applications`, {
       params,
     });
     return (
-      response as unknown as BackendResponse<{ data: any[]; total: number }>
+      response as unknown as BackendResponse<{ data: unknown[]; total: number }>
     ).data;
   },
 

@@ -90,7 +90,10 @@ export default function RecruiterJobsPage() {
                 >
                   Edit Job
                 </Link>
-                <button className="px-4 py-2 text-sm font-bold text-near-black bg-slate-50 hover:bg-slate-100 transition-colors rounded-full border border-slate-200">
+                <button
+                  type="button"
+                  className="px-4 py-2 text-sm font-bold text-near-black bg-slate-50 hover:bg-slate-100 transition-colors rounded-full border border-slate-200"
+                >
                   View Details
                 </button>
               </div>

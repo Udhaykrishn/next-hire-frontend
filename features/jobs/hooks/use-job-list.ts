@@ -1,4 +1,4 @@
-import { useState, useTransition } from "react";
+import { useState } from "react";
 import { useDebounceValue } from "usehooks-ts";
 import { useAuthContext } from "@/features/auth/context/auth-context";
 import { useJobsForCandidateQuery } from "./use-jobs-query";

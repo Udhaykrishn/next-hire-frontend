@@ -142,7 +142,7 @@ const GoogleLocationInput = ({
           {data.map((suggestion) => (
             <li key={suggestion.place_id}>
               <button
-                type="button"
+                type="submit"
                 onClick={handleSelect(suggestion)}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" || e.key === " ") {
@@ -461,10 +461,7 @@ export default function EditBasicInfoPage() {
             )}
           </div>
 
-          <Button
-            type="submit"
-            className="w-full h-12 bg-wise-green text-dark-green rounded-xl text-[14px] font-black shadow-md shadow-wise-green/10 transition-all hover:bg-wise-green/90"
-          >
+          <Button className="w-full h-12 bg-wise-green text-dark-green rounded-xl text-[14px] font-black shadow-md shadow-wise-green/10 transition-all hover:bg-wise-green/90">
             Save Changes
           </Button>
         </form>

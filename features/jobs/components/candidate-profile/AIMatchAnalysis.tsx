@@ -27,6 +27,7 @@ export function AIMatchAnalysis({
             job requirements.
           </p>
           <button
+            type="button"
             onClick={() => onAnalyze()}
             disabled={isAnalyzing}
             className="w-full py-2.5 bg-[#f9faf9] border border-[#38c8ff]/30 text-[#054d28] rounded-[12px] text-[14px] font-[700] hover:bg-[#38c8ff]/10 transition-colors flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
@@ -87,6 +88,7 @@ export function AIMatchAnalysis({
           </p>
           <div className="flex gap-2 mt-2 w-full">
             <button
+              type="button"
               onClick={() => onAnalyze(true)}
               className="flex-1 text-[12px] font-[600] text-[#868685] hover:text-[#054d28] bg-[#f9faf9] border border-[rgba(14,15,12,0.05)] py-1.5 rounded-lg transition-colors"
             >

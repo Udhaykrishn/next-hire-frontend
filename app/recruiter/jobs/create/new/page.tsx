@@ -183,7 +183,10 @@ export function JobWizard({
               </h1>
             </div>
             <div className="flex items-center gap-6">
-              <button className="flex items-center gap-2 text-[13px] font-bold text-slate-500 hover:text-near-black">
+              <button
+                type="button"
+                className="flex items-center gap-2 text-[13px] font-bold text-slate-500 hover:text-near-black"
+              >
                 <div className="w-5 h-5 rounded-full bg-slate-100 flex items-center justify-center">
                   <span className="text-[11px]">?</span>
                 </div>

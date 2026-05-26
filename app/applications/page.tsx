@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  Building,
-  CheckCircle,
-  Clock,
-  FileText,
-  Search,
-  ShieldCheck,
-} from "lucide-react";
+import { Clock, FileText, Search } from "lucide-react";
 import { motion } from "motion/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

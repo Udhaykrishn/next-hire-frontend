@@ -10,12 +10,10 @@ import {
   CheckSquare,
   Clock,
   ExternalLink,
-  FileText,
   IndianRupee,
   Mail,
   MapPin,
   MoreVertical,
-  Phone,
   Search,
   Square,
   User,
@@ -65,7 +63,7 @@ export default function JobApplicationsPage() {
   const { data: jobData, isLoading: isJobLoading } = useQuery({
     queryKey: ["job-details", id],
     queryFn: async () => {
-      const response = await apiClient.get<any>(`/job/${id}`);
+      const response = await apiClient.get<unknown>(`/job/${id}`);
       return response.data;
     },
   });
@@ -73,7 +71,7 @@ export default function JobApplicationsPage() {
   const { data: statsData } = useQuery({
     queryKey: ["job-stats", id],
     queryFn: async () => {
-      const response = await apiClient.get<any>(`/job/${id}/stats`);
+      const response = await apiClient.get<unknown>(`/job/${id}/stats`);
       return response.data;
     },
   });
@@ -178,6 +176,7 @@ export default function JobApplicationsPage() {
       {/* Top Header & Job Context */}
       <div className="flex flex-col gap-5 pt-2">
         <button
+          type="button"
           onClick={() => router.push("/recruiter/dashboard")}
           className="group flex items-center gap-2 w-fit text-[14px] font-[500] text-[#868685] hover:text-[#0e0f0c] transition-colors"
         >
@@ -330,6 +329,7 @@ export default function JobApplicationsPage() {
               {selectedCandidates.length > 1 ? "s" : ""} selected
             </span>
             <button
+              type="button"
               onClick={() => setSelectedCandidates([])}
               className="text-[13px] font-[600] text-[#868685] hover:text-[#0e0f0c] transition-colors flex items-center gap-1"
             >
@@ -345,6 +345,7 @@ export default function JobApplicationsPage() {
               <CheckCircle2 className="w-4 h-4" /> Shortlist Selected
             </button>
             <button
+              type="button"
               disabled={isBulkUpdating || isConfirming}
               onClick={() => handleBulkUpdateClick("REJECTED")}
               className="flex-1 md:flex-none flex items-center justify-center gap-1.5 px-5 py-2 rounded-full bg-[#ffffff] border border-[rgba(14,15,12,0.12)] hover:bg-[#d03238]/10 hover:text-[#d03238] hover:border-[#d03238]/30 text-[#0e0f0c] font-[600] text-[13px] transition-colors disabled:opacity-50"
@@ -382,6 +383,7 @@ export default function JobApplicationsPage() {
                 .filter((c) => c <= data.data.length)
                 .map((count) => (
                   <button
+                    type="button"
                     key={count}
                     onClick={() => handleSelectTop(count)}
                     className="px-3 py-1 rounded-full text-[12px] font-[600] bg-[#e8ebe6] text-[#454745] hover:bg-[#d4d7d3] hover:text-[#0e0f0c] transition-colors"
@@ -534,6 +536,7 @@ export default function JobApplicationsPage() {
 
                   <div className="flex gap-2">
                     <button
+                      type="button"
                       onClick={() =>
                         router.push(
                           `/recruiter/jobs/${id}/applications/${app.id}?candidateId=${app.candidate.id}`,
@@ -573,6 +576,7 @@ export default function JobApplicationsPage() {
             </p>
             {(search || statusFilter !== "ALL") && (
               <button
+                type="button"
                 onClick={() => {
                   setSearch("");
                   setStatusFilter("ALL");

@@ -1,7 +1,12 @@
-import { Building2, MapPin, Briefcase, Clock, ChevronRight } from "lucide-react";
-import type { JobResponse } from "@/features/jobs/types/job.types";
-
+import {
+  Briefcase,
+  Building2,
+  ChevronRight,
+  Clock,
+  MapPin,
+} from "lucide-react";
 import Link from "next/link";
+import type { JobResponse } from "@/features/jobs/types/job.types";
 
 const formatSalary = (min: number | undefined, max: number | undefined) => {
   const minVal = min || 0;
@@ -30,7 +35,6 @@ const formatDate = (dateStr: string | undefined) => {
   if (diffDays < 7) return `${diffDays}d ago`;
   return `${Math.floor(diffDays / 7)}w ago`;
 };
-
 
 interface JobCardProps {
   job: JobResponse;
@@ -73,7 +77,10 @@ export function JobCard({ job }: JobCardProps) {
               </p>
             </div>
             <span className="shrink-0 px-3 py-1 rounded-lg bg-wise-green/10 text-dark-green text-[12px] font-black border border-wise-green/15">
-              {formatSalary(job.minSalary as any, job.maxSalary as any)}
+              {formatSalary(
+                job.minSalary as number | string,
+                job.maxSalary as number | string,
+              )}
             </span>
           </div>
 

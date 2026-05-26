@@ -95,6 +95,7 @@ export function JobHeaderCard({
           )}
         </Button>
         <button
+          type="button"
           onClick={handleShare}
           className="h-12 px-6 rounded-lg border border-dark-green text-dark-green font-medium flex items-center justify-center gap-2 hover:bg-dark-green/5 transition-colors"
         >

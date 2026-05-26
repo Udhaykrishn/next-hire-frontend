@@ -194,6 +194,7 @@ export default function RecruiterOnboardingPage() {
                           },
                         ].map((type) => (
                           <button
+                            type="button"
                             key={type.id}
                             onClick={() =>
                               setOnboardingType(type.id as OnboardingType)

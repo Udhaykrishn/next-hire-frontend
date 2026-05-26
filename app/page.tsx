@@ -195,6 +195,7 @@ export default function LandingPage() {
                 {["Remote", "MNC", "Software", "Startup", "Fortune 500"].map(
                   (tag) => (
                     <button
+                      type="button"
                       key={tag}
                       className="px-4 py-1.5 rounded-full bg-wise-green/10 text-dark-green text-xs font-bold border border-wise-green/20 hover:bg-wise-green hover:text-dark-green transition-all hover:scale-105 active:scale-95"
                     >

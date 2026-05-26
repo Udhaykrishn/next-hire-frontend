@@ -153,6 +153,7 @@ export default function RecruiterPlanSetupPage() {
                 Monthly
               </span>
               <button
+                type="button"
                 onClick={() =>
                   setBillingCycle((prev) =>
                     prev === "monthly" ? "yearly" : "monthly",

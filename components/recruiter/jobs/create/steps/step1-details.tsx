@@ -1,16 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  Banknote,
-  Briefcase,
-  Check,
-  Coins,
-  CreditCard,
-  FileText,
-  Layers,
-  Wallet,
-} from "lucide-react";
+import { Briefcase, Check, FileText, Layers } from "lucide-react";
 import type React from "react";
 import { JOB_CATEGORIES } from "@/app/recruiter/jobs/create/new/constants";
 import type { JobFormData } from "@/app/recruiter/jobs/create/new/types";

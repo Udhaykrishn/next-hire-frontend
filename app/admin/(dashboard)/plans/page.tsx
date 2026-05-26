@@ -196,6 +196,7 @@ export default function PlansAdmin() {
                     <div className="flex gap-4">
                       {["candidate", "recruiter"].map((type) => (
                         <button
+                          type="button"
                           key={type}
                           onClick={() =>
                             setNewPlan({
@@ -248,6 +249,7 @@ export default function PlansAdmin() {
                     </div>
                     <div className="flex items-center gap-4 pt-2">
                       <button
+                        type="button"
                         onClick={() =>
                           setNewPlan({
                             ...newPlan,
@@ -344,7 +346,6 @@ export default function PlansAdmin() {
                 <div className="flex gap-6">
                   <Button
                     variant="ghost"
-                    type="button"
                     onClick={() => setIsCreating(false)}
                     className="h-16 px-12 rounded-[1.5rem] font-black text-sm uppercase tracking-widest text-gray-400 hover:text-near-black"
                   >

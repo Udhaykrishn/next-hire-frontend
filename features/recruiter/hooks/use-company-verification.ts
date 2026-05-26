@@ -41,7 +41,8 @@ export function useCompanyVerification() {
       setStep("CIN");
       setCin("");
       setOtp("");
-    } catch (error: any) {
+    } catch (err: unknown) {
+      const error = err as { response?: { data?: { message?: string } } };
       toast.error(
         error?.response?.data?.message || "Failed to delete session.",
       );
@@ -61,7 +62,8 @@ export function useCompanyVerification() {
       );
       setStep("OTP");
       sessionQuery.refetch();
-    } catch (error: any) {
+    } catch (err: unknown) {
+      const error = err as { response?: { data?: { message?: string } } };
       toast.error(
         error?.response?.data?.message || "Failed to start verification.",
       );
@@ -78,7 +80,8 @@ export function useCompanyVerification() {
       await verifyMutation.mutateAsync(otp);
       toast.success("Company successfully verified!");
       router.push("/recruiter/profile");
-    } catch (error: any) {
+    } catch (err: unknown) {
+      const error = err as { response?: { data?: { message?: string } } };
       toast.error(error?.response?.data?.message || "Invalid OTP.");
     }
   };

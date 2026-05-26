@@ -117,7 +117,7 @@ export default function UserSignupPage() {
     try {
       await resendOtp(formData.email, "user");
       toast.success("OTP resent to your email.");
-    } catch (err) {
+    } catch (_err) {
       toast.error("Failed to resend OTP.");
     }
   };
@@ -312,7 +312,7 @@ export default function UserSignupPage() {
                     </div>
                     <div className="flex gap-3 mt-4">
                       <Button
-                        type="button"
+                        type="submit"
                         variant="outline"
                         onClick={() => setStep("INITIAL")}
                         className="h-12 border-gray-200 text-gray-600 rounded-xl flex-1 hover:bg-gray-50"
@@ -320,7 +320,6 @@ export default function UserSignupPage() {
                         Back
                       </Button>
                       <Button
-                        type="submit"
                         className="h-12 bg-wise-green text-dark-green font-black rounded-xl hover:bg-wise-green/90 transition-all text-lg shadow-lg shadow-wise-green/20 flex-[2] gap-2 group"
                         disabled={signupLoading}
                       >
@@ -338,11 +337,7 @@ export default function UserSignupPage() {
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <OtpForm
-                    id={formData.email}
-                    role="user"
-                    onVerify={handleVerifyOtp}
-                  />
+                  <OtpForm id={formData.email} onVerify={handleVerifyOtp} />
                   <div className="mt-6 text-center">
                     <button
                       type="button"

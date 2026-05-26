@@ -96,7 +96,7 @@ export default function RecruiterSignupPage() {
     try {
       await resendOtp(formData.email, "recruiter");
       toast.success("OTP resent to your email.");
-    } catch (err) {
+    } catch (_err) {
       toast.error("Failed to resend OTP.");
     }
   };
@@ -260,11 +260,7 @@ export default function RecruiterSignupPage() {
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.3 }}
               >
-                <OtpForm
-                  id={formData.email}
-                  role="recruiter"
-                  onVerify={handleVerifyOtp}
-                />
+                <OtpForm id={formData.email} onVerify={handleVerifyOtp} />
                 <div className="mt-6 text-center">
                   <button
                     type="button"

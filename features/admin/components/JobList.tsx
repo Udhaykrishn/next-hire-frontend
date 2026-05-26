@@ -213,6 +213,7 @@ export const JobList = () => {
                   <td className="px-6 py-4 text-right">
                     <div className="flex items-center justify-end gap-2">
                       <button
+                        type="button"
                         onClick={() => handleAction(job, "details")}
                         className="p-2 text-gray-400 hover:text-wise-green hover:bg-wise-green/10 rounded-xl transition-all outline-none"
                         title="View Details"
@@ -221,6 +222,7 @@ export const JobList = () => {
                       </button>
                       {job.status === "OPEN" ? (
                         <button
+                          type="button"
                           onClick={() => handleAction(job, "block")}
                           className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all outline-none"
                           title="Flag as Threat / Scam"
@@ -229,6 +231,7 @@ export const JobList = () => {
                         </button>
                       ) : (
                         <button
+                          type="button"
                           onClick={() => handleAction(job, "unblock")}
                           className="p-2 text-gray-400 hover:text-green-600 hover:bg-green-50 rounded-xl transition-all outline-none"
                           title="Activate Job Post"

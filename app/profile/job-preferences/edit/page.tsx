@@ -139,8 +139,8 @@ export default function EditJobPreferencesPage() {
               <div className="grid grid-cols-3 gap-2">
                 {CURRENCIES.map((curr) => (
                   <button
+                    type="submit"
                     key={curr.code}
-                    type="button"
                     onClick={() => setCurrency(curr.code)}
                     className={cn(
                       "px-3 py-2.5 rounded-xl border text-[12px] font-bold transition-all text-center",
@@ -164,8 +164,8 @@ export default function EditJobPreferencesPage() {
               <div className="grid grid-cols-3 gap-2">
                 {FREQUENCIES.map((freq) => (
                   <button
-                    key={freq.value}
                     type="button"
+                    key={freq.value}
                     onClick={() => setFrequency(freq.value)}
                     className={cn(
                       "px-3 py-2.5 rounded-xl border text-[12px] font-bold transition-all text-center",
@@ -190,8 +190,8 @@ export default function EditJobPreferencesPage() {
             <div className="grid grid-cols-2 gap-2">
               {FORMATS.map((fmt) => (
                 <button
-                  key={fmt.value}
                   type="button"
+                  key={fmt.value}
                   onClick={() => setFormat(fmt.value)}
                   className={cn(
                     "px-3 py-2.5 rounded-xl border text-[12px] font-bold transition-all text-center",
@@ -277,10 +277,7 @@ export default function EditJobPreferencesPage() {
           )}
         </div>
 
-        <Button
-          type="submit"
-          className="w-full h-12 bg-wise-green text-dark-green rounded-xl text-[14px] font-black shadow-md shadow-wise-green/10 transition-all hover:bg-wise-green/90"
-        >
+        <Button className="w-full h-12 bg-wise-green text-dark-green rounded-xl text-[14px] font-black shadow-md shadow-wise-green/10 transition-all hover:bg-wise-green/90">
           Save Preferences
         </Button>
       </form>

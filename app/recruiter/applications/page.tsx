@@ -1,6 +1,6 @@
 "use client";
 
-import { CheckCircle, Clock, Filter, Users } from "lucide-react";
+import { CheckCircle, Filter, Users } from "lucide-react";
 import { motion } from "motion/react";
 import { Button } from "@/components/animate-ui/components/buttons/button";
 

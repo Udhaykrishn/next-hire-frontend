@@ -56,6 +56,7 @@ export default function CandidateProfilePage() {
           The requested candidate profile could not be loaded.
         </p>
         <button
+          type="button"
           onClick={handleGoBack}
           className="px-6 py-2.5 bg-[#0e0f0c] text-white rounded-full text-[14px] font-[600] hover:bg-[#0e0f0c]/80 transition-colors"
         >

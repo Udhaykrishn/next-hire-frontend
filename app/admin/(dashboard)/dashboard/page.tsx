@@ -47,7 +47,10 @@ export default function AdminDashboard() {
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <button className="px-5 py-2.5 bg-white border border-gray-100 rounded-xl text-sm font-bold text-gray-600 hover:bg-gray-50 transition-all shadow-sm">
+          <button
+            type="button"
+            className="px-5 py-2.5 bg-white border border-gray-100 rounded-xl text-sm font-bold text-gray-600 hover:bg-gray-50 transition-all shadow-sm"
+          >
             Download Report
           </button>
           <button className="px-5 py-2.5 bg-near-black text-white rounded-xl text-sm font-black hover:bg-wise-green hover:text-near-black transition-all shadow-lg shadow-near-black/10">
@@ -141,7 +144,10 @@ export default function AdminDashboard() {
               </div>
             ))}
           </div>
-          <button className="w-full mt-8 py-3 bg-white/5 hover:bg-white/10 rounded-xl text-xs font-black uppercase tracking-widest transition-all border border-white/10">
+          <button
+            type="button"
+            className="w-full mt-8 py-3 bg-white/5 hover:bg-white/10 rounded-xl text-xs font-black uppercase tracking-widest transition-all border border-white/10"
+          >
             View All Activity
           </button>
         </div>

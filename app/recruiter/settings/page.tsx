@@ -148,7 +148,6 @@ export default function RecruiterSettings() {
             </p>
 
             <Button
-              type="button"
               onClick={handleResetPassword}
               variant="outline"
               className="w-full h-11 rounded-xl border-orange-200 text-orange-700 hover:bg-orange-100 hover:border-orange-300 transition-colors font-bold text-sm bg-white"

@@ -240,7 +240,7 @@ export const authService = {
 
   resendOtp: async (
     email: string,
-    role: "recruiter" | "user",
+    _role: "recruiter" | "user",
   ): Promise<{ message: string }> => {
     // Both user and recruiter use the same redis keys and mechanism for OTP,
     // and the backend only provides resend-otp on the user router.

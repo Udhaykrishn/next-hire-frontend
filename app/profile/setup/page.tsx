@@ -103,7 +103,7 @@ const GoogleLocationInput = ({
           {data.map((suggestion) => (
             <li key={suggestion.place_id}>
               <button
-                type="button"
+                type="submit"
                 onClick={handleSelect(suggestion)}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" || e.key === " ") {
@@ -247,7 +247,6 @@ export default function ProfileSetupPage() {
                 </div>
 
                 <Button
-                  type="submit"
                   className="w-full h-12 bg-wise-green text-dark-green font-black rounded-xl hover:bg-wise-green/90 transition-all text-lg shadow-lg shadow-wise-green/20 gap-2 group mt-4"
                   disabled={isLoading}
                 >

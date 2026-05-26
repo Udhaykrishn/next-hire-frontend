@@ -3,9 +3,7 @@ import { motion } from "framer-motion";
 import {
   Briefcase,
   Clock,
-  Database,
   Info,
-  MoreVertical,
   Navigation,
   Pencil,
   Plus,
