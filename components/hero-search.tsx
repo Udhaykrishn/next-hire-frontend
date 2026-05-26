@@ -32,7 +32,7 @@ export function HeroSearch() {
         className="relative flex items-center bg-white border border-gray-100 rounded-full shadow-2xl shadow-gray-200/50 p-2 group focus-within:ring-2 focus-within:ring-wise-green/20 transition-all"
       >
         <div className="flex-1 flex items-center px-4 group/item">
-          <Search className="w-5 h-5 text-gray-400 group-focus-within:text-wise-green transition-colors shrink-0" />
+          <Search className="size-5 text-gray-400 group-focus-within:text-wise-green transition-colors shrink-0" />
           <input
             type="text"
             value={query}
@@ -43,8 +43,8 @@ export function HeroSearch() {
         </div>
         <div className="w-[1px] h-8 bg-gray-100" />
         <div className="flex-1 flex items-center px-4 group/item">
-          <div className="w-5 h-5 flex items-center justify-center shrink-0">
-            <div className="w-1.5 h-1.5 rounded-full bg-gray-400 group-focus-within:bg-wise-green transition-colors" />
+          <div className="size-5 flex items-center justify-center shrink-0">
+            <div className="size-1.5 rounded-full bg-gray-400 group-focus-within:bg-wise-green transition-colors" />
           </div>
           <input
             type="text"

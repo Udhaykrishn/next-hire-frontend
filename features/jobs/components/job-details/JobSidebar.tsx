@@ -38,8 +38,8 @@ export function JobSidebar({
           className="bg-white rounded-[2.5rem] p-8 relative overflow-hidden border border-gray-100 shadow-xl shadow-wise-green/5"
         >
           {/* Decorative Background Elements - Light Version */}
-          <div className="absolute -top-24 -right-24 w-64 h-64 bg-wise-green/5 rounded-full blur-[80px] pointer-events-none" />
-          <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-blue-500/5 rounded-full blur-[60px] pointer-events-none" />
+          <div className="absolute -top-24 -right-24 size-64 bg-wise-green/5 rounded-full blur-[80px] pointer-events-none" />
+          <div className="absolute -bottom-24 -left-24 size-64 bg-blue-500/5 rounded-full blur-[60px] pointer-events-none" />
 
           <div className="relative z-10">
             {hasApplied ? (
@@ -85,8 +85,8 @@ export function JobSidebar({
               !isProfileComplete && (
                 <div className="p-5 rounded-2xl bg-amber-50 border border-amber-100 mb-6 space-y-4 text-left">
                   <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center shrink-0 mt-0.5">
-                      <AlertTriangle className="w-4 h-4 text-amber-600" />
+                    <div className="size-8 rounded-lg bg-amber-100 flex items-center justify-center shrink-0 mt-0.5">
+                      <AlertTriangle className="size-4 text-amber-600" />
                     </div>
                     <div className="space-y-1">
                       <h4 className="text-[14px] font-black text-amber-900 leading-tight">
@@ -109,7 +109,7 @@ export function JobSidebar({
                           key={field}
                           className="flex items-center gap-2 text-[12px] text-amber-700 font-bold"
                         >
-                          <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+                          <span className="size-1.5 rounded-full bg-amber-400" />
                           {field}
                         </li>
                       ))}
@@ -122,7 +122,7 @@ export function JobSidebar({
                       className="inline-flex items-center gap-1.5 text-[12px] font-black text-amber-900 hover:text-black uppercase tracking-wider transition-colors group/link"
                     >
                       Complete Profile Now
-                      <ArrowRight className="w-3.5 h-3.5 group-hover/link:translate-x-0.5 transition-transform" />
+                      <ArrowRight className="size-3.5 group-hover/link:translate-x-0.5 transition-transform" />
                     </Link>
                   </div>
                 </div>
@@ -135,11 +135,11 @@ export function JobSidebar({
       {/* Safety/Verification Widget */}
       <div className="bg-white rounded-[2.5rem] p-8 border border-wise-green/10 shadow-lg shadow-wise-green/5 relative overflow-hidden">
         {/* Subtle Background Accent */}
-        <div className="absolute top-0 right-0 w-32 h-32 bg-wise-green/5 rounded-bl-full pointer-events-none" />
+        <div className="absolute top-0 right-0 size-32 bg-wise-green/5 rounded-bl-full pointer-events-none" />
         <div className="relative z-10">
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-8 h-8 rounded-full bg-wise-green/20 flex items-center justify-center">
-              <ShieldCheck className="w-4 h-4 text-dark-green" />
+            <div className="size-8 rounded-full bg-wise-green/20 flex items-center justify-center">
+              <ShieldCheck className="size-4 text-dark-green" />
             </div>
             <h4 className="text-[14px] font-black text-dark-green uppercase tracking-widest">
               Verified Employer

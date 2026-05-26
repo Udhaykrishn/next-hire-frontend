@@ -54,7 +54,7 @@ export function JobCard({ job }: JobCardProps) {
     >
       <div className="flex gap-4">
         {/* Company Logo */}
-        <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center shrink-0 border border-gray-100 group-hover:border-wise-green/20 group-hover:bg-wise-green/5 transition-all overflow-hidden">
+        <div className="size-12 bg-gray-50 rounded-xl flex items-center justify-center shrink-0 border border-gray-100 group-hover:border-wise-green/20 group-hover:bg-wise-green/5 transition-all overflow-hidden">
           {job.companyLogo ? (
             <Image
               src={job.companyLogo}
@@ -62,7 +62,7 @@ export function JobCard({ job }: JobCardProps) {
               width={48}
               height={48}
               unoptimized
-              className="w-full h-full object-cover"
+              className="size-full object-cover"
             />
           ) : (
             <span className="text-lg font-black text-gray-300 group-hover:text-wise-green transition-colors">
@@ -79,7 +79,7 @@ export function JobCard({ job }: JobCardProps) {
                 {job.jobTitle}
               </h3>
               <p className="text-[13px] font-medium text-gray-400 flex items-center gap-1.5 mt-0.5">
-                <Building2 className="w-3.5 h-3.5 shrink-0" />
+                <Building2 className="size-3.5 shrink-0" />
                 <span className="truncate">{job.hiringCompany}</span>
               </p>
             </div>
@@ -94,15 +94,15 @@ export function JobCard({ job }: JobCardProps) {
           {/* Meta Row */}
           <div className="flex items-center gap-4 mt-3 mb-3">
             <span className="flex items-center gap-1 text-[11px] font-bold text-gray-400">
-              <MapPin className="w-3 h-3" />
+              <MapPin className="size-3" />
               {job.jobCity || "Remote"}
             </span>
             <span className="flex items-center gap-1 text-[11px] font-bold text-gray-400">
-              <Briefcase className="w-3 h-3" />
+              <Briefcase className="size-3" />
               {job.jobType}
             </span>
             <span className="flex items-center gap-1 text-[11px] font-bold text-gray-400">
-              <Clock className="w-3 h-3" />
+              <Clock className="size-3" />
               {formatDate(job.created_at)}
             </span>
           </div>
@@ -131,7 +131,7 @@ export function JobCard({ job }: JobCardProps) {
             </div>
             <span className="flex items-center gap-1 text-[12px] font-bold text-dark-green opacity-0 group-hover:opacity-100 transition-opacity">
               View Details
-              <ChevronRight className="w-3.5 h-3.5" />
+              <ChevronRight className="size-3.5" />
             </span>
           </div>
         </div>

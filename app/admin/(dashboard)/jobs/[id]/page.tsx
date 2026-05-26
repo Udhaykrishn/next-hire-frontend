@@ -22,7 +22,7 @@ export default async function Page({
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense fallback={<p className="text-center">Loading...</p>}>
+      <Suspense fallback={<p className="text-center">Loading…</p>}>
         <AdminJobDetails id={id} />
       </Suspense>
     </HydrationBoundary>

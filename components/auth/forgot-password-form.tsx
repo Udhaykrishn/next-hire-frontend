@@ -38,8 +38,8 @@ export function ForgotPasswordForm({ role }: ForgotPasswordFormProps) {
   if (isSubmitted) {
     return (
       <div className="space-y-4 text-center py-6">
-        <div className="w-12 h-12 bg-wise-green/10 text-wise-green rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
-          <Mail className="w-6 h-6" />
+        <div className="size-12 bg-wise-green/10 text-wise-green rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
+          <Mail className="size-6" />
         </div>
         <h3 className="text-xl font-bold text-gray-900">Check your email</h3>
         <p className="text-sm text-gray-500 font-medium leading-relaxed max-w-sm mx-auto">
@@ -58,7 +58,7 @@ export function ForgotPasswordForm({ role }: ForgotPasswordFormProps) {
           htmlFor="email"
           className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
         >
-          <Mail className="w-4 h-4 text-wise-green" /> Email Address
+          <Mail className="size-4 text-wise-green" /> Email Address
         </Label>
         <Input
           id="email"

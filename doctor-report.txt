@@ -1,0 +1,1658 @@
+react-doctor v0.2.8
+
+  
+
+  ✗ react-hooks-js/set-state-in-effect                  ×11
+      React Compiler can't optimize this code
+      → Error: Calling setState synchronously within an effect can trigger cascading renders
+      
+      Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+      * Update external systems with the latest state from React.
+      * Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+      
+      Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+      components/recruiter/jobs/location-selector.tsx:44
+      components/recruiter/jobs/location-selector.tsx:67
+      app/pricing/page.tsx:34
+      app/profile/setup/page.tsx:43
+      app/profile/setup/page.tsx:65
+      app/profile/edit/basic/page.tsx:81
+      app/profile/edit/basic/page.tsx:104
+      app/profile/edit/basic/page.tsx:175
+      hooks/use-auto-height.tsx:97
+      hooks/use-controlled-state.tsx:21
+      context/profile-context.tsx:122
+
+  ✗ react-hooks-js/todo                                 ×6
+      React Compiler can't optimize this code
+      → Todo: (BuildHIR::lowerStatement) Handle TryStatement with a finalizer ('finally') clause
+      components/recruiter/jobs/google-map-picker.tsx:57
+      components/auth/otp-form.tsx:28
+      app/profile/setup/page.tsx:146
+      components/ui/calendar.tsx:38
+      components/ui/calendar.tsx:39
+      components/shared/pagination.tsx:34
+
+  ✗ react-doctor/only-export-components                 ×5
+      Fast refresh only works when a file only exports components. Move non-component exports to a separate file.
+      → Move non-component exports out of files that export components.
+      components/application/file-upload/file-upload-base.tsx:25
+      components/application/file-upload/file-upload-base.tsx:523
+      lib/get-strict-context.tsx:17
+      components/ui/button.tsx:58
+      components/ui/tabs.tsx:82
+
+  ✗ react-doctor/require-reduced-motion
+      Project uses a motion library but has no prefers-reduced-motion handling — required for accessibility (WCAG 2.3.3)
+      → Add `useReducedMotion()` from your animation library, or a `@media (prefers-reduced-motion: reduce)` CSS query
+      package.json
+
+  ✗ react-hooks-js/purity
+      React Compiler can't optimize this code
+      → Error: Cannot call impure function during render
+      
+      `Date.now` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+      app/recruiter/jobs/page.tsx:74
+
+  ⚠ react-doctor/design-no-redundant-size-axes          ×813
+      w-2 h-2 → use the shorthand size-2 (Tailwind v3.4+)
+      → Collapse `w-N h-N` to `size-N` (Tailwind v3.4+) when both axes match
+      app/admin/(dashboard)/jobs/page.tsx:11
+      components/auth/forgot-password-form.tsx:41
+      components/auth/forgot-password-form.tsx:42
+      components/auth/forgot-password-form.tsx:61
+      components/hero-search.tsx:35
+      components/hero-search.tsx:46
+      components/hero-search.tsx:47
+      app/recruiter/jobs/create/new/page.tsx:119
+      app/recruiter/jobs/create/new/page.tsx:139
+      app/recruiter/jobs/create/new/page.tsx:150
+      app/recruiter/jobs/create/new/page.tsx:277
+      components/recruiter/jobs/map-selector-modal.tsx:47
+      components/recruiter/jobs/map-selector-modal.tsx:48
+      app/admin/(dashboard)/plans/page.tsx:51
+      app/admin/(dashboard)/plans/page.tsx:53
+      app/admin/(dashboard)/plans/page.tsx:55
+      app/admin/(dashboard)/plans/page.tsx:57
+      app/admin/(dashboard)/plans/page.tsx:64
+      app/admin/(dashboard)/plans/page.tsx:77
+      app/admin/(dashboard)/plans/page.tsx:96
+      app/admin/(dashboard)/plans/page.tsx:114
+      app/admin/(dashboard)/plans/page.tsx:118
+      app/admin/(dashboard)/plans/page.tsx:119
+      app/admin/(dashboard)/plans/page.tsx:126
+      app/admin/(dashboard)/plans/page.tsx:134
+      app/admin/(dashboard)/plans/page.tsx:136
+      app/admin/(dashboard)/plans/page.tsx:162
+      app/admin/(dashboard)/plans/page.tsx:215
+      app/admin/(dashboard)/plans/page.tsx:217
+      app/admin/(dashboard)/plans/page.tsx:318
+      app/admin/(dashboard)/plans/page.tsx:320
+      app/admin/(dashboard)/plans/page.tsx:335
+      app/admin/(dashboard)/plans/page.tsx:337
+      app/admin/(dashboard)/plans/page.tsx:374
+      app/admin/(dashboard)/plans/page.tsx:376
+      app/admin/(dashboard)/plans/page.tsx:399
+      app/admin/(dashboard)/plans/page.tsx:401
+      app/admin/(dashboard)/plans/page.tsx:490
+      app/admin/(dashboard)/plans/page.tsx:540
+      app/admin/(dashboard)/plans/page.tsx:547
+      app/recruiter/setup/plan/page.tsx:27
+      app/recruiter/setup/plan/page.tsx:45
+      app/recruiter/setup/plan/page.tsx:65
+      app/recruiter/setup/plan/page.tsx:90
+      app/recruiter/setup/plan/page.tsx:91
+      app/recruiter/setup/plan/page.tsx:99
+      app/recruiter/setup/plan/page.tsx:100
+      app/recruiter/setup/plan/page.tsx:125
+      app/recruiter/setup/plan/page.tsx:165
+      app/recruiter/setup/plan/page.tsx:255
+      app/recruiter/setup/plan/page.tsx:279
+      app/recruiter/setup/plan/page.tsx:280
+      app/recruiter/setup/plan/page.tsx:305
+      app/profile/job-preferences/edit/page.tsx:264
+      app/profile/job-preferences/edit/page.tsx:266
+      components/recruiter/jobs/create/steps/step5-plan.tsx:88
+      components/recruiter/jobs/create/steps/step5-plan.tsx:105
+      components/recruiter/jobs/create/steps/step5-plan.tsx:119
+      components/recruiter/jobs/create/steps/step5-plan.tsx:172
+      app/(auth)/login/page.tsx:61
+      app/(auth)/login/page.tsx:111
+      app/(auth)/login/page.tsx:112
+      app/(auth)/login/page.tsx:177
+      app/(auth)/login/page.tsx:187
+      app/(auth)/login/page.tsx:205
+      app/(auth)/login/page.tsx:257
+      app/recruiter/reset-password/[id]/page.tsx:26
+      app/recruiter/reset-password/[id]/page.tsx:27
+      app/recruiter/reset-password/[id]/page.tsx:46
+      app/recruiter/reset-password/[id]/page.tsx:48
+      app/recruiter/reset-password/[id]/page.tsx:69
+      components/profile/profile-avatar-modal.tsx:81
+      components/profile/profile-avatar-modal.tsx:83
+      components/profile/profile-avatar-modal.tsx:92
+      components/profile/profile-avatar-modal.tsx:94
+      components/profile/profile-avatar-modal.tsx:102
+      components/profile/profile-avatar-modal.tsx:104
+      components/profile/profile-avatar-modal.tsx:140
+      components/profile/profile-avatar-modal.tsx:141
+      components/profile/profile-avatar-modal.tsx:173
+      components/profile/profile-avatar-modal.tsx:184
+      components/profile/profile-avatar-modal.tsx:223
+      components/profile/profile-avatar-modal.tsx:225
+      components/profile/profile-avatar-modal.tsx:243
+      components/profile/profile-avatar-modal.tsx:298
+      components/profile/profile-avatar-modal.tsx:300
+      app/recruiter/jobs/create/new/constants.tsx:279
+      app/recruiter/jobs/create/new/constants.tsx:291
+      app/recruiter/jobs/create/new/constants.tsx:306
+      app/not-found.tsx:9
+      app/not-found.tsx:10
+      app/not-found.tsx:11
+      app/not-found.tsx:24
+      app/not-found.tsx:25
+      app/not-found.tsx:50
+      app/not-found.tsx:57
+      app/recruiter/jobs/edit/[jobId]/page.tsx:17
+      components/recruiter/jobs/location-selector.tsx:106
+      components/recruiter/jobs/location-selector.tsx:118
+      components/recruiter/jobs/location-selector.tsx:144
+      components/recruiter/jobs/location-selector.tsx:233
+      components/recruiter/jobs/location-selector.tsx:271
+      components/recruiter/jobs/location-selector.tsx:330
+      app/recruiter/jobs/create/page.tsx:48
+      app/recruiter/jobs/create/page.tsx:95
+      app/recruiter/jobs/create/page.tsx:113
+      app/recruiter/jobs/create/page.tsx:114
+      app/recruiter/jobs/create/page.tsx:122
+      app/recruiter/jobs/create/page.tsx:164
+      app/recruiter/jobs/create/page.tsx:170
+      app/admin/(dashboard)/recruiters/page.tsx:11
+      app/admin/(dashboard)/layout.tsx:29
+      components/recruiter/jobs/google-map-picker.tsx:115
+      components/recruiter/jobs/google-map-picker.tsx:152
+      app/admin/(dashboard)/dashboard/page.tsx:124
+      app/recruiter/signup/page.tsx:59
+      app/recruiter/signup/page.tsx:110
+      app/recruiter/signup/page.tsx:111
+      app/recruiter/signup/page.tsx:131
+      app/recruiter/signup/page.tsx:133
+      app/recruiter/signup/page.tsx:155
+      app/recruiter/signup/page.tsx:173
+      app/recruiter/signup/page.tsx:191
+      app/recruiter/signup/page.tsx:209
+      app/recruiter/signup/page.tsx:227
+      app/page.tsx:42
+      app/page.tsx:48
+      app/page.tsx:54
+      app/page.tsx:60
+      app/page.tsx:66
+      app/page.tsx:72
+      app/page.tsx:140
+      app/page.tsx:141
+      app/page.tsx:156
+      app/page.tsx:218
+      app/page.tsx:241
+      app/page.tsx:276
+      app/page.tsx:277
+      app/page.tsx:310
+      app/page.tsx:320
+      app/page.tsx:371
+      app/page.tsx:372
+      app/page.tsx:388
+      app/page.tsx:425
+      app/page.tsx:446
+      app/page.tsx:448
+      app/page.tsx:450
+      app/page.tsx:516
+      app/recruiter/jobs/[id]/applications/[applicationId]/page.tsx:41
+      components/recruiter/jobs/create/steps/step3-logistics.tsx:88
+      components/recruiter/jobs/create/steps/step3-logistics.tsx:125
+      components/recruiter/jobs/create/steps/step3-logistics.tsx:285
+      components/recruiter/jobs/create/steps/step3-logistics.tsx:412
+      app/recruiter/forgot-password/page.tsx:20
+      app/recruiter/forgot-password/page.tsx:21
+      app/recruiter/forgot-password/page.tsx:40
+      app/recruiter/forgot-password/page.tsx:42
+      app/recruiter/forgot-password/page.tsx:62
+      app/pricing/page.tsx:45
+      app/pricing/page.tsx:47
+      app/pricing/page.tsx:49
+      app/pricing/page.tsx:51
+      app/pricing/page.tsx:68
+      app/pricing/page.tsx:88
+      app/pricing/page.tsx:193
+      app/pricing/page.tsx:240
+      app/recruiter/plan/page.tsx:20
+      app/recruiter/plan/page.tsx:32
+      components/recruiter/jobs/create/steps/step1-details.tsx:55
+      components/recruiter/jobs/create/steps/step1-details.tsx:56
+      components/recruiter/jobs/create/steps/step1-details.tsx:108
+      components/recruiter/jobs/create/steps/step1-details.tsx:109
+      components/recruiter/jobs/create/steps/step1-details.tsx:140
+      components/recruiter/jobs/create/steps/step1-details.tsx:141
+      components/recruiter/jobs/create/steps/step1-details.tsx:229
+      components/recruiter/jobs/create/steps/step1-details.tsx:338
+      components/recruiter/jobs/create/steps/step1-details.tsx:411
+      app/recruiter/settings/page.tsx:23
+      app/recruiter/settings/page.tsx:35
+      app/recruiter/settings/page.tsx:36
+      app/recruiter/settings/page.tsx:137
+      app/recruiter/settings/page.tsx:138
+      app/recruiter/settings/page.tsx:156
+      components/profile/forms/base-sheet.tsx:50
+      components/profile/forms/base-sheet.tsx:52
+      components/auth/reset-password-form.tsx:61
+      components/auth/reset-password-form.tsx:80
+      app/jobs/page.tsx:30
+      app/recruiter/forgot-password/otp/[id]/page.tsx:26
+      app/recruiter/forgot-password/otp/[id]/page.tsx:27
+      app/recruiter/forgot-password/otp/[id]/page.tsx:46
+      app/recruiter/forgot-password/otp/[id]/page.tsx:48
+      app/recruiter/forgot-password/otp/[id]/page.tsx:68
+      app/profile/page.tsx:53
+      app/profile/page.tsx:69
+      app/profile/page.tsx:92
+      app/profile/page.tsx:97
+      app/profile/page.tsx:98
+      app/profile/page.tsx:116
+      app/profile/page.tsx:124
+      app/profile/page.tsx:135
+      app/profile/page.tsx:153
+      app/profile/page.tsx:174
+      app/profile/page.tsx:180
+      app/profile/page.tsx:184
+      app/profile/page.tsx:222
+      app/profile/page.tsx:225
+      app/profile/page.tsx:227
+      app/profile/page.tsx:245
+      app/profile/page.tsx:256
+      app/profile/page.tsx:260
+      app/profile/page.tsx:261
+      app/profile/page.tsx:292
+      app/profile/page.tsx:324
+      app/profile/page.tsx:336
+      app/profile/page.tsx:346
+      app/profile/page.tsx:363
+      app/profile/page.tsx:370
+      app/profile/page.tsx:381
+      app/profile/page.tsx:401
+      app/profile/page.tsx:421
+      app/profile/page.tsx:422
+      app/profile/page.tsx:434
+      components/logo.tsx:70
+      app/admin/(dashboard)/settings/page.tsx:76
+      app/admin/(dashboard)/settings/page.tsx:77
+      components/recruiter/jobs/create/ui/multi-select-field.tsx:82
+      components/recruiter/jobs/create/ui/multi-select-field.tsx:83
+      components/recruiter/jobs/create/ui/multi-select-field.tsx:85
+      components/recruiter/jobs/create/ui/multi-select-field.tsx:125
+      components/recruiter/jobs/create/ui/multi-select-field.tsx:126
+      app/recruiter/layout.tsx:115
+      app/recruiter/layout.tsx:131
+      app/recruiter/layout.tsx:132
+      app/recruiter/layout.tsx:143
+      app/recruiter/layout.tsx:149
+      app/recruiter/layout.tsx:155
+      app/recruiter/layout.tsx:161
+      app/recruiter/layout.tsx:166
+      app/recruiter/layout.tsx:171
+      app/recruiter/layout.tsx:176
+      app/recruiter/layout.tsx:181
+      app/recruiter/layout.tsx:187
+      app/recruiter/layout.tsx:197
+      app/recruiter/layout.tsx:201
+      app/recruiter/layout.tsx:210
+      app/recruiter/layout.tsx:211
+      app/recruiter/layout.tsx:245
+      app/recruiter/layout.tsx:246
+      app/recruiter/layout.tsx:254
+      app/recruiter/layout.tsx:257
+      components/profile/resume-upload.tsx:86
+      components/profile/resume-upload.tsx:97
+      components/profile/resume-upload.tsx:118
+      components/profile/resume-upload.tsx:119
+      components/profile/resume-upload.tsx:138
+      components/profile/resume-upload.tsx:146
+      components/profile/resume-upload.tsx:154
+      app/recruiter/jobs/page.tsx:27
+      app/recruiter/jobs/page.tsx:34
+      app/recruiter/jobs/page.tsx:48
+      app/recruiter/jobs/page.tsx:49
+      app/recruiter/jobs/page.tsx:105
+      app/recruiter/jobs/page.tsx:106
+      app/recruiter/jobs/page.tsx:119
+      components/recruiter/jobs/create/steps/step4-preview.tsx:28
+      components/recruiter/jobs/create/steps/step4-preview.tsx:29
+      components/recruiter/jobs/create/steps/step4-preview.tsx:38
+      components/recruiter/jobs/create/steps/step4-preview.tsx:40
+      components/recruiter/jobs/create/steps/step4-preview.tsx:42
+      components/recruiter/jobs/create/steps/step4-preview.tsx:95
+      components/recruiter/jobs/create/steps/step4-preview.tsx:124
+      components/recruiter/jobs/create/steps/step4-preview.tsx:125
+      components/recruiter/jobs/create/steps/step4-preview.tsx:144
+      components/recruiter/jobs/create/steps/step4-preview.tsx:145
+      app/applications/page.tsx:48
+      app/applications/page.tsx:50
+      app/applications/page.tsx:51
+      app/applications/page.tsx:52
+      app/applications/page.tsx:53
+      app/applications/page.tsx:69
+      components/profile/forms/form-page-layout.tsx:30
+      components/profile/forms/form-page-layout.tsx:31
+      app/recruiter/onboarding/page.tsx:82
+      app/recruiter/onboarding/page.tsx:83
+      app/recruiter/onboarding/page.tsx:84
+      app/recruiter/onboarding/page.tsx:91
+      app/recruiter/onboarding/page.tsx:92
+      app/recruiter/onboarding/page.tsx:114
+      app/recruiter/onboarding/page.tsx:141
+      app/recruiter/onboarding/page.tsx:161
+      app/recruiter/onboarding/page.tsx:233
+      app/recruiter/onboarding/page.tsx:245
+      app/recruiter/onboarding/page.tsx:296
+      app/recruiter/onboarding/page.tsx:351
+      app/recruiter/onboarding/page.tsx:394
+      app/recruiter/onboarding/page.tsx:421
+      app/recruiter/onboarding/page.tsx:435
+      app/recruiter/onboarding/page.tsx:452
+      app/recruiter/onboarding/page.tsx:472
+      app/recruiter/onboarding/page.tsx:480
+      app/recruiter/onboarding/page.tsx:517
+      app/recruiter/onboarding/page.tsx:525
+      components/recruiter/jobs/create/ui/field-error.tsx:19
+      app/recruiter/page.tsx:32
+      app/recruiter/page.tsx:33
+      app/recruiter/page.tsx:92
+      app/recruiter/page.tsx:127
+      app/recruiter/page.tsx:150
+      app/recruiter/page.tsx:153
+      app/recruiter/page.tsx:156
+      app/recruiter/page.tsx:159
+      app/recruiter/page.tsx:162
+      app/recruiter/page.tsx:213
+      app/recruiter/page.tsx:218
+      app/recruiter/page.tsx:223
+      app/recruiter/page.tsx:228
+      app/recruiter/page.tsx:233
+      app/recruiter/page.tsx:238
+      app/recruiter/page.tsx:251
+      app/recruiter/page.tsx:274
+      app/recruiter/page.tsx:300
+      app/recruiter/page.tsx:328
+      app/recruiter/page.tsx:338
+      app/recruiter/page.tsx:389
+      app/recruiter/page.tsx:469
+      components/admin/header.tsx:10
+      components/admin/header.tsx:17
+      components/admin/header.tsx:25
+      components/admin/header.tsx:28
+      components/admin/header.tsx:33
+      components/admin/header.tsx:34
+      components/admin/header.tsx:46
+      app/setup/plan/page.tsx:26
+      app/setup/plan/page.tsx:43
+      app/setup/plan/page.tsx:62
+      app/setup/plan/page.tsx:84
+      app/setup/plan/page.tsx:85
+      app/setup/plan/page.tsx:92
+      app/setup/plan/page.tsx:93
+      app/setup/plan/page.tsx:114
+      app/setup/plan/page.tsx:204
+      app/setup/plan/page.tsx:236
+      app/setup/plan/page.tsx:237
+      app/setup/plan/page.tsx:262
+      app/profile/setup/page.tsx:165
+      app/profile/setup/page.tsx:166
+      app/profile/setup/page.tsx:195
+      app/profile/setup/page.tsx:215
+      app/profile/setup/page.tsx:254
+      app/admin/(dashboard)/recruiters/[id]/page.tsx:21
+      app/admin/(dashboard)/recruiters/[id]/page.tsx:28
+      app/admin/(dashboard)/recruiters/[id]/page.tsx:35
+      app/(auth)/reset-password/page.tsx:40
+      app/(auth)/reset-password/page.tsx:43
+      app/(auth)/reset-password/page.tsx:45
+      app/(auth)/reset-password/page.tsx:68
+      app/(auth)/reset-password/page.tsx:98
+      app/(auth)/reset-password/page.tsx:108
+      app/(auth)/reset-password/page.tsx:109
+      app/(auth)/reset-password/page.tsx:131
+      app/admin/login/page.tsx:45
+      app/admin/login/page.tsx:68
+      app/admin/login/page.tsx:69
+      app/admin/login/page.tsx:88
+      app/admin/login/page.tsx:90
+      app/admin/login/page.tsx:109
+      app/admin/login/page.tsx:126
+      app/profile/layout.tsx:25
+      app/recruiter/login/page.tsx:46
+      app/recruiter/login/page.tsx:77
+      app/recruiter/login/page.tsx:78
+      app/recruiter/login/page.tsx:97
+      app/recruiter/login/page.tsx:99
+      app/recruiter/login/page.tsx:118
+      app/recruiter/login/page.tsx:136
+      app/(auth)/forgot-password/page.tsx:20
+      app/(auth)/forgot-password/page.tsx:21
+      app/(auth)/forgot-password/page.tsx:40
+      app/(auth)/forgot-password/page.tsx:42
+      app/(auth)/forgot-password/page.tsx:62
+      app/recruiter/profile/page.tsx:31
+      components/profile/profile-components.tsx:29
+      components/profile/profile-components.tsx:39
+      components/profile/profile-components.tsx:41
+      components/profile/profile-components.tsx:47
+      components/profile/profile-components.tsx:49
+      components/profile/profile-components.tsx:92
+      components/profile/profile-components.tsx:108
+      components/profile/profile-components.tsx:116
+      components/profile/profile-components.tsx:125
+      components/profile/profile-components.tsx:143
+      components/landing-navbar.tsx:76
+      components/landing-navbar.tsx:101
+      components/landing-navbar.tsx:144
+      components/landing-navbar.tsx:148
+      components/landing-navbar.tsx:163
+      components/landing-navbar.tsx:170
+      components/landing-navbar.tsx:177
+      app/recruiter/dashboard/page.tsx:31
+      app/recruiter/dashboard/page.tsx:51
+      app/recruiter/dashboard/page.tsx:82
+      app/recruiter/dashboard/page.tsx:88
+      app/recruiter/dashboard/page.tsx:96
+      app/recruiter/dashboard/page.tsx:136
+      app/recruiter/dashboard/page.tsx:138
+      app/recruiter/dashboard/page.tsx:144
+      app/recruiter/dashboard/page.tsx:146
+      app/recruiter/dashboard/page.tsx:156
+      app/recruiter/dashboard/page.tsx:157
+      app/profile/edit/basic/page.tsx:224
+      components/recruiter/jobs/create/steps/step2-requirements.tsx:230
+      components/recruiter/jobs/create/steps/step2-requirements.tsx:232
+      components/recruiter/jobs/create/steps/step2-requirements.tsx:257
+      components/recruiter/jobs/create/steps/step2-requirements.tsx:286
+      components/recruiter/jobs/create/steps/step2-requirements.tsx:311
+      components/recruiter/jobs/create/steps/step2-requirements.tsx:317
+      components/recruiter/jobs/create/steps/step2-requirements.tsx:356
+      components/recruiter/jobs/create/steps/step2-requirements.tsx:362
+      components/recruiter/jobs/create/steps/step2-requirements.tsx:418
+      components/recruiter/jobs/create/steps/step2-requirements.tsx:424
+      components/recruiter/jobs/create/steps/step2-requirements.tsx:455
+      components/recruiter/jobs/create/steps/step2-requirements.tsx:457
+      components/recruiter/jobs/create/steps/step2-requirements.tsx:476
+      app/recruiter/applications/page.tsx:25
+      app/recruiter/applications/page.tsx:36
+      app/recruiter/applications/page.tsx:38
+      app/recruiter/applications/page.tsx:39
+      app/recruiter/applications/page.tsx:40
+      app/recruiter/applications/page.tsx:41
+      components/admin/sidebar.tsx:40
+      components/admin/sidebar.tsx:41
+      components/admin/sidebar.tsx:83
+      components/profile/profile-sidebar.tsx:52
+      components/profile/profile-sidebar.tsx:55
+      components/profile/profile-sidebar.tsx:59
+      components/profile/profile-sidebar.tsx:62
+      components/profile/profile-sidebar.tsx:89
+      components/profile/profile-sidebar.tsx:116
+      components/profile/profile-sidebar.tsx:117
+      components/profile/profile-sidebar.tsx:124
+      components/profile/profile-sidebar.tsx:125
+      components/profile/profile-sidebar.tsx:131
+      components/profile/profile-sidebar.tsx:132
+      components/profile/profile-sidebar.tsx:154
+      components/profile/profile-sidebar.tsx:155
+      components/profile/profile-sidebar.tsx:162
+      components/profile/profile-sidebar.tsx:172
+      components/profile/profile-sidebar.tsx:173
+      components/profile/profile-sidebar.tsx:180
+      components/profile/profile-sidebar.tsx:191
+      components/profile/profile-sidebar.tsx:192
+      components/profile/profile-sidebar.tsx:198
+      components/profile/profile-sidebar.tsx:213
+      components/profile/profile-sidebar.tsx:216
+      components/profile/profile-sidebar.tsx:217
+      app/about/page.tsx:15
+      app/about/page.tsx:21
+      app/about/page.tsx:27
+      app/about/page.tsx:33
+      app/about/page.tsx:46
+      app/about/page.tsx:87
+      app/about/page.tsx:128
+      app/jobs/[id]/page.tsx:27
+      app/admin/(dashboard)/candidates/page.tsx:11
+      app/contact/page.tsx:14
+      app/contact/page.tsx:41
+      app/contact/page.tsx:42
+      app/contact/page.tsx:58
+      app/contact/page.tsx:59
+      app/contact/page.tsx:75
+      app/contact/page.tsx:76
+      app/(auth)/signup/page.tsx:55
+      app/(auth)/signup/page.tsx:131
+      app/(auth)/signup/page.tsx:132
+      app/(auth)/signup/page.tsx:200
+      app/(auth)/signup/page.tsx:211
+      app/(auth)/signup/page.tsx:229
+      app/(auth)/signup/page.tsx:247
+      app/(auth)/signup/page.tsx:264
+      app/(auth)/signup/page.tsx:327
+      app/admin/(dashboard)/candidates/[id]/page.tsx:20
+      app/admin/(dashboard)/candidates/[id]/page.tsx:28
+      features/recruiter/components/applications/JobApplicationsHeader.tsx:23
+      features/recruiter/components/applications/JobApplicationsHeader.tsx:24
+      features/recruiter/components/applications/JobApplicationsHeader.tsx:30
+      features/recruiter/components/applications/JobApplicationsHeader.tsx:35
+      features/recruiter/components/applications/JobApplicationsHeader.tsx:52
+      features/recruiter/components/applications/JobApplicationsHeader.tsx:58
+      features/recruiter/components/applications/JobApplicationsHeader.tsx:63
+      features/recruiter/components/applications/JobApplicationsHeader.tsx:89
+      components/ui/date-picker-range.tsx:48
+      features/admin/components/RecruiterSidebar.tsx:14
+      features/admin/components/RecruiterSidebar.tsx:15
+      features/jobs/components/candidate-profile/CandidateBio.tsx:13
+      features/admin/components/RecruiterDetails.tsx:30
+      features/admin/components/RecruiterCompanyInfo.tsx:35
+      features/admin/components/RecruiterCompanyInfo.tsx:36
+      features/admin/components/RecruiterCompanyInfo.tsx:45
+      features/admin/components/RecruiterCompanyInfo.tsx:46
+      features/admin/components/RecruiterCompanyInfo.tsx:56
+      features/admin/components/RecruiterCompanyInfo.tsx:57
+      features/admin/components/RecruiterCompanyInfo.tsx:67
+      features/admin/components/RecruiterCompanyInfo.tsx:68
+      features/admin/components/RecruiterCompanyInfo.tsx:78
+      features/admin/components/RecruiterCompanyInfo.tsx:79
+      features/admin/components/RecruiterCompanyInfo.tsx:89
+      features/admin/components/RecruiterCompanyInfo.tsx:90
+      features/admin/components/RecruiterCompanyInfo.tsx:120
+      features/admin/components/RecruiterCompanyInfo.tsx:122
+      features/admin/components/RecruiterCompanyInfo.tsx:124
+      features/admin/components/RecruiterCompanyInfo.tsx:178
+      features/admin/components/RecruiterCompanyInfo.tsx:179
+      features/admin/components/RecruiterCompanyInfo.tsx:220
+      features/admin/components/RecruiterCompanyInfo.tsx:222
+      features/recruiter/components/profile/hero-avatar-card.tsx:39
+      features/recruiter/components/profile/hero-avatar-card.tsx:75
+      features/recruiter/components/profile/hero-avatar-card.tsx:81
+      features/recruiter/components/profile/hero-avatar-card.tsx:87
+      features/jobs/components/candidate-applications/CandidateApplicationsStats.tsx:29
+      features/jobs/components/candidate-applications/CandidateApplicationsStats.tsx:39
+      features/jobs/components/candidate-applications/CandidateApplicationsStats.tsx:49
+      features/jobs/components/candidate-applications/CandidateApplicationsStats.tsx:59
+      features/jobs/components/job-list/JobCard.tsx:57
+      features/jobs/components/job-list/JobCard.tsx:82
+      features/jobs/components/job-list/JobCard.tsx:97
+      features/jobs/components/job-list/JobCard.tsx:101
+      features/jobs/components/job-list/JobCard.tsx:105
+      features/jobs/components/job-list/JobCard.tsx:134
+      features/jobs/components/candidate-applications/CandidateApplicationsEmptyState.tsx:12
+      features/jobs/components/candidate-applications/CandidateApplicationsEmptyState.tsx:13
+      features/admin/components/CandidateDetails.tsx:48
+      features/admin/components/CandidateDetails.tsx:62
+      features/admin/components/CandidateDetails.tsx:63
+      features/admin/components/CandidateDetails.tsx:84
+      features/admin/components/CandidateDetails.tsx:87
+      features/admin/components/CandidateDetails.tsx:102
+      features/admin/components/CandidateDetails.tsx:103
+      features/admin/components/CandidateDetails.tsx:110
+      features/admin/components/CandidateDetails.tsx:111
+      features/admin/components/CandidateDetails.tsx:118
+      features/admin/components/CandidateDetails.tsx:119
+      features/admin/components/CandidateDetails.tsx:131
+      features/admin/components/CandidateDetails.tsx:171
+      features/admin/components/CandidateDetails.tsx:181
+      features/admin/components/CandidateDetails.tsx:239
+      features/admin/components/CandidateDetails.tsx:249
+      features/admin/components/CandidateDetails.tsx:304
+      features/admin/components/CandidateDetails.tsx:336
+      features/admin/components/CandidateDetails.tsx:388
+      features/admin/components/CandidateDetails.tsx:402
+      features/admin/components/CandidateDetails.tsx:403
+      features/admin/components/CandidateDetails.tsx:414
+      components/ui/rich-text-editor.tsx:92
+      components/ui/rich-text-editor.tsx:98
+      components/ui/rich-text-editor.tsx:104
+      components/ui/rich-text-editor.tsx:113
+      components/ui/rich-text-editor.tsx:119
+      components/ui/rich-text-editor.tsx:130
+      components/ui/rich-text-editor.tsx:138
+      components/ui/rich-text-editor.tsx:144
+      components/ui/rich-text-editor.tsx:154
+      features/jobs/components/candidate-applications/CandidateApplicationsFilters.tsx:31
+      features/jobs/components/candidate-applications/CandidateApplicationsFilters.tsx:53
+      features/jobs/components/candidate-applications/CandidateApplicationsFilters.tsx:63
+      features/jobs/components/candidate-applications/CandidateApplicationsFilters.tsx:71
+      features/jobs/components/JobList.tsx:97
+      features/jobs/components/JobList.tsx:143
+      features/jobs/components/JobList.tsx:144
+      features/jobs/components/JobList.tsx:162
+      features/jobs/components/JobList.tsx:163
+      features/jobs/components/JobList.tsx:165
+      features/jobs/components/JobList.tsx:166
+      features/jobs/components/JobList.tsx:196
+      features/jobs/components/JobList.tsx:205
+      features/jobs/components/candidate-profile/CandidateSkills.tsx:13
+      features/jobs/components/job-details/JobHeaderCard.tsx:34
+      features/jobs/components/job-details/JobHeaderCard.tsx:49
+      features/jobs/components/job-details/JobHeaderCard.tsx:53
+      features/jobs/components/job-details/JobHeaderCard.tsx:60
+      features/jobs/components/job-details/JobHeaderCard.tsx:64
+      features/jobs/components/job-details/JobHeaderCard.tsx:68
+      features/jobs/components/job-details/JobHeaderCard.tsx:85
+      features/jobs/components/job-details/JobHeaderCard.tsx:89
+      features/jobs/components/job-details/JobHeaderCard.tsx:102
+      features/admin/components/JobList.tsx:69
+      features/admin/components/JobList.tsx:82
+      features/admin/components/JobList.tsx:93
+      features/admin/components/JobList.tsx:96
+      features/admin/components/JobList.tsx:124
+      features/admin/components/JobList.tsx:173
+      features/admin/components/JobList.tsx:174
+      features/admin/components/JobList.tsx:221
+      features/admin/components/JobList.tsx:230
+      features/admin/components/JobList.tsx:239
+      features/recruiter/components/verification/company-verification-flow.tsx:35
+      features/recruiter/components/verification/company-verification-flow.tsx:47
+      features/recruiter/components/verification/company-verification-flow.tsx:56
+      features/recruiter/components/verification/company-verification-flow.tsx:58
+      features/recruiter/components/verification/company-verification-flow.tsx:60
+      features/recruiter/components/verification/company-verification-flow.tsx:99
+      features/recruiter/components/verification/company-verification-flow.tsx:132
+      features/recruiter/components/verification/company-verification-flow.tsx:153
+      features/jobs/components/job-details/JobDescriptionCard.tsx:34
+      features/jobs/components/job-details/JobDescriptionCard.tsx:35
+      features/jobs/components/job-details/JobDescriptionCard.tsx:45
+      features/jobs/components/job-details/JobDescriptionCard.tsx:46
+      features/jobs/components/job-details/JobDescriptionCard.tsx:56
+      features/jobs/components/job-details/JobDescriptionCard.tsx:57
+      features/jobs/components/job-details/JobDescriptionCard.tsx:79
+      features/jobs/components/job-details/JobDescriptionCard.tsx:80
+      features/jobs/components/job-details/JobDescriptionCard.tsx:108
+      features/jobs/components/job-details/JobDescriptionCard.tsx:125
+      features/admin/components/RecruiterActivityList.tsx:9
+      features/admin/components/RecruiterActivityList.tsx:11
+      features/admin/components/RecruiterActivityList.tsx:13
+      features/admin/components/RecruiterActivityList.tsx:15
+      features/admin/components/RecruiterActivityList.tsx:17
+      features/admin/components/RecruiterActivityList.tsx:31
+      features/admin/components/RecruiterActivityList.tsx:40
+      features/jobs/components/candidate-profile/CandidateHeader.tsx:21
+      features/jobs/components/candidate-profile/CandidateCertifications.tsx:22
+      features/jobs/components/candidate-profile/CandidateCertifications.tsx:30
+      features/jobs/components/candidate-profile/CandidateCertifications.tsx:31
+      features/admin/components/AdminJobDetails.tsx:41
+      features/admin/components/AdminJobDetails.tsx:42
+      features/admin/components/AdminJobDetails.tsx:65
+      features/admin/components/AdminJobDetails.tsx:120
+      features/admin/components/AdminJobDetails.tsx:130
+      features/admin/components/AdminJobDetails.tsx:162
+      features/admin/components/AdminJobDetails.tsx:170
+      features/admin/components/AdminJobDetails.tsx:181
+      features/admin/components/AdminJobDetails.tsx:339
+      features/admin/components/AdminJobDetails.tsx:374
+      features/admin/components/AdminJobDetails.tsx:415
+      features/admin/components/AdminJobDetails.tsx:455
+      features/admin/components/AdminJobDetails.tsx:468
+      features/jobs/components/job-list/JobSearchBar.tsx:20
+      features/jobs/components/job-list/JobSearchBar.tsx:31
+      features/jobs/components/job-list/JobSearchBar.tsx:44
+      components/shared/confirmation-modal.tsx:42
+      components/shared/confirmation-modal.tsx:48
+      components/shared/confirmation-modal.tsx:54
+      components/shared/confirmation-modal.tsx:61
+      features/jobs/components/job-list/JobActiveFilters.tsx:25
+      features/recruiter/components/applications/JobApplicationsList.tsx:74
+      features/recruiter/components/applications/JobApplicationsList.tsx:76
+      features/recruiter/components/applications/JobApplicationsList.tsx:110
+      features/recruiter/components/applications/JobApplicationsList.tsx:131
+      features/recruiter/components/applications/JobApplicationsList.tsx:133
+      features/recruiter/components/applications/JobApplicationsList.tsx:136
+      features/recruiter/components/applications/JobApplicationsList.tsx:148
+      features/recruiter/components/applications/JobApplicationsList.tsx:162
+      features/recruiter/components/applications/JobApplicationsList.tsx:180
+      features/recruiter/components/applications/JobApplicationsList.tsx:181
+      features/recruiter/components/applications/JobApplicationsList.tsx:240
+      features/recruiter/components/applications/JobApplicationsList.tsx:262
+      features/recruiter/components/applications/JobApplicationsList.tsx:272
+      features/recruiter/components/applications/JobApplicationsList.tsx:273
+      features/jobs/components/candidate-applications/CandidateApplicationCard.tsx:60
+      features/jobs/components/candidate-applications/CandidateApplicationCard.tsx:73
+      features/jobs/components/candidate-applications/CandidateApplicationCard.tsx:92
+      features/jobs/components/candidate-applications/CandidateApplicationCard.tsx:110
+      features/jobs/components/candidate-applications/CandidateApplicationCard.tsx:135
+      features/jobs/components/candidate-applications/CandidateApplicationCard.tsx:137
+      features/admin/components/CandidateList.tsx:79
+      features/admin/components/CandidateList.tsx:94
+      features/admin/components/CandidateList.tsx:110
+      features/admin/components/CandidateList.tsx:113
+      features/admin/components/CandidateList.tsx:141
+      features/admin/components/CandidateList.tsx:221
+      features/admin/components/CandidateList.tsx:234
+      features/admin/components/CandidateList.tsx:250
+      features/admin/components/CandidateList.tsx:264
+      features/admin/components/CandidateList.tsx:272
+      features/admin/components/CandidateList.tsx:274
+      features/admin/components/CandidateList.tsx:288
+      features/admin/components/CandidateList.tsx:293
+      features/jobs/utils/application-status.utils.tsx:14
+      features/jobs/utils/application-status.utils.tsx:20
+      features/jobs/utils/application-status.utils.tsx:27
+      features/jobs/utils/application-status.utils.tsx:33
+      features/jobs/utils/application-status.utils.tsx:39
+      features/jobs/utils/application-status.utils.tsx:45
+      features/jobs/components/job-list/JobFiltersSidebar.tsx:60
+      features/jobs/components/job-list/JobFiltersSidebar.tsx:61
+      features/recruiter/components/profile/section-card.tsx:65
+      features/admin/components/RecruiterHeader.tsx:56
+      features/admin/components/RecruiterHeader.tsx:59
+      features/admin/components/RecruiterHeader.tsx:60
+      features/admin/components/RecruiterHeader.tsx:81
+      features/admin/components/RecruiterHeader.tsx:89
+      features/admin/components/RecruiterHeader.tsx:96
+      features/admin/components/RecruiterHeader.tsx:121
+      features/admin/components/RecruiterHeader.tsx:123
+      features/admin/components/RecruiterHeader.tsx:135
+      features/admin/components/RecruiterHeader.tsx:169
+      features/admin/components/RecruiterHeader.tsx:170
+      features/recruiter/components/profile/company-identity-card.tsx:35
+      features/recruiter/components/profile/company-identity-card.tsx:57
+      features/recruiter/components/profile/company-identity-card.tsx:77
+      features/recruiter/components/profile/company-identity-card.tsx:98
+      features/recruiter/components/profile/company-identity-card.tsx:144
+      features/recruiter/components/profile/company-identity-card.tsx:150
+      features/recruiter/components/profile/company-identity-card.tsx:156
+      features/jobs/components/candidate-profile/CandidateEducation.tsx:20
+      features/jobs/components/candidate-profile/CandidateEducation.tsx:29
+      features/jobs/components/candidate-profile/CandidateEducation.tsx:30
+      features/jobs/components/candidate-profile/CandidateEducation.tsx:70
+      features/admin/components/AdminJobApplicationsList.tsx:30
+      features/admin/components/AdminJobApplicationsList.tsx:31
+      features/admin/components/AdminJobApplicationsList.tsx:41
+      features/admin/components/AdminJobApplicationsList.tsx:54
+      features/admin/components/AdminJobApplicationsList.tsx:82
+      features/admin/components/AdminJobApplicationsList.tsx:115
+      features/admin/components/AdminJobApplicationsList.tsx:176
+      features/admin/components/AdminJobApplicationsList.tsx:184
+      features/recruiter/components/profile/tax-identity-card.tsx:47
+      features/recruiter/components/profile/tax-identity-card.tsx:65
+      features/recruiter/components/profile/tax-identity-card.tsx:67
+      features/recruiter/components/profile/tax-identity-card.tsx:69
+      features/recruiter/components/profile/tax-identity-card.tsx:85
+      features/recruiter/components/profile/tax-identity-card.tsx:108
+      features/recruiter/components/profile/tax-identity-card.tsx:110
+      features/recruiter/components/profile/tax-identity-card.tsx:125
+      features/admin/components/RecruiterJobsList.tsx:20
+      features/admin/components/RecruiterJobsList.tsx:51
+      features/admin/components/RecruiterJobsList.tsx:77
+      features/jobs/components/candidate-profile/ApplicationDetails.tsx:50
+      features/jobs/components/candidate-profile/ApplicationDetails.tsx:67
+      features/jobs/components/candidate-profile/AIMatchAnalysis.tsx:18
+      features/jobs/components/candidate-profile/AIMatchAnalysis.tsx:20
+      features/jobs/components/candidate-profile/AIMatchAnalysis.tsx:37
+      features/jobs/components/candidate-profile/AIMatchAnalysis.tsx:42
+      features/jobs/components/candidate-profile/AIMatchAnalysis.tsx:50
+      features/recruiter/components/profile/basic-details-card.tsx:34
+      features/recruiter/components/profile/basic-details-card.tsx:110
+      features/recruiter/components/profile/basic-details-card.tsx:115
+      features/admin/components/RecruiterList.tsx:75
+      features/admin/components/RecruiterList.tsx:88
+      features/admin/components/RecruiterList.tsx:104
+      features/admin/components/RecruiterList.tsx:107
+      features/admin/components/RecruiterList.tsx:135
+      features/admin/components/RecruiterList.tsx:187
+      features/admin/components/RecruiterList.tsx:188
+      features/admin/components/RecruiterList.tsx:206
+      features/admin/components/RecruiterList.tsx:210
+      features/admin/components/RecruiterList.tsx:238
+      features/admin/components/RecruiterList.tsx:246
+      features/admin/components/RecruiterList.tsx:248
+      features/admin/components/RecruiterList.tsx:262
+      features/jobs/components/candidate-profile/CandidateExperience.tsx:24
+      features/jobs/components/candidate-profile/CandidateExperience.tsx:33
+      features/jobs/components/candidate-profile/CandidateExperience.tsx:34
+      features/jobs/components/candidate-profile/CandidateExperience.tsx:96
+      features/jobs/components/JobDetails.tsx:51
+      components/ui/dialog.tsx:77
+      features/jobs/components/recruiter-job-stats.tsx:26
+      features/jobs/components/recruiter-job-stats.tsx:51
+      components/shared/global-loader.tsx:16
+      components/shared/global-loader.tsx:40
+      components/shared/global-loader.tsx:44
+      features/jobs/components/job-details/JobSidebar.tsx:41
+      features/jobs/components/job-details/JobSidebar.tsx:42
+      features/jobs/components/job-details/JobSidebar.tsx:88
+      features/jobs/components/job-details/JobSidebar.tsx:89
+      features/jobs/components/job-details/JobSidebar.tsx:112
+      features/jobs/components/job-details/JobSidebar.tsx:125
+      features/jobs/components/job-details/JobSidebar.tsx:138
+      features/jobs/components/job-details/JobSidebar.tsx:141
+      features/jobs/components/job-details/JobSidebar.tsx:142
+      features/jobs/components/candidate-profile/CandidateBasicInfo.tsx:47
+      features/jobs/components/candidate-profile/CandidateBasicInfo.tsx:59
+      features/jobs/components/candidate-profile/CandidateBasicInfo.tsx:68
+      features/jobs/components/candidate-profile/CandidateBasicInfo.tsx:77
+      features/jobs/components/candidate-profile/CandidateBasicInfo.tsx:78
+      features/jobs/components/candidate-profile/CandidateBasicInfo.tsx:90
+      features/jobs/components/candidate-profile/CandidateBasicInfo.tsx:91
+      features/jobs/components/candidate-profile/CandidateBasicInfo.tsx:104
+      features/jobs/components/candidate-profile/CandidateBasicInfo.tsx:105
+      features/jobs/components/candidate-profile/CandidateBasicInfo.tsx:113
+      features/jobs/components/candidate-profile/CandidateBasicInfo.tsx:114
+      features/jobs/components/candidate-profile/CandidateBasicInfo.tsx:131
+      features/jobs/components/candidate-profile/CandidateBasicInfo.tsx:133
+      features/jobs/components/candidate-profile/CandidateBasicInfo.tsx:141
+      features/jobs/components/candidate-profile/CandidateBasicInfo.tsx:143
+      features/jobs/components/candidate-profile/CandidateBasicInfo.tsx:151
+      features/jobs/components/candidate-profile/CandidateBasicInfo.tsx:153
+      features/recruiter/components/applications/JobApplicationsToolbar.tsx:41
+      features/recruiter/components/applications/JobApplicationsToolbar.tsx:84
+      features/recruiter/components/applications/JobApplicationsToolbar.tsx:94
+      features/recruiter/components/applications/JobApplicationsToolbar.tsx:102
+      features/jobs/components/job-details/JobSuccessModal.tsx:25
+      features/jobs/components/job-details/JobSuccessModal.tsx:29
+      features/jobs/components/job-details/JobSuccessModal.tsx:30
+      features/jobs/components/job-details/JobSuccessModal.tsx:31
+      components/recruiter/modals.tsx:73
+      components/recruiter/modals.tsx:78
+      components/recruiter/modals.tsx:81
+      components/recruiter/modals.tsx:82
+      components/recruiter/modals.tsx:102
+      components/recruiter/modals.tsx:120
+      components/recruiter/modals.tsx:156
+      components/recruiter/modals.tsx:189
+      components/recruiter/modals.tsx:195
+      components/recruiter/modals.tsx:216
+      components/recruiter/modals.tsx:230
+      components/recruiter/modals.tsx:242
+      components/recruiter/modals.tsx:258
+      features/recruiter/components/profile/sticky-save-bar.tsx:29
+      features/recruiter/components/profile/sticky-save-bar.tsx:39
+      features/recruiter/components/profile/sticky-save-bar.tsx:49
+      features/recruiter/components/profile/sticky-save-bar.tsx:51
+
+  ⚠ react-doctor/control-has-associated-label           ×65
+      A control must be associated with a text label — add visible text, `aria-label`, or `aria-labelledby`.
+      → Every interactive control must have an accessible label.
+      components/hero-search.tsx:36
+      components/hero-search.tsx:49
+      components/profile/forms/job-preference-form.tsx:25
+      components/profile/forms/job-preference-form.tsx:36
+      components/profile/forms/job-preference-form.tsx:47
+      app/admin/(dashboard)/plans/page.tsx:251
+      app/recruiter/setup/plan/page.tsx:155
+      app/profile/job-preferences/edit/page.tsx:74
+      app/profile/job-preferences/edit/page.tsx:96
+      app/profile/job-preferences/edit/page.tsx:113
+      app/profile/job-preferences/edit/page.tsx:226
+      app/profile/job-preferences/edit/page.tsx:244
+      components/profile/profile-avatar-modal.tsx:109
+      components/recruiter/jobs/location-selector.tsx:331
+      components/profile/forms/experience-form.tsx:69
+      components/profile/forms/experience-form.tsx:86
+      components/profile/forms/experience-form.tsx:115
+      components/profile/forms/experience-form.tsx:134
+      components/profile/forms/experience-form.tsx:146
+      components/profile/forms/experience-form.tsx:167
+      components/profile/forms/experience-form.tsx:196
+      components/profile/forms/certificate-form.tsx:44
+      components/profile/forms/certificate-form.tsx:56
+      components/recruiter/jobs/create/steps/step3-logistics.tsx:232
+      components/profile/forms/profile-edit-form.tsx:25
+      components/profile/forms/profile-edit-form.tsx:36
+      components/profile/forms/profile-edit-form.tsx:47
+      app/profile/page.tsx:301
+      components/application/file-upload/file-upload-base.tsx:230
+      app/admin/(dashboard)/settings/page.tsx:97
+      components/profile/forms/language-form.tsx:83
+      components/profile/forms/language-form.tsx:158
+      components/profile/resume-upload.tsx:110
+      components/profile/resume-upload.tsx:176
+      components/admin/header.tsx:11
+      app/profile/setup/page.tsx:92
+      components/profile/forms/education-form.tsx:64
+      components/profile/forms/education-form.tsx:87
+      components/profile/forms/education-form.tsx:101
+      components/profile/forms/education-form.tsx:113
+      components/landing-navbar.tsx:77
+      app/profile/edit/basic/page.tsx:131
+      app/profile/edit/basic/page.tsx:243
+      app/profile/edit/basic/page.tsx:269
+      app/profile/edit/basic/page.tsx:314
+      app/profile/edit/basic/page.tsx:340
+      app/profile/edit/basic/page.tsx:367
+      app/profile/edit/basic/page.tsx:393
+      app/profile/edit/basic/page.tsx:419
+      app/profile/edit/basic/page.tsx:445
+      app/contact/page.tsx:105
+      app/contact/page.tsx:115
+      app/contact/page.tsx:127
+      app/contact/page.tsx:138
+      features/admin/components/BlockStatusModal.tsx:88
+      features/jobs/components/candidate-applications/CandidateApplicationsFilters.tsx:32
+      features/admin/components/JobList.tsx:83
+      features/recruiter/components/verification/company-verification-flow.tsx:84
+      features/jobs/components/job-list/JobSearchBar.tsx:21
+      features/jobs/components/job-list/JobSearchBar.tsx:32
+      features/admin/components/CandidateList.tsx:95
+      features/admin/components/RecruiterHeader.tsx:214
+      features/admin/components/AdminJobApplicationsList.tsx:42
+      features/admin/components/RecruiterList.tsx:89
+      features/recruiter/components/applications/JobApplicationsToolbar.tsx:42
+
+  ⚠ react-doctor/use-lazy-motion                        ×57
+      Import "m" with LazyMotion instead of "motion" — saves ~30kb in bundle size
+      → Use `import { LazyMotion, m } from "framer-motion"` with `domAnimation` features — saves ~30kb
+      components/auth/forgot-password-form.tsx:4
+      components/hero-search.tsx:4
+      app/admin/(dashboard)/plans/page.tsx:3
+      app/recruiter/setup/plan/page.tsx:3
+      components/recruiter/jobs/create/steps/step5-plan.tsx:3
+      app/(auth)/login/page.tsx:5
+      app/recruiter/reset-password/[id]/page.tsx:4
+      components/recruiter/jobs/location-selector.tsx:5
+      app/recruiter/jobs/create/page.tsx:3
+      app/admin/(dashboard)/dashboard/page.tsx:3
+      app/recruiter/signup/page.tsx:4
+      components/recruiter/jobs/create/steps/step3-logistics.tsx:3
+      app/recruiter/forgot-password/page.tsx:4
+      app/pricing/page.tsx:4
+      components/recruiter/jobs/create/steps/step1-details.tsx:3
+      components/auth/reset-password-form.tsx:4
+      components/auth/otp-form.tsx:3
+      app/recruiter/forgot-password/otp/[id]/page.tsx:4
+      components/logo.tsx:3
+      components/application/file-upload/file-upload-base.tsx:11
+      components/recruiter/jobs/create/steps/step4-preview.tsx:3
+      app/applications/page.tsx:4
+      components/profile/forms/form-page-layout.tsx:4
+      app/recruiter/onboarding/page.tsx:3
+      components/recruiter/jobs/create/ui/field-error.tsx:3
+      app/recruiter/page.tsx:16
+      app/setup/plan/page.tsx:3
+      app/profile/setup/page.tsx:5
+      app/(auth)/reset-password/page.tsx:4
+      app/admin/login/page.tsx:4
+      app/recruiter/login/page.tsx:4
+      app/(auth)/forgot-password/page.tsx:4
+      app/recruiter/profile/page.tsx:3
+      components/profile/profile-components.tsx:2
+      components/landing-navbar.tsx:10
+      app/recruiter/dashboard/page.tsx:2
+      components/recruiter/jobs/create/steps/step2-requirements.tsx:3
+      app/recruiter/applications/page.tsx:4
+      components/profile/profile-sidebar.tsx:16
+      app/(auth)/signup/page.tsx:5
+      features/recruiter/components/profile/hero-avatar-card.tsx:1
+      features/jobs/components/candidate-applications/CandidateApplicationsStats.tsx:2
+      features/jobs/components/candidate-applications/CandidateApplicationsEmptyState.tsx:2
+      features/jobs/components/candidate-applications/CandidateApplicationsFilters.tsx:2
+      features/jobs/components/JobList.tsx:4
+      features/recruiter/components/verification/company-verification-flow.tsx:3
+      features/jobs/components/job-list/JobActiveFilters.tsx:2
+      features/jobs/components/candidate-applications/CandidateApplicationCard.tsx:7
+      features/recruiter/components/profile/section-card.tsx:1
+      features/recruiter/components/profile/company-identity-card.tsx:1
+      features/recruiter/components/profile/tax-identity-card.tsx:1
+      features/recruiter/components/profile/basic-details-card.tsx:1
+      components/shared/global-loader.tsx:1
+      features/jobs/components/job-details/JobSidebar.tsx:2
+      features/jobs/components/job-details/JobSuccessModal.tsx:2
+      components/recruiter/modals.tsx:3
+      features/recruiter/components/profile/sticky-save-bar.tsx:1
+
+  ⚠ react-doctor/react-compiler-destructure-method      ×57
+      Destructure for clarity: `const { push } = useRouter()` then call `push(...)` directly — easier for React Compiler to memoize and clearer about which methods this component depends on
+      → Destructure the method up front: `const { push } = useRouter()` then call `push(...)` directly — clearer dependency graph and easier for React Compiler to memoize
+      components/hero-search.tsx:20
+      app/recruiter/jobs/create/new/page.tsx:112
+      app/recruiter/setup/plan/page.tsx:295
+      app/recruiter/setup/plan/page.tsx:301
+      app/profile/job-preferences/edit/page.tsx:49
+      app/(auth)/login/page.tsx:32
+      app/(auth)/login/page.tsx:79
+      app/profile/language/edit/[id]/page.tsx:26
+      app/recruiter/jobs/create/page.tsx:110
+      app/recruiter/jobs/create/page.tsx:145
+      app/recruiter/jobs/create/page.tsx:154
+      app/profile/experience/add/page.tsx:14
+      app/profile/language/add/page.tsx:14
+      app/admin/(dashboard)/layout.tsx:21
+      app/recruiter/signup/page.tsx:87
+      app/pricing/page.tsx:21
+      app/pricing/page.tsx:22
+      app/recruiter/plan/page.tsx:17
+      app/profile/education/add/page.tsx:14
+      components/auth/reset-password-form.tsx:44
+      components/auth/otp-form.tsx:38
+      app/profile/experience/edit/[id]/page.tsx:26
+      app/profile/education/edit/[id]/page.tsx:26
+      app/recruiter/layout.tsx:108
+      app/recruiter/layout.tsx:146
+      app/recruiter/layout.tsx:152
+      app/recruiter/layout.tsx:158
+      app/recruiter/layout.tsx:251
+      app/profile/certificate/add/page.tsx:14
+      app/applications/page.tsx:18
+      app/recruiter/onboarding/page.tsx:72
+      app/setup/plan/page.tsx:252
+      app/setup/plan/page.tsx:258
+      app/profile/setup/page.tsx:153
+      app/(auth)/reset-password/page.tsx:22
+      app/(auth)/reset-password/page.tsx:23
+      app/admin/login/page.tsx:56
+      app/profile/layout.tsx:18
+      app/recruiter/login/page.tsx:62
+      app/recruiter/login/page.tsx:64
+      components/landing-navbar.tsx:28
+      app/recruiter/dashboard/page.tsx:48
+      app/recruiter/dashboard/page.tsx:106
+      app/recruiter/dashboard/page.tsx:133
+      app/recruiter/dashboard/page.tsx:167
+      app/profile/certificate/edit/[id]/page.tsx:26
+      app/profile/edit/basic/page.tsx:218
+      app/(auth)/signup/page.tsx:109
+      features/admin/components/RecruiterDetails.tsx:27
+      features/admin/components/JobList.tsx:46
+      features/recruiter/components/verification/company-verification-flow.tsx:44
+      features/admin/components/AdminJobDetails.tsx:117
+      features/jobs/components/candidate-applications/CandidateApplicationCard.tsx:121
+      features/recruiter/components/profile/tax-identity-card.tsx:122
+      features/recruiter/components/profile/tax-identity-card.tsx:134
+      features/admin/components/RecruiterJobsList.tsx:73
+      features/auth/context/auth-context.tsx:52
+
+  ⚠ react-doctor/nextjs-missing-metadata                ×39
+      Page without metadata or generateMetadata export — hurts SEO
+      → Add `export const metadata = { title: '...', description: '...' }` or `export async function generateMetadata()`
+      app/recruiter/jobs/create/new/page.tsx:1
+      app/recruiter/setup/plan/page.tsx:1
+      app/profile/job-preferences/edit/page.tsx:1
+      app/recruiter/reset-password/[id]/page.tsx:1
+      app/profile/language/edit/[id]/page.tsx:1
+      app/recruiter/jobs/edit/[jobId]/page.tsx:1
+      app/recruiter/jobs/create/page.tsx:1
+      app/profile/experience/add/page.tsx:1
+      app/profile/language/add/page.tsx:1
+      app/recruiter/verify-company/page.tsx:1
+      app/recruiter/signup/page.tsx:1
+      app/page.tsx:1
+      app/recruiter/jobs/[id]/applications/[applicationId]/page.tsx:1
+      app/recruiter/forgot-password/page.tsx:1
+      app/pricing/page.tsx:1
+      app/recruiter/plan/page.tsx:1
+      app/profile/education/add/page.tsx:1
+      app/jobs/page.tsx:1
+      app/profile/experience/edit/[id]/page.tsx:1
+      app/recruiter/forgot-password/otp/[id]/page.tsx:1
+      app/profile/page.tsx:1
+      app/profile/education/edit/[id]/page.tsx:1
+      app/recruiter/jobs/[id]/applications/page.tsx:1
+      app/recruiter/jobs/page.tsx:1
+      app/profile/certificate/add/page.tsx:1
+      app/applications/page.tsx:1
+      app/recruiter/onboarding/page.tsx:1
+      app/recruiter/page.tsx:1
+      app/jobs/status/page.tsx:1
+      app/setup/plan/page.tsx:1
+      app/profile/setup/page.tsx:1
+      app/recruiter/login/page.tsx:1
+      app/recruiter/profile/page.tsx:1
+      app/profile/certificate/edit/[id]/page.tsx:1
+      app/profile/edit/basic/page.tsx:1
+      app/recruiter/applications/page.tsx:1
+      app/about/page.tsx:1
+      app/jobs/[id]/page.tsx:1
+      app/contact/page.tsx:1
+
+  ⚠ react-doctor/label-has-associated-control           ×30
+      A form label must be associated with a control — use `htmlFor` or nest the input.
+      → Associate every label with a control via `htmlFor` or by nesting the input.
+      components/profile/forms/job-preference-form.tsx:22
+      components/profile/forms/job-preference-form.tsx:33
+      components/profile/forms/job-preference-form.tsx:44
+      components/profile/forms/experience-form.tsx:66
+      components/profile/forms/experience-form.tsx:79
+      components/profile/forms/experience-form.tsx:108
+      components/profile/forms/experience-form.tsx:131
+      components/profile/forms/experience-form.tsx:143
+      components/profile/forms/experience-form.tsx:155
+      components/profile/forms/experience-form.tsx:190
+      components/profile/forms/experience-form.tsx:214
+      components/profile/forms/experience-form.tsx:234
+      components/profile/forms/certificate-form.tsx:41
+      components/profile/forms/certificate-form.tsx:53
+      components/profile/forms/profile-edit-form.tsx:22
+      components/profile/forms/profile-edit-form.tsx:33
+      components/profile/forms/profile-edit-form.tsx:44
+      components/profile/forms/education-form.tsx:58
+      components/profile/forms/education-form.tsx:84
+      components/profile/forms/education-form.tsx:98
+      components/profile/forms/education-form.tsx:110
+      app/contact/page.tsx:102
+      app/contact/page.tsx:112
+      app/contact/page.tsx:124
+      app/contact/page.tsx:135
+      components/ui/label.tsx:9
+      features/admin/components/BlockStatusModal.tsx:59
+      features/admin/components/BlockStatusModal.tsx:85
+      features/recruiter/components/applications/BulkConfirmationModal.tsx:39
+      features/recruiter/components/verification/company-verification-flow.tsx:81
+
+  ⚠ react-doctor/no-array-index-key                     ×28
+      Array index in `key` doesn't uniquely identify the element — re-renders may use stale state.
+      → Use a stable, data-derived `key` instead of the array index.
+      app/admin/(dashboard)/plans/page.tsx:308
+      app/recruiter/setup/plan/page.tsx:246
+      components/recruiter/jobs/create/steps/step5-plan.tsx:104
+      app/page.tsx:307
+      app/page.tsx:367
+      app/page.tsx:404
+      app/page.tsx:496
+      app/pricing/page.tsx:189
+      app/recruiter/page.tsx:178
+      app/recruiter/page.tsx:244
+      app/recruiter/page.tsx:382
+      app/setup/plan/page.tsx:195
+      components/profile/profile-components.tsx:170
+      app/about/page.tsx:68
+      app/about/page.tsx:125
+      features/recruiter/components/applications/JobApplicationsStats.tsx:20
+      features/admin/components/CandidateDetails.tsx:138
+      features/admin/components/CandidateDetails.tsx:217
+      features/admin/components/CandidateDetails.tsx:347
+      features/admin/components/CandidateDetails.tsx:395
+      features/jobs/components/candidate-profile/CandidateSkills.tsx:18
+      features/jobs/components/job-details/JobDescriptionCard.tsx:105
+      features/jobs/components/candidate-profile/CandidateCertifications.tsx:27
+      features/jobs/components/candidate-profile/CandidateEducation.tsx:26
+      features/jobs/components/candidate-profile/CandidateLanguages.tsx:15
+      features/jobs/components/candidate-profile/AIMatchAnalysis.tsx:118
+      features/jobs/components/candidate-profile/CandidateExperience.tsx:30
+      features/jobs/components/candidate-profile/CandidateExperience.tsx:82
+
+  ⚠ react-doctor/no-array-index-as-key                  ×26
+      Array index "idx" used as key — causes bugs when list is reordered or filtered
+      → Use a stable unique identifier: `key={item.id}` or `key={item.slug}` — index keys break on reorder/filter
+      app/admin/(dashboard)/plans/page.tsx:308
+      components/recruiter/jobs/create/steps/step5-plan.tsx:104
+      app/page.tsx:307
+      app/page.tsx:367
+      app/page.tsx:404
+      app/page.tsx:496
+      app/recruiter/page.tsx:178
+      app/recruiter/page.tsx:244
+      app/recruiter/page.tsx:382
+      components/profile/profile-components.tsx:170
+      app/about/page.tsx:68
+      app/about/page.tsx:125
+      features/recruiter/components/applications/JobApplicationsStats.tsx:20
+      components/ui/slider.tsx:43
+      features/admin/components/CandidateDetails.tsx:138
+      features/admin/components/CandidateDetails.tsx:347
+      features/admin/components/CandidateDetails.tsx:395
+      features/jobs/components/JobList.tsx:132
+      features/jobs/components/candidate-profile/CandidateSkills.tsx:18
+      features/jobs/components/job-details/JobDescriptionCard.tsx:105
+      features/jobs/components/candidate-profile/CandidateCertifications.tsx:27
+      features/jobs/components/candidate-profile/CandidateEducation.tsx:26
+      features/jobs/components/candidate-profile/CandidateLanguages.tsx:15
+      features/jobs/components/candidate-profile/AIMatchAnalysis.tsx:118
+      components/shared/pagination.tsx:36
+      features/jobs/components/candidate-profile/CandidateExperience.tsx:30
+
+  ⚠ react-doctor/design-no-three-period-ellipsis        ×25
+      Three-period ellipsis ("...") in JSX text — use the actual ellipsis character "…" (or `&hellip;`)
+      → Use the typographic ellipsis "…" (or `&hellip;`) instead of three periods — pairs with action-with-followup labels ("Rename…", "Loading…")
+      app/recruiter/jobs/create/new/page.tsx:278
+      app/admin/(dashboard)/plans/page.tsx:65
+      app/admin/(dashboard)/plans/page.tsx:410
+      app/(auth)/login/page.tsx:294
+      components/recruiter/jobs/google-map-picker.tsx:116
+      components/recruiter/jobs/google-map-picker.tsx:153
+      app/recruiter/jobs/[id]/applications/[applicationId]/page.tsx:42
+      components/application/file-upload/file-upload-base.tsx:350
+      components/profile/forms/language-form.tsx:141
+      components/profile/resume-upload.tsx:87
+      components/profile/resume-upload.tsx:98
+      app/recruiter/onboarding/page.tsx:488
+      app/recruiter/onboarding/page.tsx:533
+      app/jobs/status/page.tsx:25
+      app/admin/(dashboard)/jobs/[id]/page.tsx:25
+      app/admin/(dashboard)/recruiters/[id]/page.tsx:36
+      app/(auth)/reset-password/page.tsx:126
+      features/admin/components/CandidateDetails.tsx:49
+      features/jobs/components/job-details/JobHeaderCard.tsx:85
+      features/admin/components/JobList.tsx:70
+      features/recruiter/components/applications/JobApplicationsList.tsx:111
+      features/admin/components/CandidateList.tsx:80
+      features/admin/components/RecruiterJobsList.tsx:30
+      features/jobs/components/candidate-profile/AIMatchAnalysis.tsx:37
+      features/admin/components/RecruiterList.tsx:76
+
+  ⚠ react-doctor/button-has-type                        ×20
+      `<button>` elements must have an explicit `type` attribute.
+      → Set `type="button"` (or `"submit"` / `"reset"`) explicitly on every `<button>`.
+      app/recruiter/jobs/create/new/page.tsx:155
+      app/admin/(dashboard)/plans/page.tsx:231
+      components/application/date-picker/range-calendar.tsx:84
+      app/admin/(dashboard)/dashboard/page.tsx:56
+      app/pricing/page.tsx:116
+      components/recruiter/jobs/create/steps/step1-details.tsx:534
+      components/profile/forms/base-sheet.tsx:48
+      components/recruiter/jobs/create/steps/step4-preview.tsx:36
+      app/recruiter/onboarding/page.tsx:409
+      components/admin/header.tsx:24
+      components/admin/header.tsx:27
+      components/admin/header.tsx:32
+      components/profile/profile-components.tsx:45
+      components/profile/profile-components.tsx:112
+      components/landing-navbar.tsx:99
+      components/landing-navbar.tsx:143
+      components/landing-navbar.tsx:173
+      components/admin/sidebar.tsx:79
+      components/recruiter/modals.tsx:69
+      components/recruiter/modals.tsx:185
+
+  ⚠ react-doctor/no-generic-handler-names               ×18
+      Non-descriptive handler name "handleChange" — name should describe what it does, not when it runs
+      → Rename to describe the action: e.g. `handleSubmit` → `saveUserProfile`, `handleClick` → `toggleSidebar`
+      app/(auth)/login/page.tsx:213
+      app/(auth)/login/page.tsx:239
+      app/recruiter/signup/page.tsx:163
+      app/recruiter/signup/page.tsx:181
+      app/recruiter/signup/page.tsx:199
+      app/recruiter/signup/page.tsx:217
+      app/recruiter/signup/page.tsx:235
+      app/profile/setup/page.tsx:204
+      app/profile/setup/page.tsx:226
+      app/admin/login/page.tsx:117
+      app/admin/login/page.tsx:134
+      app/recruiter/login/page.tsx:126
+      app/recruiter/login/page.tsx:144
+      app/(auth)/signup/page.tsx:236
+      app/(auth)/signup/page.tsx:255
+      app/(auth)/signup/page.tsx:272
+      app/(auth)/signup/page.tsx:291
+      app/(auth)/signup/page.tsx:308
+
+  ⚠ react-doctor/design-no-space-on-flex-children       ×16
+      space-y-4 on a flex/grid parent — use gap-y-4 instead. Per-sibling margins phantom-gap on conditional render and don't mirror in RTL
+      → Use `gap-*` on the flex/grid parent. `space-x-*` / `space-y-*` produce phantom gaps when a sibling is conditionally rendered, lose vertical spacing on wrapped lines, and don't mirror in RTL
+      app/admin/(dashboard)/plans/page.tsx:63
+      app/admin/(dashboard)/plans/page.tsx:331
+      app/(auth)/login/page.tsx:275
+      app/page.tsx:232
+      app/recruiter/onboarding/page.tsx:466
+      app/recruiter/page.tsx:44
+      app/admin/(dashboard)/recruiters/[id]/page.tsx:34
+      app/(auth)/reset-password/page.tsx:67
+      components/landing-navbar.tsx:89
+      components/landing-navbar.tsx:90
+      app/(auth)/signup/page.tsx:364
+      features/admin/components/CandidateDetails.tsx:47
+      features/recruiter/components/applications/BulkConfirmationModal.tsx:39
+      components/shared/confirmation-modal.tsx:73
+      features/jobs/components/candidate-profile/AIMatchAnalysis.tsx:49
+      components/recruiter/modals.tsx:98
+
+  ⚠ react-doctor/no-event-handler                       ×15
+      Avoid using state and effects as an event handler. Instead, call the event handling code directly when the event occurs.
+      → Move the side effect into the event handler that triggers it, instead of guarding on its state inside a useEffect. See https://react.dev/learn/you-might-not-need-an-effect#sharing-logic-between-event-handlers
+      components/recruiter/jobs/location-selector.tsx:61
+      components/recruiter/jobs/location-selector.tsx:68
+      components/recruiter/jobs/google-map-picker.tsx:37
+      components/recruiter/jobs/google-map-picker.tsx:37
+      components/recruiter/jobs/google-map-picker.tsx:73
+      components/recruiter/jobs/google-map-picker.tsx:73
+      app/profile/setup/page.tsx:59
+      app/profile/setup/page.tsx:66
+      app/profile/edit/basic/page.tsx:97
+      app/profile/edit/basic/page.tsx:105
+      components/ui/rich-text-editor.tsx:71
+      components/ui/rich-text-editor.tsx:43
+      components/ui/rich-text-editor.tsx:51
+      hooks/use-controlled-state.tsx:14
+      components/ui/calendar.tsx:200
+
+  ⚠ deslop/unused-file                                  ×15
+      Unused file — not reachable from any entry point
+      → Delete the file if it is truly unreachable, or import it from an entry point.
+      components/application/date-picker/date-range-picker.tsx
+      components/application/date-picker/range-calendar.tsx
+      components/profile/forms/base-sheet.tsx
+      components/profile/forms/job-preference-form.tsx
+      components/profile/forms/profile-edit-form.tsx
+      components/recruiter/jobs/create/steps/step5-plan.tsx
+      components/ui/accordion.tsx
+      components/ui/avatar.tsx
+      components/ui/tabs.tsx
+      hooks/use-auto-height.tsx
+      hooks/use-breakpoint.ts
+      hooks/use-controlled-state.tsx
+      lib/api.ts
+      lib/get-strict-context.tsx
+      lib/utils/is-react-component.ts
+
+  ⚠ react-doctor/no-giant-component                     ×12
+      Component "PlansAdmin" is 534 lines — consider breaking it into smaller focused components
+      → Extract logical sections into focused components: `<UserHeader />`, `<UserActions />`, etc.
+      app/admin/(dashboard)/plans/page.tsx:29
+      app/page.tsx:26
+      components/recruiter/jobs/create/steps/step3-logistics.tsx:34
+      components/recruiter/jobs/create/steps/step1-details.tsx:26
+      app/profile/page.tsx:28
+      app/recruiter/onboarding/page.tsx:28
+      app/recruiter/page.tsx:28
+      app/profile/edit/basic/page.tsx:165
+      components/recruiter/jobs/create/steps/step2-requirements.tsx:34
+      app/(auth)/signup/page.tsx:28
+      features/admin/components/CandidateDetails.tsx:25
+      features/admin/components/AdminJobDetails.tsx:77
+
+  ⚠ react-doctor/no-react19-deprecated-apis             ×12
+      useContext is superseded by `use()` on React 19+ — `use()` reads context conditionally inside hooks, branches, and loops; switch to `import { use } from 'react'`
+      → Pass `ref` as a regular prop on function components — `forwardRef` is no longer needed in React 19+. Replace `useContext(X)` with `use(X)` for branch-aware context reads. Only enabled on projects detected as React 19+.
+      components/application/date-picker/range-calendar.tsx:6
+      lib/get-strict-context.tsx:26
+      components/ui/input-otp.tsx:49
+      features/auth/context/auth-context.tsx:5
+      components/ui/form.tsx:44
+      components/ui/form.tsx:45
+      components/ui/form.tsx:76
+      components/ui/form.tsx:90
+      components/ui/form.tsx:107
+      components/ui/form.tsx:130
+      components/ui/form.tsx:147
+      context/profile-context.tsx:5
+
+  ⚠ react-doctor/click-events-have-key-events           ×12
+      Visible non-interactive elements with click handlers must have a corresponding keyboard listener (`onKeyUp`, `onKeyDown`, or `onKeyPress`).
+      → Pair `onClick` with `onKeyUp` / `onKeyDown` / `onKeyPress` for keyboard users.
+      components/profile/profile-avatar-modal.tsx:134
+      components/recruiter/jobs/location-selector.tsx:113
+      components/recruiter/jobs/location-selector.tsx:300
+      components/recruiter/jobs/location-selector.tsx:343
+      app/recruiter/layout.tsx:44
+      app/recruiter/layout.tsx:250
+      app/recruiter/dashboard/page.tsx:103
+      features/admin/components/JobList.tsx:114
+      components/ui/input-group.tsx:51
+      features/recruiter/components/applications/JobApplicationsList.tsx:153
+      features/admin/components/CandidateList.tsx:127
+      features/admin/components/RecruiterList.tsx:121
+
+  ⚠ deslop/unused-export                                ×11
+      Unused export: `PERK_OPTIONS`
+      → Drop the `export` keyword (or remove the declaration) if no other module uses this symbol.
+      app/recruiter/jobs/create/new/constants.tsx:246
+      components/application/date-picker/calendar.tsx:26
+      components/application/file-upload/file-upload-base.tsx:25
+      components/application/file-upload/file-upload-base.tsx:76
+      components/application/file-upload/file-upload-base.tsx:287
+      components/application/file-upload/file-upload-base.tsx:401
+      components/recruiter/modals.tsx:27
+      constants/routes.ts:6
+      features/jobs/components/job-list/JobFiltersSidebar.tsx:18
+      features/jobs/services/job.api.ts:74
+      lib/utils/cx.ts:29
+
+  ⚠ react-doctor/no-scale-from-zero                     ×10
+      scale: 0 makes elements appear from nowhere — use scale: 0.95 with opacity: 0 for natural entrance
+      → Use `initial={{ scale: 0.95, opacity: 0 }}` — elements should deflate like a balloon, not vanish into a point
+      app/admin/(dashboard)/plans/page.tsx:392
+      app/recruiter/reset-password/[id]/page.tsx:43
+      app/recruiter/signup/page.tsx:128
+      app/recruiter/forgot-password/page.tsx:37
+      app/recruiter/forgot-password/otp/[id]/page.tsx:43
+      app/recruiter/onboarding/page.tsx:519
+      app/(auth)/reset-password/page.tsx:37
+      app/admin/login/page.tsx:85
+      app/recruiter/login/page.tsx:94
+      app/(auth)/forgot-password/page.tsx:37
+
+  ⚠ react-doctor/no-static-element-interactions         ×9
+      Static HTML elements with event handlers require a role — add `role="…"` or use a semantic HTML element instead.
+      → Static HTML elements with event handlers require a role, or use a semantic HTML element instead.
+      components/profile/profile-avatar-modal.tsx:134
+      components/recruiter/jobs/location-selector.tsx:300
+      components/recruiter/jobs/location-selector.tsx:343
+      app/recruiter/layout.tsx:44
+      app/recruiter/layout.tsx:250
+      app/recruiter/dashboard/page.tsx:103
+      features/admin/components/JobList.tsx:114
+      features/admin/components/CandidateList.tsx:127
+      features/admin/components/RecruiterList.tsx:121
+
+  ⚠ deslop/unused-dependency                            ×9
+      Unused dependency: `@tiptap/extension-link`
+      → Remove the dependency from package.json if it is genuinely unused.
+      package.json
+
+  ⚠ react-doctor/no-gray-on-colored-background          ×8
+      Gray text (text-gray-300) on colored background (bg-red-50) looks washed out — use a darker shade of the background color or white
+      → Use a darker shade of the background color for text, or white/near-white for contrast. Gray text on colored backgrounds looks washed out
+      app/admin/(dashboard)/plans/page.tsx:315
+      app/admin/(dashboard)/plans/page.tsx:542
+      app/profile/page.tsx:287
+      app/profile/page.tsx:365
+      components/profile/profile-components.tsx:112
+      app/recruiter/dashboard/page.tsx:141
+      features/admin/components/JobList.tsx:224
+      features/admin/components/JobList.tsx:233
+
+  ⚠ react-doctor/no-gradient-text                       ×7
+      Gradient text (bg-clip-text + bg-gradient) is decorative rather than meaningful — a common AI tell. Use solid colors for text
+      → Use solid text colors for readability. If you need emphasis, use font weight, size, or a distinct color instead of gradients
+      app/page.tsx:169
+      app/page.tsx:358
+      app/page.tsx:396
+      app/page.tsx:488
+      app/pricing/page.tsx:96
+      app/about/page.tsx:51
+      app/contact/page.tsx:19
+
+  ⚠ react-doctor/no-effect-chain                        ×6
+      useEffect reacts to "isReady" which is set by another useEffect — chains of effects add an extra render per link and become rigid as code evolves. Compute what you can during render and write all related state inside the event handler that originally fires the chain
+      → Compute as much as possible during render (e.g. `const isGameOver = round > 5`) and write all related state inside the event handler that originally fires the chain. Each effect link adds an extra render and makes the code rigid as requirements evolve
+      components/recruiter/jobs/location-selector.tsx:60
+      components/recruiter/jobs/location-selector.tsx:66
+      app/profile/setup/page.tsx:58
+      app/profile/setup/page.tsx:64
+      app/profile/edit/basic/page.tsx:96
+      app/profile/edit/basic/page.tsx:102
+
+  ⚠ react-doctor/no-pure-black-background               ×5
+      Pure black background (bg-black) looks harsh — use a near-black tinted toward your brand hue (e.g. bg-gray-950)
+      → Tint the background slightly toward your brand hue — e.g. `#0a0a0f` or Tailwind's `bg-gray-950`. Pure black looks harsh on modern displays
+      components/profile/forms/job-preference-form.tsx:54
+      app/not-found.tsx:46
+      components/profile/forms/profile-edit-form.tsx:54
+      app/profile/page.tsx:120
+      app/profile/page.tsx:315
+
+  ⚠ react-doctor/nextjs-no-client-side-redirect         ×5
+      router.push() in useEffect — use redirect() from next/navigation or handle navigation in an event handler
+      → Avoid redirects inside useEffect. Use an event handler, middleware, or server-side redirect (App Router: redirect() from next/navigation; Pages Router: getServerSideProps redirect)
+      app/recruiter/jobs/create/new/page.tsx:112
+      app/admin/(dashboard)/layout.tsx:21
+      app/recruiter/layout.tsx:108
+      app/applications/page.tsx:18
+      app/profile/layout.tsx:18
+
+  ⚠ react-doctor/jsx-no-constructed-context-values      ×5
+      Context `value` prop is constructed inline — wrap with `useMemo`/`useCallback` or hoist a constant to avoid re-renders.
+      → Memoize the context value (`useMemo`) or hoist it outside the render.
+      components/application/date-picker/range-calendar.tsx:39
+      components/application/date-picker/calendar.tsx:32
+      components/ui/form.tsx:37
+      components/ui/form.tsx:83
+      context/profile-context.tsx:215
+
+  ⚠ react-doctor/no-derived-state                       ×5
+      Avoid storing derived state. Compute "inputValue" directly during render, optionally with `useMemo` if it's expensive.
+      → Compute derived state inline during render (or with useMemo if expensive) instead of mirroring it into useState via a useEffect. See https://react.dev/learn/you-might-not-need-an-effect#updating-state-based-on-props-or-state
+      components/recruiter/jobs/location-selector.tsx:67
+      components/recruiter/jobs/google-map-picker.tsx:49
+      app/profile/edit/basic/page.tsx:104
+      app/profile/edit/basic/page.tsx:175
+      hooks/use-controlled-state.tsx:21
+
+  ⚠ react-doctor/prefer-useReducer                      ×4
+      Component "EditJobPreferencesPage" has 5 useState calls — consider useReducer for related state
+      → Group related state: `const [state, dispatch] = useReducer(reducer, { field1, field2, ... })`
+      app/profile/job-preferences/edit/page.tsx:31
+      components/profile/forms/experience-form.tsx:31
+      app/recruiter/onboarding/page.tsx:28
+      context/profile-context.tsx:81
+
+  ⚠ react-doctor/no-chain-state-updates                 ×4
+      Avoid chaining state changes. When possible, update all relevant state simultaneously.
+      → Update all related state simultaneously inside the event handler that originally fires, instead of reacting to one state update in a useEffect that writes another state. See https://react.dev/learn/you-might-not-need-an-effect#chains-of-computations
+      components/recruiter/jobs/location-selector.tsx:67
+      components/recruiter/jobs/google-map-picker.tsx:49
+      app/profile/setup/page.tsx:65
+      app/profile/edit/basic/page.tsx:104
+
+  ⚠ react-doctor/prefer-tag-over-role                   ×4
+      Prefer the semantic `<progress>` element over `role="progressbar"` on a generic tag.
+      → Replace `role` with the semantic HTML element when one exists.
+      components/application/file-upload/file-upload-base.tsx:429
+      components/ui/input-otp.tsx:77
+      components/ui/input-group.tsx:14
+      components/ui/input-group.tsx:52
+
+  ⚠ react-doctor/no-danger                              ×4
+      Do not use `dangerouslySetInnerHTML` — it injects raw HTML and is a common XSS vector.
+      → Render trusted content as React children rather than injecting raw HTML.
+      components/recruiter/jobs/create/steps/step4-preview.tsx:185
+      features/jobs/components/job-details/JobDescriptionCard.tsx:19
+      features/admin/components/AdminJobDetails.tsx:236
+      features/admin/components/AdminJobDetails.tsx:248
+
+  ⚠ react-doctor/no-multi-comp                          ×4
+      Declare only one React component per file. Found extra component: InputOTPSlot.
+      → Move secondary components into their own files.
+      components/ui/input-otp.tsx:42
+      components/ui/input-otp.tsx:72
+      components/ui/input-group.tsx:45
+      components/ui/input-group.tsx:106
+
+  ⚠ react-doctor/design-no-redundant-padding-axes       ×4
+      px-4 py-4 → use the shorthand p-4
+      → Collapse `px-N py-N` to `p-N` when both axes match. Keep them split only when one axis varies at a breakpoint (`py-2 md:py-3`)
+      features/admin/components/AdminJobApplicationsList.tsx:113
+      features/admin/components/AdminJobApplicationsList.tsx:141
+      features/admin/components/AdminJobApplicationsList.tsx:150
+      features/admin/components/AdminJobApplicationsList.tsx:167
+
+  ⚠ react-doctor/rendering-hydration-mismatch-time      ×3
+      new Date() reachable from JSX renders differently on server vs client — wrap in useEffect+useState (client-only) or add suppressHydrationWarning to the parent if intentional
+      → Wrap dynamic time/random values in useEffect+useState (client-only) or add suppressHydrationWarning to the parent if intentional
+      app/not-found.tsx:66
+      app/recruiter/jobs/page.tsx:74
+      components/landing-footer.tsx:112
+
+  ⚠ react-doctor/exhaustive-deps                        ×3
+      The `getIcon` value makes the dependencies of `useMemo` change on every render. Move it inside the hook callback or wrap it in its own memoization hook.
+      → List every value the hook callback captures in its dependency array.
+      app/pricing/page.tsx:63
+      hooks/use-auto-height.tsx:92
+      hooks/use-auto-height.tsx:92
+
+  ⚠ react-doctor/design-no-em-dash-in-jsx-text          ×3
+      Em dash (—) in JSX text reads as model output — replace with comma, colon, semicolon, or parentheses
+      → Replace em dashes in JSX prose with commas, colons, semicolons, or parentheses so UI copy reads less like generated text.
+      features/admin/components/CandidateDetails.tsx:201
+      features/admin/components/CandidateDetails.tsx:261
+      features/recruiter/components/profile/company-identity-card.tsx:174
+
+  ⚠ deslop/unused-dev-dependency                        ×3
+      Unused devDependency: `@happy-dom/global-registrator`
+      → Remove the dependency from package.json if it is genuinely unused.
+      package.json
+
+  ⚠ react-doctor/js-combine-iterations                  ×2
+      .filter().map() iterates the array twice — combine into a single loop with .reduce() or for...of
+      → Combine `.map().filter()` (or similar chains) into a single pass with `.reduce()` or a `for...of` loop to avoid iterating the array twice
+      app/admin/(dashboard)/plans/page.tsx:466
+      app/pricing/page.tsx:57
+
+  ⚠ react-doctor/no-inline-bounce-easing                ×2
+      animate-bounce feels dated and tacky — use a subtle ease-out transform for natural deceleration
+      → Use `cubic-bezier(0.16, 1, 0.3, 1)` (ease-out-expo) for natural deceleration — objects in the real world don't bounce
+      app/not-found.tsx:24
+      app/(auth)/reset-password/page.tsx:45
+
+  ⚠ react-doctor/no-noninteractive-element-interactions ×2
+      Non-interactive element `<li>` should not have interactive event handlers — convert to a semantic interactive element or add an interactive role.
+      → Move interactions to a semantic interactive element / add an interactive role.
+      components/recruiter/jobs/location-selector.tsx:113
+      features/recruiter/components/applications/JobApplicationsList.tsx:153
+
+  ⚠ react-doctor/no-derived-useState
+      useState initialized from prop "value" — if this value should stay in sync with the prop, derive it during render instead
+      → Remove useState and compute the value inline: `const value = transform(propName)`
+      components/recruiter/jobs/location-selector.tsx:36
+
+  ⚠ react-doctor/rerender-state-only-in-handlers
+      useState "hasLocated" is updated but never read in the component's return — use useRef so updates don't trigger re-renders
+      → Replace useState with useRef when the value is only mutated and never read in render — `ref.current = ...` updates without re-rendering the component
+      components/recruiter/jobs/google-map-picker.tsx:33
+
+  ⚠ react-doctor/no-cascading-set-state
+      3 setState calls in a single useEffect — consider using useReducer or deriving state
+      → Combine into useReducer: `const [state, dispatch] = useReducer(reducer, initialState)`
+      components/recruiter/jobs/google-map-picker.tsx:72
+
+  ⚠ react-doctor/rendering-svg-precision
+      SVG d attribute uses 4+ decimal precision — truncate to 1–2 decimals to shrink markup with no visible difference
+      → Truncate path/points/transform decimals to 1–2 digits — sub-pixel precision adds bytes with no visible difference
+      app/page.tsx:416
+
+  ⚠ react-doctor/client-passive-event-listeners
+      "scroll" listener without { passive: true } — blocks scrolling performance. Only add { passive: true } if the handler does NOT call event.preventDefault() (passive listeners silently ignore preventDefault())
+      → Add `{ passive: true }` as the third argument: `addEventListener('scroll', handler, { passive: true })`. Only do this if the handler does NOT call `event.preventDefault()` — passive listeners silently ignore `preventDefault()`, which breaks features like pull-to-refresh suppression, custom gestures, and nested-scroll containment.
+      components/landing-navbar.tsx:36
+
+  ⚠ react-doctor/anchor-has-content
+      Anchor must have accessible content — provide visible text, `aria-label`, or `aria-labelledby`.
+      → Add visible or aria-labelled text inside every `<a>`.
+      components/ui/pagination.tsx:56
+
+  ⚠ react-doctor/no-render-in-render
+      Inline render function "renderPageItems()" — extract to a separate component for proper reconciliation
+      → Extract to a named component: `const ListItem = ({ item }) => <div>{item.name}</div>`
+      components/shared/pagination.tsx:138
+
+  ⚠ react-doctor/no-many-boolean-props
+      Component "JobSidebar" takes 4 boolean-like props (hasApplied, isAuthenticated, isCandidate…) — consider compound components or explicit variants instead of stacking flags
+      → Split into compound components or named variants: `<Button.Primary />`, `<DialogConfirm />` instead of stacking `isPrimary`, `isConfirm` flags
+      features/jobs/components/job-details/JobSidebar.tsx:21
+
+  ⚠ react-doctor/no-initialize-state
+      Avoid initializing state in an effect. Instead, initialize "jobPreferences"'s `useState()` with "JSON.parse(stored)". For SSR hydration, prefer `useSyncExternalStore()`.
+      → Pass the initial value directly to useState() instead of setting it from a mount-only useEffect. For SSR hydration, prefer useSyncExternalStore().
+      context/profile-context.tsx:122
+
+  ⚠ react-doctor/js-flatmap-filter
+      .map().filter(Boolean) iterates twice — use .flatMap() to transform and filter in a single pass
+      → Use `.flatMap(item => condition ? [value] : [])` — transforms and filters in a single pass instead of creating an intermediate array
+      context/profile-context.tsx:155
+
+  ⚠ react-doctor/client-localstorage-no-version
+      localStorage.setItem("jobPreferences", JSON.stringify(...)) — bake a version into the key (e.g. "jobPreferences:v1") so a future schema change can ignore old data instead of crashing on it
+      → Bake a version into the storage key (e.g. "myKey:v1"); a future schema change can ignore old data instead of crashing on it
+      context/profile-context.tsx:168
+
+  ┌─────┐  59 / 100 Needs work · next-hire-frontend
+  │ • • │  ██████████████████████████████░░░░░░░░░░░░░░░░░░░░
+  │  ─  │  React Doctor (https://react.doctor)
+  └─────┘
+
+  1417 issues
+  Full diagnostics written to /tmp/react-doctor-45b3b4ea-f9fb-4ec4-b70f-589e4993be49
+
+  → Share: https://www.react.doctor/share?p=next-hire-frontend&s=59&e=24&w=1393&f=176
+
+

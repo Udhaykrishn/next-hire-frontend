@@ -22,7 +22,7 @@ function ActiveFilterTag({
         onClick={onRemove}
         className="hover:bg-[#9fe870] rounded p-0.5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#163300]/20"
       >
-        <X className="w-3 h-3" />
+        <X className="size-3" />
       </button>
     </motion.span>
   );

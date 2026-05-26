@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { domAnimation, LazyMotion, m } from "framer-motion";
 import { Info, Plus, X } from "lucide-react";
 import type React from "react";
 import {
@@ -39,7 +39,7 @@ export const Step2Requirements = ({
   setActiveRequirementTab,
 }: Step2RequirementsProps) => {
   return (
-    <motion.div
+    <m.div
       key="step2"
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
@@ -227,9 +227,9 @@ export const Step2Requirements = ({
                     >
                       {tab}
                       {activeRequirementTab === tab ? (
-                        <X className="w-3.5 h-3.5" />
+                        <X className="size-3.5" />
                       ) : (
-                        <Plus className="w-3.5 h-3.5" />
+                        <Plus className="size-3.5" />
                       )}
                     </button>
                   ))}
@@ -254,7 +254,7 @@ export const Step2Requirements = ({
                       type="button"
                       onClick={() => setActiveRequirementTab("")}
                     >
-                      <X className="w-4 h-4 text-gray-400" />
+                      <X className="size-4 text-gray-400" />
                     </button>
                   </div>
                   <p className="text-[12px] font-medium text-gray-500 -mt-4">
@@ -267,7 +267,7 @@ export const Step2Requirements = ({
                     onChange={(vals) =>
                       setFormData((prev) => ({ ...prev, industry: vals }))
                     }
-                    placeholder="Select industry..."
+                    placeholder="Select industry…"
                     label="Industry Experience"
                   />
                 </div>
@@ -283,7 +283,7 @@ export const Step2Requirements = ({
                       type="button"
                       onClick={() => setActiveRequirementTab("")}
                     >
-                      <X className="w-4 h-4 text-gray-400" />
+                      <X className="size-4 text-gray-400" />
                     </button>
                   </div>
                   <p className="text-[12px] font-medium text-gray-500 -mt-4">
@@ -298,7 +298,7 @@ export const Step2Requirements = ({
                         degreeSpecialization: vals,
                       }))
                     }
-                    placeholder="Select degree or specialization..."
+                    placeholder="Select degree or specialization…"
                     label="Degree Preference"
                   />
                 </div>
@@ -308,13 +308,13 @@ export const Step2Requirements = ({
                 <div className="space-y-6 pt-4 border-t border-gray-100">
                   <div className="flex items-center justify-between">
                     <h4 className="text-[14px] font-black text-near-black flex items-center gap-2">
-                      Gender <Info className="w-3.5 h-3.5 text-gray-400" />
+                      Gender <Info className="size-3.5 text-gray-400" />
                     </h4>
                     <button
                       type="button"
                       onClick={() => setActiveRequirementTab("")}
                     >
-                      <X className="w-4 h-4 text-gray-400" />
+                      <X className="size-4 text-gray-400" />
                     </button>
                   </div>
                   <div className="space-y-4" id="field-gender">
@@ -352,14 +352,13 @@ export const Step2Requirements = ({
                 <div className="space-y-6 pt-4 border-t border-gray-100">
                   <div className="flex items-center justify-between">
                     <h4 className="text-[14px] font-black text-near-black flex items-center gap-2">
-                      Age (in years){" "}
-                      <Info className="w-3.5 h-3.5 text-gray-400" />
+                      Age (in years) <Info className="size-3.5 text-gray-400" />
                     </h4>
                     <button
                       type="button"
                       onClick={() => setActiveRequirementTab("")}
                     >
-                      <X className="w-4 h-4 text-gray-400" />
+                      <X className="size-4 text-gray-400" />
                     </button>
                   </div>
                   <div className="space-y-4" id="field-minAge">
@@ -415,13 +414,13 @@ export const Step2Requirements = ({
                   <div className="flex items-center justify-between">
                     <h4 className="text-[14px] font-black text-near-black flex items-center gap-2">
                       Regional language required{" "}
-                      <Info className="w-3.5 h-3.5 text-gray-400" />
+                      <Info className="size-3.5 text-gray-400" />
                     </h4>
                     <button
                       type="button"
                       onClick={() => setActiveRequirementTab("")}
                     >
-                      <X className="w-4 h-4 text-gray-400" />
+                      <X className="size-4 text-gray-400" />
                     </button>
                   </div>
                   <div className="flex flex-wrap gap-3">
@@ -452,9 +451,9 @@ export const Step2Requirements = ({
                         >
                           {lang}
                           {isSelected ? (
-                            <X className="w-3.5 h-3.5" />
+                            <X className="size-3.5" />
                           ) : (
-                            <Plus className="w-3.5 h-3.5" />
+                            <Plus className="size-3.5" />
                           )}
                         </button>
                       );
@@ -473,7 +472,7 @@ export const Step2Requirements = ({
                       type="button"
                       onClick={() => setActiveRequirementTab("")}
                     >
-                      <X className="w-4 h-4 text-gray-400" />
+                      <X className="size-4 text-gray-400" />
                     </button>
                   </div>
                   <MultiSelectField
@@ -491,7 +490,7 @@ export const Step2Requirements = ({
                     onChange={(vals) =>
                       setFormData((prev) => ({ ...prev, skills: vals }))
                     }
-                    placeholder="Search or select skills..."
+                    placeholder="Search or select skills…"
                     label="Skills"
                   />
                 </div>
@@ -517,7 +516,7 @@ export const Step2Requirements = ({
               onChange={(content) =>
                 setFormData((prev) => ({ ...prev, description: content }))
               }
-              placeholder="Enter the job description, including the main responsibility and tasks..."
+              placeholder="Enter the job description, including the main responsibility and tasks…"
             />
             <FieldError name="description" errors={errors} />
           </div>
@@ -540,12 +539,12 @@ export const Step2Requirements = ({
               onChange={(content) =>
                 setFormData((prev) => ({ ...prev, jobDescription: content }))
               }
-              placeholder="Enter details about responsibilities, tools used, day-to-day tasks..."
+              placeholder="Enter details about responsibilities, tools used, day-to-day tasks…"
             />
             <FieldError name="jobDescription" errors={errors} />
           </div>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 };

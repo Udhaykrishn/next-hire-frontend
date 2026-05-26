@@ -32,8 +32,8 @@ export const RecruiterCompanyInfo = ({
   return (
     <section className="space-y-6">
       <div className="flex items-center gap-3 border-b border-gray-200/60 pb-4">
-        <div className="w-8 h-8 bg-wise-green/20 rounded-xl flex items-center justify-center">
-          <Briefcase className="w-4 h-4 text-wise-green" />
+        <div className="size-8 bg-wise-green/20 rounded-xl flex items-center justify-center">
+          <Briefcase className="size-4 text-wise-green" />
         </div>
         <h4 className="font-black text-sm text-near-black uppercase tracking-widest">
           Company Details
@@ -42,8 +42,8 @@ export const RecruiterCompanyInfo = ({
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="bg-gray-50/50 p-5 rounded-3xl border border-gray-100 flex flex-col items-center justify-center text-center transition-transform hover:scale-[1.02]">
-          <div className="w-10 h-10 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center mb-3">
-            <UserCheck className="w-5 h-5 text-gray-400" />
+          <div className="size-10 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center mb-3">
+            <UserCheck className="size-5 text-gray-400" />
           </div>
           <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">
             Company Role
@@ -53,8 +53,8 @@ export const RecruiterCompanyInfo = ({
           </p>
         </div>
         <div className="bg-gray-50/50 p-5 rounded-3xl border border-gray-100 flex flex-col items-center justify-center text-center transition-transform hover:scale-[1.02]">
-          <div className="w-10 h-10 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center mb-3">
-            <LayoutGrid className="w-5 h-5 text-gray-400" />
+          <div className="size-10 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center mb-3">
+            <LayoutGrid className="size-5 text-gray-400" />
           </div>
           <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">
             Category
@@ -64,8 +64,8 @@ export const RecruiterCompanyInfo = ({
           </p>
         </div>
         <div className="bg-gray-50/50 p-5 rounded-3xl border border-gray-100 flex flex-col items-center justify-center text-center transition-transform hover:scale-[1.02]">
-          <div className="w-10 h-10 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center mb-3">
-            <FileDigit className="w-5 h-5 text-gray-400" />
+          <div className="size-10 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center mb-3">
+            <FileDigit className="size-5 text-gray-400" />
           </div>
           <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">
             GSTIN
@@ -75,8 +75,8 @@ export const RecruiterCompanyInfo = ({
           </p>
         </div>
         <div className="bg-gray-50/50 p-5 rounded-3xl border border-gray-100 flex flex-col items-center justify-center text-center transition-transform hover:scale-[1.02]">
-          <div className="w-10 h-10 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center mb-3">
-            <Building2 className="w-5 h-5 text-gray-400" />
+          <div className="size-10 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center mb-3">
+            <Building2 className="size-5 text-gray-400" />
           </div>
           <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">
             CIN
@@ -86,8 +86,8 @@ export const RecruiterCompanyInfo = ({
           </p>
         </div>
         <div className="bg-gray-50/50 p-5 rounded-3xl border border-gray-100 flex flex-col items-center justify-center text-center transition-transform hover:scale-[1.02] md:col-span-2">
-          <div className="w-10 h-10 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center mb-3">
-            <Globe className="w-5 h-5 text-gray-400" />
+          <div className="size-10 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center mb-3">
+            <Globe className="size-5 text-gray-400" />
           </div>
           <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">
             Website
@@ -117,11 +117,11 @@ export const RecruiterCompanyInfo = ({
             </p>
             <div className="flex items-center gap-2">
               {isVerified ? (
-                <ShieldCheck className="w-4 h-4 text-wise-green" />
+                <ShieldCheck className="size-4 text-wise-green" />
               ) : wasRevoked ? (
-                <ShieldX className="w-4 h-4 text-red-500" />
+                <ShieldX className="size-4 text-red-500" />
               ) : (
-                <ShieldOff className="w-4 h-4 text-gray-400" />
+                <ShieldOff className="size-4 text-gray-400" />
               )}
               <span
                 className={cn(
@@ -154,7 +154,7 @@ export const RecruiterCompanyInfo = ({
             <div className="flex items-center gap-2">
               <UserCog
                 className={cn(
-                  "w-4 h-4",
+                  "size-4",
                   recruiter.admin_approved
                     ? "text-wise-green"
                     : "text-gray-400",
@@ -175,8 +175,8 @@ export const RecruiterCompanyInfo = ({
         </div>
 
         <div className="bg-gray-50/50 p-5 rounded-3xl border border-gray-100 flex flex-col items-center justify-center text-center transition-transform hover:scale-[1.02] md:col-span-2">
-          <div className="w-10 h-10 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center mb-3">
-            <CreditCard className="w-5 h-5 text-wise-green" />
+          <div className="size-10 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center mb-3">
+            <CreditCard className="size-5 text-wise-green" />
           </div>
           <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">
             Subscription Plan
@@ -217,9 +217,9 @@ export const RecruiterCompanyInfo = ({
           >
             <div className="flex items-center gap-3">
               {isVerified ? (
-                <ShieldCheck className="w-5 h-5 text-wise-green" />
+                <ShieldCheck className="size-5 text-wise-green" />
               ) : (
-                <ShieldX className="w-5 h-5 text-red-500" />
+                <ShieldX className="size-5 text-red-500" />
               )}
               <span className="text-[10px] font-black uppercase tracking-[0.4em] text-near-black">
                 {isVerified
@@ -239,7 +239,7 @@ export const RecruiterCompanyInfo = ({
             </div>
             <ChevronDown
               className={cn(
-                "w-4 h-4 text-gray-400 transition-transform duration-200",
+                "size-4 text-gray-400 transition-transform duration-200",
                 isVerifOpen && "rotate-180",
               )}
             />

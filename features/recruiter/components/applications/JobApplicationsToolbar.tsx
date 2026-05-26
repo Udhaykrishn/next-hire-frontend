@@ -41,7 +41,7 @@ export function JobApplicationsToolbar({
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-[#868685]" />
           <input
             type="text"
-            placeholder="Search candidates by name or email..."
+            placeholder="Search candidates by name or email…"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="w-full pl-10 pr-4 py-2 bg-transparent border-none text-[15px] font-[400] text-[#0e0f0c] placeholder:text-[#868685] focus:ring-0 outline-none"
@@ -81,7 +81,7 @@ export function JobApplicationsToolbar({
               onClick={onClearSelection}
               className="text-[13px] font-[600] text-[#868685] hover:text-[#0e0f0c] transition-colors flex items-center gap-1"
             >
-              <X className="w-3.5 h-3.5" /> Clear
+              <X className="size-3.5" /> Clear
             </button>
           </div>
           <div className="flex items-center gap-2 w-full md:w-auto">
@@ -91,7 +91,7 @@ export function JobApplicationsToolbar({
               onClick={() => onBulkUpdateClick("SHORTLISTED")}
               className="flex-1 md:flex-none flex items-center justify-center gap-1.5 px-5 py-2 rounded-full bg-[#cdffad] hover:bg-[#b5f889] text-[#0e0f0c] font-[600] text-[13px] transition-colors disabled:opacity-50"
             >
-              <CheckCircle2 className="w-4 h-4" /> Shortlist Selected
+              <CheckCircle2 className="size-4" /> Shortlist Selected
             </button>
             <button
               type="button"
@@ -99,7 +99,7 @@ export function JobApplicationsToolbar({
               onClick={() => onBulkUpdateClick("REJECTED")}
               className="flex-1 md:flex-none flex items-center justify-center gap-1.5 px-5 py-2 rounded-full bg-[#ffffff] border border-[rgba(14,15,12,0.12)] hover:bg-[#d03238]/10 hover:text-[#d03238] hover:border-[#d03238]/30 text-[#0e0f0c] font-[600] text-[13px] transition-colors disabled:opacity-50"
             >
-              <XCircle className="w-4 h-4" /> Reject Selected
+              <XCircle className="size-4" /> Reject Selected
             </button>
           </div>
         </div>

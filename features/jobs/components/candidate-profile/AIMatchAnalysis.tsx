@@ -15,9 +15,9 @@ export function AIMatchAnalysis({
 }: AIMatchAnalysisProps) {
   return (
     <div className="bg-[#ffffff] p-6 rounded-[20px] border border-[#38c8ff]/30 shadow-sm space-y-4 relative overflow-hidden group">
-      <div className="absolute top-0 right-0 w-32 h-32 bg-[#38c8ff]/5 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none transition-all group-hover:bg-[#38c8ff]/10"></div>
+      <div className="absolute top-0 right-0 size-32 bg-[#38c8ff]/5 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none transition-all group-hover:bg-[#38c8ff]/10"></div>
       <h3 className="text-[16px] font-[800] text-[#0e0f0c] border-b border-[rgba(14,15,12,0.08)] pb-3 flex items-center gap-2">
-        <BrainCircuit className="w-5 h-5 text-[#38c8ff]" /> AI Match Analysis
+        <BrainCircuit className="size-5 text-[#38c8ff]" /> AI Match Analysis
       </h3>
 
       {matchScore === null ? (
@@ -34,12 +34,12 @@ export function AIMatchAnalysis({
           >
             {isAnalyzing ? (
               <>
-                <div className="w-4 h-4 border-2 border-[#38c8ff] border-t-transparent rounded-full animate-spin"></div>
+                <div className="size-4 border-2 border-[#38c8ff] border-t-transparent rounded-full animate-spin"></div>
                 Analyzing Resume...
               </>
             ) : (
               <>
-                <Sparkles className="w-4 h-4 text-[#38c8ff]" /> Calculate Match
+                <Sparkles className="size-4 text-[#38c8ff]" /> Calculate Match
                 Score
               </>
             )}
@@ -47,8 +47,8 @@ export function AIMatchAnalysis({
         </div>
       ) : (
         <div className="flex flex-col items-center justify-center py-2 space-y-3 relative z-10">
-          <div className="relative flex items-center justify-center w-28 h-28">
-            <svg className="w-full h-full transform -rotate-90">
+          <div className="relative flex items-center justify-center size-28">
+            <svg className="size-full transform -rotate-90">
               <circle
                 cx="56"
                 cy="56"

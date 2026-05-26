@@ -78,9 +78,9 @@ export function ProfileAvatarModal({
         onClick={openUploadModal}
         disabled={isUploading || isUploadingProp}
         title="Upload Image"
-        className="h-10 w-10 flex items-center justify-center rounded-xl border border-gray-200 hover:border-wise-green/30 hover:bg-wise-green/5 text-gray-700 hover:text-wise-green transition-all disabled:opacity-50"
+        className="size-10 flex items-center justify-center rounded-xl border border-gray-200 hover:border-wise-green/30 hover:bg-wise-green/5 text-gray-700 hover:text-wise-green transition-all disabled:opacity-50"
       >
-        <Upload className="w-4 h-4" />
+        <Upload className="size-4" />
       </button>
 
       {avatarUrl && (
@@ -89,9 +89,9 @@ export function ProfileAvatarModal({
             type="button"
             onClick={() => setIsPreviewOpen(true)}
             title="Preview"
-            className="h-10 w-10 flex items-center justify-center rounded-xl border border-gray-200 hover:border-wise-green/30 hover:bg-wise-green/5 text-gray-700 hover:text-wise-green transition-all"
+            className="size-10 flex items-center justify-center rounded-xl border border-gray-200 hover:border-wise-green/30 hover:bg-wise-green/5 text-gray-700 hover:text-wise-green transition-all"
           >
-            <Eye className="w-4 h-4" />
+            <Eye className="size-4" />
           </button>
 
           <button
@@ -99,9 +99,9 @@ export function ProfileAvatarModal({
             onClick={() => setIsDeleteOpen(true)}
             disabled={isDeleting || isDeletingProp}
             title="Delete Image"
-            className="h-10 w-10 flex items-center justify-center rounded-xl bg-red-50 text-red-600 hover:bg-red-100 hover:text-red-700 transition-all border border-transparent hover:border-red-200 disabled:opacity-50"
+            className="size-10 flex items-center justify-center rounded-xl bg-red-50 text-red-600 hover:bg-red-100 hover:text-red-700 transition-all border border-transparent hover:border-red-200 disabled:opacity-50"
           >
-            <Trash2 className="w-4 h-4" />
+            <Trash2 className="size-4" />
           </button>
         </>
       )}
@@ -137,8 +137,8 @@ export function ProfileAvatarModal({
                 onClick={() => fileInputRef.current?.click()}
                 className="border-2 border-dashed border-gray-200 hover:border-wise-green/50 hover:bg-wise-green/[0.01] rounded-[2rem] p-10 text-center cursor-pointer transition-all flex flex-col items-center justify-center gap-4 group"
               >
-                <div className="w-14 h-14 rounded-2xl bg-gray-50 flex items-center justify-center border border-gray-100 group-hover:scale-105 transition-transform shadow-sm">
-                  <Upload className="w-6 h-6 text-gray-400 group-hover:text-wise-green transition-colors" />
+                <div className="size-14 rounded-2xl bg-gray-50 flex items-center justify-center border border-gray-100 group-hover:scale-105 transition-transform shadow-sm">
+                  <Upload className="size-6 text-gray-400 group-hover:text-wise-green transition-colors" />
                 </div>
                 <div className="space-y-1.5">
                   <p className="text-[15px] font-black text-gray-900">
@@ -170,7 +170,7 @@ export function ProfileAvatarModal({
                 </div>
 
                 <div className="flex items-center gap-4 bg-gray-50 p-4 rounded-2xl border border-gray-100">
-                  <ZoomOut className="w-5 h-5 text-gray-400 shrink-0" />
+                  <ZoomOut className="size-5 text-gray-400 shrink-0" />
                   <input
                     type="range"
                     value={zoom}
@@ -181,7 +181,7 @@ export function ProfileAvatarModal({
                     onChange={(e) => setZoom(Number(e.target.value))}
                     className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-wise-green"
                   />
-                  <ZoomIn className="w-5 h-5 text-gray-400 shrink-0" />
+                  <ZoomIn className="size-5 text-gray-400 shrink-0" />
                 </div>
 
                 <div className="flex items-center justify-between text-[12px] text-gray-500">
@@ -220,9 +220,9 @@ export function ProfileAvatarModal({
                 className="h-10 px-6 rounded-xl bg-wise-green text-dark-green font-black flex items-center gap-2 shadow-lg shadow-wise-green/10"
               >
                 {isUploading || isUploadingProp ? (
-                  <div className="w-4 h-4 border-2 border-dark-green border-t-transparent rounded-full animate-spin" />
+                  <div className="size-4 border-2 border-dark-green border-t-transparent rounded-full animate-spin" />
                 ) : (
-                  <Check className="w-4 h-4" />
+                  <Check className="size-4" />
                 )}
                 Save Image
               </Button>
@@ -240,14 +240,14 @@ export function ProfileAvatarModal({
           </DialogHeader>
 
           <div className="mt-4 flex justify-center">
-            <div className="relative w-64 h-64 rounded-[3rem] bg-gray-50 border-4 border-white shadow-2xl overflow-hidden flex items-center justify-center">
+            <div className="relative size-64 rounded-[3rem] bg-gray-50 border-4 border-white shadow-2xl overflow-hidden flex items-center justify-center">
               <Image
                 src={avatarUrl}
                 alt={name}
                 width={256}
                 height={256}
                 unoptimized
-                className="w-full h-full object-cover"
+                className="size-full object-cover"
               />
             </div>
           </div>
@@ -295,9 +295,9 @@ export function ProfileAvatarModal({
               className="h-10 px-6 rounded-xl font-black flex items-center gap-2"
             >
               {isDeleting || isDeletingProp ? (
-                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                <div className="size-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
               ) : (
-                <Trash2 className="w-4 h-4" />
+                <Trash2 className="size-4" />
               )}
               Yes, Delete
             </Button>

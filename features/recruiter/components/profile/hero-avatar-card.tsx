@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { domAnimation, LazyMotion, m } from "framer-motion";
 import { Mail, Phone, ShieldCheck } from "lucide-react";
 import Image from "next/image";
 import { ProfileAvatarModal } from "@/components/profile/profile-avatar-modal";
@@ -29,14 +29,14 @@ export function HeroAvatarCard({
     .toUpperCase();
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.05 }}
       className="bg-white rounded-[2rem] border border-gray-100 shadow-sm p-7 flex flex-col sm:flex-row items-center sm:items-start gap-6"
     >
       <div className="relative group shrink-0 flex flex-col items-center">
-        <div className="w-24 h-24 rounded-[1.5rem] bg-near-black text-white flex items-center justify-center font-black text-3xl overflow-hidden border-4 border-white shadow-xl ring-2 ring-gray-100">
+        <div className="size-24 rounded-[1.5rem] bg-near-black text-white flex items-center justify-center font-black text-3xl overflow-hidden border-4 border-white shadow-xl ring-2 ring-gray-100">
           {avatarUrl ? (
             <Image
               src={avatarUrl}
@@ -44,7 +44,7 @@ export function HeroAvatarCard({
               width={96}
               height={96}
               unoptimized
-              className="w-full h-full object-cover"
+              className="size-full object-cover"
             />
           ) : (
             <span>{initials}</span>
@@ -72,24 +72,24 @@ export function HeroAvatarCard({
         <div className="flex flex-wrap gap-2 mt-3 justify-center sm:justify-start">
           {formData.email && (
             <span className="flex items-center gap-1.5 text-[12px] font-bold text-gray-500 bg-gray-50 px-3 py-1.5 rounded-full border border-gray-100">
-              <Mail className="w-3 h-3" />
+              <Mail className="size-3" />
               {formData.email}
             </span>
           )}
           {formData.phone && (
             <span className="flex items-center gap-1.5 text-[12px] font-bold text-gray-500 bg-gray-50 px-3 py-1.5 rounded-full border border-gray-100">
-              <Phone className="w-3 h-3" />
+              <Phone className="size-3" />
               {formData.phone}
             </span>
           )}
           {recruiterProfile?.is_verified_company && (
             <span className="flex items-center gap-1.5 text-[12px] font-black text-wise-green bg-wise-green/10 px-3 py-1.5 rounded-full">
-              <ShieldCheck className="w-3 h-3" />
+              <ShieldCheck className="size-3" />
               Verified
             </span>
           )}
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 }

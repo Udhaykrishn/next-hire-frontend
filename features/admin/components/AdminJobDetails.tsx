@@ -38,8 +38,8 @@ const SectionHeader = ({
   title: string;
 }) => (
   <div className="flex items-center gap-3 border-b border-gray-100 pb-4 mb-6">
-    <div className="w-10 h-10 bg-wise-green/10 rounded-2xl flex items-center justify-center shrink-0">
-      <Icon className="w-5 h-5 text-wise-green" />
+    <div className="size-10 bg-wise-green/10 rounded-2xl flex items-center justify-center shrink-0">
+      <Icon className="size-5 text-wise-green" />
     </div>
     <h3 className="font-black text-lg text-near-black tracking-tight">
       {title}
@@ -62,7 +62,7 @@ const MetaField = ({
   return (
     <div className="flex flex-col gap-1">
       <span className="text-[11px] font-bold text-gray-400 uppercase tracking-widest flex items-center gap-1.5">
-        {Icon && <Icon className="w-3.5 h-3.5 text-gray-400" />}
+        {Icon && <Icon className="size-3.5 text-gray-400" />}
         {label}
       </span>
       <span
@@ -117,7 +117,7 @@ export const AdminJobDetails = ({ id }: { id: string }) => {
         onClick={() => router.back()}
         className="text-gray-500 hover:text-near-black flex items-center gap-2 px-0"
       >
-        <ArrowLeft className="w-4 h-4" />
+        <ArrowLeft className="size-4" />
         Back to Jobs
       </Button>
 
@@ -127,7 +127,7 @@ export const AdminJobDetails = ({ id }: { id: string }) => {
         <div className="lg:col-span-8 space-y-8">
           {/* Hero Header Card */}
           <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-8 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-wise-green/10 to-transparent rounded-bl-full pointer-events-none" />
+            <div className="absolute top-0 right-0 size-64 bg-gradient-to-bl from-wise-green/10 to-transparent rounded-bl-full pointer-events-none" />
 
             <div className="relative z-10">
               <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
@@ -159,7 +159,7 @@ export const AdminJobDetails = ({ id }: { id: string }) => {
                       variant="outline"
                       className="text-red-600 border-red-200 bg-red-50 hover:bg-red-100 hover:border-red-300 font-bold rounded-xl h-8 text-xs shadow-sm"
                     >
-                      <Ban className="w-3.5 h-3.5 mr-1.5" /> Block Job
+                      <Ban className="size-3.5 mr-1.5" /> Block Job
                     </Button>
                   ) : (
                     <Button
@@ -167,7 +167,7 @@ export const AdminJobDetails = ({ id }: { id: string }) => {
                       size="sm"
                       className="bg-wise-green text-dark-green hover:bg-[#8ade55] font-bold rounded-xl h-8 text-xs shadow-sm"
                     >
-                      <Unlock className="w-3.5 h-3.5 mr-1.5" /> Reactivate Job
+                      <Unlock className="size-3.5 mr-1.5" /> Reactivate Job
                     </Button>
                   )}
                 </div>
@@ -178,7 +178,7 @@ export const AdminJobDetails = ({ id }: { id: string }) => {
               </h1>
 
               <div className="flex items-center gap-2 text-lg font-medium text-gray-600 mb-8">
-                <Building className="w-5 h-5 text-gray-400" />
+                <Building className="size-5 text-gray-400" />
                 <span className="font-bold text-near-black">
                   {job.hiringCompany}
                 </span>
@@ -336,7 +336,7 @@ export const AdminJobDetails = ({ id }: { id: string }) => {
               <div className="space-y-5">
                 <div className="flex flex-col gap-1 p-4 rounded-2xl border border-gray-100 bg-gray-50/50">
                   <span className="text-[11px] font-bold text-gray-500 uppercase tracking-widest flex items-center gap-1.5">
-                    <ShieldAlert className="w-3.5 h-3.5" /> Joining Fee Status
+                    <ShieldAlert className="size-3.5" /> Joining Fee Status
                   </span>
                   {job.hasJoiningFee === "Yes" ? (
                     <div className="mt-1 space-y-2">
@@ -371,7 +371,7 @@ export const AdminJobDetails = ({ id }: { id: string }) => {
           {/* Application Insights Compact */}
           <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6">
             <h4 className="font-bold text-near-black mb-5 flex items-center gap-2 border-b border-gray-100 pb-4">
-              <Users className="w-4 h-4 text-gray-400" /> Applicant Pipeline
+              <Users className="size-4 text-gray-400" /> Applicant Pipeline
             </h4>
             <div className="grid grid-cols-2 gap-4">
               <div className="bg-gray-50 rounded-2xl p-4 border border-gray-100">
@@ -412,7 +412,7 @@ export const AdminJobDetails = ({ id }: { id: string }) => {
           {/* Company & Contact Details */}
           <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6">
             <h4 className="font-bold text-near-black mb-5 flex items-center gap-2 border-b border-gray-100 pb-4">
-              <Phone className="w-4 h-4 text-gray-400" /> Contact & Hiring Rep
+              <Phone className="size-4 text-gray-400" /> Contact & Hiring Rep
             </h4>
             <div className="space-y-4">
               <MetaField label="HR Name" value={job.hrName} />
@@ -452,7 +452,7 @@ export const AdminJobDetails = ({ id }: { id: string }) => {
           {/* Location & Walk-In Details */}
           <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6">
             <h4 className="font-bold text-near-black mb-5 flex items-center gap-2 border-b border-gray-100 pb-4">
-              <MapPin className="w-4 h-4 text-gray-400" /> Location Details
+              <MapPin className="size-4 text-gray-400" /> Location Details
             </h4>
             <div className="space-y-4">
               <MetaField label="Job City" value={job.jobCity} />
@@ -465,7 +465,7 @@ export const AdminJobDetails = ({ id }: { id: string }) => {
               {job.isWalkIn && (
                 <div className="mt-4 pt-4 border-t border-gray-100">
                   <span className="text-[11px] font-bold text-blue-500 uppercase tracking-widest flex items-center gap-1.5 mb-3">
-                    <Calendar className="w-3.5 h-3.5" /> Walk-In Drive
+                    <Calendar className="size-3.5" /> Walk-In Drive
                   </span>
                   <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 space-y-3">
                     <div>

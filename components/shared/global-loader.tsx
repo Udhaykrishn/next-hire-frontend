@@ -13,7 +13,7 @@ export function GlobalLoader({
     <div
       className={`${fullScreen ? "fixed inset-0 z-50" : "relative w-full py-20"} flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-xl ${className}`}
     >
-      <div className="relative flex items-center justify-center w-24 h-24">
+      <div className="relative flex items-center justify-center size-24">
         {/* Pulsating Outer Ring */}
         <motion.div
           className="absolute inset-0 rounded-full border-[3px] border-wise-green/40"
@@ -37,11 +37,11 @@ export function GlobalLoader({
 
         {/* Center Core */}
         <motion.div
-          className="w-10 h-10 bg-dark-green rounded-full shadow-lg shadow-wise-green/40 flex items-center justify-center"
+          className="size-10 bg-dark-green rounded-full shadow-lg shadow-wise-green/40 flex items-center justify-center"
           animate={{ scale: [0.9, 1.1, 0.9] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         >
-          <div className="w-3 h-3 bg-white rounded-full opacity-90" />
+          <div className="size-3 bg-white rounded-full opacity-90" />
         </motion.div>
       </div>
     </div>

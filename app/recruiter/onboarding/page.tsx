@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, domAnimation, LazyMotion, m } from "framer-motion";
 import {
   ArrowLeft,
   ArrowRight,
@@ -79,9 +79,9 @@ export default function RecruiterOnboardingPage() {
   };
 
   const steps = [
-    { id: 1, label: "Profile", icon: <User className="w-3.5 h-3.5" /> },
-    { id: 2, label: "Workspace", icon: <Building2 className="w-3.5 h-3.5" /> },
-    { id: 3, label: "Objective", icon: <Target className="w-3.5 h-3.5" /> },
+    { id: 1, label: "Profile", icon: <User className="size-3.5" /> },
+    { id: 2, label: "Workspace", icon: <Building2 className="size-3.5" /> },
+    { id: 3, label: "Objective", icon: <Target className="size-3.5" /> },
   ];
 
   return (
@@ -96,7 +96,7 @@ export default function RecruiterOnboardingPage() {
       <div className="relative z-10 max-w-[1200px] mx-auto min-h-screen flex flex-col items-center justify-center px-6 py-20">
         <AnimatePresence mode="wait">
           {!isProcessing ? (
-            <motion.div
+            <m.div
               key="content"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -105,21 +105,21 @@ export default function RecruiterOnboardingPage() {
             >
               {/* Header Section */}
               <div className="text-center mb-12 space-y-4">
-                <motion.div
+                <m.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.1 }}
                   className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-wise-green/10 border border-wise-green/20 text-wise-green text-[11px] font-black uppercase tracking-[0.2em]"
                 >
-                  <Command className="w-3.5 h-3.5" />
+                  <Command className="size-3.5" />
                   Satoshi Recruiter Edition
-                </motion.div>
-                <motion.h1 className="text-[40px] md:text-[48px] font-black leading-[1.1] tracking-[-0.03em]">
+                </m.div>
+                <m.h1 className="text-[40px] md:text-[48px] font-black leading-[1.1] tracking-[-0.03em]">
                   Deploy your <br />
                   <span className="text-wise-green italic">
                     Recruitment Command
                   </span>
-                </motion.h1>
+                </m.h1>
               </div>
 
               {/* Steps Progress */}
@@ -129,7 +129,7 @@ export default function RecruiterOnboardingPage() {
                     <div className="flex flex-col items-center gap-2">
                       <div
                         className={cn(
-                          "w-12 h-12 rounded-[1rem] flex items-center justify-center transition-all duration-500 border-2",
+                          "size-12 rounded-[1rem] flex items-center justify-center transition-all duration-500 border-2",
                           currentStep === s.id
                             ? "bg-near-black text-wise-green border-near-black shadow-2xl shadow-wise-green/20 scale-110"
                             : currentStep > s.id
@@ -138,7 +138,7 @@ export default function RecruiterOnboardingPage() {
                         )}
                       >
                         {currentStep > s.id ? (
-                          <CheckCircle2 className="w-5 h-5" />
+                          <CheckCircle2 className="size-5" />
                         ) : (
                           s.icon
                         )}
@@ -158,11 +158,11 @@ export default function RecruiterOnboardingPage() {
 
               {/* Step Content Card */}
               <div className="w-full max-w-[600px] bg-white rounded-[2.5rem] border border-gray-100 p-8 md:p-12 shadow-[0_32px_64px_-12px_rgba(0,0,0,0.03)] relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-wise-green/[0.03] rounded-full blur-3xl -mr-16 -mt-16" />
+                <div className="absolute top-0 right-0 size-32 bg-wise-green/[0.03] rounded-full blur-3xl -mr-16 -mt-16" />
 
                 <AnimatePresence mode="wait">
                   {currentStep === 1 && (
-                    <motion.div
+                    <m.div
                       key="step1"
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
@@ -208,7 +208,7 @@ export default function RecruiterOnboardingPage() {
                           >
                             <div
                               className={cn(
-                                "w-12 h-12 rounded-2xl flex items-center justify-center mb-4 transition-all duration-500",
+                                "size-12 rounded-2xl flex items-center justify-center mb-4 transition-all duration-500",
                                 onboardingType === type.id
                                   ? "bg-wise-green text-near-black rotate-3"
                                   : "bg-white text-gray-400 group-hover:scale-110",
@@ -218,7 +218,7 @@ export default function RecruiterOnboardingPage() {
                                 type.icon as React.ReactElement<{
                                   className?: string;
                                 }>,
-                                { className: "w-6 h-6" },
+                                { className: "size-6" },
                               )}
                             </div>
                             <h3 className="text-[18px] font-black mb-1">
@@ -228,9 +228,9 @@ export default function RecruiterOnboardingPage() {
                               {type.desc}
                             </p>
                             {onboardingType === type.id && (
-                              <motion.div
+                              <m.div
                                 layoutId="active-pill"
-                                className="absolute top-4 right-4 w-2 h-2 rounded-full bg-wise-green"
+                                className="absolute top-4 right-4 size-2 rounded-full bg-wise-green"
                               />
                             )}
                           </button>
@@ -242,13 +242,13 @@ export default function RecruiterOnboardingPage() {
                         className="w-full h-14 bg-wise-green text-near-black hover:bg-near-black hover:text-white transition-all rounded-full font-black text-[16px] group shadow-xl shadow-wise-green/20"
                       >
                         Enter Workspace Details
-                        <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                        <ArrowRight className="size-5 ml-2 group-hover:translate-x-1 transition-transform" />
                       </Button>
-                    </motion.div>
+                    </m.div>
                   )}
 
                   {currentStep === 2 && (
-                    <motion.div
+                    <m.div
                       key="step2"
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
@@ -293,7 +293,7 @@ export default function RecruiterOnboardingPage() {
                                 )
                               }
                             />
-                            <Layout className="absolute right-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-200 group-focus-within:text-wise-green transition-colors" />
+                            <Layout className="absolute right-5 top-1/2 -translate-y-1/2 size-5 text-gray-200 group-focus-within:text-wise-green transition-colors" />
                           </div>
                         </div>
 
@@ -348,7 +348,7 @@ export default function RecruiterOnboardingPage() {
                           onClick={prevStep}
                           className="h-14 px-8 rounded-full border-2 border-transparent hover:border-gray-100 font-black"
                         >
-                          <ArrowLeft className="w-5 h-5 mr-2" /> Back
+                          <ArrowLeft className="size-5 mr-2" /> Back
                         </Button>
                         <Button
                           onClick={nextStep}
@@ -357,11 +357,11 @@ export default function RecruiterOnboardingPage() {
                           Configure Objectives
                         </Button>
                       </div>
-                    </motion.div>
+                    </m.div>
                   )}
 
                   {currentStep === 3 && (
-                    <motion.div
+                    <m.div
                       key="step3"
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
@@ -391,7 +391,7 @@ export default function RecruiterOnboardingPage() {
                                 handleChange("industry", e.target.value)
                               }
                             />
-                            <Sparkles className="absolute right-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-200 group-focus-within:text-wise-green transition-colors" />
+                            <Sparkles className="absolute right-5 top-1/2 -translate-y-1/2 size-5 text-gray-200 group-focus-within:text-wise-green transition-colors" />
                           </div>
                         </div>
 
@@ -407,6 +407,7 @@ export default function RecruiterOnboardingPage() {
                               "Founding Team",
                             ].map((goal) => (
                               <button
+                                type="button"
                                 key={goal}
                                 onClick={() => handleChange("hiringGoal", goal)}
                                 className={cn(
@@ -418,7 +419,7 @@ export default function RecruiterOnboardingPage() {
                               >
                                 {goal}
                                 {formData.hiringGoal === goal && (
-                                  <Zap className="w-4 h-4 ml-2 fill-wise-green" />
+                                  <Zap className="size-4 ml-2 fill-wise-green" />
                                 )}
                               </button>
                             ))}
@@ -432,13 +433,13 @@ export default function RecruiterOnboardingPage() {
                           onClick={prevStep}
                           className="h-14 px-8 rounded-full border-transparent hover:border-gray-100 font-black"
                         >
-                          <ArrowLeft className="w-5 h-5 mr-2" /> Back
+                          <ArrowLeft className="size-5 mr-2" /> Back
                         </Button>
                         <Button
                           onClick={startSetup}
                           className="flex-1 h-14 bg-near-black text-white hover:bg-wise-green hover:text-near-black rounded-full font-black shadow-2xl shadow-near-black/20 group overflow-hidden relative"
                         >
-                          <motion.div
+                          <m.div
                             className="absolute inset-0 bg-gradient-to-r from-wise-green/0 via-wise-green/20 to-wise-green/0"
                             animate={{ x: ["-100%", "100%"] }}
                             transition={{
@@ -449,17 +450,17 @@ export default function RecruiterOnboardingPage() {
                           />
                           <span className="relative z-10 flex items-center justify-center">
                             Initialize Engine
-                            <Rocket className="w-5 h-5 ml-2 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
+                            <Rocket className="size-5 ml-2 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
                           </span>
                         </Button>
                       </div>
-                    </motion.div>
+                    </m.div>
                   )}
                 </AnimatePresence>
               </div>
-            </motion.div>
+            </m.div>
           ) : (
-            <motion.div
+            <m.div
               key="processing"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -469,15 +470,15 @@ export default function RecruiterOnboardingPage() {
                 <>
                   <div className="relative group">
                     <div className="absolute inset-0 bg-wise-green/20 rounded-[3rem] blur-3xl animate-pulse" />
-                    <div className="relative w-32 h-32 rounded-[3rem] bg-near-black flex items-center justify-center border-[6px] border-white shadow-2xl overflow-hidden">
-                      <motion.div
+                    <div className="relative size-32 rounded-[3rem] bg-near-black flex items-center justify-center border-[6px] border-white shadow-2xl overflow-hidden">
+                      <m.div
                         className="absolute inset-0 bg-wise-green"
                         animate={{
                           height: `${processStatus}%`,
                           top: `${100 - processStatus}%`,
                         }}
                       />
-                      <Loader2 className="w-12 h-12 text-white animate-spin relative z-10 mix-blend-difference" />
+                      <Loader2 className="size-12 text-white animate-spin relative z-10 mix-blend-difference" />
                     </div>
                   </div>
 
@@ -492,7 +493,7 @@ export default function RecruiterOnboardingPage() {
 
                   <div className="w-full space-y-4">
                     <div className="h-3 w-full bg-gray-50 rounded-full overflow-hidden border-4 border-white shadow-inner">
-                      <motion.div
+                      <m.div
                         initial={{ width: 0 }}
                         animate={{ width: `${processStatus}%` }}
                         className="h-full bg-wise-green rounded-full shadow-[0_0_20px_rgba(159,232,112,0.6)]"
@@ -509,20 +510,20 @@ export default function RecruiterOnboardingPage() {
                   </div>
                 </>
               ) : (
-                <motion.div
+                <m.div
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   className="space-y-10"
                 >
-                  <div className="relative mx-auto w-32 h-32">
-                    <motion.div
-                      initial={{ scale: 0 }}
+                  <div className="relative mx-auto size-32">
+                    <m.div
+                      initial={{ scale: 0.95 }}
                       animate={{ scale: 1.5, opacity: 0 }}
                       transition={{ duration: 1, repeat: Infinity }}
                       className="absolute inset-0 bg-wise-green rounded-full"
                     />
-                    <div className="relative w-full h-full rounded-full bg-wise-green flex items-center justify-center shadow-[0_0_50px_rgba(159,232,112,0.4)]">
-                      <ShieldCheck className="w-16 h-16 text-near-black" />
+                    <div className="relative size-full rounded-full bg-wise-green flex items-center justify-center shadow-[0_0_50px_rgba(159,232,112,0.4)]">
+                      <ShieldCheck className="size-16 text-near-black" />
                     </div>
                   </div>
 
@@ -534,9 +535,9 @@ export default function RecruiterOnboardingPage() {
                       Redirecting to your command center...
                     </p>
                   </div>
-                </motion.div>
+                </m.div>
               )}
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
       </div>

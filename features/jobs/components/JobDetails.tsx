@@ -48,7 +48,7 @@ export default function JobDetails() {
               onClick={handleBack}
               className="flex items-center gap-2 text-[14px] font-black text-gray-500 hover:text-wise-green transition-colors uppercase tracking-widest"
             >
-              <ChevronLeft className="w-4 h-4" /> Back to Search
+              <ChevronLeft className="size-4" /> Back to Search
             </button>
           </div>
 

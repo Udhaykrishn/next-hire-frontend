@@ -221,7 +221,7 @@ export default function EditBasicInfoPage() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center font-satoshi">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-wise-green"></div>
+        <div className="animate-spin rounded-full size-12 border-b-2 border-wise-green"></div>
       </div>
     );
   }
@@ -348,7 +348,7 @@ export default function EditBasicInfoPage() {
                   ? "border-red-500 focus:border-red-500"
                   : "border-gray-100 focus:border-wise-green"
               }`}
-              placeholder="Tell recruiters about yourself..."
+              placeholder="Tell recruiters about yourself…"
             />
             {errors.bio && (
               <p className="text-red-500 text-xs font-bold mt-1 ml-1">

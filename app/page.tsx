@@ -39,37 +39,37 @@ export default function LandingPage() {
 
   const features = [
     {
-      icon: <Sparkles className="w-6 h-6 text-wise-green" />,
+      icon: <Sparkles className="size-6 text-wise-green" />,
       title: "Precision Matching",
       description:
         "Our advanced algorithms analyze your skills and match you with jobs where you have the highest probability of getting hired.",
     },
     {
-      icon: <Target className="w-6 h-6 text-wise-green" />,
+      icon: <Target className="size-6 text-wise-green" />,
       title: "Candidate Profiling",
       description:
         "Create a dynamic, rich profile that showcases not just your experience, but your potential and cultural fit.",
     },
     {
-      icon: <FileText className="w-6 h-6 text-wise-green" />,
+      icon: <FileText className="size-6 text-wise-green" />,
       title: "Smart Resume Builder",
       description:
         "Automatically generate ATS-friendly resumes tailored to specific job descriptions with one click.",
     },
     {
-      icon: <Zap className="w-6 h-6 text-wise-green" />,
+      icon: <Zap className="size-6 text-wise-green" />,
       title: "One-Click Apply",
       description:
         "Stop filling out the same forms. Apply to thousands of curated jobs instantly with your verified profile.",
     },
     {
-      icon: <Video className="w-6 h-6 text-wise-green" />,
+      icon: <Video className="size-6 text-wise-green" />,
       title: "Interview Prep",
       description:
         "Practice with our expert interview tools. Get real-time feedback on your answers, tone, and pacing.",
     },
     {
-      icon: <Globe className="w-6 h-6 text-wise-green" />,
+      icon: <Globe className="size-6 text-wise-green" />,
       title: "Global Reach",
       description:
         "Access remote and on-site opportunities across the globe, breaking geographical boundaries.",
@@ -153,7 +153,7 @@ export default function LandingPage() {
                 transition={{ duration: 0.5 }}
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-wise-green/10 text-dark-green mb-8 border border-wise-green/20"
               >
-                <span className="w-2 h-2 bg-wise-green rounded-full animate-pulse" />
+                <span className="size-2 bg-wise-green rounded-full animate-pulse" />
                 <span className="text-xs font-bold tracking-wider uppercase">
                   Next Generation Hiring
                 </span>
@@ -215,7 +215,7 @@ export default function LandingPage() {
                 <Link href="/signup" className="w-full sm:w-auto">
                   <Button className="w-full h-14 px-8 bg-wise-green text-dark-green rounded-xl text-lg font-black hover:scale-105 transition-transform shadow-xl shadow-wise-green/30 flex items-center gap-2 group">
                     Start Your Journey{" "}
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="size-5 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </Link>
                 <Link href="/recruiter/signup" className="w-full sm:w-auto">
@@ -238,7 +238,7 @@ export default function LandingPage() {
                       width={40}
                       height={40}
                       unoptimized
-                      className="w-10 h-10 rounded-full border-2 border-white"
+                      className="size-10 rounded-full border-2 border-white"
                     />
                   ))}
                 </div>
@@ -273,8 +273,8 @@ export default function LandingPage() {
                 }}
                 className="absolute top-10 -left-10 bg-white p-4 rounded-2xl shadow-xl border border-gray-100 flex items-center gap-4"
               >
-                <div className="w-12 h-12 bg-wise-green/20 rounded-xl flex items-center justify-center">
-                  <UserCheck className="w-6 h-6 text-dark-green" />
+                <div className="size-12 bg-wise-green/20 rounded-xl flex items-center justify-center">
+                  <UserCheck className="size-6 text-dark-green" />
                 </div>
                 <div>
                   <div className="text-sm font-bold text-gray-400">
@@ -307,7 +307,7 @@ export default function LandingPage() {
                 key={idx}
                 className="text-2xl font-black text-gray-300 uppercase tracking-wider flex items-center gap-2"
               >
-                <Building className="w-6 h-6 opacity-50" />
+                <Building className="size-6 opacity-50" />
                 {company}
               </div>
             ))}
@@ -368,8 +368,8 @@ export default function LandingPage() {
                 whileHover={{ y: -5 }}
                 className="p-10 rounded-[2rem] border border-gray-100 hover:border-wise-green/50 hover:shadow-2xl hover:shadow-wise-green/10 transition-all group bg-white relative overflow-hidden"
               >
-                <div className="absolute top-0 right-0 w-32 h-32 bg-wise-green/5 rounded-bl-full -z-10 group-hover:scale-150 transition-transform duration-500" />
-                <div className="w-14 h-14 bg-gray-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-wise-green/20 transition-colors">
+                <div className="absolute top-0 right-0 size-32 bg-wise-green/5 rounded-bl-full -z-10 group-hover:scale-150 transition-transform duration-500" />
+                <div className="size-14 bg-gray-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-wise-green/20 transition-colors">
                   {feature.icon}
                 </div>
                 <h3 className="text-[20px] font-black mb-4 text-gray-900 tracking-tight leading-[23px]">
@@ -422,7 +422,7 @@ export default function LandingPage() {
                     {[1, 2, 3, 4, 5].map((star) => (
                       <svg
                         key={star}
-                        className="w-5 h-5 text-wise-green"
+                        className="size-5 text-wise-green"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -443,11 +443,11 @@ export default function LandingPage() {
                       width={56}
                       height={56}
                       unoptimized
-                      className="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm ring-2 ring-gray-50 group-hover:ring-wise-green/30 transition-all"
+                      className="size-14 rounded-full object-cover border-2 border-white shadow-sm ring-2 ring-gray-50 group-hover:ring-wise-green/30 transition-all"
                     />
-                    <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-wise-green border-2 border-white rounded-full flex items-center justify-center">
+                    <div className="absolute -bottom-1 -right-1 size-5 bg-wise-green border-2 border-white rounded-full flex items-center justify-center">
                       <svg
-                        className="w-3 h-3 text-dark-green"
+                        className="size-3 text-dark-green"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"

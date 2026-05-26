@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, domAnimation, LazyMotion, m } from "framer-motion";
 import { Mail, Phone, User } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -23,7 +23,7 @@ export function BasicDetailsCard({
   startEdit: (section: EditSection) => void;
 }) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.1 }}
@@ -31,7 +31,7 @@ export function BasicDetailsCard({
       <SectionCard
         title="Basic Details"
         subtitle="Personal identification information"
-        icon={<User className="w-5 h-5" />}
+        icon={<User className="size-5" />}
         sectionKey="basic"
         editSection={editSection}
         onEdit={startEdit}
@@ -39,7 +39,7 @@ export function BasicDetailsCard({
       >
         <AnimatePresence mode="wait">
           {isEditingBasic ? (
-            <motion.div
+            <m.div
               key="basic-edit"
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
@@ -93,9 +93,9 @@ export function BasicDetailsCard({
                   />
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           ) : (
-            <motion.div
+            <m.div
               key="basic-view"
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
@@ -107,18 +107,18 @@ export function BasicDetailsCard({
               <FieldView
                 label="Email Address"
                 value={formData.email}
-                icon={<Mail className="w-4 h-4" />}
+                icon={<Mail className="size-4" />}
               />
               <FieldView
                 label="Mobile Contact"
                 value={formData.phone ? `+91 ${formData.phone}` : null}
-                icon={<Phone className="w-4 h-4" />}
+                icon={<Phone className="size-4" />}
                 placeholder="Not provided"
               />
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
       </SectionCard>
-    </motion.div>
+    </m.div>
   );
 }

@@ -17,7 +17,7 @@ export default function RecruiterPlanPage() {
           onClick={() => router.push("/recruiter/dashboard")}
           className="flex items-center gap-2 font-black text-xs uppercase tracking-wider text-gray-500 hover:text-near-black"
         >
-          <ChevronLeft className="w-4 h-4" />
+          <ChevronLeft className="size-4" />
           Dashboard
         </Button>
         <span className="text-[14px] font-black tracking-tighter text-near-black">
@@ -29,7 +29,7 @@ export default function RecruiterPlanPage() {
       <Suspense
         fallback={
           <div className="min-h-[60vh] flex flex-col items-center justify-center">
-            <div className="w-8 h-8 border-4 border-wise-green border-t-transparent rounded-full animate-spin" />
+            <div className="size-8 border-4 border-wise-green border-t-transparent rounded-full animate-spin" />
           </div>
         }
       >

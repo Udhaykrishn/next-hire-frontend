@@ -72,7 +72,7 @@ export const RecruiterList = () => {
     return (
       <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm">
         <div className="p-8 text-center">
-          <div className="w-8 h-8 border-4 border-wise-green border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <div className="size-8 border-4 border-wise-green border-t-transparent rounded-full animate-spin mx-auto mb-4" />
           <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">
             Loading recruiters...
           </p>
@@ -85,10 +85,10 @@ export const RecruiterList = () => {
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row items-center gap-4">
         <div className="relative flex-1 group">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-wise-green transition-colors" />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-gray-400 group-focus-within:text-wise-green transition-colors" />
           <input
             type="text"
-            placeholder="Search by name, company or email..."
+            placeholder="Search by name, company or email…"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full h-14 pl-12 pr-4 bg-white border border-gray-100 rounded-2xl text-sm font-bold focus:ring-2 focus:ring-wise-green/20 focus:border-wise-green transition-all outline-none"
@@ -101,10 +101,10 @@ export const RecruiterList = () => {
               "h-14 px-6 rounded-2xl border-gray-100 flex items-center gap-2 font-black text-[10px] uppercase tracking-widest",
             )}
           >
-            <Filter className="w-4 h-4" />
+            <Filter className="size-4" />
             Advanced Filters
             {selectedStatuses.length > 0 && (
-              <span className="w-5 h-5 bg-wise-green text-near-black rounded-full flex items-center justify-center text-[8px]">
+              <span className="size-5 bg-wise-green text-near-black rounded-full flex items-center justify-center text-[8px]">
                 {selectedStatuses.length}
               </span>
             )}
@@ -125,14 +125,14 @@ export const RecruiterList = () => {
                 >
                   <div
                     className={cn(
-                      "w-5 h-5 rounded-lg border-2 transition-all flex items-center justify-center",
+                      "size-5 rounded-lg border-2 transition-all flex items-center justify-center",
                       selectedStatuses.includes(status)
                         ? "bg-near-black border-near-black"
                         : "border-gray-200 group-hover:border-wise-green",
                     )}
                   >
                     {selectedStatuses.includes(status) && (
-                      <div className="w-2 h-2 rounded-sm bg-wise-green" />
+                      <div className="size-2 rounded-sm bg-wise-green" />
                     )}
                   </div>
                   <span className="text-xs font-bold text-near-black uppercase tracking-widest">
@@ -184,8 +184,8 @@ export const RecruiterList = () => {
                 >
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-2xl bg-near-black flex items-center justify-center text-sm font-black text-wise-green shadow-lg shadow-near-black/10 group-hover:rotate-6 transition-transform">
-                        <Building2 className="w-6 h-6" />
+                      <div className="size-12 rounded-2xl bg-near-black flex items-center justify-center text-sm font-black text-wise-green shadow-lg shadow-near-black/10 group-hover:rotate-6 transition-transform">
+                        <Building2 className="size-6" />
                       </div>
                       <div>
                         <Link
@@ -203,11 +203,11 @@ export const RecruiterList = () => {
                   <td className="px-6 py-4">
                     <div className="space-y-1">
                       <div className="flex items-center gap-2 text-xs font-bold text-gray-500">
-                        <Mail className="w-3.5 h-3.5 text-gray-300" />
+                        <Mail className="size-3.5 text-gray-300" />
                         {recruiter.email}
                       </div>
                       <div className="flex items-center gap-2 text-[10px] font-bold text-gray-400">
-                        <MapPin className="w-3 h-3 text-gray-300" />
+                        <MapPin className="size-3 text-gray-300" />
                         {recruiter.location}
                       </div>
                     </div>
@@ -235,7 +235,7 @@ export const RecruiterList = () => {
                         type="button"
                         className="p-2 hover:bg-white border border-transparent hover:border-gray-100 rounded-xl transition-all flex items-center justify-center"
                       >
-                        <MoreHorizontal className="w-5 h-5 text-gray-400" />
+                        <MoreHorizontal className="size-5 text-gray-400" />
                       </DropdownMenuTrigger>
                       <DropdownMenuContent
                         align="end"
@@ -243,9 +243,9 @@ export const RecruiterList = () => {
                       >
                         <Link href={`/admin/recruiters/${recruiter.id}`}>
                           <DropdownMenuItem className="h-12 px-4 rounded-xl flex items-center gap-3 font-bold text-xs uppercase tracking-widest cursor-pointer">
-                            <UserCircle className="w-4 h-4 text-wise-green" />
+                            <UserCircle className="size-4 text-wise-green" />
                             Company Profile
-                            <ArrowUpRight className="w-3.5 h-3.5 ml-auto opacity-40" />
+                            <ArrowUpRight className="size-3.5 ml-auto opacity-40" />
                           </DropdownMenuItem>
                         </Link>
                         <DropdownMenuItem
@@ -259,7 +259,7 @@ export const RecruiterList = () => {
                               : "text-red-500 hover:bg-red-50 hover:text-red-600",
                           )}
                         >
-                          <Ban className="w-4 h-4" />
+                          <Ban className="size-4" />
                           {recruiter.status === "Blocked"
                             ? "Restore Access"
                             : "Restrict Access"}

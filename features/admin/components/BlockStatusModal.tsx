@@ -88,7 +88,7 @@ export const BlockStatusModal = ({
               <textarea
                 value={customReason}
                 onChange={(e) => setCustomReason(e.target.value)}
-                placeholder="Enter details of policy violation..."
+                placeholder="Enter details of policy violation…"
                 className="w-full h-24 p-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-wise-green/20 focus:border-wise-green transition-all resize-none font-medium text-gray-700"
                 required
               />

@@ -39,26 +39,26 @@ export const ConfirmationModal = ({
 }: ConfirmationModalProps) => {
   const variants = {
     destructive: {
-      icon: <AlertTriangle className="w-8 h-8 text-red-600" />,
+      icon: <AlertTriangle className="size-8 text-red-600" />,
       bg: "bg-red-50",
       button: "bg-red-600 hover:bg-red-700 text-white shadow-red-200",
       titleColor: "text-red-900",
     },
     danger: {
-      icon: <AlertTriangle className="w-8 h-8 text-red-600" />,
+      icon: <AlertTriangle className="size-8 text-red-600" />,
       bg: "bg-red-50",
       button: "bg-red-600 hover:bg-red-700 text-white shadow-red-200",
       titleColor: "text-red-900",
     },
     success: {
-      icon: <CheckCircle2 className="w-8 h-8 text-wise-green" />,
+      icon: <CheckCircle2 className="size-8 text-wise-green" />,
       bg: "bg-wise-green/10",
       button:
         "bg-wise-green text-dark-green hover:bg-wise-green/90 shadow-wise-green/20",
       titleColor: "text-near-black",
     },
     info: {
-      icon: <Info className="w-8 h-8 text-blue-600" />,
+      icon: <Info className="size-8 text-blue-600" />,
       bg: "bg-blue-50",
       button: "bg-blue-600 hover:bg-blue-700 text-white shadow-blue-200",
       titleColor: "text-blue-900",
@@ -73,7 +73,7 @@ export const ConfirmationModal = ({
         <div className="flex flex-col items-center text-center space-y-6">
           <div
             className={cn(
-              "w-20 h-20 rounded-3xl flex items-center justify-center",
+              "size-20 rounded-3xl flex items-center justify-center",
               currentVariant.bg,
             )}
           >

@@ -66,7 +66,7 @@ export const JobList = () => {
     return (
       <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm">
         <div className="p-8 text-center">
-          <div className="w-8 h-8 border-4 border-wise-green border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <div className="size-8 border-4 border-wise-green border-t-transparent rounded-full animate-spin mx-auto mb-4" />
           <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">
             Loading job listings...
           </p>
@@ -79,10 +79,10 @@ export const JobList = () => {
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row items-center gap-4">
         <div className="relative flex-1 group">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-wise-green transition-colors" />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-gray-400 group-focus-within:text-wise-green transition-colors" />
           <input
             type="text"
-            placeholder="Search by job title, hiring company..."
+            placeholder="Search by job title, hiring company…"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full h-14 pl-12 pr-4 bg-white border border-gray-100 rounded-2xl text-sm font-bold focus:ring-2 focus:ring-wise-green/20 focus:border-wise-green transition-all outline-none"
@@ -90,10 +90,10 @@ export const JobList = () => {
         </div>
         <Popover>
           <PopoverTrigger className="h-14 px-6 rounded-2xl border border-gray-100 bg-white hover:bg-gray-50 flex items-center gap-2 font-black text-[10px] uppercase tracking-widest text-near-black">
-            <Filter className="w-4 h-4" />
+            <Filter className="size-4" />
             Advanced Filters
             {selectedStatuses.length > 0 && (
-              <span className="w-5 h-5 bg-wise-green text-near-black rounded-full flex items-center justify-center text-[8px]">
+              <span className="size-5 bg-wise-green text-near-black rounded-full flex items-center justify-center text-[8px]">
                 {selectedStatuses.length}
               </span>
             )}
@@ -114,14 +114,14 @@ export const JobList = () => {
                   <div
                     onClick={() => handleStatusToggle(status)}
                     className={cn(
-                      "w-5 h-5 rounded-lg border-2 transition-all flex items-center justify-center",
+                      "size-5 rounded-lg border-2 transition-all flex items-center justify-center",
                       selectedStatuses.includes(status)
                         ? "bg-near-black border-near-black"
                         : "border-gray-200 group-hover:border-wise-green",
                     )}
                   >
                     {selectedStatuses.includes(status) && (
-                      <div className="w-2 h-2 rounded-sm bg-wise-green" />
+                      <div className="size-2 rounded-sm bg-wise-green" />
                     )}
                   </div>
                   <span className="text-xs font-bold text-near-black uppercase tracking-widest">
@@ -170,8 +170,8 @@ export const JobList = () => {
                 >
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center text-near-black font-black group-hover:bg-wise-green group-hover:text-dark-green transition-all">
-                        <Briefcase className="w-5 h-5" />
+                      <div className="size-10 bg-gray-100 rounded-xl flex items-center justify-center text-near-black font-black group-hover:bg-wise-green group-hover:text-dark-green transition-all">
+                        <Briefcase className="size-5" />
                       </div>
                       <div>
                         <p className="font-bold text-near-black text-[14px]">
@@ -218,7 +218,7 @@ export const JobList = () => {
                         className="p-2 text-gray-400 hover:text-wise-green hover:bg-wise-green/10 rounded-xl transition-all outline-none"
                         title="View Details"
                       >
-                        <Eye className="w-5 h-5" />
+                        <Eye className="size-5" />
                       </button>
                       {job.status === "OPEN" ? (
                         <button
@@ -227,7 +227,7 @@ export const JobList = () => {
                           className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all outline-none"
                           title="Flag as Threat / Scam"
                         >
-                          <Ban className="w-5 h-5" />
+                          <Ban className="size-5" />
                         </button>
                       ) : (
                         <button
@@ -236,7 +236,7 @@ export const JobList = () => {
                           className="p-2 text-gray-400 hover:text-green-600 hover:bg-green-50 rounded-xl transition-all outline-none"
                           title="Activate Job Post"
                         >
-                          <Unlock className="w-5 h-5" />
+                          <Unlock className="size-5" />
                         </button>
                       )}
                     </div>

@@ -276,7 +276,7 @@ export const plans: Plan[] = [
     id: "basic",
     name: "Classic",
     price: "0",
-    icon: <Zap className="w-5 h-5" />,
+    icon: <Zap className="size-5" />,
     aiAgent: false,
     features: [
       "Standard job posting",
@@ -288,7 +288,7 @@ export const plans: Plan[] = [
     id: "pro",
     name: "Accelerate",
     price: "1,499",
-    icon: <Sparkles className="w-5 h-5" />,
+    icon: <Sparkles className="size-5" />,
     aiAgent: true,
     badge: "Most Popular",
     popular: true,
@@ -303,7 +303,7 @@ export const plans: Plan[] = [
     id: "enterprise",
     name: "Dominance",
     price: "4,999",
-    icon: <Crown className="w-5 h-5" />,
+    icon: <Crown className="size-5" />,
     aiAgent: true,
     features: [
       "Premium placement",

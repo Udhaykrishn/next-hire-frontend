@@ -89,19 +89,19 @@ const RichTextEditor = ({
         <ToolbarButton
           onClick={() => editor.chain().focus().toggleBold().run()}
           active={!!editor.isActive("bold")}
-          icon={<Bold className="w-4 h-4" />}
+          icon={<Bold className="size-4" />}
           tooltip="Bold"
         />
         <ToolbarButton
           onClick={() => editor.chain().focus().toggleItalic().run()}
           active={!!editor.isActive("italic")}
-          icon={<Italic className="w-4 h-4" />}
+          icon={<Italic className="size-4" />}
           tooltip="Italic"
         />
         <ToolbarButton
           onClick={() => editor.chain().focus().toggleUnderline().run()}
           active={!!editor.isActive("underline")}
-          icon={<UnderlineIcon className="w-4 h-4" />}
+          icon={<UnderlineIcon className="size-4" />}
           tooltip="Underline"
         />
 
@@ -110,13 +110,13 @@ const RichTextEditor = ({
         <ToolbarButton
           onClick={() => editor.chain().focus().toggleBulletList().run()}
           active={!!editor.isActive("bulletList")}
-          icon={<List className="w-4 h-4" />}
+          icon={<List className="size-4" />}
           tooltip="Bullet List"
         />
         <ToolbarButton
           onClick={() => editor.chain().focus().toggleOrderedList().run()}
           active={!!editor.isActive("orderedList")}
-          icon={<ListOrdered className="w-4 h-4" />}
+          icon={<ListOrdered className="size-4" />}
           tooltip="Ordered List"
         />
 
@@ -127,7 +127,7 @@ const RichTextEditor = ({
             editor.chain().focus().toggleHeading({ level: 2 }).run()
           }
           active={!!editor.isActive("heading", { level: 2 })}
-          icon={<Heading2 className="w-4 h-4" />}
+          icon={<Heading2 className="size-4" />}
           tooltip="Heading 2"
         />
         <ToolbarButton
@@ -135,13 +135,13 @@ const RichTextEditor = ({
             editor.chain().focus().toggleHeading({ level: 3 }).run()
           }
           active={!!editor.isActive("heading", { level: 3 })}
-          icon={<Heading3 className="w-4 h-4" />}
+          icon={<Heading3 className="size-4" />}
           tooltip="Heading 3"
         />
         <ToolbarButton
           onClick={() => editor.chain().focus().toggleBlockquote().run()}
           active={!!editor.isActive("blockquote")}
-          icon={<Quote className="w-4 h-4" />}
+          icon={<Quote className="size-4" />}
           tooltip="Blockquote"
         />
 
@@ -151,7 +151,7 @@ const RichTextEditor = ({
             onMouseDown={(e) => e.preventDefault()}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-wider bg-wise-green text-dark-green hover:bg-wise-green/90 transition-all shadow-sm shadow-wise-green/20"
           >
-            <Sparkles className="w-3.5 h-3.5" />
+            <Sparkles className="size-3.5" />
             AI Rewrite
           </button>
         </div>

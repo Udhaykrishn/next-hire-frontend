@@ -8,7 +8,7 @@ export default function CandidatesAdminPage() {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
         <div>
           <div className="flex items-center gap-3 mb-1">
-            <div className="w-2 h-2 rounded-full bg-wise-green shadow-[0_0_10px_rgba(159,232,112,0.8)]" />
+            <div className="size-2 rounded-full bg-wise-green shadow-[0_0_10px_rgba(159,232,112,0.8)]" />
             <span className="text-[10px] font-black uppercase tracking-[0.3em] text-near-black/40">
               Talent Moderation
             </span>

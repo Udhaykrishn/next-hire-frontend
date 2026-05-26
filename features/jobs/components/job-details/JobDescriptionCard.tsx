@@ -31,8 +31,8 @@ export function JobDescriptionCard({ job }: JobDescriptionCardProps) {
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-8">
           <div className="flex gap-3">
-            <div className="w-10 h-10 rounded-xl bg-wise-green/10 flex items-center justify-center shrink-0">
-              <Building className="w-5 h-5 text-dark-green" />
+            <div className="size-10 rounded-xl bg-wise-green/10 flex items-center justify-center shrink-0">
+              <Building className="size-5 text-dark-green" />
             </div>
             <div className="mt-0.5">
               <p className="text-[13px] text-gray-500 mb-0.5">Work location</p>
@@ -42,8 +42,8 @@ export function JobDescriptionCard({ job }: JobDescriptionCardProps) {
             </div>
           </div>
           <div className="flex gap-3">
-            <div className="w-10 h-10 rounded-xl bg-wise-green/10 flex items-center justify-center shrink-0">
-              <Target className="w-5 h-5 text-dark-green" />
+            <div className="size-10 rounded-xl bg-wise-green/10 flex items-center justify-center shrink-0">
+              <Target className="size-5 text-dark-green" />
             </div>
             <div className="mt-0.5">
               <p className="text-[13px] text-gray-500 mb-0.5">Department</p>
@@ -53,8 +53,8 @@ export function JobDescriptionCard({ job }: JobDescriptionCardProps) {
             </div>
           </div>
           <div className="flex gap-3">
-            <div className="w-10 h-10 rounded-xl bg-wise-green/10 flex items-center justify-center shrink-0">
-              <Clock className="w-5 h-5 text-dark-green" />
+            <div className="size-10 rounded-xl bg-wise-green/10 flex items-center justify-center shrink-0">
+              <Clock className="size-5 text-dark-green" />
             </div>
             <div className="mt-0.5">
               <p className="text-[13px] text-gray-500 mb-0.5">
@@ -76,8 +76,8 @@ export function JobDescriptionCard({ job }: JobDescriptionCardProps) {
           Job requirements
         </h2>
         <div className="flex gap-3">
-          <div className="w-10 h-10 rounded-xl bg-wise-green/10 flex items-center justify-center shrink-0">
-            <Target className="w-5 h-5 text-dark-green" />
+          <div className="size-10 rounded-xl bg-wise-green/10 flex items-center justify-center shrink-0">
+            <Target className="size-5 text-dark-green" />
           </div>
           <div className="mt-0.5">
             <p className="text-[13px] text-gray-500 mb-0.5">Experience</p>
@@ -105,7 +105,7 @@ export function JobDescriptionCard({ job }: JobDescriptionCardProps) {
                   key={index}
                   className="flex items-center gap-2 px-4 py-2 bg-wise-green/10 text-dark-green rounded-xl text-[14px] font-medium border border-wise-green/20"
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-wise-green"></span>
+                  <span className="size-1.5 rounded-full bg-wise-green"></span>
                   {perk}
                 </div>
               ))}
@@ -122,7 +122,7 @@ export function JobDescriptionCard({ job }: JobDescriptionCardProps) {
           About company
         </h2>
         <div className="flex items-start gap-4">
-          <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center border-2 border-wise-green/20 shadow-md shadow-wise-green/5 shrink-0 overflow-hidden">
+          <div className="size-16 bg-white rounded-2xl flex items-center justify-center border-2 border-wise-green/20 shadow-md shadow-wise-green/5 shrink-0 overflow-hidden">
             {job.companyLogo ? (
               <Image
                 src={job.companyLogo}
@@ -130,7 +130,7 @@ export function JobDescriptionCard({ job }: JobDescriptionCardProps) {
                 width={64}
                 height={64}
                 unoptimized
-                className="w-full h-full object-cover"
+                className="size-full object-cover"
               />
             ) : (
               <span className="text-2xl font-black text-dark-green">

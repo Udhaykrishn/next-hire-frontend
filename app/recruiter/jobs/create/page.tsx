@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { domAnimation, LazyMotion, m } from "framer-motion";
 import {
   ArrowRight,
   ChevronLeft,
@@ -32,7 +32,7 @@ const MethodologyCard = ({
   isTemplate,
   tags,
 }: MethodologyCardProps) => (
-  <motion.div
+  <m.div
     whileHover={{ y: -4, scale: 1.01 }}
     onClick={onClick}
     className={cn(
@@ -45,7 +45,7 @@ const MethodologyCard = ({
     {isTemplate && (
       <div className="absolute top-6 right-6">
         <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-wise-green/10 text-wise-green text-[9px] font-black uppercase tracking-widest border border-wise-green/10">
-          <Sparkles className="w-3 h-3" />
+          <Sparkles className="size-3" />
           Recommended
         </div>
       </div>
@@ -53,14 +53,14 @@ const MethodologyCard = ({
 
     <div
       className={cn(
-        "w-12 h-12 rounded-xl flex items-center justify-center mb-6 transition-transform duration-500 group-hover:scale-110",
+        "size-12 rounded-xl flex items-center justify-center mb-6 transition-transform duration-500 group-hover:scale-110",
         isTemplate
           ? "bg-wise-green text-near-black"
           : "bg-gray-50 text-gray-400 group-hover:bg-wise-green/10 group-hover:text-wise-green",
       )}
     >
       {React.cloneElement(icon as React.ReactElement<{ className?: string }>, {
-        className: "w-6 h-6",
+        className: "size-6",
       })}
     </div>
 
@@ -86,16 +86,16 @@ const MethodologyCard = ({
       </div>
       <div
         className={cn(
-          "w-10 h-10 rounded-full flex items-center justify-center transition-all duration-500",
+          "size-10 rounded-full flex items-center justify-center transition-all duration-500",
           isTemplate
             ? "bg-near-black text-white"
             : "bg-gray-50 text-gray-300 group-hover:bg-wise-green group-hover:text-near-black",
         )}
       >
-        <ArrowRight className="w-4 h-4" />
+        <ArrowRight className="size-4" />
       </div>
     </div>
-  </motion.div>
+  </m.div>
 );
 
 export default function CreateJobPage() {
@@ -110,8 +110,8 @@ export default function CreateJobPage() {
           onClick={() => router.back()}
           className="group flex items-center gap-2 hover:bg-transparent px-0"
         >
-          <div className="w-8 h-8 rounded-full border border-gray-100 flex items-center justify-center group-hover:border-wise-green transition-colors">
-            <ChevronLeft className="w-4 h-4 text-gray-400 group-hover:text-wise-green" />
+          <div className="size-8 rounded-full border border-gray-100 flex items-center justify-center group-hover:border-wise-green transition-colors">
+            <ChevronLeft className="size-4 text-gray-400 group-hover:text-wise-green" />
           </div>
           <span className="text-[12px] font-black text-gray-400 group-hover:text-near-black uppercase tracking-widest">
             Back to Hub
@@ -119,7 +119,7 @@ export default function CreateJobPage() {
         </Button>
 
         <div className="flex items-center gap-2">
-          <div className="w-1.5 h-1.5 rounded-full bg-wise-green animate-pulse" />
+          <div className="size-1.5 rounded-full bg-wise-green animate-pulse" />
           <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">
             Deployment System
           </span>
@@ -161,13 +161,13 @@ export default function CreateJobPage() {
         <div className="h-px w-20 bg-gray-100" />
         <div className="flex items-center gap-10">
           <div className="flex items-center gap-2">
-            <Zap className="w-4 h-4 text-wise-green" />
+            <Zap className="size-4 text-wise-green" />
             <span className="text-[11px] font-black text-gray-300 uppercase tracking-widest">
               AI Enhanced
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <Target className="w-4 h-4 text-wise-green" />
+            <Target className="size-4 text-wise-green" />
             <span className="text-[11px] font-black text-gray-300 uppercase tracking-widest">
               Neural Ready
             </span>

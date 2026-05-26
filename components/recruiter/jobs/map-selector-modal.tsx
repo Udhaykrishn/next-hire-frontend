@@ -44,8 +44,8 @@ export const MapSelectorModal: React.FC<MapSelectorModalProps> = ({
       <DialogContent className="sm:max-w-[700px] p-0 overflow-hidden rounded-3xl border-none shadow-2xl">
         <DialogHeader className="p-6 pb-0">
           <DialogTitle className="text-[20px] font-black text-near-black flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-wise-green/10 flex items-center justify-center">
-              <MapPin className="w-5 h-5 text-wise-green" />
+            <div className="size-10 rounded-2xl bg-wise-green/10 flex items-center justify-center">
+              <MapPin className="size-5 text-wise-green" />
             </div>
             Select Office Location
           </DialogTitle>

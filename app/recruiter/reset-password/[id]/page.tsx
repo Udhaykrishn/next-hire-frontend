@@ -40,12 +40,12 @@ export default function RecruiterResetPasswordPage({
         <Card className="border-gray-200 shadow-2xl shadow-gray-200/50 rounded-[2rem] overflow-hidden bg-white/80 backdrop-blur-xl">
           <CardHeader className="space-y-2 pb-8 pt-10 text-center relative border-b border-gray-100">
             <motion.div
-              initial={{ scale: 0 }}
+              initial={{ scale: 0.95 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-              className="absolute top-0 right-10 translate-y-[-50%] w-16 h-16 bg-wise-green rounded-2xl flex items-center justify-center shadow-[0_0_40px_rgba(159,232,112,0.3)] rotate-6"
+              className="absolute top-0 right-10 translate-y-[-50%] size-16 bg-wise-green rounded-2xl flex items-center justify-center shadow-[0_0_40px_rgba(159,232,112,0.3)] rotate-6"
             >
-              <LockKeyhole className="w-8 h-8 text-dark-green" />
+              <LockKeyhole className="size-8 text-dark-green" />
             </motion.div>
 
             <CardTitle className="text-3xl font-black leading-tight text-gray-900 tracking-tight mt-2">
@@ -66,7 +66,7 @@ export default function RecruiterResetPasswordPage({
               href="/recruiter/login"
               className="text-sm text-gray-500 font-medium flex items-center gap-2 hover:text-gray-900 transition-colors"
             >
-              <ArrowLeft className="w-4 h-4" /> Back to Login
+              <ArrowLeft className="size-4" /> Back to Login
             </Link>
           </CardFooter>
         </Card>

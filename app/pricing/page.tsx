@@ -42,13 +42,13 @@ export function PricingContent({
   const getIcon = (iconType: string) => {
     switch (iconType) {
       case "zap":
-        return <Zap className="w-6 h-6 text-gray-400" />;
+        return <Zap className="size-6 text-gray-400" />;
       case "crown":
-        return <Crown className="w-6 h-6 text-wise-green" />;
+        return <Crown className="size-6 text-wise-green" />;
       case "shield":
-        return <Shield className="w-6 h-6 text-gray-400" />;
+        return <Shield className="size-6 text-gray-400" />;
       default:
-        return <Zap className="w-6 h-6 text-gray-400" />;
+        return <Zap className="size-6 text-gray-400" />;
     }
   };
 
@@ -65,7 +65,7 @@ export function PricingContent({
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-wise-green border-t-transparent rounded-full animate-spin" />
+        <div className="size-8 border-4 border-wise-green border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -114,6 +114,7 @@ export function PricingContent({
                   For Job Seekers
                 </button>
                 <button
+                  type="button"
                   onClick={() => setType("recruiter")}
                   className={cn(
                     "px-6 py-2 rounded-xl text-[14px] font-black transition-all",
@@ -162,7 +163,7 @@ export function PricingContent({
 
                 <div className="mb-8">
                   <div
-                    className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 ${plan.highlight ? "bg-wise-green/10" : "bg-gray-50"}`}
+                    className={`size-14 rounded-2xl flex items-center justify-center mb-6 ${plan.highlight ? "bg-wise-green/10" : "bg-gray-50"}`}
                   >
                     {plan.icon}
                   </div>
@@ -188,9 +189,9 @@ export function PricingContent({
                   {plan.features.map((feature, fIdx) => (
                     <div key={fIdx} className="flex items-center gap-3">
                       <div
-                        className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${plan.highlight ? "bg-wise-green text-dark-green" : "bg-gray-100 text-gray-400"}`}
+                        className={`size-5 rounded-full flex items-center justify-center shrink-0 ${plan.highlight ? "bg-wise-green text-dark-green" : "bg-gray-100 text-gray-400"}`}
                       >
-                        <Check className="w-3 h-3" strokeWidth={4} />
+                        <Check className="size-3" strokeWidth={4} />
                       </div>
                       <span className="text-[14px] font-bold text-gray-600">
                         {feature}
@@ -237,7 +238,7 @@ export default function PricingPage() {
     <Suspense
       fallback={
         <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center">
-          <div className="w-8 h-8 border-4 border-wise-green border-t-transparent rounded-full animate-spin" />
+          <div className="size-8 border-4 border-wise-green border-t-transparent rounded-full animate-spin" />
         </div>
       }
     >

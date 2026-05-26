@@ -89,7 +89,7 @@ export const LanguageForm = ({
                 setIsOpen(true);
               }}
               onFocus={() => setIsOpen(true)}
-              placeholder="Search or type language..."
+              placeholder="Search or type language…"
               className="w-full h-11 bg-gray-50 rounded-xl border border-gray-100 px-4 pr-10 text-[14px] font-bold focus:outline-none focus:border-wise-green transition-colors"
             />
             <button
@@ -98,7 +98,7 @@ export const LanguageForm = ({
               className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
             >
               <ChevronDown
-                className={`w-4 h-4 transition-transform duration-200 ${
+                className={`size-4 transition-transform duration-200 ${
                   isOpen ? "rotate-180" : ""
                 }`}
               />

@@ -112,7 +112,7 @@ export const GoogleMapPicker: React.FC<GoogleMapPickerProps> = ({
         style={{ height }}
         className="w-full bg-gray-50 flex flex-col items-center justify-center gap-3 rounded-2xl border border-gray-100"
       >
-        <Loader2 className="w-8 h-8 text-wise-green animate-spin" />
+        <Loader2 className="size-8 text-wise-green animate-spin" />
         <p className="text-[13px] font-bold text-gray-400">
           Loading Map Service...
         </p>
@@ -149,7 +149,7 @@ export const GoogleMapPicker: React.FC<GoogleMapPickerProps> = ({
         </div>
         {loading && (
           <div className="bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-sm flex items-center gap-2 border border-gray-100 pointer-events-auto">
-            <Loader2 className="w-3 h-3 text-wise-green animate-spin" />
+            <Loader2 className="size-3 text-wise-green animate-spin" />
             <span className="text-[11px] font-black text-near-black">
               Finding Address...
             </span>

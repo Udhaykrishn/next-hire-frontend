@@ -24,7 +24,7 @@ export default async function JobDetailsPage({ params }: PageProps) {
       <Suspense
         fallback={
           <div className="min-h-screen bg-gray-50 flex items-center justify-center font-satoshi">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-wise-green"></div>
+            <div className="animate-spin rounded-full size-12 border-b-2 border-wise-green"></div>
           </div>
         }
       >

@@ -261,9 +261,9 @@ export default function EditJobPreferencesPage() {
           {/* Live Preview Card */}
           {(minSalary || maxSalary) && (
             <div className="p-5 rounded-[2rem] bg-wise-green/[0.03] border border-wise-green/10 space-y-2 mt-4 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-wise-green/10 rounded-full blur-2xl" />
+              <div className="absolute top-0 right-0 size-24 bg-wise-green/10 rounded-full blur-2xl" />
               <p className="text-[10px] font-black text-wise-green uppercase tracking-widest flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-wise-green animate-pulse" />
+                <span className="size-1.5 rounded-full bg-wise-green animate-pulse" />
                 Live Preview on Profile
               </p>
               <div className="flex items-center gap-2">

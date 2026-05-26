@@ -37,8 +37,8 @@ export function AdminSidebar() {
     <aside className="w-64 bg-white border-r border-gray-100 flex flex-col fixed inset-y-0 left-0 z-50">
       <div className="h-16 flex items-center px-8 border-b border-gray-50 mb-6">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-near-black rounded-xl flex items-center justify-center">
-            <Sparkles className="w-5 h-5 text-wise-green" />
+          <div className="size-8 bg-near-black rounded-xl flex items-center justify-center">
+            <Sparkles className="size-5 text-wise-green" />
           </div>
           <span className="text-[18px] font-black tracking-tighter text-near-black">
             next<span className="text-wise-green italic">Hire</span>{" "}
@@ -65,7 +65,7 @@ export function AdminSidebar() {
             >
               <item.icon
                 className={cn(
-                  "w-5 h-5 transition-transform duration-300 group-hover:scale-110",
+                  "size-5 transition-transform duration-300 group-hover:scale-110",
                   isActive ? "text-wise-green" : "text-gray-400",
                 )}
               />
@@ -77,10 +77,11 @@ export function AdminSidebar() {
 
       <div className="p-4 border-t border-gray-50">
         <button
+          type="button"
           onClick={handleLogout}
           className="flex items-center gap-3 px-4 py-3 w-full rounded-xl text-sm font-bold text-red-500 hover:bg-red-50 transition-colors group"
         >
-          <LogOut className="w-5 h-5 transition-transform group-hover:-translate-x-1" />
+          <LogOut className="size-5 transition-transform group-hover:-translate-x-1" />
           Sign Out
         </button>
       </div>

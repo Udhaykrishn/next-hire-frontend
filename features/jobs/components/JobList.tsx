@@ -94,7 +94,7 @@ export default function JobList() {
                     className="text-[13px] font-bold text-gray-900 flex items-center gap-1 hover:text-dark-green transition-colors"
                   >
                     {sort}{" "}
-                    <ChevronRight className="w-3.5 h-3.5 group-hover/sort:rotate-90 transition-transform" />
+                    <ChevronRight className="size-3.5 group-hover/sort:rotate-90 transition-transform" />
                   </button>
                   <div className="absolute right-0 top-full mt-2 w-36 bg-white border border-gray-100 rounded-xl shadow-xl shadow-gray-200/50 opacity-0 invisible group-hover/sort:opacity-100 group-hover/sort:visible transition-all duration-200 py-2 z-50">
                     {["Relevance", "Newest", "Salary (High to Low)"].map(
@@ -140,8 +140,8 @@ export default function JobList() {
 
                 {jobs.length === 0 && !isListLoading && (
                   <div className="text-center py-24">
-                    <div className="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-gray-100">
-                      <Search className="w-7 h-7 text-gray-300" />
+                    <div className="size-16 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-gray-100">
+                      <Search className="size-7 text-gray-300" />
                     </div>
                     <p className="text-gray-400 font-bold text-[14px] mb-1">
                       No jobs found
@@ -159,10 +159,10 @@ export default function JobList() {
           <aside className="lg:col-span-3 space-y-5">
             {/* AI Matching Card */}
             <div className="bg-dark-green rounded-2xl p-6 text-white relative overflow-hidden">
-              <div className="absolute -top-8 -right-8 w-24 h-24 bg-wise-green/10 rounded-full blur-xl pointer-events-none" />
-              <div className="absolute bottom-0 left-0 w-16 h-16 bg-wise-green/5 rounded-tr-full pointer-events-none" />
+              <div className="absolute -top-8 -right-8 size-24 bg-wise-green/10 rounded-full blur-xl pointer-events-none" />
+              <div className="absolute bottom-0 left-0 size-16 bg-wise-green/5 rounded-tr-full pointer-events-none" />
               <div className="relative z-10">
-                <div className="w-9 h-9 rounded-xl bg-wise-green/20 flex items-center justify-center mb-4">
+                <div className="size-9 rounded-xl bg-wise-green/20 flex items-center justify-center mb-4">
                   <Sparkles className="w-4.5 h-4.5 text-wise-green" />
                 </div>
                 <h3 className="text-[16px] font-black mb-2 leading-tight">
@@ -193,7 +193,7 @@ export default function JobList() {
                     className="flex items-center justify-between p-2.5 rounded-xl hover:bg-gray-50 transition-colors cursor-pointer group"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 bg-gray-50 rounded-xl flex items-center justify-center border border-gray-100 group-hover:border-wise-green/20 transition-colors">
+                      <div className="size-9 bg-gray-50 rounded-xl flex items-center justify-center border border-gray-100 group-hover:border-wise-green/20 transition-colors">
                         <span className="text-[13px] font-black text-gray-400 group-hover:text-dark-green transition-colors">
                           {comp[0]}
                         </span>
@@ -202,7 +202,7 @@ export default function JobList() {
                         {comp}
                       </span>
                     </div>
-                    <ChevronRight className="w-3.5 h-3.5 text-gray-300 group-hover:text-wise-green transition-colors" />
+                    <ChevronRight className="size-3.5 text-gray-300 group-hover:text-wise-green transition-colors" />
                   </div>
                 ))}
               </div>

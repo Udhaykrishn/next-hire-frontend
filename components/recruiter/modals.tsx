@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { domAnimation, LazyMotion, m } from "framer-motion";
 import {
   Briefcase,
   Command,
@@ -52,7 +52,7 @@ export function UpgradeModal({ isOpen, onClose }: ModalProps) {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-      <motion.div
+      <m.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -60,26 +60,27 @@ export function UpgradeModal({ isOpen, onClose }: ModalProps) {
         className="absolute inset-0 bg-near-black/80 backdrop-blur-md"
       />
 
-      <motion.div
+      <m.div
         initial={{ opacity: 0, scale: 0.9, y: 30 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.9, y: 30 }}
         className="relative w-full max-w-4xl bg-white rounded-[2.5rem] overflow-hidden shadow-[0_32px_128px_-12px_rgba(0,0,0,0.5)] flex flex-col md:flex-row min-h-[500px]"
       >
         <button
+          type="button"
           onClick={onClose}
           className="absolute top-8 right-8 z-20 text-gray-400 hover:text-near-black transition-colors"
         >
-          <X className="w-6 h-6" />
+          <X className="size-6" />
         </button>
 
         {/* Sidebar */}
         <div className="md:w-[40%] bg-near-black p-10 relative overflow-hidden flex flex-col justify-between">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-wise-green/10 rounded-full blur-[80px] -mr-32 -mt-32" />
+          <div className="absolute top-0 right-0 size-64 bg-wise-green/10 rounded-full blur-[80px] -mr-32 -mt-32" />
 
           <div className="relative z-10 space-y-8">
-            <div className="w-14 h-14 rounded-2xl bg-wise-green flex items-center justify-center shadow-[0_0_30px_rgba(159,232,112,0.3)]">
-              <Crown className="w-8 h-8 text-near-black" />
+            <div className="size-14 rounded-2xl bg-wise-green flex items-center justify-center shadow-[0_0_30px_rgba(159,232,112,0.3)]">
+              <Crown className="size-8 text-near-black" />
             </div>
             <div className="space-y-4">
               <h2 className="text-[32px] font-black text-white leading-none tracking-tighter">
@@ -99,7 +100,7 @@ export function UpgradeModal({ isOpen, onClose }: ModalProps) {
                 {[1, 2, 3].map((i) => (
                   <div
                     key={i}
-                    className="w-8 h-8 rounded-full border-2 border-near-black bg-gray-800 flex items-center justify-center text-[10px] font-bold text-white"
+                    className="size-8 rounded-full border-2 border-near-black bg-gray-800 flex items-center justify-center text-[10px] font-bold text-white"
                   >
                     {String.fromCharCode(64 + i)}
                   </div>
@@ -117,10 +118,10 @@ export function UpgradeModal({ isOpen, onClose }: ModalProps) {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-8">
             {features.map((feat) => (
               <div key={feat.title} className="space-y-3 group">
-                <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center group-hover:bg-wise-green/10 group-hover:text-wise-green transition-all duration-500">
+                <div className="size-10 rounded-xl bg-gray-50 flex items-center justify-center group-hover:bg-wise-green/10 group-hover:text-wise-green transition-all duration-500">
                   {React.cloneElement(
                     feat.icon as React.ReactElement<{ className?: string }>,
-                    { className: "w-5 h-5" },
+                    { className: "size-5" },
                   )}
                 </div>
                 <div>
@@ -146,19 +147,19 @@ export function UpgradeModal({ isOpen, onClose }: ModalProps) {
               </p>
             </div>
             <Button className="h-16 px-10 bg-near-black text-white hover:bg-wise-green hover:text-near-black transition-all rounded-full font-black text-[16px] shadow-2xl shadow-near-black/20 group/btn relative overflow-hidden">
-              <motion.div
+              <m.div
                 className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0"
                 animate={{ x: ["-100%", "100%"] }}
                 transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
               />
               <span className="relative z-10 flex items-center gap-2">
                 Start 14-Day Trial
-                <Zap className="w-5 h-5 fill-current" />
+                <Zap className="size-5 fill-current" />
               </span>
             </Button>
           </div>
         </div>
-      </motion.div>
+      </m.div>
     </div>
   );
 }
@@ -168,7 +169,7 @@ export function JobCreationModal({ isOpen, onClose }: ModalProps) {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-      <motion.div
+      <m.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -176,23 +177,24 @@ export function JobCreationModal({ isOpen, onClose }: ModalProps) {
         className="absolute inset-0 bg-near-black/80 backdrop-blur-md"
       />
 
-      <motion.div
+      <m.div
         initial={{ opacity: 0, scale: 0.9, y: 30 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.9, y: 30 }}
         className="relative w-full max-w-xl bg-white rounded-[2.5rem] p-10 md:p-14 shadow-[0_32px_128px_-12px_rgba(0,0,0,0.5)] overflow-hidden"
       >
         <button
+          type="button"
           onClick={onClose}
           className="absolute top-10 right-10 z-20 text-gray-400 hover:text-near-black transition-colors"
         >
-          <X className="w-6 h-6" />
+          <X className="size-6" />
         </button>
 
         <div className="relative z-10 space-y-10">
           <div className="space-y-2">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-wise-green/10 text-wise-green text-[9px] font-black uppercase tracking-widest border border-wise-green/10 mb-2">
-              <Command className="w-3 h-3" />
+              <Command className="size-3" />
               Deployment Console
             </div>
             <h2 className="text-[32px] font-black text-near-black leading-none tracking-tighter">
@@ -213,7 +215,7 @@ export function JobCreationModal({ isOpen, onClose }: ModalProps) {
                   placeholder="e.g. Senior Neural Engineer"
                   className="h-14 px-6 rounded-2xl border-gray-100 bg-gray-50/50 focus:border-wise-green focus:bg-white transition-all font-medium text-[16px]"
                 />
-                <Briefcase className="absolute right-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-200 group-focus-within:text-wise-green transition-colors" />
+                <Briefcase className="absolute right-5 top-1/2 -translate-y-1/2 size-5 text-gray-200 group-focus-within:text-wise-green transition-colors" />
               </div>
             </div>
 
@@ -227,7 +229,7 @@ export function JobCreationModal({ isOpen, onClose }: ModalProps) {
                     placeholder="Remote / City"
                     className="h-14 px-6 rounded-2xl border-gray-100 bg-gray-50/50 focus:border-wise-green focus:bg-white transition-all font-medium text-[16px]"
                   />
-                  <MapPin className="absolute right-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-200 group-focus-within:text-wise-green transition-colors" />
+                  <MapPin className="absolute right-5 top-1/2 -translate-y-1/2 size-5 text-gray-200 group-focus-within:text-wise-green transition-colors" />
                 </div>
               </div>
               <div className="space-y-2">
@@ -239,7 +241,7 @@ export function JobCreationModal({ isOpen, onClose }: ModalProps) {
                     placeholder="e.g. $140k - $180k"
                     className="h-14 px-6 rounded-2xl border-gray-100 bg-gray-50/50 focus:border-wise-green focus:bg-white transition-all font-medium text-[16px]"
                   />
-                  <DollarSign className="absolute right-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-200 group-focus-within:text-wise-green transition-colors" />
+                  <DollarSign className="absolute right-5 top-1/2 -translate-y-1/2 size-5 text-gray-200 group-focus-within:text-wise-green transition-colors" />
                 </div>
               </div>
             </div>
@@ -255,11 +257,11 @@ export function JobCreationModal({ isOpen, onClose }: ModalProps) {
             </Button>
             <Button className="flex-1 h-14 bg-near-black text-white hover:bg-wise-green hover:text-near-black transition-all rounded-full font-black text-[16px] shadow-2xl shadow-near-black/10 group">
               Publish Listing
-              <Rocket className="w-5 h-5 ml-2 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
+              <Rocket className="size-5 ml-2 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
             </Button>
           </div>
         </div>
-      </motion.div>
+      </m.div>
     </div>
   );
 }

@@ -27,8 +27,8 @@ export const AdminJobApplicationsList = ({ jobId }: { jobId: string }) => {
     <div className="bg-white border border-gray-100 rounded-[2rem] p-8 shadow-sm">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-100 pb-5 mb-5">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-blue-50 rounded-2xl flex items-center justify-center">
-            <Users className="w-5 h-5 text-blue-600" />
+          <div className="size-10 bg-blue-50 rounded-2xl flex items-center justify-center">
+            <Users className="size-5 text-blue-600" />
           </div>
           <h4 className="font-black text-lg text-near-black tracking-tight">
             Recent Applications{" "}
@@ -38,10 +38,10 @@ export const AdminJobApplicationsList = ({ jobId }: { jobId: string }) => {
 
         <div className="flex flex-col sm:flex-row items-center gap-3">
           <div className="relative w-full sm:w-64">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-gray-400" />
             <input
               type="text"
-              placeholder="Search by candidate name..."
+              placeholder="Search by candidate name…"
               value={searchTerm}
               onChange={(e) => {
                 setSearchTerm(e.target.value);
@@ -51,7 +51,7 @@ export const AdminJobApplicationsList = ({ jobId }: { jobId: string }) => {
             />
           </div>
           <div className="relative w-full sm:w-48">
-            <Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <Filter className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-gray-400" />
             <select
               value={statusFilter}
               onChange={(e) => {
@@ -79,7 +79,7 @@ export const AdminJobApplicationsList = ({ jobId }: { jobId: string }) => {
         </div>
       ) : !data || data.data.length === 0 ? (
         <div className="text-center py-12 bg-gray-50 rounded-2xl border border-dashed border-gray-200">
-          <Users className="w-10 h-10 text-gray-300 mx-auto mb-3" />
+          <Users className="size-10 text-gray-300 mx-auto mb-3" />
           <p className="text-gray-500 font-medium">
             No applications found matching your criteria.
           </p>
@@ -110,9 +110,9 @@ export const AdminJobApplicationsList = ({ jobId }: { jobId: string }) => {
                     key={app.id}
                     className="hover:bg-gray-50/50 transition-colors group"
                   >
-                    <td className="py-4 px-4">
+                    <td className="p-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-gray-200 rounded-full overflow-hidden flex-shrink-0">
+                        <div className="size-10 bg-gray-200 rounded-full overflow-hidden flex-shrink-0">
                           {app.candidate.profileImage ? (
                             <Image
                               src={app.candidate.profileImage}
@@ -120,10 +120,10 @@ export const AdminJobApplicationsList = ({ jobId }: { jobId: string }) => {
                               width={40}
                               height={40}
                               unoptimized
-                              className="w-full h-full object-cover"
+                              className="size-full object-cover"
                             />
                           ) : (
-                            <div className="w-full h-full flex items-center justify-center bg-gray-200 text-gray-500 font-bold">
+                            <div className="size-full flex items-center justify-center bg-gray-200 text-gray-500 font-bold">
                               {app.candidate.name.charAt(0).toUpperCase()}
                             </div>
                           )}
@@ -138,7 +138,7 @@ export const AdminJobApplicationsList = ({ jobId }: { jobId: string }) => {
                         </div>
                       </div>
                     </td>
-                    <td className="py-4 px-4 whitespace-nowrap">
+                    <td className="p-4 whitespace-nowrap">
                       <span className="text-sm font-medium text-gray-600">
                         {new Date(app.createdAt).toLocaleDateString(undefined, {
                           year: "numeric",
@@ -147,7 +147,7 @@ export const AdminJobApplicationsList = ({ jobId }: { jobId: string }) => {
                         })}
                       </span>
                     </td>
-                    <td className="py-4 px-4">
+                    <td className="p-4">
                       <span
                         className={`inline-flex items-center px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-widest ${
                           app.status === "HIRED"
@@ -164,7 +164,7 @@ export const AdminJobApplicationsList = ({ jobId }: { jobId: string }) => {
                         {app.status}
                       </span>
                     </td>
-                    <td className="py-4 px-4 text-right whitespace-nowrap">
+                    <td className="p-4 text-right whitespace-nowrap">
                       <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                         {app.candidate.resume && (
                           <a
@@ -173,7 +173,7 @@ export const AdminJobApplicationsList = ({ jobId }: { jobId: string }) => {
                             rel="noreferrer"
                             className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-gray-200 rounded-lg text-xs font-bold text-gray-600 hover:bg-gray-50 hover:text-near-black transition-colors"
                           >
-                            <FileText className="w-3.5 h-3.5" />
+                            <FileText className="size-3.5" />
                             Resume
                           </a>
                         )}
@@ -181,7 +181,7 @@ export const AdminJobApplicationsList = ({ jobId }: { jobId: string }) => {
                           href={`/admin/candidates/${app.candidate.id}`}
                           className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-gray-200 rounded-lg text-xs font-bold text-gray-600 hover:bg-gray-50 hover:text-near-black transition-colors"
                         >
-                          <ExternalLink className="w-3.5 h-3.5" />
+                          <ExternalLink className="size-3.5" />
                           Profile
                         </Link>
                       </div>

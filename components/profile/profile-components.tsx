@@ -26,7 +26,7 @@ export const ProfileSection = ({
     >
       <div className="flex items-center justify-between mb-8">
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-gray-50 flex items-center justify-center text-wise-green border border-gray-100">
+          <div className="size-12 rounded-2xl bg-gray-50 flex items-center justify-center text-wise-green border border-gray-100">
             {icon}
           </div>
           <h2 className="text-[20px] font-black text-gray-900 tracking-tight">
@@ -36,17 +36,18 @@ export const ProfileSection = ({
         {href ? (
           <Link
             href={href}
-            className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 hover:text-wise-green hover:bg-wise-green/10 transition-all border border-gray-100"
+            className="size-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 hover:text-wise-green hover:bg-wise-green/10 transition-all border border-gray-100"
           >
-            <Plus className="w-5 h-5" />
+            <Plus className="size-5" />
           </Link>
         ) : (
           onAddClick && (
             <button
+              type="button"
               onClick={onAddClick}
-              className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 hover:text-wise-green hover:bg-wise-green/10 transition-all border border-gray-100"
+              className="size-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 hover:text-wise-green hover:bg-wise-green/10 transition-all border border-gray-100"
             >
-              <Plus className="w-5 h-5" />
+              <Plus className="size-5" />
             </button>
           )
         )}
@@ -89,7 +90,7 @@ export const ProfileItemCard = ({
     <div
       className={`flex gap-5 group relative p-3 -mx-3 rounded-[2rem] transition-all hover:bg-gray-50/50 ${isCurrent ? "bg-wise-green/[0.02] border border-wise-green/10" : ""}`}
     >
-      <div className="w-12 h-12 rounded-2xl bg-gray-50 border border-gray-100 flex items-center justify-center text-[18px] font-black text-wise-green shrink-0 group-hover:scale-105 transition-all shadow-sm">
+      <div className="size-12 rounded-2xl bg-gray-50 border border-gray-100 flex items-center justify-center text-[18px] font-black text-wise-green shrink-0 group-hover:scale-105 transition-all shadow-sm">
         {logo}
       </div>
       <div className="flex-1 space-y-2">
@@ -105,15 +106,16 @@ export const ProfileItemCard = ({
                     href={editHref}
                     className="p-1.5 rounded-lg hover:bg-wise-green/10 text-gray-400 hover:text-wise-green transition-colors"
                   >
-                    <Edit2 className="w-3.5 h-3.5" />
+                    <Edit2 className="size-3.5" />
                   </Link>
                 )}
                 {onDeleteClick && (
                   <button
+                    type="button"
                     onClick={onDeleteClick}
                     className="p-1.5 rounded-lg hover:bg-red-50 text-gray-400 hover:text-red-500 transition-colors"
                   >
-                    <Trash2 className="w-3.5 h-3.5" />
+                    <Trash2 className="size-3.5" />
                   </button>
                 )}
               </div>
@@ -122,7 +124,7 @@ export const ProfileItemCard = ({
               <p className="text-[14px] font-bold text-gray-500">{subtitle}</p>
               {role && (
                 <>
-                  <span className="w-1 h-1 rounded-full bg-gray-300" />
+                  <span className="size-1 rounded-full bg-gray-300" />
                   <span className="text-[12px] font-black text-wise-green uppercase tracking-wider">
                     {role}
                   </span>
@@ -140,7 +142,7 @@ export const ProfileItemCard = ({
         <div className="flex flex-wrap gap-3">
           {location && (
             <div className="flex items-center gap-2.5 bg-gray-50/50 px-3 py-1.5 rounded-xl border border-gray-100/50">
-              <MapPin className="w-3.5 h-3.5 text-gray-400" />
+              <MapPin className="size-3.5 text-gray-400" />
               <span className="text-[12px] font-bold text-gray-600">
                 {location}
               </span>

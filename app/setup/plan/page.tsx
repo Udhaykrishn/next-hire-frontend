@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { domAnimation, LazyMotion, m } from "framer-motion";
 import {
   ArrowRight,
   Check,
@@ -23,7 +23,7 @@ const plans = [
     price: "₹0",
     period: "/mo",
     description: "Build your presence and start your career journey for free.",
-    icon: <UserCheck className="w-6 h-6" />,
+    icon: <UserCheck className="size-6" />,
     features: [
       "Public Profile",
       "5 Job Applications/mo",
@@ -40,7 +40,7 @@ const plans = [
     price: "₹499",
     period: "/mo",
     description: "Get noticed faster with AI tools and unlimited job access.",
-    icon: <Zap className="w-6 h-6" />,
+    icon: <Zap className="size-6" />,
     features: [
       "Unlimited Applications",
       "AI Resume Optimizer",
@@ -59,7 +59,7 @@ const plans = [
     price: "₹1,299",
     period: "/mo",
     description: "Our highest level of support for serious career transitions.",
-    icon: <Trophy className="w-6 h-6" />,
+    icon: <Trophy className="size-6" />,
     features: [
       "Personal Career Coach",
       "Elite Badge Profile",
@@ -89,8 +89,8 @@ export default function CandidatePlanSetupPage() {
         {/* Navigation */}
         <div className="flex items-center justify-between mb-16">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-wise-green flex items-center justify-center shadow-lg shadow-wise-green/20">
-              <Rocket className="w-6 h-6 text-dark-green" />
+            <div className="size-10 rounded-xl bg-wise-green flex items-center justify-center shadow-lg shadow-wise-green/20">
+              <Rocket className="size-6 text-dark-green" />
             </div>
             <span className="text-[18px] font-black tracking-tighter">
               next<span className="text-wise-green italic">Hire</span>
@@ -106,23 +106,23 @@ export default function CandidatePlanSetupPage() {
 
         {/* Hero Section */}
         <div className="text-center mb-12 max-w-2xl mx-auto">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-near-black text-white text-[10px] font-black uppercase tracking-[0.3em] mb-6"
           >
-            <Sparkles className="w-3.5 h-3.5 text-wise-green" />
+            <Sparkles className="size-3.5 text-wise-green" />
             Boost Your Career
-          </motion.div>
-          <motion.h1
+          </m.div>
+          <m.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-[40px] md:text-[56px] font-black leading-[1.05] tracking-tight text-near-black mb-4"
           >
             Accelerate your <br />
             <span className="text-wise-green italic">Professional Journey</span>
-          </motion.h1>
-          <motion.p
+          </m.h1>
+          <m.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
@@ -130,13 +130,13 @@ export default function CandidatePlanSetupPage() {
           >
             Unlock powerful AI tools and visibility boosts designed to help you
             land your dream role twice as fast.
-          </motion.p>
+          </m.p>
         </div>
 
         {/* Pricing Layout */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl mx-auto mb-16">
           {plans.map((plan, idx) => (
-            <motion.div
+            <m.div
               key={plan.id}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -166,7 +166,7 @@ export default function CandidatePlanSetupPage() {
                 <div className="mb-8">
                   <div
                     className={cn(
-                      "w-16 h-16 rounded-[2rem] flex items-center justify-center mb-8 transition-all duration-500",
+                      "size-16 rounded-[2rem] flex items-center justify-center mb-8 transition-all duration-500",
                       selectedPlan === plan.id
                         ? "bg-wise-green text-near-black scale-110 rotate-6"
                         : "bg-gray-50 text-gray-400 group-hover:scale-105",
@@ -195,13 +195,13 @@ export default function CandidatePlanSetupPage() {
                     <div key={fIdx} className="flex items-center gap-3">
                       <div
                         className={cn(
-                          "w-5 h-5 rounded-full flex items-center justify-center shrink-0",
+                          "size-5 rounded-full flex items-center justify-center shrink-0",
                           selectedPlan === plan.id
                             ? "bg-near-black text-wise-green"
                             : "bg-gray-50 text-gray-300",
                         )}
                       >
-                        <Check className="w-3 h-3" strokeWidth={5} />
+                        <Check className="size-3" strokeWidth={5} />
                       </div>
                       <span
                         className={cn(
@@ -226,15 +226,15 @@ export default function CandidatePlanSetupPage() {
                   )}
                 />
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
 
         {/* Footer Actions */}
         <div className="w-full max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 pt-10 border-t border-gray-100">
           <div className="flex items-center gap-4 group cursor-help">
-            <div className="w-12 h-12 rounded-2xl bg-gray-50 flex items-center justify-center group-hover:bg-near-black transition-all">
-              <ShieldCheck className="w-6 h-6 text-gray-300 group-hover:text-wise-green" />
+            <div className="size-12 rounded-2xl bg-gray-50 flex items-center justify-center group-hover:bg-near-black transition-all">
+              <ShieldCheck className="size-6 text-gray-300 group-hover:text-wise-green" />
             </div>
             <div>
               <p className="text-sm font-black text-near-black uppercase tracking-widest">
@@ -259,7 +259,7 @@ export default function CandidatePlanSetupPage() {
               className="h-16 px-12 rounded-3xl bg-near-black text-white hover:bg-wise-green hover:text-near-black transition-all font-black text-xs uppercase tracking-[0.3em] shadow-2xl shadow-near-black/20 group"
             >
               Complete Setup
-              <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="size-5 ml-3 group-hover:translate-x-1 transition-transform" />
             </Button>
           </div>
         </div>

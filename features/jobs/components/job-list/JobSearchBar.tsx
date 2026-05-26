@@ -41,7 +41,7 @@ export function JobSearchBar({
           type="button"
           className="h-11 px-8 bg-dark-green text-white rounded-xl text-[13px] font-black hover:bg-dark-green/90 transition-all shrink-0 flex items-center gap-2"
         >
-          <Search className="w-4 h-4" />
+          <Search className="size-4" />
           Search
         </button>
       </div>

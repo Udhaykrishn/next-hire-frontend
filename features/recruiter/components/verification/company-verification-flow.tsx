@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { domAnimation, LazyMotion, m } from "framer-motion";
 import { ArrowLeft, Building2, KeyRound, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -32,7 +32,7 @@ export function CompanyVerificationFlow() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <Loader2 className="w-8 h-8 animate-spin text-wise-green" />
+        <Loader2 className="size-8 animate-spin text-wise-green" />
       </div>
     );
   }
@@ -44,20 +44,20 @@ export function CompanyVerificationFlow() {
         onClick={() => router.push("/recruiter/profile")}
         className="flex items-center text-sm font-medium text-gray-500 hover:text-near-black transition-colors"
       >
-        <ArrowLeft className="w-4 h-4 mr-1.5" /> Back to Profile
+        <ArrowLeft className="size-4 mr-1.5" /> Back to Profile
       </button>
 
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm"
       >
         <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-wise-green/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+          <div className="size-16 bg-wise-green/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
             {step === "CIN" ? (
-              <Building2 className="w-8 h-8 text-wise-green" />
+              <Building2 className="size-8 text-wise-green" />
             ) : (
-              <KeyRound className="w-8 h-8 text-wise-green" />
+              <KeyRound className="size-8 text-wise-green" />
             )}
           </div>
           <h2 className="text-2xl font-black text-near-black">
@@ -96,7 +96,7 @@ export function CompanyVerificationFlow() {
               className="w-full h-12 bg-near-black text-white hover:bg-near-black/90 font-bold rounded-xl text-base shadow-lg shadow-near-black/20"
             >
               {isStarting ? (
-                <Loader2 className="w-5 h-5 animate-spin mx-auto" />
+                <Loader2 className="size-5 animate-spin mx-auto" />
               ) : (
                 "Verify CIN"
               )}
@@ -129,7 +129,7 @@ export function CompanyVerificationFlow() {
               className="w-full h-12 bg-wise-green text-near-black hover:bg-near-black hover:text-white transition-all font-bold rounded-xl text-base shadow-lg shadow-wise-green/20"
             >
               {isVerifying ? (
-                <Loader2 className="w-5 h-5 animate-spin mx-auto" />
+                <Loader2 className="size-5 animate-spin mx-auto" />
               ) : (
                 "Confirm Verification"
               )}
@@ -150,14 +150,14 @@ export function CompanyVerificationFlow() {
               className="w-full h-12 border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700 font-bold rounded-xl text-base transition-colors"
             >
               {isDeleting ? (
-                <Loader2 className="w-5 h-5 animate-spin mx-auto" />
+                <Loader2 className="size-5 animate-spin mx-auto" />
               ) : (
                 "Delete & Start New"
               )}
             </Button>
           </div>
         ) : null}
-      </motion.div>
+      </m.div>
     </div>
   );
 }

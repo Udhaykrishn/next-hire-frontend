@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { domAnimation, LazyMotion, m } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 const recentActivities = [
@@ -53,7 +53,10 @@ export default function AdminDashboard() {
           >
             Download Report
           </button>
-          <button className="px-5 py-2.5 bg-near-black text-white rounded-xl text-sm font-black hover:bg-wise-green hover:text-near-black transition-all shadow-lg shadow-near-black/10">
+          <button
+            type="button"
+            className="px-5 py-2.5 bg-near-black text-white rounded-xl text-sm font-black hover:bg-wise-green hover:text-near-black transition-all shadow-lg shadow-near-black/10"
+          >
             Export Data
           </button>
         </div>
@@ -85,7 +88,7 @@ export default function AdminDashboard() {
                   className="flex-1 flex flex-col items-center gap-3 group"
                 >
                   <div className="w-full relative">
-                    <motion.div
+                    <m.div
                       initial={{ height: 0 }}
                       animate={{ height: `${height}%` }}
                       transition={{ duration: 1, delay: i * 0.05 }}
@@ -121,7 +124,7 @@ export default function AdminDashboard() {
 
         {/* Recent Activity Section */}
         <div className="p-8 bg-near-black rounded-3xl shadow-2xl shadow-near-black/20 text-white relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-wise-green/10 rounded-full blur-3xl" />
+          <div className="absolute top-0 right-0 size-32 bg-wise-green/10 rounded-full blur-3xl" />
           <h3 className="text-xl font-black mb-6 relative z-10">Live Feed</h3>
           <div className="space-y-6 relative z-10">
             {recentActivities.map((activity) => (

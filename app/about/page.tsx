@@ -12,25 +12,25 @@ export default function AboutPage() {
 
   const values = [
     {
-      icon: <Users className="w-6 h-6 text-wise-green" />,
+      icon: <Users className="size-6 text-wise-green" />,
       title: "People First",
       description:
         "We believe in the power of human potential and prioritize matching the right talent with the right opportunity.",
     },
     {
-      icon: <Globe2 className="w-6 h-6 text-wise-green" />,
+      icon: <Globe2 className="size-6 text-wise-green" />,
       title: "Global Reach",
       description:
         "Breaking down geographical barriers to connect exceptional talent with world-class organizations worldwide.",
     },
     {
-      icon: <Target className="w-6 h-6 text-wise-green" />,
+      icon: <Target className="size-6 text-wise-green" />,
       title: "Precision Matching",
       description:
         "Utilizing advanced algorithms to ensure that every connection made is highly relevant and mutually beneficial.",
     },
     {
-      icon: <Zap className="w-6 h-6 text-wise-green" />,
+      icon: <Zap className="size-6 text-wise-green" />,
       title: "Fast Execution",
       description:
         "Streamlining the hiring process to reduce time-to-hire without compromising on the quality of candidates.",
@@ -125,7 +125,7 @@ export default function AboutPage() {
                   key={idx}
                   className="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-md transition-shadow"
                 >
-                  <div className="w-14 h-14 bg-wise-green/10 rounded-2xl flex items-center justify-center mb-6">
+                  <div className="size-14 bg-wise-green/10 rounded-2xl flex items-center justify-center mb-6">
                     {value.icon}
                   </div>
                   <h4 className="text-[20px] font-black text-gray-900 mb-4 leading-[23px]">

@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { domAnimation, LazyMotion, m } from "framer-motion";
 import {
   AlertTriangle,
   CheckCircle2,
@@ -36,7 +36,7 @@ export function TaxIdentityCard({
     !isVerified && !!recruiterProfile?.verification_revoked_reason;
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
@@ -44,7 +44,7 @@ export function TaxIdentityCard({
       <SectionCard
         title="GST / Corporate Identity"
         subtitle="Tax credentials and company verification"
-        icon={<FileText className="w-5 h-5" />}
+        icon={<FileText className="size-5" />}
         sectionKey="tax"
         editSection={editSection}
         onEdit={startEdit}
@@ -62,11 +62,11 @@ export function TaxIdentityCard({
           }`}
         >
           {isVerified ? (
-            <ShieldCheck className="w-4 h-4" />
+            <ShieldCheck className="size-4" />
           ) : isRevoked ? (
-            <ShieldX className="w-4 h-4" />
+            <ShieldX className="size-4" />
           ) : (
-            <ShieldCheck className="w-4 h-4" />
+            <ShieldCheck className="size-4" />
           )}
           {isVerified
             ? "Company Verified"
@@ -77,12 +77,12 @@ export function TaxIdentityCard({
 
         {/* Revocation reason banner */}
         {isRevoked && recruiterProfile.verification_revoked_reason && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: -4 }}
             animate={{ opacity: 1, y: 0 }}
             className="mb-5 flex items-start gap-3 px-4 py-3.5 rounded-2xl bg-red-50 border border-red-100"
           >
-            <AlertTriangle className="w-4 h-4 text-red-500 mt-0.5 shrink-0" />
+            <AlertTriangle className="size-4 text-red-500 mt-0.5 shrink-0" />
             <div>
               <p className="text-[11px] font-black text-red-600 uppercase tracking-widest mb-0.5">
                 Revocation Reason
@@ -91,10 +91,10 @@ export function TaxIdentityCard({
                 {recruiterProfile.verification_revoked_reason}
               </p>
             </div>
-          </motion.div>
+          </m.div>
         )}
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.18 }}
@@ -105,9 +105,9 @@ export function TaxIdentityCard({
             value={recruiterProfile?.CIN || formData.cinNumber}
             icon={
               isVerified ? (
-                <CheckCircle2 className="w-4 h-4 text-wise-green" />
+                <CheckCircle2 className="size-4 text-wise-green" />
               ) : (
-                <Info className="w-4 h-4" />
+                <Info className="size-4" />
               )
             }
             placeholder="Not provided"
@@ -122,7 +122,7 @@ export function TaxIdentityCard({
                     onClick={() => router.push("/recruiter/verify-company")}
                     className="h-11 px-6 rounded-xl font-bold bg-red-600 text-white hover:bg-red-700 shadow-lg shadow-red-600/20 gap-2"
                   >
-                    <RefreshCw className="w-4 h-4" />
+                    <RefreshCw className="size-4" />
                     Retry Verification
                   </Button>
                   <p className="text-[11px] font-bold text-red-400">
@@ -139,8 +139,8 @@ export function TaxIdentityCard({
               )}
             </div>
           )}
-        </motion.div>
+        </m.div>
       </SectionCard>
-    </motion.div>
+    </m.div>
   );
 }

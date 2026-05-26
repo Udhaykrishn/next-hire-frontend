@@ -53,11 +53,11 @@ export const RecruiterHeader = ({ recruiter, id }: RecruiterHeaderProps) => {
       <div className="p-8 bg-gray-50/50 border-b border-gray-100 flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
           <div className="relative group shrink-0">
-            <div className="w-24 h-24 rounded-[2rem] bg-near-black flex items-center justify-center text-4xl font-black text-wise-green shadow-xl shadow-near-black/20 group-hover:rotate-6 transition-transform">
+            <div className="size-24 rounded-[2rem] bg-near-black flex items-center justify-center text-4xl font-black text-wise-green shadow-xl shadow-near-black/20 group-hover:rotate-6 transition-transform">
               {recruiter.name.charAt(0)}
             </div>
-            <div className="absolute -bottom-1 -right-1 w-8 h-8 bg-white rounded-xl shadow-lg flex items-center justify-center border border-gray-50">
-              <div className="w-2.5 h-2.5 rounded-full bg-wise-green shadow-[0_0_10px_rgba(159,232,112,0.8)]" />
+            <div className="absolute -bottom-1 -right-1 size-8 bg-white rounded-xl shadow-lg flex items-center justify-center border border-gray-50">
+              <div className="size-2.5 rounded-full bg-wise-green shadow-[0_0_10px_rgba(159,232,112,0.8)]" />
             </div>
           </div>
           <div className="flex-1 space-y-3 text-center md:text-left">
@@ -78,7 +78,7 @@ export const RecruiterHeader = ({ recruiter, id }: RecruiterHeaderProps) => {
             </div>
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 text-sm font-bold text-gray-500">
               <span className="text-near-black">{recruiter.company}</span>
-              <span className="w-1 h-1 rounded-full bg-gray-300" />
+              <span className="size-1 rounded-full bg-gray-300" />
               Joined {recruiter.joined}
             </div>
             <div className="pt-1 flex flex-wrap justify-center md:justify-start gap-3">
@@ -86,14 +86,14 @@ export const RecruiterHeader = ({ recruiter, id }: RecruiterHeaderProps) => {
                 href={`mailto:${recruiter.email}`}
                 className="h-10 px-4 bg-white hover:bg-gray-50 rounded-xl flex items-center gap-2 text-xs font-bold text-gray-600 transition-all border border-gray-200 shadow-sm"
               >
-                <Mail className="w-3.5 h-3.5 text-gray-400" />
+                <Mail className="size-3.5 text-gray-400" />
                 {recruiter.email}
               </a>
               <a
                 href={`tel:${recruiter.phone}`}
                 className="h-10 px-4 bg-white hover:bg-gray-50 rounded-xl flex items-center gap-2 text-xs font-bold text-gray-600 transition-all border border-gray-200 shadow-sm"
               >
-                <Phone className="w-3.5 h-3.5 text-gray-400" />
+                <Phone className="size-3.5 text-gray-400" />
                 {recruiter.phone}
               </a>
             </div>
@@ -118,9 +118,9 @@ export const RecruiterHeader = ({ recruiter, id }: RecruiterHeaderProps) => {
             }
           >
             {recruiter.status === "Blocked" ? (
-              <Unlock className="w-6 h-6" />
+              <Unlock className="size-6" />
             ) : (
-              <Ban className="w-6 h-6" />
+              <Ban className="size-6" />
             )}
           </button>
 
@@ -132,7 +132,7 @@ export const RecruiterHeader = ({ recruiter, id }: RecruiterHeaderProps) => {
               className="p-4 rounded-2xl transition-all outline-none border shadow-sm bg-orange-50 text-orange-600 hover:bg-orange-100 border-orange-100"
               title="Revoke Company Verification"
             >
-              <ShieldX className="w-6 h-6" />
+              <ShieldX className="size-6" />
             </button>
           )}
         </div>
@@ -166,8 +166,8 @@ export const RecruiterHeader = ({ recruiter, id }: RecruiterHeaderProps) => {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
           <div className="bg-white rounded-[2rem] p-8 shadow-2xl w-full max-w-md mx-4 space-y-6">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-orange-50 flex items-center justify-center">
-                <ShieldX className="w-6 h-6 text-orange-500" />
+              <div className="size-12 rounded-2xl bg-orange-50 flex items-center justify-center">
+                <ShieldX className="size-6 text-orange-500" />
               </div>
               <div>
                 <h2 className="text-lg font-black text-near-black">
@@ -198,7 +198,7 @@ export const RecruiterHeader = ({ recruiter, id }: RecruiterHeaderProps) => {
                 }}
               >
                 <SelectTrigger className="w-full h-11 rounded-2xl border border-gray-200 bg-gray-50 px-4 text-sm font-medium text-near-black focus:border-orange-300 focus:ring-0">
-                  <SelectValue placeholder="Select a reason..." />
+                  <SelectValue placeholder="Select a reason…" />
                 </SelectTrigger>
                 <SelectContent>
                   {REVOCATION_REASONS.map((reason) => (
@@ -215,7 +215,7 @@ export const RecruiterHeader = ({ recruiter, id }: RecruiterHeaderProps) => {
                   id="revoke-reason-custom"
                   value={revokeReason}
                   onChange={(e) => setRevokeReason(e.target.value)}
-                  placeholder="Describe the reason in detail..."
+                  placeholder="Describe the reason in detail…"
                   rows={3}
                   className="w-full resize-none rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm font-medium text-near-black placeholder:text-gray-300 focus:border-orange-300 focus:bg-white focus:outline-none transition-colors"
                 />

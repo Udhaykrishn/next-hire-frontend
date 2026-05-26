@@ -19,7 +19,7 @@ export function CandidateCertifications({
   return (
     <div className="bg-[#ffffff] p-8 rounded-[20px] border border-[rgba(14,15,12,0.08)] shadow-sm">
       <h3 className="text-[20px] font-[800] text-[#0e0f0c] mb-6 flex items-center gap-2.5">
-        <Award className="w-6 h-6 text-[#054d28]" /> Certifications
+        <Award className="size-6 text-[#054d28]" /> Certifications
       </h3>
       <div className="grid gap-5 md:grid-cols-2">
         {certificates.map((cert, idx: number) => (
@@ -27,8 +27,8 @@ export function CandidateCertifications({
             key={idx}
             className="p-5 rounded-[16px] bg-[#f9faf9] border border-[rgba(14,15,12,0.05)] flex items-start gap-4 hover:shadow-sm transition-shadow"
           >
-            <div className="w-10 h-10 rounded-full bg-[#054d28]/10 flex items-center justify-center shrink-0">
-              <Award className="w-5 h-5 text-[#054d28]" />
+            <div className="size-10 rounded-full bg-[#054d28]/10 flex items-center justify-center shrink-0">
+              <Award className="size-5 text-[#054d28]" />
             </div>
             <div className="w-full">
               <h4 className="text-[16px] font-[800] text-[#0e0f0c]">

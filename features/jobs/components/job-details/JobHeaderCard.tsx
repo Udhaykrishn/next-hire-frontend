@@ -31,7 +31,7 @@ export function JobHeaderCard({
   return (
     <div className="bg-white rounded-2xl p-6 md:p-8 border border-gray-200 shadow-sm">
       <div className="flex gap-4 md:gap-6 mb-6">
-        <div className="w-16 h-16 bg-white border border-gray-200 rounded-lg flex items-center justify-center font-bold text-2xl text-gray-500 shadow-sm shrink-0">
+        <div className="size-16 bg-white border border-gray-200 rounded-lg flex items-center justify-center font-bold text-2xl text-gray-500 shadow-sm shrink-0">
           {job.hiringCompany?.[0] || "C"}
         </div>
         <div>
@@ -46,26 +46,26 @@ export function JobHeaderCard({
 
       <div className="space-y-3 mb-6">
         <div className="flex items-center gap-2 text-gray-600 text-[14px]">
-          <MapPin className="w-4 h-4 text-gray-400" />
+          <MapPin className="size-4 text-gray-400" />
           <span>{job.jobCity || "Remote"}</span>
         </div>
         <div className="flex items-center gap-2 text-gray-600 text-[14px]">
-          <DollarSign className="w-4 h-4 text-gray-400" />
+          <DollarSign className="size-4 text-gray-400" />
           <span>{formattedSalary}</span>
         </div>
       </div>
 
       <div className="flex flex-wrap gap-2 mb-8">
         <div className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 text-gray-600 rounded text-[13px] font-medium border border-gray-100">
-          <Building className="w-3.5 h-3.5 text-gray-400" />
+          <Building className="size-3.5 text-gray-400" />
           Office
         </div>
         <div className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 text-gray-600 rounded text-[13px] font-medium border border-gray-100">
-          <Clock className="w-3.5 h-3.5 text-gray-400" />
+          <Clock className="size-3.5 text-gray-400" />
           {job.jobType}
         </div>
         <div className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 text-gray-600 rounded text-[13px] font-medium border border-gray-100">
-          <Target className="w-3.5 h-3.5 text-gray-400" />
+          <Target className="size-3.5 text-gray-400" />
           {job.minExperience ? `Min. ${job.minExperience} year(s)` : "Fresher"}
         </div>
       </div>
@@ -82,11 +82,11 @@ export function JobHeaderCard({
         >
           {isApplying ? (
             <>
-              <Loader2 className="w-4 h-4 animate-spin" /> Applying...
+              <Loader2 className="size-4 animate-spin" /> Applying…
             </>
           ) : hasApplied ? (
             <>
-              <CheckCircle className="w-4 h-4" /> Applied
+              <CheckCircle className="size-4" /> Applied
             </>
           ) : job.status !== "OPEN" ? (
             "Job Unavailable"
@@ -99,7 +99,7 @@ export function JobHeaderCard({
           onClick={handleShare}
           className="h-12 px-6 rounded-lg border border-dark-green text-dark-green font-medium flex items-center justify-center gap-2 hover:bg-dark-green/5 transition-colors"
         >
-          <Share2 className="w-4 h-4" /> Share
+          <Share2 className="size-4" /> Share
         </button>
       </div>
     </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, domAnimation, LazyMotion, m } from "framer-motion";
 import { MapPin } from "lucide-react";
 import type React from "react";
 import type { DateRange } from "react-day-picker";
@@ -40,7 +40,7 @@ export const Step3Logistics = ({
   setIsWalkInMapOpen,
 }: Step3LogisticsProps) => {
   return (
-    <motion.div
+    <m.div
       key="step3"
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
@@ -78,14 +78,14 @@ export const Step3Logistics = ({
                 >
                   <div
                     className={cn(
-                      "w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all",
+                      "size-6 rounded-full border-2 flex items-center justify-center transition-all",
                       formData.isWalkIn === opt.value
                         ? "border-wise-green bg-wise-green shadow-[0_0_0_4px_rgba(159,232,112,0.1)]"
                         : "border-gray-200 group-hover:border-gray-300",
                     )}
                   >
                     {formData.isWalkIn === opt.value && (
-                      <div className="w-2.5 h-2.5 rounded-full bg-white" />
+                      <div className="size-2.5 rounded-full bg-white" />
                     )}
                   </div>
                   <span
@@ -105,7 +105,7 @@ export const Step3Logistics = ({
 
           <AnimatePresence>
             {formData.isWalkIn && (
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
@@ -122,7 +122,7 @@ export const Step3Logistics = ({
                       onClick={() => setIsWalkInMapOpen(true)}
                       className="flex items-center gap-1.5 text-[11px] font-black text-wise-green bg-near-black px-3 py-1.5 rounded-lg hover:bg-near-black/90 transition-colors shadow-sm"
                     >
-                      <MapPin className="w-3 h-3" /> Select on Map
+                      <MapPin className="size-3" /> Select on Map
                     </button>
                   </div>
                   <Input
@@ -241,7 +241,7 @@ export const Step3Logistics = ({
                     className="w-full h-32 p-5 bg-white border border-gray-200 rounded-2xl font-bold text-[14px] focus:ring-2 focus:ring-wise-green/10 focus:border-wise-green outline-none transition-all"
                   />
                 </div>
-              </motion.div>
+              </m.div>
             )}
           </AnimatePresence>
         </div>
@@ -275,14 +275,14 @@ export const Step3Logistics = ({
                 >
                   <div
                     className={cn(
-                      "w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all",
+                      "size-6 rounded-full border-2 flex items-center justify-center transition-all",
                       formData.contactPreference === opt
                         ? "border-wise-green bg-wise-green shadow-[0_0_0_4px_rgba(159,232,112,0.1)]"
                         : "border-gray-200 group-hover:border-gray-300",
                     )}
                   >
                     {formData.contactPreference === opt && (
-                      <div className="w-2.5 h-2.5 rounded-full bg-white" />
+                      <div className="size-2.5 rounded-full bg-white" />
                     )}
                   </div>
                   <span
@@ -303,7 +303,7 @@ export const Step3Logistics = ({
 
           <AnimatePresence>
             {formData.contactPreference === "Yes, to other recruiter" && (
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
@@ -377,7 +377,7 @@ export const Step3Logistics = ({
                     <FieldError name="hrEmail" errors={errors} />
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
             )}
           </AnimatePresence>
 
@@ -402,14 +402,14 @@ export const Step3Logistics = ({
                 >
                   <div
                     className={cn(
-                      "w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all",
+                      "size-6 rounded-full border-2 flex items-center justify-center transition-all",
                       formData.whatsappAlerts === opt
                         ? "border-wise-green bg-wise-green shadow-[0_0_0_4px_rgba(0,128,96,0.1)]"
                         : "border-gray-200 group-hover:border-gray-300",
                     )}
                   >
                     {formData.whatsappAlerts === opt && (
-                      <div className="w-2.5 h-2.5 rounded-full bg-white" />
+                      <div className="size-2.5 rounded-full bg-white" />
                     )}
                   </div>
                   <span
@@ -429,6 +429,6 @@ export const Step3Logistics = ({
           </div>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 };

@@ -42,7 +42,7 @@ export function Pagination({
               }}
               isActive={i === currentPage}
               className={cn(
-                "w-10 h-10 rounded-xl text-sm font-black transition-all duration-200 border-none",
+                "size-10 rounded-xl text-sm font-black transition-all duration-200 border-none",
                 i === currentPage
                   ? "bg-wise-green text-dark-green shadow-lg shadow-wise-green/20 hover:bg-wise-green/90"
                   : "text-gray-400 hover:text-near-black hover:bg-gray-50",
@@ -65,7 +65,7 @@ export function Pagination({
               }}
               isActive={p === currentPage}
               className={cn(
-                "w-10 h-10 rounded-xl text-sm font-black transition-all duration-200 border-none",
+                "size-10 rounded-xl text-sm font-black transition-all duration-200 border-none",
                 p === currentPage
                   ? "bg-wise-green text-dark-green shadow-lg shadow-wise-green/20 hover:bg-wise-green/90"
                   : "text-gray-400 hover:text-near-black hover:bg-gray-50",

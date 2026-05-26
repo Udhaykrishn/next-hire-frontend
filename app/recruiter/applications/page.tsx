@@ -22,7 +22,7 @@ export default function RecruiterApplicationsPage() {
             variant="outline"
             className="h-11 rounded-xl text-[14px] font-bold text-gray-700 bg-white border-gray-200 hover:bg-gray-50 shadow-sm flex items-center gap-2"
           >
-            <Filter className="w-4 h-4" /> Filter
+            <Filter className="size-4" /> Filter
           </Button>
         </div>
       </div>
@@ -33,12 +33,12 @@ export default function RecruiterApplicationsPage() {
         animate={{ opacity: 1, y: 0 }}
         className="bg-white rounded-[2rem] p-12 border border-gray-100 shadow-xl shadow-[#258265]/5 flex flex-col items-center justify-center text-center relative overflow-hidden"
       >
-        <div className="absolute -top-24 -right-24 w-64 h-64 bg-blue-500/5 rounded-full blur-[80px] pointer-events-none" />
+        <div className="absolute -top-24 -right-24 size-64 bg-blue-500/5 rounded-full blur-[80px] pointer-events-none" />
 
-        <div className="w-24 h-24 bg-[#258265]/10 text-[#258265] rounded-full flex items-center justify-center mb-8 relative">
-          <Users className="w-10 h-10" />
-          <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-sm">
-            <CheckCircle className="w-4 h-4 text-gray-400" />
+        <div className="size-24 bg-[#258265]/10 text-[#258265] rounded-full flex items-center justify-center mb-8 relative">
+          <Users className="size-10" />
+          <div className="absolute -bottom-2 -right-2 size-8 bg-white rounded-full flex items-center justify-center shadow-sm">
+            <CheckCircle className="size-4 text-gray-400" />
           </div>
         </div>
 

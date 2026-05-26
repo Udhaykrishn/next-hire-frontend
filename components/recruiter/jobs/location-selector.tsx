@@ -2,7 +2,7 @@
 
 import { useApiIsLoaded } from "@vis.gl/react-google-maps";
 import { City } from "country-state-city";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, domAnimation, LazyMotion, m } from "framer-motion";
 import { AlertCircle, ChevronDown, MapPin, Search } from "lucide-react";
 import React, { useEffect, useMemo, useState } from "react";
 import usePlacesAutocomplete from "use-places-autocomplete";
@@ -32,18 +32,8 @@ const AutocompleteInput = ({
   error?: string;
 }) => {
   const isLoaded = useApiIsLoaded();
-  const [isReady, setIsReady] = React.useState(false);
-  const [inputValue, setInputValue] = React.useState(value);
-
-  useEffect(() => {
-    if (
-      isLoaded &&
-      typeof window !== "undefined" &&
-      window.google?.maps?.places
-    ) {
-      setIsReady(true);
-    }
-  }, [isLoaded]);
+  const isReady =
+    isLoaded && typeof window !== "undefined" && !!window.google?.maps?.places;
 
   const {
     suggestions: { status, data },
@@ -64,7 +54,6 @@ const AutocompleteInput = ({
   }, [isReady, init]);
 
   React.useEffect(() => {
-    setInputValue(value);
     if (isReady) {
       setValue(value, false);
     }
@@ -72,7 +61,6 @@ const AutocompleteInput = ({
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
-    setInputValue(val);
     if (isReady) {
       setValue(val);
     }
@@ -81,7 +69,6 @@ const AutocompleteInput = ({
 
   const handleSelect =
     (suggestion: google.maps.places.AutocompletePrediction) => () => {
-      setInputValue(suggestion.description);
       if (isReady) {
         setValue(suggestion.description, false);
       }
@@ -94,7 +81,7 @@ const AutocompleteInput = ({
       <div className="relative">
         <Input
           type="text"
-          value={inputValue}
+          value={value}
           onChange={handleInput}
           placeholder={placeholder}
           className={cn(
@@ -103,7 +90,7 @@ const AutocompleteInput = ({
           )}
         />
         <div className="absolute left-4 top-1/2 -translate-y-1/2">
-          <Search className="w-5 h-5 text-gray-400" />
+          <Search className="size-5 text-gray-400" />
         </div>
       </div>
 
@@ -115,7 +102,7 @@ const AutocompleteInput = ({
               onClick={handleSelect(suggestion)}
               className="px-5 py-3 hover:bg-wise-green/5 cursor-pointer flex items-start gap-3 group transition-colors"
             >
-              <MapPin className="w-4 h-4 mt-0.5 text-gray-400 group-hover:text-wise-green" />
+              <MapPin className="size-4 mt-0.5 text-gray-400 group-hover:text-wise-green" />
               <span className="text-[13px] font-medium text-near-black">
                 {suggestion.description}
               </span>
@@ -136,13 +123,13 @@ const LocationFieldError = ({
 }) => {
   if (!errors[name]) return null;
   return (
-    <motion.p
+    <m.p
       initial={{ opacity: 0, y: -5 }}
       animate={{ opacity: 1, y: 0 }}
       className="text-[11px] font-black text-red-500 mt-1.5 flex items-center gap-1.5"
     >
-      <AlertCircle className="w-3 h-3" /> {errors[name]}
-    </motion.p>
+      <AlertCircle className="size-3" /> {errors[name]}
+    </m.p>
   );
 };
 
@@ -210,7 +197,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
 
         <AnimatePresence mode="wait">
           {formData.locationType === "Work From Office" && (
-            <motion.div
+            <m.div
               key="office"
               initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
@@ -230,7 +217,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                     }}
                     className="flex items-center gap-1.5 text-[11px] font-black text-wise-green bg-near-black px-3 py-1.5 rounded-lg hover:bg-near-black/90 transition-colors shadow-sm"
                   >
-                    <MapPin className="w-3 h-3" /> Select on Map
+                    <MapPin className="size-3" /> Select on Map
                   </button>
                 </div>
                 <AutocompleteInput
@@ -245,11 +232,11 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                 />
                 <LocationFieldError name="officeAddress" errors={errors} />
               </div>
-            </motion.div>
+            </m.div>
           )}
 
           {formData.locationType === "Field Job" && (
-            <motion.div
+            <m.div
               key="field"
               initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
@@ -268,7 +255,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                   }}
                   className="flex items-center gap-1.5 text-[11px] font-black text-wise-green bg-near-black px-3 py-1.5 rounded-lg hover:bg-near-black/90 transition-colors shadow-sm"
                 >
-                  <MapPin className="w-3 h-3" /> Select on Map
+                  <MapPin className="size-3" /> Select on Map
                 </button>
               </div>
               <AutocompleteInput
@@ -282,11 +269,11 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                 }
               />
               <LocationFieldError name="fieldArea" errors={errors} />
-            </motion.div>
+            </m.div>
           )}
 
           {formData.locationType === "Work From Home" && (
-            <motion.div
+            <m.div
               key="wfh"
               initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
@@ -311,7 +298,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                   </span>
                   <ChevronDown
                     className={cn(
-                      "w-4 h-4 text-gray-400 transition-transform",
+                      "size-4 text-gray-400 transition-transform",
                       showCityDropdown && "rotate-180",
                     )}
                   />
@@ -319,7 +306,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
 
                 <AnimatePresence>
                   {showCityDropdown && (
-                    <motion.div
+                    <m.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
@@ -327,9 +314,9 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                     >
                       <div className="p-3 border-b border-gray-50 bg-gray-50/50">
                         <div className="relative">
-                          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                          <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-gray-400" />
                           <input
-                            placeholder="Search city..."
+                            placeholder="Search city…"
                             className="w-full h-10 pl-10 pr-4 bg-white border-gray-200 rounded-lg text-[13px] outline-none focus:border-wise-green transition-colors"
                             value={citySearch}
                             onChange={(e) => setCitySearch(e.target.value)}
@@ -361,12 +348,12 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                           </div>
                         )}
                       </div>
-                    </motion.div>
+                    </m.div>
                   )}
                 </AnimatePresence>
               </div>
               <LocationFieldError name="jobCity" errors={errors} />
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
       </div>

@@ -116,7 +116,7 @@ export function JobWizard({
   if (isProfileLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-wise-green border-t-transparent rounded-full animate-spin" />
+        <div className="size-8 border-4 border-wise-green border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -136,7 +136,7 @@ export function JobWizard({
                 onClick={() => window.history.back()}
                 className="rounded-full"
               >
-                <ChevronLeft className="w-5 h-5" />
+                <ChevronLeft className="size-5" />
               </Button>
               <h1 className="text-[16px] font-black text-near-black">
                 {jobId ? "Edit job" : "Post job"}
@@ -147,12 +147,15 @@ export function JobWizard({
                 type="button"
                 className="flex items-center gap-2 text-[13px] font-bold text-slate-500 hover:text-near-black"
               >
-                <div className="w-5 h-5 rounded-full bg-slate-100 flex items-center justify-center">
+                <div className="size-5 rounded-full bg-slate-100 flex items-center justify-center">
                   <span className="text-[11px]">?</span>
                 </div>
                 Support
               </button>
-              <button className="text-slate-400 hover:text-near-black">
+              <button
+                type="button"
+                className="text-slate-400 hover:text-near-black"
+              >
                 <span className="text-[20px] leading-none">×</span>
               </button>
             </div>
@@ -177,7 +180,7 @@ export function JobWizard({
                   >
                     <div
                       className={cn(
-                        "w-8 h-8 rounded-full flex items-center justify-center text-[12px] font-black transition-all duration-300",
+                        "size-8 rounded-full flex items-center justify-center text-[12px] font-black transition-all duration-300",
                         step.id < currentStep
                           ? "bg-wise-green text-near-black"
                           : step.id === currentStep
@@ -274,8 +277,8 @@ export function JobWizard({
             >
               {isSubmitting ? (
                 <div className="flex items-center gap-2">
-                  <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                  <span>Processing...</span>
+                  <div className="size-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                  <span>Processing…</span>
                 </div>
               ) : (
                 <span>

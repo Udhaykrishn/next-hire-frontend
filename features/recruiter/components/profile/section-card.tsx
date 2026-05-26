@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { domAnimation, LazyMotion, m } from "framer-motion";
 import { Edit3 } from "lucide-react";
 import type { EditSection } from "@/features/recruiter/hooks/use-recruiter-profile";
 import { cn } from "@/lib/utils";
@@ -25,7 +25,7 @@ export function SectionCard({
   hideEdit?: boolean;
 }) {
   return (
-    <motion.div
+    <m.div
       layout
       transition={{ duration: 0.25, ease: "easeInOut" }}
       className={cn(
@@ -40,7 +40,7 @@ export function SectionCard({
         <div className="flex items-center gap-4">
           <div
             className={cn(
-              "w-11 h-11 rounded-2xl flex items-center justify-center transition-colors",
+              "size-11 rounded-2xl flex items-center justify-center transition-colors",
               isActive
                 ? "bg-wise-green text-near-black"
                 : "bg-wise-green/10 text-wise-green",
@@ -62,7 +62,7 @@ export function SectionCard({
             onClick={() => onEdit(sectionKey)}
             className="flex items-center gap-1.5 text-[12px] font-black text-gray-400 hover:text-wise-green transition-colors px-3 py-1.5 rounded-xl hover:bg-wise-green/5"
           >
-            <Edit3 className="w-3.5 h-3.5" />
+            <Edit3 className="size-3.5" />
             Edit
           </button>
         )}
@@ -75,6 +75,6 @@ export function SectionCard({
 
       {/* Card Body */}
       <div className="p-7 pt-6">{children}</div>
-    </motion.div>
+    </m.div>
   );
 }

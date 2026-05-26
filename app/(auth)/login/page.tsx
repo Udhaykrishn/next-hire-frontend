@@ -58,7 +58,7 @@ function LoginContent() {
   if (authLoading || isAuthenticated) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center font-satoshi">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-wise-green"></div>
+        <div className="animate-spin rounded-full size-12 border-b-2 border-wise-green"></div>
       </div>
     );
   }
@@ -174,7 +174,7 @@ function LoginContent() {
                     </div>
                     <div className="relative flex justify-center text-xs uppercase font-bold tracking-widest">
                       <span className="bg-white px-4 text-gray-400 flex items-center gap-2">
-                        <ShieldCheck className="w-4 h-4" /> Secure & Encrypted
+                        <ShieldCheck className="size-4" /> Secure & Encrypted
                       </span>
                     </div>
                   </div>
@@ -184,7 +184,7 @@ function LoginContent() {
                     className="w-full h-12 text-gray-600 font-bold rounded-xl hover:bg-gray-50 gap-3 transition-all"
                     onClick={() => setStep("EMAIL")}
                   >
-                    <Mail className="w-5 h-5" />
+                    <Mail className="size-5" />
                     Continue with Email
                   </Button>
                 </motion.div>
@@ -202,7 +202,7 @@ function LoginContent() {
                         htmlFor="email"
                         className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
                       >
-                        <Mail className="w-4 h-4" /> Email Address
+                        <Mail className="size-4" /> Email Address
                       </Label>
                       <Input
                         id="email"
@@ -254,7 +254,7 @@ function LoginContent() {
                         disabled={loginLoading}
                       >
                         Sign In
-                        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                        <ArrowRight className="size-5 group-hover:translate-x-1 transition-transform" />
                       </Button>
                     </div>
                   </form>
@@ -291,7 +291,7 @@ function LoginContent() {
 
 export default function UserLoginPage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div>Loading…</div>}>
       <LoginContent />
     </Suspense>
   );

@@ -27,7 +27,7 @@ export const RecruiterDetails = ({ id }: RecruiterDetailsProps) => {
         onClick={() => router.back()}
         className="text-gray-500 hover:text-near-black flex items-center gap-2 px-0"
       >
-        <ArrowLeft className="w-4 h-4" />
+        <ArrowLeft className="size-4" />
         Back to Partners
       </Button>
 

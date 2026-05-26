@@ -74,7 +74,7 @@ function DialogPanel({
             {typeof children === "function" ? children(bag) : children}
             {showCloseButton && (
               <DialogClosePrimitive className="absolute top-4 right-4 p-2 text-gray-400 hover:text-near-black hover:bg-gray-100 rounded-xl transition-all outline-none ring-offset-white focus:ring-2 focus:ring-wise-green/20">
-                <XIcon className="w-5 h-5" />
+                <XIcon className="size-5" />
                 <span className="sr-only">Close</span>
               </DialogClosePrimitive>
             )}

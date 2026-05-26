@@ -117,7 +117,7 @@ export const ExperienceForm = ({
             defaultValue={initialData?.description}
             required
             className="w-full h-28 bg-gray-50 rounded-xl border border-gray-100 p-4 text-[14px] font-bold focus:outline-none focus:border-wise-green transition-colors resize-none"
-            placeholder="Enter job description..."
+            placeholder="Enter job description…"
           />
         </div>
       </div>

@@ -44,7 +44,7 @@ export function CandidateBasicInfo({
       <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-br from-[#054d28]/5 to-[#054d28]/10"></div>
 
       <div className="flex flex-col items-center text-center relative z-10 pt-4">
-        <div className="w-32 h-32 rounded-full bg-[#f4f6f3] overflow-hidden border-4 border-[#ffffff] shadow-md mb-5">
+        <div className="size-32 rounded-full bg-[#f4f6f3] overflow-hidden border-4 border-[#ffffff] shadow-md mb-5">
           {profileImage ? (
             <Image
               src={profileImage}
@@ -52,11 +52,11 @@ export function CandidateBasicInfo({
               width={128}
               height={128}
               unoptimized
-              className="w-full h-full object-cover"
+              className="size-full object-cover"
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-[#868685]">
-              <User className="w-12 h-12" />
+            <div className="size-full flex items-center justify-center text-[#868685]">
+              <User className="size-12" />
             </div>
           )}
         </div>
@@ -65,7 +65,7 @@ export function CandidateBasicInfo({
             {profile.name}
           </h1>
           {profile.badge && (
-            <CheckCircle className="w-5 h-5 text-[#054d28] fill-[#054d28]/10" />
+            <CheckCircle className="size-5 text-[#054d28] fill-[#054d28]/10" />
           )}
         </div>
         <p className="text-[16px] font-[500] text-[#054d28] mb-6 px-4 py-1 bg-[#054d28]/5 rounded-full inline-block">
@@ -74,8 +74,8 @@ export function CandidateBasicInfo({
 
         <div className="w-full flex flex-col gap-3 text-left border-t border-[rgba(14,15,12,0.08)] pt-6">
           <div className="flex items-center gap-3 text-[14px] font-[500] text-[#454745] group">
-            <div className="w-8 h-8 rounded-full bg-[#f4f6f3] flex items-center justify-center group-hover:bg-[#054d28]/10 transition-colors">
-              <Mail className="w-4 h-4 text-[#868685] group-hover:text-[#054d28]" />
+            <div className="size-8 rounded-full bg-[#f4f6f3] flex items-center justify-center group-hover:bg-[#054d28]/10 transition-colors">
+              <Mail className="size-4 text-[#868685] group-hover:text-[#054d28]" />
             </div>
             <a
               href={`mailto:${profile.email}`}
@@ -87,8 +87,8 @@ export function CandidateBasicInfo({
 
           {profile.phone && (
             <div className="flex items-center gap-3 text-[14px] font-[500] text-[#454745] group">
-              <div className="w-8 h-8 rounded-full bg-[#f4f6f3] flex items-center justify-center group-hover:bg-[#054d28]/10 transition-colors">
-                <Phone className="w-4 h-4 text-[#868685] group-hover:text-[#054d28]" />
+              <div className="size-8 rounded-full bg-[#f4f6f3] flex items-center justify-center group-hover:bg-[#054d28]/10 transition-colors">
+                <Phone className="size-4 text-[#868685] group-hover:text-[#054d28]" />
               </div>
               <a
                 href={`tel:${profile.phone}`}
@@ -101,8 +101,8 @@ export function CandidateBasicInfo({
 
           {profile.location && (
             <div className="flex items-center gap-3 text-[14px] font-[500] text-[#454745] group">
-              <div className="w-8 h-8 rounded-full bg-[#f4f6f3] flex items-center justify-center group-hover:bg-[#054d28]/10 transition-colors">
-                <MapPin className="w-4 h-4 text-[#868685] group-hover:text-[#054d28]" />
+              <div className="size-8 rounded-full bg-[#f4f6f3] flex items-center justify-center group-hover:bg-[#054d28]/10 transition-colors">
+                <MapPin className="size-4 text-[#868685] group-hover:text-[#054d28]" />
               </div>
               <span className="truncate">{profile.location}</span>
             </div>
@@ -110,8 +110,8 @@ export function CandidateBasicInfo({
 
           {profile.experience && (
             <div className="flex items-center gap-3 text-[14px] font-[500] text-[#454745] group">
-              <div className="w-8 h-8 rounded-full bg-[#f4f6f3] flex items-center justify-center group-hover:bg-[#054d28]/10 transition-colors">
-                <Briefcase className="w-4 h-4 text-[#868685] group-hover:text-[#054d28]" />
+              <div className="size-8 rounded-full bg-[#f4f6f3] flex items-center justify-center group-hover:bg-[#054d28]/10 transition-colors">
+                <Briefcase className="size-4 text-[#868685] group-hover:text-[#054d28]" />
               </div>
               <span className="truncate">{profile.experience} Experience</span>
             </div>
@@ -128,9 +128,9 @@ export function CandidateBasicInfo({
                   href={profile.social_link.linkedin}
                   target="_blank"
                   rel="noreferrer"
-                  className="w-10 h-10 rounded-full bg-[#f4f6f3] flex items-center justify-center hover:bg-[#054d28] hover:text-white text-[#868685] transition-all"
+                  className="size-10 rounded-full bg-[#f4f6f3] flex items-center justify-center hover:bg-[#054d28] hover:text-white text-[#868685] transition-all"
                 >
-                  <Link className="w-5 h-5" />
+                  <Link className="size-5" />
                 </a>
               )}
               {profile.social_link.github && (
@@ -138,9 +138,9 @@ export function CandidateBasicInfo({
                   href={profile.social_link.github}
                   target="_blank"
                   rel="noreferrer"
-                  className="w-10 h-10 rounded-full bg-[#f4f6f3] flex items-center justify-center hover:bg-[#054d28] hover:text-white text-[#868685] transition-all"
+                  className="size-10 rounded-full bg-[#f4f6f3] flex items-center justify-center hover:bg-[#054d28] hover:text-white text-[#868685] transition-all"
                 >
-                  <GitBranch className="w-5 h-5" />
+                  <GitBranch className="size-5" />
                 </a>
               )}
               {profile.social_link.portfolio && (
@@ -148,9 +148,9 @@ export function CandidateBasicInfo({
                   href={profile.social_link.portfolio}
                   target="_blank"
                   rel="noreferrer"
-                  className="w-10 h-10 rounded-full bg-[#f4f6f3] flex items-center justify-center hover:bg-[#054d28] hover:text-white text-[#868685] transition-all"
+                  className="size-10 rounded-full bg-[#f4f6f3] flex items-center justify-center hover:bg-[#054d28] hover:text-white text-[#868685] transition-all"
                 >
-                  <Globe className="w-5 h-5" />
+                  <Globe className="size-5" />
                 </a>
               )}
             </div>

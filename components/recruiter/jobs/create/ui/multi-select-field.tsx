@@ -79,10 +79,10 @@ export const MultiSelectField = ({
           )}
         </div>
         <div className="flex items-center gap-2 text-gray-400">
-          <div className="w-8 h-8 bg-gray-50 rounded-xl flex items-center justify-center group-hover:bg-wise-green/10 group-hover:text-wise-green transition-all">
-            <Plus className="w-4 h-4" />
+          <div className="size-8 bg-gray-50 rounded-xl flex items-center justify-center group-hover:bg-wise-green/10 group-hover:text-wise-green transition-all">
+            <Plus className="size-4" />
           </div>
-          <ChevronDown className="w-4 h-4" />
+          <ChevronDown className="size-4" />
         </div>
       </button>
 
@@ -96,7 +96,7 @@ export const MultiSelectField = ({
           <Command className="border-none">
             <div className="px-4 py-3 border-b border-gray-50">
               <CommandInput
-                placeholder={`Search ${label.toLowerCase()}...`}
+                placeholder={`Search ${label.toLowerCase()}…`}
                 className="h-12 border-none focus:ring-0 font-medium"
               />
             </div>
@@ -122,8 +122,8 @@ export const MultiSelectField = ({
                       {option}
                     </span>
                     {selected.includes(option) && (
-                      <div className="w-6 h-6 bg-wise-green rounded-lg flex items-center justify-center animate-in zoom-in-50">
-                        <Check className="w-3.5 h-3.5 text-dark-green stroke-[3px]" />
+                      <div className="size-6 bg-wise-green rounded-lg flex items-center justify-center animate-in zoom-in-50">
+                        <Check className="size-3.5 text-dark-green stroke-[3px]" />
                       </div>
                     )}
                   </CommandItem>

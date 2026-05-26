@@ -49,17 +49,17 @@ export const ProfileSidebar = ({
 
           <Link
             href="/profile/edit/basic"
-            className="absolute top-6 right-6 w-10 h-10 rounded-full bg-wise-green text-near-black hover:bg-near-black hover:text-wise-green flex items-center justify-center shadow-lg shadow-wise-green/20 transition-all hover:scale-110 z-20 group/edit"
+            className="absolute top-6 right-6 size-10 rounded-full bg-wise-green text-near-black hover:bg-near-black hover:text-wise-green flex items-center justify-center shadow-lg shadow-wise-green/20 transition-all hover:scale-110 z-20 group/edit"
             title="Edit Profile"
           >
-            <Edit2 className="w-4 h-4 group-hover/edit:rotate-12 transition-transform" />
+            <Edit2 className="size-4 group-hover/edit:rotate-12 transition-transform" />
           </Link>
 
           <div className="relative pt-4">
-            <div className="w-24 h-24 rounded-[2rem] bg-gray-100 mx-auto border-4 border-white shadow-xl flex items-center justify-center overflow-hidden mb-6 relative">
+            <div className="size-24 rounded-[2rem] bg-gray-100 mx-auto border-4 border-white shadow-xl flex items-center justify-center overflow-hidden mb-6 relative">
               {isUploadingAvatar || isDeletingAvatar ? (
                 <div className="absolute inset-0 bg-black/45 flex items-center justify-center z-10 backdrop-blur-[1px]">
-                  <Loader2 className="w-6 h-6 text-white animate-spin" />
+                  <Loader2 className="size-6 text-white animate-spin" />
                 </div>
               ) : null}
               {basicInfo.avatar ? (
@@ -69,10 +69,10 @@ export const ProfileSidebar = ({
                   width={96}
                   height={96}
                   unoptimized
-                  className="w-full h-full object-cover"
+                  className="size-full object-cover"
                 />
               ) : (
-                <div className="w-full h-full bg-wise-green/10 text-wise-green text-3xl font-black flex items-center justify-center">
+                <div className="size-full bg-wise-green/10 text-wise-green text-3xl font-black flex items-center justify-center">
                   {basicInfo.name
                     ? basicInfo.name.charAt(0).toUpperCase()
                     : "U"}
@@ -86,7 +86,7 @@ export const ProfileSidebar = ({
               {basicInfo.tagline}
             </p>
             <div className="flex items-center justify-center gap-2 text-[12px] font-black text-gray-400 uppercase tracking-widest bg-gray-50 w-fit mx-auto px-4 py-1.5 rounded-full border border-gray-100">
-              <MapPin className="w-3.5 h-3.5" />
+              <MapPin className="size-3.5" />
               {basicInfo.location}
             </div>
             {basicInfo.bio && (
@@ -113,23 +113,23 @@ export const ProfileSidebar = ({
             </h4>
             <div className="space-y-3">
               <div className="flex items-center gap-3 text-[14px] font-bold text-gray-600 bg-gray-50 p-3 rounded-2xl border border-gray-50">
-                <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center border border-gray-100">
-                  <Mail className="w-4 h-4 text-wise-green" />
+                <div className="size-8 rounded-lg bg-white flex items-center justify-center border border-gray-100">
+                  <Mail className="size-4 text-wise-green" />
                 </div>
                 <span className="truncate">
                   {basicInfo.email || "No email set"}
                 </span>
               </div>
               <div className="flex items-center gap-3 text-[14px] font-bold text-gray-600 bg-gray-50 p-3 rounded-2xl border border-gray-50">
-                <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center border border-gray-100">
-                  <Phone className="w-4 h-4 text-wise-green" />
+                <div className="size-8 rounded-lg bg-white flex items-center justify-center border border-gray-100">
+                  <Phone className="size-4 text-wise-green" />
                 </div>
                 <span>{basicInfo.phone || "No phone set"}</span>
               </div>
               {basicInfo.experience && (
                 <div className="flex items-start gap-3 text-[14px] font-bold text-gray-600 bg-gray-50 p-3 rounded-2xl border border-gray-50">
-                  <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center border border-gray-100 shrink-0">
-                    <Briefcase className="w-4 h-4 text-wise-green" />
+                  <div className="size-8 rounded-lg bg-white flex items-center justify-center border border-gray-100 shrink-0">
+                    <Briefcase className="size-4 text-wise-green" />
                   </div>
                   <span className="text-[13px] leading-snug">
                     {basicInfo.experience}
@@ -151,15 +151,15 @@ export const ProfileSidebar = ({
                 className={`flex items-center justify-between p-3 bg-gray-50 rounded-2xl border border-gray-50 transition-all group ${socialLinks.linkedin ? "hover:border-wise-green/30 hover:bg-wise-green/5" : "opacity-50 cursor-not-allowed"}`}
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center border border-gray-100 group-hover:border-wise-green/20">
-                    <ExternalLink className="w-4 h-4 text-wise-green" />
+                  <div className="size-8 rounded-lg bg-white flex items-center justify-center border border-gray-100 group-hover:border-wise-green/20">
+                    <ExternalLink className="size-4 text-wise-green" />
                   </div>
                   <span className="text-[14px] font-bold text-gray-700">
                     LinkedIn Profile
                   </span>
                 </div>
                 {socialLinks.linkedin && (
-                  <ChevronRight className="w-4 h-4 text-gray-300 group-hover:translate-x-0.5 transition-transform" />
+                  <ChevronRight className="size-4 text-gray-300 group-hover:translate-x-0.5 transition-transform" />
                 )}
               </a>
               <a
@@ -169,15 +169,15 @@ export const ProfileSidebar = ({
                 className={`flex items-center justify-between p-3 bg-gray-50 rounded-2xl border border-gray-50 transition-all group ${socialLinks.portfolio ? "hover:border-wise-green/30 hover:bg-wise-green/5" : "opacity-50 cursor-not-allowed"}`}
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center border border-gray-100 group-hover:border-wise-green/20">
-                    <Globe className="w-4 h-4 text-wise-green" />
+                  <div className="size-8 rounded-lg bg-white flex items-center justify-center border border-gray-100 group-hover:border-wise-green/20">
+                    <Globe className="size-4 text-wise-green" />
                   </div>
                   <span className="text-[14px] font-bold text-gray-700">
                     Personal Portfolio
                   </span>
                 </div>
                 {socialLinks.portfolio && (
-                  <ChevronRight className="w-4 h-4 text-gray-300 group-hover:translate-x-0.5 transition-transform" />
+                  <ChevronRight className="size-4 text-gray-300 group-hover:translate-x-0.5 transition-transform" />
                 )}
               </a>
               {socialLinks.github && (
@@ -188,14 +188,14 @@ export const ProfileSidebar = ({
                   className="flex items-center justify-between p-3 bg-gray-50 rounded-2xl border border-gray-50 transition-all group hover:border-wise-green/30 hover:bg-wise-green/5"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center border border-gray-100 group-hover:border-wise-green/20">
-                      <GitBranch className="w-4 h-4 text-wise-green" />
+                    <div className="size-8 rounded-lg bg-white flex items-center justify-center border border-gray-100 group-hover:border-wise-green/20">
+                      <GitBranch className="size-4 text-wise-green" />
                     </div>
                     <span className="text-[14px] font-bold text-gray-700">
                       GitHub Profile
                     </span>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-gray-300 group-hover:translate-x-0.5 transition-transform" />
+                  <ChevronRight className="size-4 text-gray-300 group-hover:translate-x-0.5 transition-transform" />
                 </a>
               )}
             </div>
@@ -210,11 +210,11 @@ export const ProfileSidebar = ({
         transition={{ delay: 0.2 }}
         className="bg-white rounded-[2.5rem] border border-gray-100 p-8 shadow-sm relative overflow-hidden group"
       >
-        <div className="absolute -right-4 -top-4 w-24 h-24 bg-wise-green/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700" />
+        <div className="absolute -right-4 -top-4 size-24 bg-wise-green/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700" />
         <div className="relative z-10 space-y-6">
           <div className="flex items-center justify-between">
-            <div className="w-12 h-12 rounded-2xl bg-wise-green/5 flex items-center justify-center border border-wise-green/10">
-              <FileText className="w-6 h-6 text-wise-green" />
+            <div className="size-12 rounded-2xl bg-wise-green/5 flex items-center justify-center border border-wise-green/10">
+              <FileText className="size-6 text-wise-green" />
             </div>
             <span className="text-[11px] font-black text-wise-green bg-wise-green/10 px-3 py-1 rounded-full uppercase tracking-wider">
               Active

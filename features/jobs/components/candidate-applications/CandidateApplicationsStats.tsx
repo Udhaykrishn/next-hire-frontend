@@ -26,7 +26,7 @@ export function CandidateApplicationsStats({
         "bg-gray-900 text-white shadow-lg shadow-gray-900/20 border-transparent ring-1 ring-gray-900/5",
       inactiveColor:
         "bg-white text-gray-500 border border-gray-200/60 hover:border-gray-300 hover:shadow-sm hover:text-gray-900",
-      icon: <Briefcase className="w-4 h-4" />,
+      icon: <Briefcase className="size-4" />,
     },
     {
       id: "REVIEWING",
@@ -36,7 +36,7 @@ export function CandidateApplicationsStats({
         "bg-blue-600 text-white shadow-lg shadow-blue-600/20 border-transparent ring-1 ring-blue-600/5",
       inactiveColor:
         "bg-white text-gray-500 border border-gray-200/60 hover:border-blue-200 hover:shadow-sm hover:text-blue-600",
-      icon: <FileText className="w-4 h-4" />,
+      icon: <FileText className="size-4" />,
     },
     {
       id: "INTERVIEWS",
@@ -46,7 +46,7 @@ export function CandidateApplicationsStats({
         "bg-wise-green text-dark-green shadow-lg shadow-wise-green/20 border-transparent ring-1 ring-wise-green/5",
       inactiveColor:
         "bg-white text-gray-500 border border-gray-200/60 hover:border-wise-green/50 hover:shadow-sm hover:text-dark-green",
-      icon: <PlayCircle className="w-4 h-4" />,
+      icon: <PlayCircle className="size-4" />,
     },
     {
       id: "OFFERS",
@@ -56,7 +56,7 @@ export function CandidateApplicationsStats({
         "bg-yellow-500 text-yellow-950 shadow-lg shadow-yellow-500/20 border-transparent ring-1 ring-yellow-500/5",
       inactiveColor:
         "bg-white text-gray-500 border border-gray-200/60 hover:border-yellow-300 hover:shadow-sm hover:text-yellow-600",
-      icon: <Award className="w-4 h-4" />,
+      icon: <Award className="size-4" />,
     },
   ];
 

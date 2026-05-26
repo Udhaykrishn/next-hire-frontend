@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { domAnimation, LazyMotion, m } from "framer-motion";
 import { Briefcase, ChevronUp, Info, Medal, Pencil, Users } from "lucide-react";
 import type React from "react";
 import type { JobFormData } from "@/app/recruiter/jobs/create/new/types";
@@ -25,8 +25,8 @@ const SectionHeader = ({
 }: SectionHeaderProps) => (
   <div className="flex items-center justify-between py-6 px-8 border-b border-gray-100 bg-white sticky top-0 z-10">
     <div className="flex items-center gap-4">
-      <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center">
-        <Icon className="w-5 h-5 text-slate-400" />
+      <div className="size-10 rounded-xl bg-slate-50 flex items-center justify-center">
+        <Icon className="size-5 text-slate-400" />
       </div>
       <h3 className="text-[16px] font-black text-near-black tracking-tight">
         {title}
@@ -34,12 +34,13 @@ const SectionHeader = ({
     </div>
     <div className="flex items-center gap-4">
       <button
+        type="button"
         onClick={() => setCurrentStep(step)}
-        className="w-9 h-9 rounded-full bg-wise-green/10 flex items-center justify-center text-wise-green hover:bg-wise-green/20 transition-all"
+        className="size-9 rounded-full bg-wise-green/10 flex items-center justify-center text-wise-green hover:bg-wise-green/20 transition-all"
       >
-        <Pencil className="w-4 h-4" />
+        <Pencil className="size-4" />
       </button>
-      <ChevronUp className="w-5 h-5 text-slate-300" />
+      <ChevronUp className="size-5 text-slate-300" />
     </div>
   </div>
 );
@@ -63,7 +64,7 @@ export const Step4Preview = ({
   setCurrentStep,
 }: Step4PreviewProps) => {
   return (
-    <motion.div
+    <m.div
       key="step4"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -92,7 +93,7 @@ export const Step4Preview = ({
           />
 
           <div className="mx-8 my-6 p-4 rounded-xl bg-wise-green/10 border border-wise-green/20 flex items-start gap-3">
-            <Info className="w-4 h-4 text-wise-green mt-0.5 shrink-0" />
+            <Info className="size-4 text-wise-green mt-0.5 shrink-0" />
             <p className="text-[12px] font-bold text-near-black leading-snug">
               Your job will receive a maximum of 250 applications from within{" "}
               {formData.jobCity || "the selected region"} or remain live for 15
@@ -121,8 +122,8 @@ export const Step4Preview = ({
         />
         <div className="py-6 space-y-1">
           <div className="mx-8 mb-6 p-4 rounded-xl bg-wise-green/10 border border-wise-green/20 flex items-start gap-3">
-            <div className="w-8 h-8 rounded-lg bg-wise-green flex items-center justify-center shrink-0">
-              <Users className="w-4 h-4 text-dark-green" />
+            <div className="size-8 rounded-lg bg-wise-green flex items-center justify-center shrink-0">
+              <Users className="size-4 text-dark-green" />
             </div>
             <div>
               <p className="text-[13px] font-black text-near-black">
@@ -141,8 +142,8 @@ export const Step4Preview = ({
 
           <div className="pt-6 mt-6 border-t border-gray-100">
             <div className="mx-8 mb-6 p-4 rounded-xl bg-wise-green/10 border border-wise-green/20 flex items-start gap-3">
-              <div className="w-8 h-8 rounded-lg bg-wise-green flex items-center justify-center shrink-0">
-                <Briefcase className="w-4 h-4 text-dark-green" />
+              <div className="size-8 rounded-lg bg-wise-green flex items-center justify-center shrink-0">
+                <Briefcase className="size-4 text-dark-green" />
               </div>
               <div>
                 <p className="text-[13px] font-black text-near-black">
@@ -238,6 +239,6 @@ export const Step4Preview = ({
           />
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 };

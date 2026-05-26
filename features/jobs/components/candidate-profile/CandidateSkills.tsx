@@ -10,7 +10,7 @@ export function CandidateSkills({ skills }: CandidateSkillsProps) {
   return (
     <div className="bg-[#ffffff] p-8 rounded-[20px] border border-[rgba(14,15,12,0.08)] shadow-sm">
       <h3 className="text-[20px] font-[800] text-[#0e0f0c] mb-5 flex items-center gap-2.5">
-        <Code className="w-6 h-6 text-[#054d28]" /> Skills & Technologies
+        <Code className="size-6 text-[#054d28]" /> Skills & Technologies
       </h3>
       <div className="flex flex-wrap gap-2.5">
         {skills.map((skill: string, idx: number) => (

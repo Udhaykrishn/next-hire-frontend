@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import { domAnimation, LazyMotion, m } from "framer-motion";
 import {
   Briefcase,
   Clock,
@@ -28,7 +28,7 @@ export default function RecruiterDashboard() {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="flex flex-col items-center gap-4">
-          <div className="w-8 h-8 border-4 border-wise-green/10 border-t-wise-green rounded-full animate-spin" />
+          <div className="size-8 border-4 border-wise-green/10 border-t-wise-green rounded-full animate-spin" />
           <p className="text-gray-300 font-black text-[9px] uppercase tracking-widest animate-pulse">
             Synchronizing Jobs
           </p>
@@ -48,7 +48,7 @@ export default function RecruiterDashboard() {
           onClick={() => router.push("/recruiter/jobs/create")}
           className="h-10 px-5 bg-wise-green text-near-black hover:bg-near-black hover:text-white transition-all rounded-xl font-black text-[13px] shadow-lg shadow-wise-green/10 group"
         >
-          <Plus className="w-4 h-4 mr-2 group-hover:rotate-90 transition-transform duration-300" />
+          <Plus className="size-4 mr-2 group-hover:rotate-90 transition-transform duration-300" />
           Post a new job
         </Button>
       </div>
@@ -56,7 +56,7 @@ export default function RecruiterDashboard() {
       {/* Jobs List - Compact Satoshi Style */}
       <div className="space-y-4">
         {jobs.map((job: JobListing) => (
-          <motion.div
+          <m.div
             key={job.id}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -79,13 +79,13 @@ export default function RecruiterDashboard() {
                 <div className="flex flex-wrap items-center gap-x-5 gap-y-1.5">
                   {job.location && (
                     <div className="flex items-center gap-1.5 text-gray-400 text-[12px] font-medium">
-                      <Navigation className="w-3.5 h-3.5 text-wise-green/40" />
+                      <Navigation className="size-3.5 text-wise-green/40" />
                       {job.location}
                     </div>
                   )}
                   {job.posted && (
                     <div className="flex items-center gap-1.5 text-gray-400 text-[12px] font-medium">
-                      <Clock className="w-3.5 h-3.5 text-wise-green/40" />
+                      <Clock className="size-3.5 text-wise-green/40" />
                       Posted: {job.posted}
                     </div>
                   )}
@@ -93,7 +93,7 @@ export default function RecruiterDashboard() {
 
                 {!job.isPublished && (
                   <div className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-gray-50/50 border border-gray-100/50 text-[12px] font-medium text-gray-400">
-                    <Info className="w-3.5 h-3.5 text-wise-green" />
+                    <Info className="size-3.5 text-wise-green" />
                     Publish job to start receiving candidates
                   </div>
                 )}
@@ -133,28 +133,28 @@ export default function RecruiterDashboard() {
                   onClick={() => router.push(`/recruiter/jobs/edit/${job.id}`)}
                   variant="ghost"
                   size="icon"
-                  className="h-10 w-10 rounded-full text-slate-500 hover:text-near-black hover:bg-slate-50 transition-all"
+                  className="size-10 rounded-full text-slate-500 hover:text-near-black hover:bg-slate-50 transition-all"
                 >
-                  <Pencil className="w-4 h-4" />
+                  <Pencil className="size-4" />
                 </Button>
 
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="h-10 w-10 rounded-full hover:bg-red-50 text-gray-300 hover:text-red-500 transition-colors"
+                  className="size-10 rounded-full hover:bg-red-50 text-gray-300 hover:text-red-500 transition-colors"
                 >
-                  <Trash2 className="w-4 h-4" />
+                  <Trash2 className="size-4" />
                 </Button>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         ))}
 
         {/* Empty State */}
         {jobs.length === 0 && (
           <div className="flex flex-col items-center justify-center py-16 bg-white rounded-[2rem] border border-dashed border-gray-200">
-            <div className="w-16 h-16 rounded-2xl bg-gray-50 flex items-center justify-center mb-4">
-              <Briefcase className="w-8 h-8 text-gray-100" />
+            <div className="size-16 rounded-2xl bg-gray-50 flex items-center justify-center mb-4">
+              <Briefcase className="size-8 text-gray-100" />
             </div>
             <h3 className="text-[18px] font-black text-near-black mb-1">
               No active listings

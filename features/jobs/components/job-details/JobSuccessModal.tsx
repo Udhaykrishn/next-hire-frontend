@@ -22,13 +22,13 @@ export function JobSuccessModal({ show, onClose }: JobSuccessModalProps) {
           onClick={onClose}
           className="absolute top-6 right-6 text-gray-400 hover:text-gray-600 transition-colors"
         >
-          <X className="w-6 h-6" />
+          <X className="size-6" />
         </button>
 
         <div className="flex flex-col items-center text-center mt-4">
-          <div className="w-20 h-20 bg-dark-green/10 text-dark-green rounded-full flex items-center justify-center mb-6">
-            <CheckCircle className="w-10 h-10 fill-current text-dark-green opacity-20" />
-            <CheckCircle className="w-10 h-10 absolute" />
+          <div className="size-20 bg-dark-green/10 text-dark-green rounded-full flex items-center justify-center mb-6">
+            <CheckCircle className="size-10 fill-current text-dark-green opacity-20" />
+            <CheckCircle className="size-10 absolute" />
           </div>
 
           <h2 className="text-2xl font-bold text-gray-900 mb-2">

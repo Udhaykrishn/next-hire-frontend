@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { domAnimation, LazyMotion, m } from "framer-motion";
 import {
   ArrowRight,
   Check,
@@ -24,7 +24,7 @@ const plans = [
     period: "Free Forever",
     description:
       "Perfect for exploring the platform and making your first few hires.",
-    icon: <Shield className="w-6 h-6" />,
+    icon: <Shield className="size-6" />,
     features: [
       "2 Active Job Posts",
       "Standard AI Matching",
@@ -42,7 +42,7 @@ const plans = [
     period: "/month",
     description:
       "Ideal for growing teams needing advanced AI tools and more visibility.",
-    icon: <Zap className="w-6 h-6" />,
+    icon: <Zap className="size-6" />,
     features: [
       "10 Active Job Posts",
       "Premium AI Matching",
@@ -62,7 +62,7 @@ const plans = [
     period: "/month",
     description:
       "Designed for high-volume hiring with dedicated support and full access.",
-    icon: <Crown className="w-6 h-6" />,
+    icon: <Crown className="size-6" />,
     features: [
       "Unlimited Job Posts",
       "Custom Branding",
@@ -96,8 +96,8 @@ export default function RecruiterPlanSetupPage() {
         {/* Header Navigation */}
         <div className="flex items-center justify-between mb-16">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-near-black flex items-center justify-center">
-              <Sparkles className="w-6 h-6 text-wise-green" />
+            <div className="size-10 rounded-xl bg-near-black flex items-center justify-center">
+              <Sparkles className="size-6 text-wise-green" />
             </div>
             <span className="text-[18px] font-black tracking-tighter">
               next<span className="text-wise-green italic">Hire</span>
@@ -117,15 +117,15 @@ export default function RecruiterPlanSetupPage() {
         {/* Main Content */}
         <div className="flex-1 flex flex-col items-center justify-center max-w-6xl mx-auto w-full">
           <div className="text-center mb-12 space-y-4">
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-wise-green/10 border border-wise-green/20 text-wise-green text-[11px] font-black uppercase tracking-[0.2em]"
             >
-              <Target className="w-3.5 h-3.5" />
+              <Target className="size-3.5" />
               Finalize Your Workspace
-            </motion.div>
-            <motion.h1
+            </m.div>
+            <m.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
@@ -133,10 +133,10 @@ export default function RecruiterPlanSetupPage() {
             >
               Choose your <br />
               <span className="text-wise-green italic">Growth Engine</span>
-            </motion.h1>
+            </m.h1>
 
             {/* Billing Toggle */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
@@ -161,8 +161,8 @@ export default function RecruiterPlanSetupPage() {
                 }
                 className="w-14 h-7 bg-gray-100 rounded-full p-1 relative flex items-center transition-all border border-gray-200"
               >
-                <motion.div
-                  className="w-5 h-5 bg-near-black rounded-full"
+                <m.div
+                  className="size-5 bg-near-black rounded-full"
                   animate={{ x: billingCycle === "monthly" ? 0 : 28 }}
                 />
               </button>
@@ -181,13 +181,13 @@ export default function RecruiterPlanSetupPage() {
                   Save 20%
                 </span>
               </div>
-            </motion.div>
+            </m.div>
           </div>
 
           {/* Pricing Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mb-16">
             {plans.map((plan, idx) => (
-              <motion.div
+              <m.div
                 key={plan.id}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -217,7 +217,7 @@ export default function RecruiterPlanSetupPage() {
                   <div className="mb-8">
                     <div
                       className={cn(
-                        "w-16 h-16 rounded-[2rem] flex items-center justify-center mb-6 transition-all duration-500",
+                        "size-16 rounded-[2rem] flex items-center justify-center mb-6 transition-all duration-500",
                         selectedPlan === plan.id
                           ? "bg-near-black text-white"
                           : "bg-gray-50 text-gray-400 group-hover:scale-110",
@@ -246,13 +246,13 @@ export default function RecruiterPlanSetupPage() {
                       <div key={fIdx} className="flex items-center gap-3">
                         <div
                           className={cn(
-                            "w-5 h-5 rounded-full flex items-center justify-center shrink-0 transition-colors",
+                            "size-5 rounded-full flex items-center justify-center shrink-0 transition-colors",
                             selectedPlan === plan.id
                               ? "bg-wise-green text-dark-green"
                               : "bg-gray-100 text-gray-400",
                           )}
                         >
-                          <Check className="w-3 h-3" strokeWidth={5} />
+                          <Check className="size-3" strokeWidth={5} />
                         </div>
                         <span className="text-[14px] font-bold text-gray-600">
                           {feature}
@@ -262,22 +262,22 @@ export default function RecruiterPlanSetupPage() {
                   </div>
 
                   {selectedPlan === plan.id && (
-                    <motion.div
+                    <m.div
                       initial={{ opacity: 0, scale: 0.9 }}
                       animate={{ opacity: 1, scale: 1 }}
                       className="absolute bottom-4 left-4 right-4 h-1 bg-wise-green rounded-full blur-[2px]"
                     />
                   )}
                 </div>
-              </motion.div>
+              </m.div>
             ))}
           </div>
 
           {/* Footer Actions */}
           <div className="w-full flex flex-col md:flex-row items-center justify-between gap-8 pt-8 border-t border-gray-100">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-wise-green/10 flex items-center justify-center">
-                <ShieldCheck className="w-6 h-6 text-wise-green" />
+              <div className="size-12 rounded-2xl bg-wise-green/10 flex items-center justify-center">
+                <ShieldCheck className="size-6 text-wise-green" />
               </div>
               <div>
                 <p className="text-sm font-black text-near-black uppercase tracking-widest">
@@ -302,7 +302,7 @@ export default function RecruiterPlanSetupPage() {
                 className="h-16 px-12 rounded-[2rem] bg-near-black text-white hover:bg-wise-green hover:text-near-black transition-all font-black text-sm uppercase tracking-[0.2em] shadow-2xl shadow-near-black/20 group"
               >
                 Confirm & Launch
-                <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="size-5 ml-3 group-hover:translate-x-1 transition-transform" />
               </Button>
             </div>
           </div>

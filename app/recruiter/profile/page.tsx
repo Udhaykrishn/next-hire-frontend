@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { domAnimation, LazyMotion, m } from "framer-motion";
 import { BasicDetailsCard } from "@/features/recruiter/components/profile/basic-details-card";
 import { CompanyIdentityCard } from "@/features/recruiter/components/profile/company-identity-card";
 import { HeroAvatarCard } from "@/features/recruiter/components/profile/hero-avatar-card";
@@ -28,7 +28,7 @@ export default function ProfilePage() {
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-wise-green border-t-transparent rounded-full animate-spin" />
+        <div className="size-8 border-4 border-wise-green border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -39,13 +39,13 @@ export default function ProfilePage() {
     <div className="min-h-screen bg-[#fafafa] pb-32">
       <div className="max-w-3xl mx-auto px-4 pt-8 space-y-6">
         <div className="mb-2">
-          <motion.h1
+          <m.h1
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-[32px] font-black text-near-black tracking-tight"
           >
             Profile
-          </motion.h1>
+          </m.h1>
           <p className="text-gray-400 font-medium text-[14px] mt-0.5">
             Manage your recruiter identity and company details.
           </p>

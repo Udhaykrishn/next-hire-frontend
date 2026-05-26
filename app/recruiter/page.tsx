@@ -89,7 +89,7 @@ export default function RecruiterLandingPage() {
               transition={{ duration: 0.5 }}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-wise-green/10 text-dark-green font-bold text-sm mb-8 border border-wise-green/20"
             >
-              <Sparkles className="w-4 h-4 text-wise-green" />
+              <Sparkles className="size-4 text-wise-green" />
               <span>The Next Generation ATS is Here</span>
             </motion.div>
 
@@ -124,7 +124,7 @@ export default function RecruiterLandingPage() {
               <Link href="/recruiter/signup" className="w-full sm:w-auto">
                 <Button className="w-full sm:w-auto h-14 px-8 rounded-full bg-wise-green text-dark-green font-black text-lg hover:bg-wise-green/90 transition-all shadow-[0_0_30px_rgba(159,232,112,0.3)] hover:scale-105 group">
                   Start Hiring Now
-                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="size-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
               <Link href="#features" className="w-full sm:w-auto">
@@ -147,19 +147,19 @@ export default function RecruiterLandingPage() {
             </p>
             <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
               <div className="flex items-center gap-2 font-black text-xl text-gray-800">
-                <Globe className="w-6 h-6" /> Acme Corp
+                <Globe className="size-6" /> Acme Corp
               </div>
               <div className="flex items-center gap-2 font-black text-xl text-gray-800">
-                <Building2 className="w-6 h-6" /> TechFlow
+                <Building2 className="size-6" /> TechFlow
               </div>
               <div className="flex items-center gap-2 font-black text-xl text-gray-800">
-                <Globe className="w-6 h-6" /> Innovate Inc
+                <Globe className="size-6" /> Innovate Inc
               </div>
               <div className="flex items-center gap-2 font-black text-xl text-gray-800">
-                <Building2 className="w-6 h-6" /> Synergy
+                <Building2 className="size-6" /> Synergy
               </div>
               <div className="flex items-center gap-2 font-black text-xl text-gray-800">
-                <Globe className="w-6 h-6" /> Globex
+                <Globe className="size-6" /> Globex
               </div>
             </div>
           </div>
@@ -210,32 +210,32 @@ export default function RecruiterLandingPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[
                 {
-                  icon: <Target className="w-8 h-8 text-wise-green" />,
+                  icon: <Target className="size-8 text-wise-green" />,
                   title: "AI Candidate Sourcing",
                   desc: "Automatically discover perfect matches from our extensive talent pool based on skills, experience, and culture fit.",
                 },
                 {
-                  icon: <Zap className="w-8 h-8 text-wise-green" />,
+                  icon: <Zap className="size-8 text-wise-green" />,
                   title: "Automated Workflows",
                   desc: "Set up smart triggers for emails, assessments, and interview scheduling to keep candidates engaged.",
                 },
                 {
-                  icon: <Users className="w-8 h-8 text-wise-green" />,
+                  icon: <Users className="size-8 text-wise-green" />,
                   title: "Collaborative Hiring",
                   desc: "Share candidate profiles, leave internal notes, and score applicants together with your entire team.",
                 },
                 {
-                  icon: <BarChart3 className="w-8 h-8 text-wise-green" />,
+                  icon: <BarChart3 className="size-8 text-wise-green" />,
                   title: "Advanced Analytics",
                   desc: "Track your recruitment funnel, identify bottlenecks, and optimize your hiring strategy with real-time data.",
                 },
                 {
-                  icon: <Award className="w-8 h-8 text-wise-green" />,
+                  icon: <Award className="size-8 text-wise-green" />,
                   title: "Skill Assessments",
                   desc: "Send tailored technical and behavioral assessments to evaluate candidates fairly and accurately.",
                 },
                 {
-                  icon: <CheckCircle2 className="w-8 h-8 text-wise-green" />,
+                  icon: <CheckCircle2 className="size-8 text-wise-green" />,
                   title: "Compliance Ready",
                   desc: "Built-in GDPR compliance, diversity tracking, and fair hiring guardrails out of the box.",
                 },
@@ -248,7 +248,7 @@ export default function RecruiterLandingPage() {
                   transition={{ delay: i * 0.1 }}
                   className="p-8 rounded-[2rem] bg-white border border-gray-100 shadow-xl shadow-gray-200/20 hover:shadow-2xl hover:shadow-wise-green/10 transition-all hover:-translate-y-1 group"
                 >
-                  <div className="w-16 h-16 rounded-2xl bg-gray-50 flex items-center justify-center mb-6 group-hover:bg-wise-green/10 transition-colors">
+                  <div className="size-16 rounded-2xl bg-gray-50 flex items-center justify-center mb-6 group-hover:bg-wise-green/10 transition-colors">
                     {feature.icon}
                   </div>
                   <h3 className="text-xl font-bold text-near-black mb-3">
@@ -271,7 +271,7 @@ export default function RecruiterLandingPage() {
                 <div className="absolute inset-0 bg-wise-green/20 blur-3xl rounded-full translate-x-4 translate-y-4"></div>
                 <div className="relative bg-white rounded-3xl border border-gray-100 shadow-2xl p-2 md:p-4 overflow-hidden transform transition-transform hover:scale-[1.02] duration-500">
                   <div className="aspect-[4/3] bg-gray-100 rounded-2xl flex items-center justify-center text-gray-400 font-medium">
-                    <BarChart3 className="w-16 h-16 opacity-20 mb-4" />
+                    <BarChart3 className="size-16 opacity-20 mb-4" />
                     <span className="absolute">
                       ATS Dashboard Interface Placeholder
                     </span>
@@ -297,7 +297,7 @@ export default function RecruiterLandingPage() {
                       key={i}
                       className="flex items-center gap-3 text-near-black font-medium"
                     >
-                      <CheckCircle2 className="w-5 h-5 text-wise-green shrink-0" />{" "}
+                      <CheckCircle2 className="size-5 text-wise-green shrink-0" />{" "}
                       {item}
                     </li>
                   ))}
@@ -325,7 +325,7 @@ export default function RecruiterLandingPage() {
                       key={i}
                       className="flex items-center gap-3 text-near-black font-medium"
                     >
-                      <CheckCircle2 className="w-5 h-5 text-wise-green shrink-0" />{" "}
+                      <CheckCircle2 className="size-5 text-wise-green shrink-0" />{" "}
                       {item}
                     </li>
                   ))}
@@ -335,7 +335,7 @@ export default function RecruiterLandingPage() {
                 <div className="absolute inset-0 bg-blue-500/10 blur-3xl rounded-full -translate-x-4 translate-y-4"></div>
                 <div className="relative bg-white rounded-3xl border border-gray-100 shadow-2xl p-2 md:p-4 overflow-hidden transform transition-transform hover:scale-[1.02] duration-500">
                   <div className="aspect-[4/3] bg-gray-100 rounded-2xl flex items-center justify-center text-gray-400 font-medium">
-                    <Target className="w-16 h-16 opacity-20 mb-4" />
+                    <Target className="size-16 opacity-20 mb-4" />
                     <span className="absolute">
                       Candidate Match Score UI Placeholder
                     </span>
@@ -386,7 +386,7 @@ export default function RecruiterLandingPage() {
                     {[...Array(review.stars)].map((_, j) => (
                       <Star
                         key={j}
-                        className="w-5 h-5 fill-wise-green text-wise-green"
+                        className="size-5 fill-wise-green text-wise-green"
                       />
                     ))}
                   </div>

@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, domAnimation, LazyMotion, m } from "framer-motion";
 import { Loader2, Save, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -16,7 +16,7 @@ export function StickySaveBar({
   return (
     <AnimatePresence>
       {isVisible && (
-        <motion.div
+        <m.div
           key="save-bar"
           initial={{ y: 80, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -26,7 +26,7 @@ export function StickySaveBar({
         >
           <div className="flex items-center gap-3 bg-near-black text-white px-5 py-3.5 rounded-[2rem] shadow-2xl shadow-near-black/30 border border-white/10 backdrop-blur-sm">
             <div className="flex items-center gap-2 text-[13px] font-bold text-gray-300 mr-2">
-              <span className="w-2 h-2 rounded-full bg-wise-green animate-pulse" />
+              <span className="size-2 rounded-full bg-wise-green animate-pulse" />
               Editing mode
             </div>
             <Button
@@ -36,7 +36,7 @@ export function StickySaveBar({
               disabled={isUpdating}
               className="h-9 px-4 rounded-2xl font-bold text-gray-300 hover:text-white hover:bg-white/10 gap-1.5"
             >
-              <X className="w-3.5 h-3.5" />
+              <X className="size-3.5" />
               Discard
             </Button>
             <Button
@@ -46,14 +46,14 @@ export function StickySaveBar({
               className="h-9 px-5 rounded-2xl font-black bg-wise-green text-near-black hover:bg-wise-green/90 gap-1.5 shadow-lg shadow-wise-green/30"
             >
               {isUpdating ? (
-                <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                <Loader2 className="size-3.5 animate-spin" />
               ) : (
-                <Save className="w-3.5 h-3.5" />
+                <Save className="size-3.5" />
               )}
               {isUpdating ? "Saving…" : "Save Changes"}
             </Button>
           </div>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

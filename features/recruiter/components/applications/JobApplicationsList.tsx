@@ -71,9 +71,9 @@ export function JobApplicationsList({
             className="flex items-center gap-2 text-[14px] font-[600] text-[#454745] hover:text-[#0e0f0c] transition-colors shrink-0"
           >
             {selectedCandidates.length === applications.length ? (
-              <CheckSquare className="w-5 h-5 text-[#054d28]" />
+              <CheckSquare className="size-5 text-[#054d28]" />
             ) : (
-              <Square className="w-5 h-5 text-[#868685]" />
+              <Square className="size-5 text-[#868685]" />
             )}
             {selectedCandidates.length === applications.length
               ? "Deselect All"
@@ -107,7 +107,7 @@ export function JobApplicationsList({
       <div className="min-h-[400px]">
         {isLoading ? (
           <div className="flex flex-col items-center justify-center min-h-[40vh] gap-4">
-            <div className="w-10 h-10 border-4 border-[#e8ebe6] border-t-[#0e0f0c] rounded-full animate-spin" />
+            <div className="size-10 border-4 border-[#e8ebe6] border-t-[#0e0f0c] rounded-full animate-spin" />
             <p className="text-[#868685] font-[500] text-[15px]">
               Loading candidates...
             </p>
@@ -128,12 +128,12 @@ export function JobApplicationsList({
                         className="mt-1 focus:outline-none transition-transform hover:scale-110 active:scale-95"
                       >
                         {selectedCandidates.includes(app.id) ? (
-                          <CheckSquare className="w-5 h-5 text-[#054d28] drop-shadow-sm" />
+                          <CheckSquare className="size-5 text-[#054d28] drop-shadow-sm" />
                         ) : (
-                          <Square className="w-5 h-5 text-[#868685] hover:text-[#454745]" />
+                          <Square className="size-5 text-[#868685] hover:text-[#454745]" />
                         )}
                       </button>
-                      <div className="w-12 h-12 rounded-full bg-[#e8ebe6] overflow-hidden shrink-0">
+                      <div className="size-12 rounded-full bg-[#e8ebe6] overflow-hidden shrink-0">
                         {app.candidate.profileImage ? (
                           <Image
                             src={app.candidate.profileImage}
@@ -141,11 +141,11 @@ export function JobApplicationsList({
                             width={48}
                             height={48}
                             unoptimized
-                            className="w-full h-full object-cover"
+                            className="size-full object-cover"
                           />
                         ) : (
-                          <div className="w-full h-full flex items-center justify-center text-[#868685]">
-                            <User className="w-5 h-5" />
+                          <div className="size-full flex items-center justify-center text-[#868685]">
+                            <User className="size-5" />
                           </div>
                         )}
                       </div>
@@ -159,7 +159,7 @@ export function JobApplicationsList({
                           {app.candidate.name}
                         </h3>
                         <p className="text-[14px] font-[500] text-[#868685] flex items-center gap-1 mt-0.5">
-                          <Mail className="w-3.5 h-3.5" /> {app.candidate.email}
+                          <Mail className="size-3.5" /> {app.candidate.email}
                         </p>
                       </div>
                     </div>
@@ -177,8 +177,8 @@ export function JobApplicationsList({
                       </div>
 
                       <DropdownMenu>
-                        <DropdownMenuTrigger className="flex items-center justify-center h-8 w-8 rounded-full text-[#868685] hover:text-[#0e0f0c] hover:bg-[#e8ebe6] transition-colors focus:outline-none">
-                          <MoreVertical className="w-4 h-4" />
+                        <DropdownMenuTrigger className="flex items-center justify-center size-8 rounded-full text-[#868685] hover:text-[#0e0f0c] hover:bg-[#e8ebe6] transition-colors focus:outline-none">
+                          <MoreVertical className="size-4" />
                         </DropdownMenuTrigger>
                         <DropdownMenuContent
                           align="end"
@@ -191,7 +191,7 @@ export function JobApplicationsList({
                                 status: "REVIEWING",
                               })
                             }
-                            className="text-[14px] font-[500] text-[#0e0f0c] focus:bg-[#e8ebe6] rounded-[8px] cursor-pointer py-2 px-2.5"
+                            className="text-[14px] font-[500] text-[#0e0f0c] focus:bg-[#e8ebe6] rounded-[8px] cursor-pointer p-2.5"
                           >
                             Mark as Reviewing
                           </DropdownMenuItem>
@@ -202,7 +202,7 @@ export function JobApplicationsList({
                                 status: "SHORTLISTED",
                               })
                             }
-                            className="text-[14px] font-[500] text-[#0e0f0c] focus:bg-[#cdffad] rounded-[8px] cursor-pointer py-2 px-2.5"
+                            className="text-[14px] font-[500] text-[#0e0f0c] focus:bg-[#cdffad] rounded-[8px] cursor-pointer p-2.5"
                           >
                             Shortlist Candidate
                           </DropdownMenuItem>
@@ -213,7 +213,7 @@ export function JobApplicationsList({
                                 status: "HIRED",
                               })
                             }
-                            className="text-[14px] font-[500] text-[#054d28] focus:bg-[#e2f6d5] rounded-[8px] cursor-pointer py-2 px-2.5"
+                            className="text-[14px] font-[500] text-[#054d28] focus:bg-[#e2f6d5] rounded-[8px] cursor-pointer p-2.5"
                           >
                             Mark as Hired
                           </DropdownMenuItem>
@@ -225,7 +225,7 @@ export function JobApplicationsList({
                                 status: "REJECTED",
                               })
                             }
-                            className="text-[14px] font-[500] text-[#d03238] focus:bg-[#d03238]/10 rounded-[8px] cursor-pointer py-2 px-2.5"
+                            className="text-[14px] font-[500] text-[#d03238] focus:bg-[#d03238]/10 rounded-[8px] cursor-pointer p-2.5"
                           >
                             Reject Candidate
                           </DropdownMenuItem>
@@ -237,7 +237,7 @@ export function JobApplicationsList({
 
                 <div className="mt-2 pt-4 border-t border-[rgba(14,15,12,0.05)] flex items-center justify-between">
                   <p className="text-[12px] font-[500] text-[#868685] flex items-center gap-1.5">
-                    <Calendar className="w-3.5 h-3.5" /> Applied{" "}
+                    <Calendar className="size-3.5" /> Applied{" "}
                     {formatDistanceToNow(parseISO(app.createdAt), {
                       addSuffix: true,
                     })}
@@ -259,7 +259,7 @@ export function JobApplicationsList({
                         }
                         className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#ffffff] text-[#0e0f0c] font-[600] text-[14px] border border-[rgba(14,15,12,0.12)] hover:bg-[#e8ebe6] transition-colors"
                       >
-                        <ExternalLink className="w-3.5 h-3.5" /> Resume
+                        <ExternalLink className="size-3.5" /> Resume
                       </button>
                     )}
                   </div>
@@ -269,8 +269,8 @@ export function JobApplicationsList({
           </div>
         ) : (
           <div className="bg-[#ffffff] rounded-[16px] p-[64px] border border-[rgba(14,15,12,0.12)] flex flex-col items-center justify-center text-center">
-            <div className="w-16 h-16 bg-[#e8ebe6] text-[#868685] rounded-full flex items-center justify-center mb-4">
-              <Users className="w-8 h-8" />
+            <div className="size-16 bg-[#e8ebe6] text-[#868685] rounded-full flex items-center justify-center mb-4">
+              <Users className="size-8" />
             </div>
             <h2 className="text-[20px] font-[900] text-[#0e0f0c] mb-2">
               No Candidates Found

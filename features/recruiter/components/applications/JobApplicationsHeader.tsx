@@ -20,19 +20,19 @@ export function JobApplicationsHeader({
         onClick={onBackClick}
         className="group flex items-center gap-2 w-fit text-[14px] font-[500] text-[#868685] hover:text-[#0e0f0c] transition-colors"
       >
-        <div className="flex items-center justify-center w-8 h-8 rounded-full bg-[#e8ebe6] group-hover:bg-[#cdffad] transition-colors">
-          <ArrowLeft className="w-4 h-4" />
+        <div className="flex items-center justify-center size-8 rounded-full bg-[#e8ebe6] group-hover:bg-[#cdffad] transition-colors">
+          <ArrowLeft className="size-4" />
         </div>
         Back to Dashboard
       </button>
 
       <div className="bg-[#ffffff] p-[24px] md:p-[32px] rounded-[16px] border border-[rgba(14,15,12,0.12)] shadow-sm relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-[#9fe870]/10 to-transparent rounded-bl-full pointer-events-none" />
+        <div className="absolute top-0 right-0 size-64 bg-gradient-to-br from-[#9fe870]/10 to-transparent rounded-bl-full pointer-events-none" />
 
         <div className="flex flex-col md:flex-row justify-between gap-6 relative z-10">
           <div className="space-y-4">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#163300]/[0.08] text-[#0e0f0c] font-[600] text-[12px]">
-              <Briefcase className="w-3.5 h-3.5" /> Job Context
+              <Briefcase className="size-3.5" /> Job Context
             </div>
 
             {isJobLoading ? (
@@ -49,18 +49,18 @@ export function JobApplicationsHeader({
                 <div className="flex flex-wrap items-center gap-4 text-[14px] font-[500] text-[#454745]">
                   {job.locationType && (
                     <span className="flex items-center gap-1.5">
-                      <MapPin className="w-4 h-4 text-[#868685]" />{" "}
+                      <MapPin className="size-4 text-[#868685]" />{" "}
                       {job.locationType}
                     </span>
                   )}
                   {job.jobType && (
                     <span className="flex items-center gap-1.5">
-                      <Clock className="w-4 h-4 text-[#868685]" /> {job.jobType}
+                      <Clock className="size-4 text-[#868685]" /> {job.jobType}
                     </span>
                   )}
                   {(job.minSalary || job.maxSalary) && (
                     <span className="flex items-center gap-1.5">
-                      <IndianRupee className="w-4 h-4 text-[#868685]" />
+                      <IndianRupee className="size-4 text-[#868685]" />
                       {job.minSalary && job.maxSalary
                         ? `₹${job.minSalary} - ₹${job.maxSalary}`
                         : "Negotiable"}
@@ -86,7 +86,7 @@ export function JobApplicationsHeader({
               Status
             </div>
             <div className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full bg-[#054d28]/10 text-[#054d28] font-[600] border border-[#054d28]/20 text-[14px]">
-              <div className="w-2 h-2 rounded-full bg-[#054d28]" />
+              <div className="size-2 rounded-full bg-[#054d28]" />
               Active & Accepting
             </div>
           </div>

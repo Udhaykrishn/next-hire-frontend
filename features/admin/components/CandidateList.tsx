@@ -76,7 +76,7 @@ export const CandidateList = () => {
     return (
       <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm">
         <div className="p-8 text-center">
-          <div className="w-8 h-8 border-4 border-wise-green border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <div className="size-8 border-4 border-wise-green border-t-transparent rounded-full animate-spin mx-auto mb-4" />
           <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">
             Loading candidates...
           </p>
@@ -91,10 +91,10 @@ export const CandidateList = () => {
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row items-center gap-4">
         <div className="relative flex-1 group">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-wise-green transition-colors" />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-gray-400 group-focus-within:text-wise-green transition-colors" />
           <input
             type="text"
-            placeholder="Search by name, role or email..."
+            placeholder="Search by name, role or email…"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full h-14 pl-12 pr-4 bg-white border border-gray-100 rounded-2xl text-sm font-bold focus:ring-2 focus:ring-wise-green/20 focus:border-wise-green transition-all outline-none"
@@ -107,10 +107,10 @@ export const CandidateList = () => {
               "h-14 px-6 rounded-2xl border-gray-100 flex items-center gap-2 font-black text-[10px] uppercase tracking-widest",
             )}
           >
-            <Filter className="w-4 h-4" />
+            <Filter className="size-4" />
             Advanced Filters
             {selectedStatuses.length > 0 && (
-              <span className="w-5 h-5 bg-wise-green text-near-black rounded-full flex items-center justify-center text-[8px]">
+              <span className="size-5 bg-wise-green text-near-black rounded-full flex items-center justify-center text-[8px]">
                 {selectedStatuses.length}
               </span>
             )}
@@ -131,14 +131,14 @@ export const CandidateList = () => {
                 >
                   <div
                     className={cn(
-                      "w-5 h-5 rounded-lg border-2 transition-all flex items-center justify-center",
+                      "size-5 rounded-lg border-2 transition-all flex items-center justify-center",
                       selectedStatuses.includes(status)
                         ? "bg-near-black border-near-black"
                         : "border-gray-200 group-hover:border-wise-green",
                     )}
                   >
                     {selectedStatuses.includes(status) && (
-                      <div className="w-2 h-2 rounded-sm bg-wise-green" />
+                      <div className="size-2 rounded-sm bg-wise-green" />
                     )}
                   </div>
                   <span className="text-xs font-bold text-near-black uppercase tracking-widest">
@@ -196,7 +196,7 @@ export const CandidateList = () => {
                     <div className="flex items-center gap-4">
                       <div
                         className={cn(
-                          "w-12 h-12 rounded-2xl flex items-center justify-center text-sm font-black shadow-lg group-hover:rotate-6 transition-transform",
+                          "size-12 rounded-2xl flex items-center justify-center text-sm font-black shadow-lg group-hover:rotate-6 transition-transform",
                           candidate.status === "Blocked"
                             ? "bg-gray-100 text-gray-400 shadow-gray-200/10"
                             : "bg-near-black text-wise-green shadow-near-black/10",
@@ -218,7 +218,7 @@ export const CandidateList = () => {
                           </Link>
                           {candidate.status === "Blocked" && (
                             <span className="px-2 py-0.5 text-[8px] font-black uppercase tracking-widest bg-red-50 text-red-500 rounded-md border border-red-100 flex items-center gap-1 font-mono">
-                              <ShieldAlert className="w-2.5 h-2.5" />
+                              <ShieldAlert className="size-2.5" />
                               Restricted
                             </span>
                           )}
@@ -231,7 +231,7 @@ export const CandidateList = () => {
                   </td>
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-2 text-xs font-bold text-gray-500">
-                      <Briefcase className="w-3.5 h-3.5 text-gray-300" />
+                      <Briefcase className="size-3.5 text-gray-300" />
                       {candidate.role}
                     </div>
                   </td>
@@ -247,7 +247,7 @@ export const CandidateList = () => {
                       )}
                     >
                       {candidate.status === "Active" && (
-                        <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                        <span className="size-1.5 rounded-full bg-green-500 animate-pulse" />
                       )}
                       {candidate.status}
                     </span>
@@ -261,7 +261,7 @@ export const CandidateList = () => {
                         type="button"
                         className="p-2 hover:bg-white border border-transparent hover:border-gray-100 rounded-xl transition-all flex items-center justify-center"
                       >
-                        <MoreHorizontal className="w-5 h-5 text-gray-400" />
+                        <MoreHorizontal className="size-5 text-gray-400" />
                       </DropdownMenuTrigger>
                       <DropdownMenuContent
                         align="end"
@@ -269,9 +269,9 @@ export const CandidateList = () => {
                       >
                         <Link href={`/admin/candidates/${candidate.id}`}>
                           <DropdownMenuItem className="h-12 px-4 rounded-xl flex items-center gap-3 font-bold text-xs uppercase tracking-widest cursor-pointer">
-                            <UserCircle className="w-4 h-4 text-wise-green" />
+                            <UserCircle className="size-4 text-wise-green" />
                             View Detail Profile
-                            <ArrowUpRight className="w-3.5 h-3.5 ml-auto opacity-40" />
+                            <ArrowUpRight className="size-3.5 ml-auto opacity-40" />
                           </DropdownMenuItem>
                         </Link>
                         <DropdownMenuItem
@@ -285,12 +285,12 @@ export const CandidateList = () => {
                         >
                           {candidate.status === "Blocked" ? (
                             <>
-                              <BadgeCheck className="w-4 h-4 text-green-600" />
+                              <BadgeCheck className="size-4 text-green-600" />
                               Restore Access
                             </>
                           ) : (
                             <>
-                              <Ban className="w-4 h-4 text-red-500" />
+                              <Ban className="size-4 text-red-500" />
                               Restrict Access
                             </>
                           )}

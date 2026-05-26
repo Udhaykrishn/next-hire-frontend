@@ -17,7 +17,7 @@ export default function CandidateProfilePage() {
           href="/admin/candidates"
           className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-near-black/40 hover:text-near-black transition-colors"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="size-4" />
           Back to Candidates
         </Link>
         <div className="flex items-center gap-4">
@@ -25,7 +25,7 @@ export default function CandidateProfilePage() {
             System ID:{" "}
             {id && id.length > 8 ? `${id.slice(0, 6)}...${id.slice(-4)}` : id}
           </span>
-          <div className="w-2 h-2 rounded-full bg-wise-green shadow-[0_0_10px_rgba(159,232,112,0.8)]" />
+          <div className="size-2 rounded-full bg-wise-green shadow-[0_0_10px_rgba(159,232,112,0.8)]" />
         </div>
       </div>
 

@@ -57,8 +57,8 @@ export function JobFiltersSidebar({
       <div className="bg-white rounded-2xl border border-gray-100 shadow-[0_1px_3px_rgba(0,0,0,0.04)] p-5 sticky top-28">
         <div className="flex items-center justify-between mb-5">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-dark-green/5 flex items-center justify-center">
-              <Filter className="w-3.5 h-3.5 text-dark-green" />
+            <div className="size-7 rounded-lg bg-dark-green/5 flex items-center justify-center">
+              <Filter className="size-3.5 text-dark-green" />
             </div>
             <span className="text-[13px] font-black text-gray-900 uppercase tracking-wider">
               Filters

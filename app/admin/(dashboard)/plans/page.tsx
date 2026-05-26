@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, domAnimation, LazyMotion, m } from "framer-motion";
 import {
   Activity,
   Building2,
@@ -48,20 +48,20 @@ export default function PlansAdmin() {
   const getIcon = (type: string) => {
     switch (type) {
       case "zap":
-        return <Zap className="w-5 h-5" />;
+        return <Zap className="size-5" />;
       case "crown":
-        return <Crown className="w-5 h-5" />;
+        return <Crown className="size-5" />;
       case "shield":
-        return <Shield className="w-5 h-5" />;
+        return <Shield className="size-5" />;
       default:
-        return <Layout className="w-5 h-5" />;
+        return <Layout className="size-5" />;
     }
   };
 
   if (isLoading) {
     return (
       <div className="min-h-[60vh] flex flex-col items-center justify-center space-y-4">
-        <div className="w-12 h-12 border-4 border-wise-green border-t-transparent rounded-full animate-spin" />
+        <div className="size-12 border-4 border-wise-green border-t-transparent rounded-full animate-spin" />
         <p className="text-xs font-black uppercase tracking-widest text-gray-400">
           Synchronizing Ecosystem...
         </p>
@@ -74,7 +74,7 @@ export default function PlansAdmin() {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
         <div>
           <div className="flex items-center gap-3 mb-2">
-            <div className="w-2 h-2 rounded-full bg-wise-green shadow-[0_0_10px_rgba(159,232,112,0.8)]" />
+            <div className="size-2 rounded-full bg-wise-green shadow-[0_0_10px_rgba(159,232,112,0.8)]" />
             <span className="text-[10px] font-black uppercase tracking-[0.3em] text-near-black/40">
               Monetization Engine
             </span>
@@ -93,7 +93,7 @@ export default function PlansAdmin() {
             onClick={() => setIsCreating(true)}
             className="h-14 px-8 bg-near-black text-white hover:bg-wise-green hover:text-near-black transition-all rounded-2xl flex items-center gap-3 font-black text-xs uppercase tracking-widest shadow-2xl shadow-near-black/10 group"
           >
-            <Plus className="w-4 h-4 group-hover:rotate-90 transition-transform" />
+            <Plus className="size-4 group-hover:rotate-90 transition-transform" />
             Architect New Tier
           </Button>
         )}
@@ -101,7 +101,7 @@ export default function PlansAdmin() {
 
       <AnimatePresence mode="wait">
         {isCreating ? (
-          <motion.div
+          <m.div
             key="creator"
             initial={{ opacity: 0, scale: 0.98, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -111,19 +111,19 @@ export default function PlansAdmin() {
           >
             {/* Form Section */}
             <div className="bg-white/70 backdrop-blur-xl rounded-[3rem] border border-white shadow-[0_32px_64px_-12px_rgba(0,0,0,0.04)] p-12 space-y-12 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-96 h-96 bg-wise-green/5 rounded-full blur-[100px] -mr-32 -mt-32 pointer-events-none" />
+              <div className="absolute top-0 right-0 size-96 bg-wise-green/5 rounded-full blur-[100px] -mr-32 -mt-32 pointer-events-none" />
 
               <div className="flex items-center justify-between relative z-10">
                 <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-[1.5rem] bg-near-black flex items-center justify-center text-wise-green shadow-2xl shadow-near-black/20 group-hover:rotate-6 transition-transform">
-                    <Layers className="w-6 h-6" />
+                  <div className="size-14 rounded-[1.5rem] bg-near-black flex items-center justify-center text-wise-green shadow-2xl shadow-near-black/20 group-hover:rotate-6 transition-transform">
+                    <Layers className="size-6" />
                   </div>
                   <div>
                     <h2 className="text-4xl font-black text-near-black tracking-tighter">
                       Plan Architect
                     </h2>
                     <div className="text-[10px] font-black text-wise-green uppercase tracking-[0.4em] mt-1 flex items-center gap-2">
-                      <div className="w-1 h-1 rounded-full bg-wise-green animate-ping" />
+                      <div className="size-1 rounded-full bg-wise-green animate-ping" />
                       Strategic Tier Synthesis
                     </div>
                   </div>
@@ -131,9 +131,9 @@ export default function PlansAdmin() {
                 <button
                   type="button"
                   onClick={() => setIsCreating(false)}
-                  className="w-12 h-12 rounded-xl border border-gray-100 flex items-center justify-center text-gray-400 hover:text-near-black hover:bg-gray-50 transition-all"
+                  className="size-12 rounded-xl border border-gray-100 flex items-center justify-center text-gray-400 hover:text-near-black hover:bg-gray-50 transition-all"
                 >
-                  <X className="w-5 h-5" />
+                  <X className="size-5" />
                 </button>
               </div>
 
@@ -159,7 +159,7 @@ export default function PlansAdmin() {
                         Strategic Price (₹)
                       </Label>
                       <div className="relative">
-                        <IndianRupee className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                        <IndianRupee className="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-gray-400" />
                         <Input
                           placeholder="499"
                           value={newPlan.price}
@@ -212,9 +212,9 @@ export default function PlansAdmin() {
                           )}
                         >
                           {type === "candidate" ? (
-                            <Users className="w-4 h-4" />
+                            <Users className="size-4" />
                           ) : (
-                            <Building2 className="w-4 h-4" />
+                            <Building2 className="size-4" />
                           )}
                           {type}
                         </button>
@@ -229,6 +229,7 @@ export default function PlansAdmin() {
                     <div className="flex gap-4">
                       {["zap", "crown", "shield", "layout"].map((icon) => (
                         <button
+                          type="button"
                           key={icon}
                           onClick={() =>
                             setNewPlan({
@@ -237,7 +238,7 @@ export default function PlansAdmin() {
                             })
                           }
                           className={cn(
-                            "w-12 h-12 rounded-xl flex items-center justify-center transition-all",
+                            "size-12 rounded-xl flex items-center justify-center transition-all",
                             newPlan.iconType === icon
                               ? "bg-wise-green text-near-black scale-110 shadow-[0_0_20px_rgba(159,232,112,0.4)]"
                               : "bg-white/5 text-white/40 hover:bg-white/10",
@@ -263,7 +264,7 @@ export default function PlansAdmin() {
                       >
                         <div
                           className={cn(
-                            "absolute top-1 w-4 h-4 rounded-full bg-white transition-all duration-300",
+                            "absolute top-1 size-4 rounded-full bg-white transition-all duration-300",
                             newPlan.highlight ? "left-5" : "left-1",
                           )}
                         />
@@ -281,7 +282,7 @@ export default function PlansAdmin() {
                       Strategic Value Proposition
                     </Label>
                     <Textarea
-                      placeholder="Describe the primary benefit of this tier..."
+                      placeholder="Describe the primary benefit of this tier…"
                       value={newPlan.description}
                       onChange={(e) =>
                         setNewPlan({ ...newPlan, description: e.target.value })
@@ -315,9 +316,9 @@ export default function PlansAdmin() {
                           <button
                             type="button"
                             onClick={() => removeFeature(idx)}
-                            className="w-14 h-14 rounded-xl border border-gray-100 flex items-center justify-center text-gray-300 hover:text-red-500 hover:bg-red-50 transition-all opacity-0 group-hover:opacity-100"
+                            className="size-14 rounded-xl border border-gray-100 flex items-center justify-center text-gray-300 hover:text-red-500 hover:bg-red-50 transition-all opacity-0 group-hover:opacity-100"
                           >
-                            <Trash2 className="w-4 h-4" />
+                            <Trash2 className="size-4" />
                           </button>
                         </div>
                       ))}
@@ -332,9 +333,9 @@ export default function PlansAdmin() {
                     {[1, 2, 3].map((i) => (
                       <div
                         key={i}
-                        className="w-10 h-10 rounded-full border-4 border-white bg-gray-100 flex items-center justify-center overflow-hidden"
+                        className="size-10 rounded-full border-4 border-white bg-gray-100 flex items-center justify-center overflow-hidden"
                       >
-                        <Users className="w-5 h-5 text-gray-300" />
+                        <Users className="size-5 text-gray-300" />
                       </div>
                     ))}
                   </div>
@@ -356,7 +357,7 @@ export default function PlansAdmin() {
                     disabled={isDeploying}
                     className="h-16 px-12 rounded-[1.5rem] bg-near-black text-white hover:bg-wise-green hover:text-near-black transition-all font-black text-sm uppercase tracking-[0.3em] shadow-[0_20px_40px_-12px_rgba(0,0,0,0.2)] flex items-center gap-4 group relative overflow-hidden"
                   >
-                    <motion.div
+                    <m.div
                       className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent w-[200%] -translate-x-full"
                       animate={{ translateX: ["-100%", "100%"] }}
                       transition={{
@@ -371,9 +372,9 @@ export default function PlansAdmin() {
                         : "Deploy Strategic Tier"}
                     </span>
                     {isDeploying ? (
-                      <Activity className="w-5 h-5 animate-spin relative z-10" />
+                      <Activity className="size-5 animate-spin relative z-10" />
                     ) : (
-                      <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform relative z-10" />
+                      <ChevronRight className="size-5 group-hover:translate-x-1 transition-transform relative z-10" />
                     )}
                   </Button>
                 </div>
@@ -382,24 +383,24 @@ export default function PlansAdmin() {
               {/* Deployment Overlay */}
               <AnimatePresence>
                 {isDeploying && (
-                  <motion.div
+                  <m.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     className="absolute inset-0 z-50 bg-near-black/90 backdrop-blur-md flex flex-col items-center justify-center text-center p-12"
                   >
-                    <motion.div
-                      initial={{ scale: 0 }}
+                    <m.div
+                      initial={{ scale: 0.95 }}
                       animate={{ scale: 1 }}
                       transition={{
                         type: "spring",
                         stiffness: 200,
                         damping: 20,
                       }}
-                      className="w-24 h-24 rounded-full bg-wise-green flex items-center justify-center mb-8 shadow-[0_0_50px_rgba(159,232,112,0.3)]"
+                      className="size-24 rounded-full bg-wise-green flex items-center justify-center mb-8 shadow-[0_0_50px_rgba(159,232,112,0.3)]"
                     >
-                      <TrendingUp className="w-10 h-10 text-near-black animate-pulse" />
-                    </motion.div>
+                      <TrendingUp className="size-10 text-near-black animate-pulse" />
+                    </m.div>
                     <h2 className="text-3xl font-black text-white tracking-tighter mb-4">
                       Synchronizing Ecosystem
                     </h2>
@@ -410,13 +411,13 @@ export default function PlansAdmin() {
                       </span>{" "}
                       interfaces...
                     </p>
-                  </motion.div>
+                  </m.div>
                 )}
               </AnimatePresence>
             </div>
-          </motion.div>
+          </m.div>
         ) : (
-          <motion.div
+          <m.div
             key="list"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -474,7 +475,7 @@ export default function PlansAdmin() {
                             <div className="flex items-center gap-4">
                               <div
                                 className={cn(
-                                  "w-12 h-12 rounded-xl flex items-center justify-center transition-all",
+                                  "size-12 rounded-xl flex items-center justify-center transition-all",
                                   plan.highlight
                                     ? "bg-near-black text-wise-green"
                                     : "bg-gray-100 text-gray-400",
@@ -487,7 +488,7 @@ export default function PlansAdmin() {
                                   {plan.name}
                                 </p>
                                 <div className="flex items-center gap-2 mt-0.5">
-                                  <Sparkles className="w-3 h-3 text-wise-green" />
+                                  <Sparkles className="size-3 text-wise-green" />
                                   <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest">
                                     {plan.features.length} Drivers
                                   </span>
@@ -537,14 +538,14 @@ export default function PlansAdmin() {
                                 type="button"
                                 className="p-3 bg-gray-50 text-gray-400 hover:text-near-black hover:bg-white border border-transparent hover:border-gray-100 rounded-xl transition-all"
                               >
-                                <Edit2 className="w-4 h-4" />
+                                <Edit2 className="size-4" />
                               </button>
                               <button
                                 type="button"
                                 onClick={() => handleDelete(plan.id)}
                                 className="p-3 bg-gray-50 text-gray-400 hover:text-red-500 hover:bg-red-50 border border-transparent hover:border-red-100 rounded-xl transition-all"
                               >
-                                <Trash2 className="w-4 h-4" />
+                                <Trash2 className="size-4" />
                               </button>
                             </div>
                           </td>
@@ -554,7 +555,7 @@ export default function PlansAdmin() {
                 </table>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>

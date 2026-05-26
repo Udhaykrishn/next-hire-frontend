@@ -112,7 +112,7 @@ export default function RecruiterLayout({
   if (isLoading && !isAuthRoute) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center font-satoshi">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-wise-green"></div>
+        <div className="animate-spin rounded-full size-12 border-b-2 border-wise-green"></div>
       </div>
     );
   }
@@ -128,8 +128,8 @@ export default function RecruiterLayout({
         <aside className="w-64 bg-white border-r border-gray-100 flex flex-col fixed inset-y-0 left-0 z-50">
           <div className="h-16 flex items-center px-8 border-b border-gray-50 mb-4">
             <div className="flex items-center gap-2">
-              <div className="w-7 h-7 bg-wise-green rounded-lg flex items-center justify-center">
-                <Sparkles className="w-4 h-4 text-near-black" />
+              <div className="size-7 bg-wise-green rounded-lg flex items-center justify-center">
+                <Sparkles className="size-4 text-near-black" />
               </div>
               <span className="text-[18px] font-black tracking-tighter text-near-black">
                 next<span className="text-wise-green italic">Hire</span>
@@ -140,51 +140,51 @@ export default function RecruiterLayout({
           <div className="flex-1 overflow-y-auto py-2">
             <nav className="space-y-0.5">
               <SidebarItem
-                icon={<Briefcase className="w-4 h-4" />}
+                icon={<Briefcase className="size-4" />}
                 label="Jobs"
                 active={pathname === "/recruiter/dashboard"}
                 onClick={() => router.push("/recruiter/dashboard")}
               />
               <SidebarItem
-                icon={<User className="w-4 h-4" />}
+                icon={<User className="size-4" />}
                 label="Profile"
                 active={pathname === "/recruiter/profile"}
                 onClick={() => router.push("/recruiter/profile")}
               />
               <SidebarItem
-                icon={<Settings className="w-4 h-4" />}
+                icon={<Settings className="size-4" />}
                 label="Settings"
                 active={pathname === "/recruiter/settings"}
                 onClick={() => router.push("/recruiter/settings")}
               />
               <SidebarItem
-                icon={<Database className="w-4 h-4" />}
+                icon={<Database className="size-4" />}
                 label="Database"
                 onClick={() => {}}
               />
               <SidebarItem
-                icon={<TrendingUp className="w-4 h-4" />}
+                icon={<TrendingUp className="size-4" />}
                 label="Reports"
                 onClick={() => {}}
               />
               <SidebarItem
-                icon={<Wallet className="w-4 h-4" />}
+                icon={<Wallet className="size-4" />}
                 label="Credits & usage"
                 onClick={() => {}}
               />
               <SidebarItem
-                icon={<Receipt className="w-4 h-4" />}
+                icon={<Receipt className="size-4" />}
                 label="Billing"
                 onClick={() => {}}
               />
               <SidebarItem
-                icon={<Gift className="w-4 h-4" />}
+                icon={<Gift className="size-4" />}
                 label="Refer & Earn"
                 onClick={() => {}}
               />
               <div className="pt-2">
                 <SidebarItem
-                  icon={<LogOut className="w-4 h-4 text-red-400" />}
+                  icon={<LogOut className="size-4 text-red-400" />}
                   label="Sign Out"
                   onClick={handleLogout}
                 />
@@ -194,11 +194,11 @@ export default function RecruiterLayout({
 
           <div className="p-3 border-t border-gray-50 space-y-0.5">
             <SidebarItem
-              icon={<HelpCircle className="w-4 h-4" />}
+              icon={<HelpCircle className="size-4" />}
               label="Help & Support"
             />
             <SidebarItem
-              icon={<PhoneCall className="w-4 h-4" />}
+              icon={<PhoneCall className="size-4" />}
               label="Contact Sales"
               badge="Offers"
             />
@@ -207,8 +207,8 @@ export default function RecruiterLayout({
               <div className="bg-gradient-to-br from-wise-green/20 via-wise-green/5 to-transparent rounded-[1.5rem] p-5 relative overflow-hidden border border-wise-green/10">
                 <div className="relative z-10 space-y-3">
                   <div className="flex items-center gap-2">
-                    <div className="w-5 h-5 rounded-md bg-wise-green flex items-center justify-center">
-                      <ShoppingBag className="w-3 h-3 text-near-black" />
+                    <div className="size-5 rounded-md bg-wise-green flex items-center justify-center">
+                      <ShoppingBag className="size-3 text-near-black" />
                     </div>
                     <span className="text-[9px] font-black text-wise-green uppercase tracking-widest">
                       Growth Deal
@@ -242,8 +242,8 @@ export default function RecruiterLayout({
                   2,450
                 </span>
               </div>
-              <div className="w-7 h-7 rounded-full bg-wise-green/10 flex items-center justify-center text-wise-green">
-                <CreditCard className="w-3.5 h-3.5" />
+              <div className="size-7 rounded-full bg-wise-green/10 flex items-center justify-center text-wise-green">
+                <CreditCard className="size-3.5" />
               </div>
             </div>
 
@@ -251,10 +251,10 @@ export default function RecruiterLayout({
               onClick={() => router.push("/recruiter/profile")}
               className="flex items-center gap-3 border-l border-gray-100 pl-5 cursor-pointer group"
             >
-              <div className="w-9 h-9 rounded-full bg-near-black text-white flex items-center justify-center font-black text-xs transition-transform group-hover:scale-105">
+              <div className="size-9 rounded-full bg-near-black text-white flex items-center justify-center font-black text-xs transition-transform group-hover:scale-105">
                 U
               </div>
-              <Menu className="w-4 h-4 text-gray-300 group-hover:text-near-black transition-colors" />
+              <Menu className="size-4 text-gray-300 group-hover:text-near-black transition-colors" />
             </div>
           </header>
 

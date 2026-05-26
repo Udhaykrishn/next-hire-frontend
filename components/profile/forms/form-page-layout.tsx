@@ -27,8 +27,8 @@ export const FormPageLayout = ({
             href="/profile"
             className="inline-flex items-center gap-2 text-[13px] font-black text-gray-400 hover:text-wise-green transition-colors group"
           >
-            <div className="w-9 h-9 rounded-full bg-white border border-gray-100 flex items-center justify-center group-hover:border-wise-green group-hover:bg-wise-green/5 transition-all">
-              <ChevronLeft className="w-4 h-4" />
+            <div className="size-9 rounded-full bg-white border border-gray-100 flex items-center justify-center group-hover:border-wise-green group-hover:bg-wise-green/5 transition-all">
+              <ChevronLeft className="size-4" />
             </div>
             Back to Profile
           </Link>

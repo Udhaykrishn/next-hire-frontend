@@ -192,7 +192,7 @@ export default function ProfileSetupPage() {
                     htmlFor="phone"
                     className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
                   >
-                    <Phone className="w-4 h-4" /> Phone Number{" "}
+                    <Phone className="size-4" /> Phone Number{" "}
                     <span className="text-red-500">*</span>
                   </Label>
                   <Input
@@ -212,7 +212,7 @@ export default function ProfileSetupPage() {
                     htmlFor="role_of_title"
                     className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
                   >
-                    <User className="w-4 h-4" /> Job Title{" "}
+                    <User className="size-4" /> Job Title{" "}
                     <span className="text-gray-400 font-normal normal-case tracking-normal">
                       (optional)
                     </span>
@@ -251,7 +251,7 @@ export default function ProfileSetupPage() {
                   disabled={isLoading}
                 >
                   {isLoading ? "Saving..." : "Complete Setup"}
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="size-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </form>
             </CardContent>

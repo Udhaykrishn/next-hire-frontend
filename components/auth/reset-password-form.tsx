@@ -58,7 +58,7 @@ export function ResetPasswordForm({ token, role }: ResetPasswordFormProps) {
             htmlFor="password"
             className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
           >
-            <Lock className="w-4 h-4 text-wise-green" /> New Password
+            <Lock className="size-4 text-wise-green" /> New Password
           </Label>
           <Input
             id="password"
@@ -77,7 +77,7 @@ export function ResetPasswordForm({ token, role }: ResetPasswordFormProps) {
             htmlFor="confirmPassword"
             className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
           >
-            <Lock className="w-4 h-4 text-wise-green" /> Confirm Password
+            <Lock className="size-4 text-wise-green" /> Confirm Password
           </Label>
           <Input
             id="confirmPassword"

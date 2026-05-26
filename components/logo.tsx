@@ -14,10 +14,10 @@ export function Logo({
   withText = true,
 }: LogoProps) {
   const sizeClasses = {
-    sm: "w-6 h-6",
-    md: "w-8 h-8",
-    lg: "w-12 h-12",
-    xl: "w-16 h-16",
+    sm: "size-6",
+    md: "size-8",
+    lg: "size-12",
+    xl: "size-16",
   };
 
   const textSizeClasses = {
@@ -67,7 +67,7 @@ export function Logo({
           <span className="text-foreground">Next</span>
           <span className="text-wise-green">Hire</span>
           <motion.div
-            className="w-1.5 h-1.5 rounded-full bg-wise-green ml-1 mb-1"
+            className="size-1.5 rounded-full bg-wise-green ml-1 mb-1"
             animate={{ opacity: [1, 0, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
           />

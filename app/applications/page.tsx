@@ -45,12 +45,12 @@ export default function CandidateApplicationsPage() {
             className="bg-white rounded-[2rem] p-12 border border-gray-100 shadow-xl shadow-[#258265]/5 flex flex-col items-center justify-center text-center relative overflow-hidden"
           >
             {/* Decorative Background */}
-            <div className="absolute -top-24 -right-24 w-64 h-64 bg-[#258265]/5 rounded-full blur-[80px] pointer-events-none" />
+            <div className="absolute -top-24 -right-24 size-64 bg-[#258265]/5 rounded-full blur-[80px] pointer-events-none" />
 
-            <div className="w-24 h-24 bg-[#258265]/10 text-[#258265] rounded-full flex items-center justify-center mb-8 relative">
-              <FileText className="w-10 h-10" />
-              <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-sm">
-                <Clock className="w-4 h-4 text-gray-400" />
+            <div className="size-24 bg-[#258265]/10 text-[#258265] rounded-full flex items-center justify-center mb-8 relative">
+              <FileText className="size-10" />
+              <div className="absolute -bottom-2 -right-2 size-8 bg-white rounded-full flex items-center justify-center shadow-sm">
+                <Clock className="size-4 text-gray-400" />
               </div>
             </div>
 
@@ -66,7 +66,7 @@ export default function CandidateApplicationsPage() {
               href="/jobs"
               className="h-14 px-8 rounded-2xl text-[15px] font-black bg-[#258265] text-white hover:bg-[#1f6b53] flex items-center justify-center transition-all shadow-lg shadow-[#258265]/20"
             >
-              <Search className="w-4 h-4 mr-2" />
+              <Search className="size-4 mr-2" />
               Explore Jobs
             </Link>
           </motion.div>

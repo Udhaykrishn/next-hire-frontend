@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { domAnimation, LazyMotion, m } from "framer-motion";
 import { Briefcase, Check, FileText, Layers } from "lucide-react";
 import type React from "react";
 import { JOB_CATEGORIES } from "@/app/recruiter/jobs/create/new/constants";
@@ -29,7 +29,7 @@ export const Step1Details = ({
   errors,
 }: Step1DetailsProps) => {
   return (
-    <motion.div
+    <m.div
       key="step1"
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
@@ -52,8 +52,8 @@ export const Step1Details = ({
         <div className="space-y-4">
           <div className="flex items-center justify-between px-4 py-3 rounded-xl bg-slate-50/80 border border-slate-100 relative">
             <div className="flex items-center gap-3 w-full">
-              <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center shadow-sm shrink-0">
-                <Briefcase className="w-5 h-5 text-wise-green" />
+              <div className="size-10 rounded-lg bg-white flex items-center justify-center shadow-sm shrink-0">
+                <Briefcase className="size-5 text-wise-green" />
               </div>
               <div className="flex-1" id="field-hiringCompany">
                 <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">
@@ -105,8 +105,8 @@ export const Step1Details = ({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="flex items-center justify-between px-4 py-3 rounded-xl bg-slate-50/80 border border-slate-100 relative">
               <div className="flex items-center gap-3 w-full">
-                <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center shadow-sm shrink-0">
-                  <FileText className="w-5 h-5 text-wise-green" />
+                <div className="size-10 rounded-lg bg-white flex items-center justify-center shadow-sm shrink-0">
+                  <FileText className="size-5 text-wise-green" />
                 </div>
                 <div className="flex-1" id="field-jobTitle">
                   <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">
@@ -137,8 +137,8 @@ export const Step1Details = ({
 
             <div className="flex items-center justify-between px-4 py-3 rounded-xl bg-slate-50/80 border border-slate-100 relative">
               <div className="flex items-center gap-3 w-full">
-                <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center shadow-sm shrink-0">
-                  <Layers className="w-5 h-5 text-wise-green" />
+                <div className="size-10 rounded-lg bg-white flex items-center justify-center shadow-sm shrink-0">
+                  <Layers className="size-5 text-wise-green" />
                 </div>
                 <div className="flex-1" id="field-jobCategory">
                   <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">
@@ -219,15 +219,13 @@ export const Step1Details = ({
                 }))
               }
               className={cn(
-                "w-5 h-5 rounded border-2 flex items-center justify-center transition-colors",
+                "size-5 rounded border-2 flex items-center justify-center transition-colors",
                 formData.isNightShift
                   ? "bg-near-black border-near-black"
                   : "border-gray-200",
               )}
             >
-              {formData.isNightShift && (
-                <Check className="w-3 h-3 text-white" />
-              )}
+              {formData.isNightShift && <Check className="size-3 text-white" />}
             </button>
             <span className="text-[13px] font-bold text-gray-500">
               This is a night shift job
@@ -335,7 +333,7 @@ export const Step1Details = ({
                         "(excluding incentives)"}{" "}
                       <span className="text-red-500">*</span>
                     </Label>
-                    <div className="w-3.5 h-3.5 rounded-full border border-gray-400 flex items-center justify-center text-[9px] font-bold text-gray-500 cursor-help">
+                    <div className="size-3.5 rounded-full border border-gray-400 flex items-center justify-center text-[9px] font-bold text-gray-500 cursor-help">
                       i
                     </div>
                   </div>
@@ -408,7 +406,7 @@ export const Step1Details = ({
                       Average Incentive / month{" "}
                       <span className="text-red-500">*</span>
                     </Label>
-                    <div className="w-3.5 h-3.5 rounded-full border border-gray-400 flex items-center justify-center text-[9px] font-bold text-gray-500 cursor-help">
+                    <div className="size-3.5 rounded-full border border-gray-400 flex items-center justify-center text-[9px] font-bold text-gray-500 cursor-help">
                       i
                     </div>
                   </div>
@@ -531,7 +529,10 @@ export const Step1Details = ({
                   );
                 })}
               </div>
-              <button className="text-near-black font-black text-[13px] hover:underline underline-offset-4 decoration-2">
+              <button
+                type="button"
+                className="text-near-black font-black text-[13px] hover:underline underline-offset-4 decoration-2"
+              >
                 + Add other perks
               </button>
             </div>
@@ -669,6 +670,6 @@ export const Step1Details = ({
           </div>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 };

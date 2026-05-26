@@ -83,7 +83,7 @@ export const ResumeUpload = () => {
   if (isUploadingResume) {
     return (
       <div className="flex flex-col items-center justify-center p-6 border-2 border-dashed border-wise-green/30 rounded-2xl bg-wise-green/5 gap-3">
-        <Loader2 className="w-8 h-8 text-wise-green animate-spin" />
+        <Loader2 className="size-8 text-wise-green animate-spin" />
         <p className="text-[14px] font-bold text-wise-green">
           Uploading resume...
         </p>
@@ -94,8 +94,8 @@ export const ResumeUpload = () => {
   if (isDeletingResume) {
     return (
       <div className="flex flex-col items-center justify-center p-6 border-2 border-dashed border-red-200 rounded-2xl bg-red-50/50 gap-3">
-        <Loader2 className="w-8 h-8 text-red-500 animate-spin" />
-        <p className="text-[14px] font-bold text-red-500">Deleting resume...</p>
+        <Loader2 className="size-8 text-red-500 animate-spin" />
+        <p className="text-[14px] font-bold text-red-500">Deleting resume…</p>
       </div>
     );
   }
@@ -115,8 +115,8 @@ export const ResumeUpload = () => {
             className="hidden"
           />
           <div className="flex items-start gap-4 p-4 bg-gray-50 border border-gray-100 rounded-2xl relative group/item">
-            <div className="w-10 h-10 rounded-xl bg-white border border-gray-100 flex items-center justify-center text-wise-green shadow-sm shrink-0">
-              <FileText className="w-5 h-5" />
+            <div className="size-10 rounded-xl bg-white border border-gray-100 flex items-center justify-center text-wise-green shadow-sm shrink-0">
+              <FileText className="size-5" />
             </div>
             <div className="min-w-0 flex-1">
               <p className="text-[14px] font-bold text-gray-900 truncate pr-4">
@@ -135,7 +135,7 @@ export const ResumeUpload = () => {
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 py-2 px-3 bg-gray-50 hover:bg-gray-100 text-gray-700 text-[12px] font-black rounded-xl border border-gray-100 transition-all"
             >
-              <Download className="w-3.5 h-3.5" />
+              <Download className="size-3.5" />
               View
             </a>
             <button
@@ -143,7 +143,7 @@ export const ResumeUpload = () => {
               onClick={handleReplaceClick}
               className="flex items-center justify-center gap-2 py-2 px-3 bg-gray-50 hover:bg-gray-100 text-gray-700 text-[12px] font-black rounded-xl border border-gray-100 transition-all"
             >
-              <RefreshCw className="w-3.5 h-3.5" />
+              <RefreshCw className="size-3.5" />
               Replace
             </button>
             <button
@@ -151,7 +151,7 @@ export const ResumeUpload = () => {
               onClick={handleDelete}
               className="flex items-center justify-center gap-2 py-2 px-3 bg-red-50 hover:bg-red-100 text-red-600 text-[12px] font-black rounded-xl border border-red-100 transition-all"
             >
-              <Trash className="w-3.5 h-3.5" />
+              <Trash className="size-3.5" />
               Delete
             </button>
           </div>

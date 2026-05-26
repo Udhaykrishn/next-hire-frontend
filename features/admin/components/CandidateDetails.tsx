@@ -45,7 +45,7 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
   if (isPending) {
     return (
       <div className="min-h-[60vh] flex flex-col items-center justify-center space-y-4">
-        <div className="w-12 h-12 border-4 border-wise-green border-t-transparent rounded-full animate-spin" />
+        <div className="size-12 border-4 border-wise-green border-t-transparent rounded-full animate-spin" />
         <p className="text-xs font-black uppercase tracking-widest text-gray-400">
           Analyzing Profile Data...
         </p>
@@ -59,8 +59,8 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
     <div className="space-y-8">
       {isBlocked && (
         <div className="bg-red-50/70 border border-red-100 rounded-[2rem] p-6 flex items-start gap-4 animate-in fade-in slide-in-from-top-4 duration-500">
-          <div className="w-12 h-12 rounded-2xl bg-red-500 flex items-center justify-center text-white shadow-lg shadow-red-500/20 shrink-0">
-            <Ban className="w-6 h-6" />
+          <div className="size-12 rounded-2xl bg-red-500 flex items-center justify-center text-white shadow-lg shadow-red-500/20 shrink-0">
+            <Ban className="size-6" />
           </div>
           <div className="space-y-1">
             <h4 className="text-sm font-black text-red-600 uppercase tracking-widest">
@@ -81,10 +81,10 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
         {/* Left Column: Profile Card */}
         <div className="space-y-8">
           <section className="bg-white border border-gray-100 rounded-[3rem] p-10 shadow-sm overflow-hidden relative group">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-wise-green/10 rounded-full blur-3xl -mr-10 -mt-10 group-hover:bg-wise-green/20 transition-all" />
+            <div className="absolute top-0 right-0 size-32 bg-wise-green/10 rounded-full blur-3xl -mr-10 -mt-10 group-hover:bg-wise-green/20 transition-all" />
 
             <div className="relative z-10 space-y-6">
-              <div className="w-32 h-32 rounded-[2.5rem] bg-wise-green flex items-center justify-center text-4xl font-black text-near-black shadow-2xl">
+              <div className="size-32 rounded-[2.5rem] bg-wise-green flex items-center justify-center text-4xl font-black text-near-black shadow-2xl">
                 {candidate.name.charAt(0)}
               </div>
 
@@ -99,24 +99,24 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
 
               <div className="space-y-4 pt-4 border-t border-gray-100">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-xl bg-gray-50 flex items-center justify-center">
-                    <Mail className="w-4 h-4 text-wise-green" />
+                  <div className="size-8 rounded-xl bg-gray-50 flex items-center justify-center">
+                    <Mail className="size-4 text-wise-green" />
                   </div>
                   <span className="text-sm font-medium text-slate-600 truncate max-w-[200px]">
                     {candidate.email}
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-xl bg-gray-50 flex items-center justify-center">
-                    <Phone className="w-4 h-4 text-wise-green" />
+                  <div className="size-8 rounded-xl bg-gray-50 flex items-center justify-center">
+                    <Phone className="size-4 text-wise-green" />
                   </div>
                   <span className="text-sm font-medium text-slate-600">
                     {candidate.phone}
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-xl bg-gray-50 flex items-center justify-center">
-                    <MapPin className="w-4 h-4 text-wise-green" />
+                  <div className="size-8 rounded-xl bg-gray-50 flex items-center justify-center">
+                    <MapPin className="size-4 text-wise-green" />
                   </div>
                   <span className="text-sm font-medium text-slate-600">
                     {candidate.location}
@@ -128,7 +128,7 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
 
           <section className="bg-white border border-gray-100 rounded-[2.5rem] p-8 shadow-sm">
             <h3 className="text-sm font-extrabold text-slate-800 uppercase tracking-wider mb-6 flex items-center gap-2 border-b border-gray-50 pb-3">
-              <BadgeCheck className="w-5 h-5 text-wise-green" />
+              <BadgeCheck className="size-5 text-wise-green" />
               Core Competencies
             </h3>
             <div className="flex flex-wrap gap-2">
@@ -168,7 +168,7 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
           <div className="grid grid-cols-1 gap-8">
             <section className="bg-white border border-gray-100 rounded-[2.5rem] p-8 shadow-sm">
               <h3 className="text-sm font-extrabold text-slate-800 uppercase tracking-wider mb-6 flex items-center gap-2 border-b border-gray-50 pb-3">
-                <Briefcase className="w-5 h-5 text-wise-green" />
+                <Briefcase className="size-5 text-wise-green" />
                 Work History & Experience
               </h3>
               <div className="space-y-8">
@@ -178,7 +178,7 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
                       key={exp.id}
                       className="relative pl-8 border-l-2 border-slate-100 pb-6 last:pb-0"
                     >
-                      <div className="absolute top-1 -left-[6px] w-2.5 h-2.5 rounded-full bg-wise-green border-2 border-white shadow-sm" />
+                      <div className="absolute top-1 -left-[6px] size-2.5 rounded-full bg-wise-green border-2 border-white shadow-sm" />
                       <p className="text-base font-extrabold text-slate-800">
                         {exp.projectName}
                       </p>
@@ -236,7 +236,7 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
 
             <section className="bg-white border border-gray-100 rounded-[2.5rem] p-8 shadow-sm">
               <h3 className="text-sm font-extrabold text-slate-800 uppercase tracking-wider mb-6 flex items-center gap-2 border-b border-gray-50 pb-3">
-                <GraduationCap className="w-5 h-5 text-wise-green" />
+                <GraduationCap className="size-5 text-wise-green" />
                 Educational Background
               </h3>
               <div className="space-y-6">
@@ -246,7 +246,7 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
                       key={edu.id}
                       className="relative pl-8 border-l-2 border-slate-100 pb-6 last:pb-0"
                     >
-                      <div className="absolute top-1 -left-[6px] w-2.5 h-2.5 rounded-full bg-wise-green border-2 border-white shadow-sm" />
+                      <div className="absolute top-1 -left-[6px] size-2.5 rounded-full bg-wise-green border-2 border-white shadow-sm" />
                       <p className="text-base font-extrabold text-slate-800">
                         {edu.degree} in {edu.fieldOfStudy}
                       </p>
@@ -301,7 +301,7 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
                     key={cert.id}
                     className="flex items-center gap-4 p-5 bg-slate-50/50 hover:bg-slate-50 rounded-3xl border border-slate-100/50 transition-all hover:shadow-sm"
                   >
-                    <div className="w-12 h-12 rounded-2xl bg-wise-green/10 text-wise-green flex items-center justify-center font-black text-lg shrink-0">
+                    <div className="size-12 rounded-2xl bg-wise-green/10 text-wise-green flex items-center justify-center font-black text-lg shrink-0">
                       {cert.certificateName.charAt(0).toUpperCase()}
                     </div>
                     <div>
@@ -333,7 +333,7 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
           <section className="bg-white border border-gray-100 rounded-[2.5rem] p-8 shadow-sm">
             <div className="flex items-center justify-between mb-8">
               <h3 className="text-sm font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-2">
-                <Clock className="w-5 h-5 text-wise-green" />
+                <Clock className="size-5 text-wise-green" />
                 Active Job Applications
               </h3>
               <span className="text-[10px] font-black text-wise-green uppercase tracking-widest bg-wise-green/5 px-4 py-2 rounded-xl">
@@ -385,7 +385,7 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
           {/* Documents Section */}
           <section className="bg-gray-50 border border-gray-100 rounded-[2.5rem] p-8">
             <h3 className="text-sm font-extrabold text-slate-800 uppercase tracking-wider mb-6 flex items-center gap-2">
-              <FileText className="w-5 h-5 text-wise-green" />
+              <FileText className="size-5 text-wise-green" />
               Credential Dossier & Attachments
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -399,8 +399,8 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
                     className="flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-100 group hover:border-wise-green transition-all cursor-pointer"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center group-hover:bg-wise-green/10 transition-colors">
-                        <FileText className="w-5 h-5 text-near-black" />
+                      <div className="size-10 rounded-xl bg-gray-50 flex items-center justify-center group-hover:bg-wise-green/10 transition-colors">
+                        <FileText className="size-5 text-near-black" />
                       </div>
                       <div>
                         <p className="text-[11px] font-black text-near-black truncate max-w-[120px] uppercase tracking-tight">
@@ -411,7 +411,7 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
                         </p>
                       </div>
                     </div>
-                    <Download className="w-4 h-4 text-gray-300 group-hover:text-wise-green transition-colors" />
+                    <Download className="size-4 text-gray-300 group-hover:text-wise-green transition-colors" />
                   </a>
                 ))
               ) : (

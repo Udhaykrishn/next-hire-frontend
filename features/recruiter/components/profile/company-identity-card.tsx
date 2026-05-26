@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, domAnimation, LazyMotion, m } from "framer-motion";
 import { Briefcase, Building2, Globe, Tag } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -24,7 +24,7 @@ export function CompanyIdentityCard({
   startEdit: (section: EditSection) => void;
 }) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.15 }}
@@ -32,7 +32,7 @@ export function CompanyIdentityCard({
       <SectionCard
         title="Company Identity"
         subtitle="Public branding and corporate information"
-        icon={<Building2 className="w-5 h-5" />}
+        icon={<Building2 className="size-5" />}
         sectionKey="company"
         editSection={editSection}
         onEdit={startEdit}
@@ -40,7 +40,7 @@ export function CompanyIdentityCard({
       >
         <AnimatePresence mode="wait">
           {isEditingCompany ? (
-            <motion.div
+            <m.div
               key="company-edit"
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
@@ -54,7 +54,7 @@ export function CompanyIdentityCard({
                     Company Role / Title
                   </Label>
                   <div className="relative">
-                    <Briefcase className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                    <Briefcase className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-gray-400" />
                     <Input
                       id="recruiter-role-input"
                       value={formData.companyRole}
@@ -74,7 +74,7 @@ export function CompanyIdentityCard({
                     Company Website
                   </Label>
                   <div className="relative">
-                    <Globe className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                    <Globe className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-gray-400" />
                     <Input
                       id="recruiter-website-input"
                       value={formData.websiteLink}
@@ -95,7 +95,7 @@ export function CompanyIdentityCard({
                   Industry / Category
                 </Label>
                 <div className="relative">
-                  <Tag className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                  <Tag className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-gray-400" />
                   <Input
                     id="recruiter-category-input"
                     value={formData.category}
@@ -124,12 +124,12 @@ export function CompanyIdentityCard({
                     }))
                   }
                   className="bg-gray-50 border-gray-200 rounded-xl font-bold text-[15px] min-h-[110px] resize-none focus-visible:ring-wise-green focus-visible:border-wise-green"
-                  placeholder="Brief summary of your company, vision, and products..."
+                  placeholder="Brief summary of your company, vision, and products…"
                 />
               </div>
-            </motion.div>
+            </m.div>
           ) : (
-            <motion.div
+            <m.div
               key="company-view"
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
@@ -141,19 +141,19 @@ export function CompanyIdentityCard({
                 <FieldView
                   label="Company Role"
                   value={formData.companyRole}
-                  icon={<Briefcase className="w-4 h-4" />}
+                  icon={<Briefcase className="size-4" />}
                   placeholder="Not set"
                 />
                 <FieldView
                   label="Website"
                   value={formData.websiteLink}
-                  icon={<Globe className="w-4 h-4" />}
+                  icon={<Globe className="size-4" />}
                   placeholder="Not set"
                 />
                 <FieldView
                   label="Industry"
                   value={formData.category}
-                  icon={<Tag className="w-4 h-4" />}
+                  icon={<Tag className="size-4" />}
                   placeholder="Not set"
                 />
               </div>
@@ -175,10 +175,10 @@ export function CompanyIdentityCard({
                     No company details added yet — click Edit to get started.
                   </p>
                 )}
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
       </SectionCard>
-    </motion.div>
+    </m.div>
   );
 }

@@ -38,7 +38,7 @@ export default function CandidateProfilePage() {
   if (isLoading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
-        <div className="w-10 h-10 border-4 border-[#e8ebe6] border-t-[#0e0f0c] rounded-full animate-spin" />
+        <div className="size-10 border-4 border-[#e8ebe6] border-t-[#0e0f0c] rounded-full animate-spin" />
         <p className="text-[#868685] font-[500] text-[15px]">
           Loading full profile...
         </p>

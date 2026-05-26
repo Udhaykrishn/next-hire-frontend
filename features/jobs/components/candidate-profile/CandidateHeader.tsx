@@ -18,7 +18,7 @@ export function CandidateHeader({
         onClick={onGoBack}
         className="flex items-center gap-2 text-[#454745] hover:text-[#0e0f0c] font-[600] transition-colors self-start bg-white px-4 py-2 rounded-full border border-[rgba(14,15,12,0.08)] shadow-sm"
       >
-        <ArrowLeft className="w-4 h-4" /> Back to List
+        <ArrowLeft className="size-4" /> Back to List
       </button>
 
       <div className="flex items-center gap-2 bg-[#ffffff] p-1.5 rounded-full border border-[rgba(14,15,12,0.08)] shadow-sm">

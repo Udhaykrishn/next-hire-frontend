@@ -28,10 +28,10 @@ export function CandidateApplicationsFilters({
       <div className="flex flex-col md:flex-row gap-3 w-full lg:w-auto">
         {/* Search */}
         <div className="relative w-full md:w-80 group">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-wise-green transition-colors duration-300" />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-gray-400 group-focus-within:text-wise-green transition-colors duration-300" />
           <input
             type="text"
-            placeholder="Filter by company or role..."
+            placeholder="Filter by company or role…"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full h-[52px] pl-[3.25rem] pr-4 bg-white border border-gray-200/60 rounded-xl text-[14px] font-medium placeholder:text-gray-400 focus:ring-2 focus:ring-wise-green/50 focus:border-wise-green outline-none transition-all duration-300 shadow-sm hover:shadow-md"
@@ -50,7 +50,7 @@ export function CandidateApplicationsFilters({
             <option value="INTERVIEWS">Interviews</option>
             <option value="OFFERS">Offers</option>
           </select>
-          <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none group-hover:text-gray-600 transition-colors" />
+          <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 size-4 text-gray-400 pointer-events-none group-hover:text-gray-600 transition-colors" />
         </div>
       </div>
 
@@ -60,7 +60,7 @@ export function CandidateApplicationsFilters({
           onClick={clearFilters}
           className="flex-1 md:flex-none h-[52px] px-6 bg-white border border-gray-200/60 rounded-xl text-[14px] font-bold flex items-center justify-center gap-2.5 hover:bg-gray-50 hover:border-gray-300 transition-all duration-300 shadow-sm hover:shadow-md text-gray-600 hover:text-gray-900 group"
         >
-          <Filter className="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition-colors" />{" "}
+          <Filter className="size-4 text-gray-400 group-hover:text-gray-600 transition-colors" />{" "}
           Clear
         </button>
         <button
@@ -68,7 +68,7 @@ export function CandidateApplicationsFilters({
           onClick={refetch}
           className="flex-1 md:flex-none h-[52px] px-6 bg-gray-900 text-white rounded-xl text-[14px] font-bold flex items-center justify-center gap-2.5 hover:bg-gray-800 transition-all duration-300 shadow-md hover:shadow-lg shadow-gray-900/20 active:scale-95 group"
         >
-          <RefreshCw className="w-4 h-4 text-gray-400 group-hover:text-white group-hover:rotate-180 transition-all duration-500" />{" "}
+          <RefreshCw className="size-4 text-gray-400 group-hover:text-white group-hover:rotate-180 transition-all duration-500" />{" "}
           Refresh
         </button>
       </div>

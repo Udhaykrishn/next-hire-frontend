@@ -57,7 +57,7 @@ export function CandidateApplicationCard({
     >
       {/* Left: Company Logo & Details */}
       <div className="flex items-center gap-5 flex-1 min-w-0">
-        <div className="w-16 h-16 shrink-0 bg-gray-50/80 rounded-2xl flex items-center justify-center font-black text-xl text-gray-400 border border-gray-100 group-hover:bg-wise-green/10 group-hover:text-wise-green transition-colors duration-300 uppercase shadow-sm">
+        <div className="size-16 shrink-0 bg-gray-50/80 rounded-2xl flex items-center justify-center font-black text-xl text-gray-400 border border-gray-100 group-hover:bg-wise-green/10 group-hover:text-wise-green transition-colors duration-300 uppercase shadow-sm">
           {job.hiringCompany?.[0] || job.jobTitle?.[0] || "?"}
         </div>
         <div className="min-w-0">
@@ -70,7 +70,7 @@ export function CandidateApplicationCard({
             </h4>
           </Link>
           <p className="text-[13px] font-bold text-gray-500 flex items-center gap-1.5 truncate">
-            <Building className="w-3.5 h-3.5 shrink-0 opacity-70" />
+            <Building className="size-3.5 shrink-0 opacity-70" />
             {job.hiringCompany || "Unknown"}
           </p>
         </div>
@@ -89,7 +89,7 @@ export function CandidateApplicationCard({
             Salary
           </p>
           <p className="text-[14px] font-bold text-gray-800 flex items-center gap-1">
-            <IndianRupee className="w-3.5 h-3.5 text-gray-400 group-hover:text-wise-green transition-colors" />
+            <IndianRupee className="size-3.5 text-gray-400 group-hover:text-wise-green transition-colors" />
             {salaryStr}
           </p>
         </div>
@@ -107,7 +107,7 @@ export function CandidateApplicationCard({
         <div className="flex items-center gap-2">
           <DropdownMenu>
             <DropdownMenuTrigger className="p-2.5 bg-white border border-gray-200/60 hover:bg-gray-50 hover:border-gray-300 rounded-xl transition-all duration-300 outline-none focus:ring-2 focus:ring-wise-green/50 flex items-center justify-center text-gray-400 hover:text-gray-600 shadow-sm">
-              <MoreVertical className="w-4 h-4" />
+              <MoreVertical className="size-4" />
             </DropdownMenuTrigger>
             <DropdownMenuContent
               align="end"
@@ -134,7 +134,7 @@ export function CandidateApplicationCard({
               type="button"
               className="w-[42px] h-[42px] flex items-center justify-center bg-gray-900 text-white hover:bg-wise-green hover:text-dark-green rounded-xl transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-wise-green/20 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-wise-green focus-visible:ring-offset-2 group/btn"
             >
-              <ChevronRight className="w-4 h-4 group-hover/btn:translate-x-0.5 transition-transform" />
+              <ChevronRight className="size-4 group-hover/btn:translate-x-0.5 transition-transform" />
             </button>
           </Link>
         </div>

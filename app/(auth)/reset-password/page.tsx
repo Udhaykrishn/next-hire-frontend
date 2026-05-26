@@ -34,15 +34,15 @@ function ResetPasswordContent() {
     <Card className="border-gray-200 shadow-2xl shadow-gray-200/50 rounded-[2rem] overflow-hidden bg-white/80 backdrop-blur-xl">
       <CardHeader className="space-y-2 pb-8 pt-10 text-center relative border-b border-gray-100">
         <motion.div
-          initial={{ scale: 0 }}
+          initial={{ scale: 0.95 }}
           animate={{ scale: 1 }}
           transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-          className="absolute top-0 right-10 translate-y-[-50%] w-16 h-16 bg-wise-green rounded-2xl flex items-center justify-center shadow-[0_0_40px_rgba(159,232,112,0.3)] rotate-6"
+          className="absolute top-0 right-10 translate-y-[-50%] size-16 bg-wise-green rounded-2xl flex items-center justify-center shadow-[0_0_40px_rgba(159,232,112,0.3)] rotate-6"
         >
           {isValidating || isValid ? (
-            <LockKeyhole className="w-8 h-8 text-dark-green" />
+            <LockKeyhole className="size-8 text-dark-green" />
           ) : (
-            <AlertTriangle className="w-8 h-8 text-red-700 animate-bounce" />
+            <AlertTriangle className="size-8 text-red-700 animate-bounce" />
           )}
         </motion.div>
 
@@ -65,7 +65,7 @@ function ResetPasswordContent() {
       <CardContent className="space-y-6 pt-8 px-10">
         {isValidating ? (
           <div className="flex flex-col items-center justify-center py-10 space-y-4">
-            <div className="w-10 h-10 border-4 border-wise-green border-t-transparent rounded-full animate-spin" />
+            <div className="size-10 border-4 border-wise-green border-t-transparent rounded-full animate-spin" />
             <p className="text-sm font-bold text-gray-500 uppercase tracking-widest">
               Checking Link Security
             </p>
@@ -95,7 +95,7 @@ function ResetPasswordContent() {
           href={loginLink}
           className="text-sm text-gray-500 font-medium flex items-center gap-2 hover:text-gray-900 transition-colors"
         >
-          <ArrowLeft className="w-4 h-4" /> Back to Login
+          <ArrowLeft className="size-4" /> Back to Login
         </Link>
       </CardFooter>
     </Card>
@@ -128,7 +128,7 @@ export default function ResetPasswordPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="flex justify-center py-12">
-                <div className="w-10 h-10 border-4 border-wise-green border-t-transparent rounded-full animate-spin" />
+                <div className="size-10 border-4 border-wise-green border-t-transparent rounded-full animate-spin" />
               </CardContent>
             </Card>
           }

@@ -73,8 +73,8 @@ export default function AdminSettings() {
             className="bg-white rounded-[32px] border border-gray-50 shadow-sm overflow-hidden"
           >
             <div className="px-8 py-6 border-b border-gray-50 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center">
-                <group.icon className="w-5 h-5 text-gray-400" />
+              <div className="size-10 rounded-xl bg-gray-50 flex items-center justify-center">
+                <group.icon className="size-5 text-gray-400" />
               </div>
               <h2 className="text-lg font-black text-near-black tracking-tight">
                 {group.title}
@@ -105,7 +105,7 @@ export default function AdminSettings() {
                   >
                     <div
                       className={cn(
-                        "absolute top-1 w-4 h-4 rounded-full bg-white transition-all duration-300 shadow-sm",
+                        "absolute top-1 size-4 rounded-full bg-white transition-all duration-300 shadow-sm",
                         setting.enabled ? "right-1" : "left-1",
                       )}
                     />

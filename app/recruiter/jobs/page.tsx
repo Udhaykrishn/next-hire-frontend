@@ -24,14 +24,14 @@ export default function RecruiterJobsPage() {
           href="/recruiter/jobs/create/new"
           className="bg-wise-green text-near-black px-6 py-3 rounded-full font-bold flex items-center gap-2 hover:bg-wise-green/90 transition-all shadow-sm hover:shadow-md active:scale-[0.98]"
         >
-          <Plus className="w-5 h-5" />
+          <Plus className="size-5" />
           Post New Job
         </Link>
       </div>
 
       {isLoading ? (
         <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-wise-green"></div>
+          <div className="animate-spin rounded-full size-8 border-b-2 border-wise-green"></div>
         </div>
       ) : error ? (
         <div className="bg-red-50 text-red-500 p-4 rounded-xl border border-red-100">
@@ -45,8 +45,8 @@ export default function RecruiterJobsPage() {
               className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between group hover:border-wise-green/50 transition-colors"
             >
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center shrink-0 border border-slate-100 group-hover:bg-wise-green/10 transition-colors">
-                  <Briefcase className="w-6 h-6 text-slate-400 group-hover:text-wise-green transition-colors" />
+                <div className="size-12 rounded-xl bg-slate-50 flex items-center justify-center shrink-0 border border-slate-100 group-hover:bg-wise-green/10 transition-colors">
+                  <Briefcase className="size-6 text-slate-400 group-hover:text-wise-green transition-colors" />
                 </div>
                 <div>
                   <div className="flex items-center gap-3">
@@ -70,10 +70,9 @@ export default function RecruiterJobsPage() {
                   <div className="flex items-center gap-4 mt-3 text-xs text-slate-400 font-medium">
                     <span>
                       Posted{" "}
-                      {format(
-                        new Date(job.created_at || Date.now()),
-                        "MMM d, yyyy",
-                      )}
+                      {job.created_at
+                        ? format(new Date(job.created_at), "MMM d, yyyy")
+                        : "—"}
                     </span>
                     <span>•</span>
                     <span className="text-wise-green/80 font-bold">
@@ -102,8 +101,8 @@ export default function RecruiterJobsPage() {
         </div>
       ) : (
         <div className="text-center py-24 bg-slate-50 rounded-3xl border border-dashed border-slate-200">
-          <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm">
-            <Briefcase className="w-8 h-8 text-slate-300" />
+          <div className="size-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm">
+            <Briefcase className="size-8 text-slate-300" />
           </div>
           <h3 className="text-xl font-bold text-near-black mb-2">
             No jobs posted yet
@@ -116,7 +115,7 @@ export default function RecruiterJobsPage() {
             href="/recruiter/jobs/create/new"
             className="inline-flex items-center gap-2 bg-white border border-slate-200 text-near-black px-6 py-3 rounded-full font-bold hover:bg-slate-50 transition-colors shadow-sm"
           >
-            <Plus className="w-5 h-5" />
+            <Plus className="size-5" />
             Create First Job
           </Link>
         </div>

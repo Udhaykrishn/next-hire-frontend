@@ -47,7 +47,7 @@ export function ApplicationDetails({
             Applied On
           </p>
           <p className="text-[14px] font-[600] text-[#0e0f0c] flex items-center gap-1.5">
-            <Calendar className="w-4 h-4 text-[#868685]" />
+            <Calendar className="size-4 text-[#868685]" />
             {new Date(createdAt).toLocaleDateString(undefined, {
               day: "numeric",
               month: "short",
@@ -64,7 +64,7 @@ export function ApplicationDetails({
             onClick={() => window.open(resumeUrl, "_blank")}
             className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-[12px] bg-[#054d28] text-white font-[600] text-[15px] hover:bg-[#054d28]/90 transition-all shadow-sm"
           >
-            <FileText className="w-5 h-5" /> View Resume PDF
+            <FileText className="size-5" /> View Resume PDF
           </button>
         </div>
       )}

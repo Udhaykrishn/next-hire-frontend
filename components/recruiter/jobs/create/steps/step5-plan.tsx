@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { domAnimation, LazyMotion, m } from "framer-motion";
 import { AlertCircle, Check, Zap } from "lucide-react";
 import type { JobFormData, Plan } from "@/app/recruiter/jobs/create/new/types";
 import { cn } from "@/lib/utils";
@@ -21,7 +21,7 @@ export const Step5Plan = ({
   const getSafeNum = (val: string | number | undefined) => Number(val) || 0;
 
   return (
-    <motion.div
+    <m.div
       key="step5"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -68,7 +68,7 @@ export const Step5Plan = ({
                 >
                   <div
                     className={cn(
-                      "w-12 h-12 rounded-2xl flex items-center justify-center transition-colors",
+                      "size-12 rounded-2xl flex items-center justify-center transition-colors",
                       formData.selectedPlan === p.id
                         ? "bg-wise-green/10 text-near-black"
                         : "bg-gray-50 text-gray-300",
@@ -78,14 +78,14 @@ export const Step5Plan = ({
                   </div>
                   <div
                     className={cn(
-                      "w-6 h-6 rounded-full border-2 flex items-center justify-center",
+                      "size-6 rounded-full border-2 flex items-center justify-center",
                       formData.selectedPlan === p.id
                         ? "border-wise-green bg-wise-green"
                         : "border-gray-100",
                     )}
                   >
                     {formData.selectedPlan === p.id && (
-                      <Check className="w-3 h-3 text-white" />
+                      <Check className="size-3 text-white" />
                     )}
                   </div>
                 </div>
@@ -102,7 +102,7 @@ export const Step5Plan = ({
                 <div className="space-y-4 flex-1">
                   {p.features.map((f, i) => (
                     <div key={i} className="flex items-start gap-3">
-                      <Check className="w-4 h-4 text-wise-green shrink-0 mt-0.5" />
+                      <Check className="size-4 text-wise-green shrink-0 mt-0.5" />
                       <span className="text-[12px] font-bold text-gray-400 leading-snug">
                         {f}
                       </span>
@@ -116,7 +116,7 @@ export const Step5Plan = ({
 
         <div className="space-y-6 lg:sticky lg:top-8">
           <div className="bg-near-black rounded-[2.5rem] p-10 text-white space-y-8 relative overflow-hidden shadow-2xl">
-            <Zap className="absolute -top-10 -right-10 w-40 h-40 text-white/5 rotate-12" />
+            <Zap className="absolute -top-10 -right-10 size-40 text-white/5 rotate-12" />
             <div className="space-y-1 relative z-10">
               <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest">
                 Selected Strategy
@@ -169,7 +169,7 @@ export const Step5Plan = ({
           </div>
 
           <div className="flex items-center gap-4 p-5 rounded-[2rem] bg-orange-50 border border-orange-100 shadow-sm">
-            <AlertCircle className="w-6 h-6 text-orange-500 shrink-0" />
+            <AlertCircle className="size-6 text-orange-500 shrink-0" />
             <p className="text-[11px] font-bold text-orange-700 leading-tight">
               By deploying, you agree to our{" "}
               <span className="underline decoration-2 underline-offset-2">
@@ -180,6 +180,6 @@ export const Step5Plan = ({
           </div>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 };

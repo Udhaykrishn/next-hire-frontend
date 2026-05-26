@@ -52,7 +52,7 @@ export default function UserSignupPage() {
   if (authLoading || isAuthenticated) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center font-satoshi">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-wise-green"></div>
+        <div className="animate-spin rounded-full size-12 border-b-2 border-wise-green"></div>
       </div>
     );
   }
@@ -197,8 +197,7 @@ export default function UserSignupPage() {
                     </div>
                     <div className="relative flex justify-center text-xs uppercase font-bold tracking-widest">
                       <span className="bg-white px-4 text-gray-400 flex items-center gap-2">
-                        <ShieldCheck className="w-4 h-4" /> Trusted by 10k+
-                        users
+                        <ShieldCheck className="size-4" /> Trusted by 10k+ users
                       </span>
                     </div>
                   </div>
@@ -208,7 +207,7 @@ export default function UserSignupPage() {
                     className="w-full h-12 text-gray-600 font-bold rounded-xl hover:bg-gray-50 gap-3 transition-all"
                     onClick={() => setStep("FORM")}
                   >
-                    <Mail className="w-5 h-5" />
+                    <Mail className="size-5" />
                     Sign up with Email
                   </Button>
                 </motion.div>
@@ -226,7 +225,7 @@ export default function UserSignupPage() {
                         htmlFor="name"
                         className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
                       >
-                        <User className="w-4 h-4 text-wise-green" /> Full Name
+                        <User className="size-4 text-wise-green" /> Full Name
                       </Label>
                       <Input
                         id="name"
@@ -244,7 +243,7 @@ export default function UserSignupPage() {
                           htmlFor="email"
                           className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
                         >
-                          <Mail className="w-4 h-4 text-wise-green" /> Email
+                          <Mail className="size-4 text-wise-green" /> Email
                         </Label>
                         <Input
                           id="email"
@@ -261,12 +260,12 @@ export default function UserSignupPage() {
                           htmlFor="phone"
                           className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
                         >
-                          <Phone className="w-4 h-4 text-wise-green" /> Phone
+                          <Phone className="size-4 text-wise-green" /> Phone
                         </Label>
                         <Input
                           id="phone"
                           type="tel"
-                          placeholder="+91..."
+                          placeholder="+91…"
                           className="h-11 border-gray-200 rounded-xl focus:border-wise-green focus:ring-wise-green/20 bg-gray-50/50 text-sm transition-all"
                           value={formData.phone}
                           onChange={handleChange}
@@ -324,7 +323,7 @@ export default function UserSignupPage() {
                         disabled={signupLoading}
                       >
                         Join Now
-                        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                        <ArrowRight className="size-5 group-hover:translate-x-1 transition-transform" />
                       </Button>
                     </div>
                   </form>
