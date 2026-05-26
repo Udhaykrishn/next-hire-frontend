@@ -121,7 +121,7 @@ export interface BackendRecruiter {
   };
   createdAt: string;
   updatedAt: string | null;
-  company_name?: string; // Some endpoints might return this
+  company_name?: string;
 }
 
 export interface PaginatedResponse<T> {
@@ -138,15 +138,22 @@ export interface AdminJobDetail {
   minSalary: string;
   maxSalary: string;
   posted: string;
+  expireIn: string;
   status: string;
   experience: string;
   skills: string[];
   description: string;
   belongingCompany: string;
+  stats?: {
+    total: number;
+    reviewing: number;
+    interviews: number;
+    offers: number;
+  };
 }
 
 export interface BackendJob {
-  _id: string;
+  id: string;
   jobTitle: string;
   hiringCompany: string;
   jobType: string;
@@ -158,5 +165,12 @@ export interface BackendJob {
   skills: string[];
   description: string;
   belongingCompany: string;
-  createdAt: string;
+  createdAt?: string;
+  created_at?: string;
+  stats?: {
+    total: number;
+    reviewing: number;
+    interviews: number;
+    offers: number;
+  };
 }
