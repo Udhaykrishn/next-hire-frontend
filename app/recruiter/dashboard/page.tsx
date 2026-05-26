@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   Briefcase,
@@ -8,17 +7,18 @@ import {
   Info,
   MoreVertical,
   Navigation,
+  Pencil,
   Plus,
   Trash2,
-  Pencil,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
+import { useState } from "react";
 import { JobCreationModal } from "@/components/recruiter/modals";
-import { type JobListing, useRecruiter } from "@/hooks/use-recruiter";
-import { useUpdateJobMutation } from "@/features/jobs/hooks/use-jobs-query";
 import { ConfirmationModal } from "@/components/shared/confirmation-modal";
+import { Button } from "@/components/ui/button";
 import { RecruiterJobStats } from "@/features/jobs/components/recruiter-job-stats";
+import { useUpdateJobMutation } from "@/features/jobs/hooks/use-jobs-query";
+import { type JobListing, useRecruiter } from "@/hooks/use-recruiter";
 
 export default function RecruiterDashboard() {
   const router = useRouter();
@@ -71,7 +71,9 @@ export default function RecruiterDashboard() {
                   <h2 className="text-[18px] font-black text-near-black group-hover:text-wise-green transition-colors leading-none tracking-tight">
                     {job.title}
                   </h2>
-                  <div className={`px-2 py-0.5 rounded-full text-[8px] font-black uppercase tracking-widest border ${!job.isPublished ? "bg-yellow-50 text-yellow-600 border-yellow-100" : "bg-green-50 text-green-600 border-green-100"}`}>
+                  <div
+                    className={`px-2 py-0.5 rounded-full text-[8px] font-black uppercase tracking-widest border ${!job.isPublished ? "bg-yellow-50 text-yellow-600 border-yellow-100" : "bg-green-50 text-green-600 border-green-100"}`}
+                  >
                     {!job.isPublished ? "Draft" : "Active"}
                   </div>
                 </div>
@@ -102,7 +104,9 @@ export default function RecruiterDashboard() {
               {/* Middle Column: Stats Display */}
               <div
                 className="cursor-pointer hover:bg-gray-50/80 transition-colors rounded-xl"
-                onClick={() => router.push(`/recruiter/jobs/${job.id}/applications`)}
+                onClick={() =>
+                  router.push(`/recruiter/jobs/${job.id}/applications`)
+                }
               >
                 <RecruiterJobStats jobId={job.id} />
               </div>
@@ -116,14 +120,16 @@ export default function RecruiterDashboard() {
                   >
                     Publish
                   </Button>
-                ) : (
-                  job.expiresIn ? (
-                    <div className="flex flex-col items-end pr-4">
-                      <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Expires In</span>
-                      <span className="text-[13px] font-black text-orange-500">{job.expiresIn}</span>
-                    </div>
-                  ) : null
-                )}
+                ) : job.expiresIn ? (
+                  <div className="flex flex-col items-end pr-4">
+                    <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">
+                      Expires In
+                    </span>
+                    <span className="text-[13px] font-black text-orange-500">
+                      {job.expiresIn}
+                    </span>
+                  </div>
+                ) : null}
 
                 <Button
                   onClick={() => router.push(`/recruiter/jobs/edit/${job.id}`)}
@@ -181,7 +187,10 @@ export default function RecruiterDashboard() {
         description="Are you sure you want to publish this job? Once published, candidates will be able to view and apply for this position."
         onConfirm={async () => {
           if (publishingJob) {
-            await updateJob({ jobId: publishingJob, data: { is_published: true } });
+            await updateJob({
+              jobId: publishingJob,
+              data: { is_published: true },
+            });
           }
           setPublishingJob(null);
         }}

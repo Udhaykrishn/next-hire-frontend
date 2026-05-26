@@ -1,4 +1,5 @@
 import axios from "axios";
+import qs from "qs";
 
 const API_URL =
   process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/api/v1";
@@ -17,6 +18,9 @@ export const apiClient = axios.create({
     "Content-Type": "application/json",
   },
   withCredentials: true,
+  paramsSerializer: (params) => {
+    return qs.stringify(params, { arrayFormat: "repeat" });
+  },
 });
 
 apiClient.interceptors.request.use((config) => {

@@ -3,13 +3,13 @@ import { toast } from "sonner";
 import {
   changeRecruiterPassword,
   deleteCompanyVerificationSession,
+  deleteRecruiterProfileImage,
   getCompanyVerificationSession,
   getRecruiterJobListings,
   getRecruiterProfile,
   startCompanyVerificationSession,
   updateRecruiterProfile,
   uploadRecruiterProfileImage,
-  deleteRecruiterProfileImage,
   verifyCompanyOtp,
   verifyRecruiterCompany,
 } from "../services/recruiter.api";

@@ -1,4 +1,4 @@
-import { Filter, RefreshCw, Search, ChevronDown } from "lucide-react";
+import { ChevronDown, Filter, RefreshCw, Search } from "lucide-react";
 import { motion } from "motion/react";
 
 interface CandidateApplicationsFiltersProps {
@@ -19,7 +19,7 @@ export function CandidateApplicationsFilters({
   refetch,
 }: CandidateApplicationsFiltersProps) {
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2, duration: 0.4, ease: "easeOut" }}
@@ -60,14 +60,16 @@ export function CandidateApplicationsFilters({
           onClick={clearFilters}
           className="flex-1 md:flex-none h-[52px] px-6 bg-white border border-gray-200/60 rounded-xl text-[14px] font-bold flex items-center justify-center gap-2.5 hover:bg-gray-50 hover:border-gray-300 transition-all duration-300 shadow-sm hover:shadow-md text-gray-600 hover:text-gray-900 group"
         >
-          <Filter className="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition-colors" /> Clear
+          <Filter className="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition-colors" />{" "}
+          Clear
         </button>
         <button
           type="button"
           onClick={refetch}
           className="flex-1 md:flex-none h-[52px] px-6 bg-gray-900 text-white rounded-xl text-[14px] font-bold flex items-center justify-center gap-2.5 hover:bg-gray-800 transition-all duration-300 shadow-md hover:shadow-lg shadow-gray-900/20 active:scale-95 group"
         >
-          <RefreshCw className="w-4 h-4 text-gray-400 group-hover:text-white group-hover:rotate-180 transition-all duration-500" /> Refresh
+          <RefreshCw className="w-4 h-4 text-gray-400 group-hover:text-white group-hover:rotate-180 transition-all duration-500" />{" "}
+          Refresh
         </button>
       </div>
     </motion.div>

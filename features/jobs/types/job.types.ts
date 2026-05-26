@@ -68,8 +68,10 @@ export interface SearchJobsParams {
   limit?: number;
   location?: string;
   experience?: string[];
-  salary?: string[];
+  minSalary?: number;
+  maxSalary?: number;
   jobTypes?: string[];
+  sort?: string;
 }
 
 export interface PaginationResponse<T> {

@@ -3,10 +3,10 @@ import { toast } from "sonner";
 import { useAuthContext } from "@/features/auth/context/auth-context";
 import type { UpdateRecruiterProfileDto } from "../types/recruiter.types";
 import {
+  useDeleteRecruiterAvatarMutation,
   useRecruiterProfileQuery,
   useUpdateRecruiterProfileMutation,
   useUploadRecruiterAvatarMutation,
-  useDeleteRecruiterAvatarMutation,
 } from "./use-recruiter-query";
 
 export interface RecruiterFormValues {

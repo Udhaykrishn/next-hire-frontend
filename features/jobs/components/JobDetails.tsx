@@ -5,9 +5,8 @@ import { LandingFooter } from "@/components/landing-footer";
 import { LandingNavbar } from "@/components/landing-navbar";
 import { GlobalLoader } from "@/components/shared/global-loader";
 import { useJobDetails } from "../hooks/use-job-details";
-
-import { JobHeaderCard } from "./job-details/JobHeaderCard";
 import { JobDescriptionCard } from "./job-details/JobDescriptionCard";
+import { JobHeaderCard } from "./job-details/JobHeaderCard";
 import { JobSidebar } from "./job-details/JobSidebar";
 import { JobSuccessModal } from "./job-details/JobSuccessModal";
 

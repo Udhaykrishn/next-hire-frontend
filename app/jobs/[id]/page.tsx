@@ -16,6 +16,7 @@ export default async function JobDetailsPage({ params }: PageProps) {
   await queryClient.prefetchQuery({
     queryKey: ["job", resolvedParams.id],
     queryFn: () => getJobById(resolvedParams.id),
+    staleTime: 0,
   });
 
   return (

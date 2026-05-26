@@ -1,34 +1,43 @@
 import { useState, useTransition } from "react";
-import { useJobsForCandidateQuery } from "./use-jobs-query";
+import { useDebounceValue } from "usehooks-ts";
 import { useAuthContext } from "@/features/auth/context/auth-context";
+import { useJobsForCandidateQuery } from "./use-jobs-query";
 
 export function useJobList() {
   const [query, setQuery] = useState("");
   const [location, setLocation] = useState("");
+  const [debouncedQuery] = useDebounceValue(query, 500);
+  const [debouncedLocation] = useDebounceValue(location, 500);
+
   const [selectedExperience, setSelectedExperience] = useState<string[]>([]);
-  const [selectedSalary, setSelectedSalary] = useState<string[]>([]);
+  const [salaryRange, setSalaryRange] = useState<[number, number]>([
+    0, 2000000,
+  ]); // 0 to 20L defaults
+  const [debouncedSalaryRange] = useDebounceValue(salaryRange, 500);
   const [selectedJobTypes, setSelectedJobTypes] = useState<string[]>([]);
-  const [, _startTransition] = useTransition();
+  const [sort, setSort] = useState("Relevance");
 
   const { isLoading: isAuthLoading } = useAuthContext();
 
-  const { data: paginationResult } = useJobsForCandidateQuery({
-    search: query,
-    location: location,
+  const {
+    data: paginationResult,
+    isFetching,
+    isPending,
+  } = useJobsForCandidateQuery({
+    search: debouncedQuery,
+    location: debouncedLocation,
     experience: selectedExperience,
-    salary: selectedSalary,
+    minSalary:
+      debouncedSalaryRange[0] > 0 ? debouncedSalaryRange[0] : undefined,
+    maxSalary:
+      debouncedSalaryRange[1] < 2000000 ? debouncedSalaryRange[1] : undefined,
     jobTypes: selectedJobTypes,
+    sort,
   });
 
   const toggleExperience = (exp: string) => {
     setSelectedExperience((prev) =>
       prev.includes(exp) ? prev.filter((item) => item !== exp) : [...prev, exp],
-    );
-  };
-
-  const toggleSalary = (sal: string) => {
-    setSelectedSalary((prev) =>
-      prev.includes(sal) ? prev.filter((item) => item !== sal) : [...prev, sal],
     );
   };
 
@@ -42,7 +51,7 @@ export function useJobList() {
 
   const resetFilters = () => {
     setSelectedExperience([]);
-    setSelectedSalary([]);
+    setSalaryRange([0, 2000000]);
     setSelectedJobTypes([]);
     setQuery("");
     setLocation("");
@@ -56,13 +65,16 @@ export function useJobList() {
     location,
     setLocation,
     selectedExperience,
-    selectedSalary,
+    salaryRange,
+    setSalaryRange,
     selectedJobTypes,
+    sort,
+    setSort,
     toggleExperience,
-    toggleSalary,
     toggleJobType,
     resetFilters,
     jobs,
-    isPageLoading: isAuthLoading,
+    isPageLoading: isAuthLoading && isPending,
+    isListLoading: isFetching,
   };
 }

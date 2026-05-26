@@ -1,11 +1,11 @@
 import type { JobFormData } from "@/app/recruiter/jobs/create/new/types";
 import { apiClient } from "@/lib/api-client";
 import type {
+  CandidateApplicationListResponse,
   JobResponse,
   JobWithMatchScore,
   PaginationResponse,
   SearchJobsParams,
-  CandidateApplicationListResponse,
 } from "../types/job.types";
 
 export const createJob = async (jobData: JobFormData) => {
@@ -44,25 +44,42 @@ export const applyToJob = async (jobId: string): Promise<unknown> => {
   return data;
 };
 
-export const updateJob = async (jobId: string, updateData: Partial<JobFormData>): Promise<JobResponse> => {
+export const updateJob = async (
+  jobId: string,
+  updateData: Partial<JobFormData>,
+): Promise<JobResponse> => {
   const { data } = await apiClient.patch(`/job/${jobId}`, updateData);
   return data;
 };
 
-export const getCandidateApplications = async (
-  params?: { search?: string; status?: string }
-): Promise<CandidateApplicationListResponse> => {
+export const getCandidateApplications = async (params?: {
+  search?: string;
+  status?: string;
+}): Promise<CandidateApplicationListResponse> => {
   if (typeof window === "undefined") {
-    return { data: [], stats: { total: 0, reviewing: 0, interviews: 0, offers: 0 } };
+    return {
+      data: [],
+      stats: { total: 0, reviewing: 0, interviews: 0, offers: 0 },
+    };
   }
-  const { data } = await apiClient.get<CandidateApplicationListResponse>(`/job/applications`, {
-    params,
-  });
+  const { data } = await apiClient.get<CandidateApplicationListResponse>(
+    `/job/applications`,
+    {
+      params,
+    },
+  );
   return data;
 };
 
-export const getCandidateMatchScore = async (jobId: string, candidateId: string, retry?: boolean): Promise<{ matchScore: number; breakdown: any }> => {
+export const getCandidateMatchScore = async (
+  jobId: string,
+  candidateId: string,
+  retry?: boolean,
+): Promise<{ matchScore: number; breakdown: Record<string, unknown> }> => {
   const params = retry ? { retry: "true" } : undefined;
-  const { data } = await apiClient.get(`/job/${jobId}/candidates/${candidateId}/match-score`, { params });
+  const { data } = await apiClient.get(
+    `/job/${jobId}/candidates/${candidateId}/match-score`,
+    { params },
+  );
   return data;
 };

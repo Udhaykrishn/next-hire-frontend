@@ -1,11 +1,11 @@
 "use client";
 
+import { GlobalLoader } from "@/components/shared/global-loader";
 import { useCandidateApplications } from "../hooks/use-candidate-applications";
-import { CandidateApplicationsStats } from "./candidate-applications/CandidateApplicationsStats";
-import { CandidateApplicationsFilters } from "./candidate-applications/CandidateApplicationsFilters";
 import { CandidateApplicationCard } from "./candidate-applications/CandidateApplicationCard";
 import { CandidateApplicationsEmptyState } from "./candidate-applications/CandidateApplicationsEmptyState";
-import { GlobalLoader } from "@/components/shared/global-loader";
+import { CandidateApplicationsFilters } from "./candidate-applications/CandidateApplicationsFilters";
+import { CandidateApplicationsStats } from "./candidate-applications/CandidateApplicationsStats";
 
 export function CandidateApplications() {
   const {
@@ -39,7 +39,10 @@ export function CandidateApplications() {
 
       <div className="space-y-4 relative min-h-[300px]">
         {isLoading ? (
-          <GlobalLoader fullScreen={false} className="absolute inset-0 bg-white/50 z-10" />
+          <GlobalLoader
+            fullScreen={false}
+            className="absolute inset-0 bg-white/50 z-10"
+          />
         ) : filteredApplications.length === 0 ? (
           <CandidateApplicationsEmptyState />
         ) : (

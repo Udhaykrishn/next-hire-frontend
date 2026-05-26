@@ -1,9 +1,9 @@
 "use client";
 
+import { Suspense } from "react";
 import { LandingFooter } from "@/components/landing-footer";
 import { LandingNavbar } from "@/components/landing-navbar";
 import { CandidateApplications } from "@/features/jobs/components/CandidateApplications";
-import { Suspense } from "react";
 
 export default function JobStatusPage() {
   return (
@@ -20,11 +20,13 @@ export default function JobStatusPage() {
           </p>
         </header>
 
-        <Suspense fallback={
-          <div className="flex items-center justify-center p-20 text-gray-400 font-bold">
-            Loading your applications...
-          </div>
-        }>
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center p-20 text-gray-400 font-bold">
+              Loading your applications...
+            </div>
+          }
+        >
           <CandidateApplications />
         </Suspense>
       </main>

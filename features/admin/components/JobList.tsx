@@ -1,23 +1,16 @@
 "use client";
 
-import {
-  Ban,
-  Briefcase,
-  Eye,
-  Filter,
-  Search,
-  Unlock,
-} from "lucide-react";
-import { useState } from "react";
+import { Ban, Briefcase, Eye, Filter, Search, Unlock } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { ConfirmationModal } from "@/components/shared/confirmation-modal";
 import { Pagination } from "@/components/shared/pagination";
-import { formatSalaryAmount } from "@/lib/salary";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { formatSalaryAmount } from "@/lib/salary";
 import { cn } from "@/lib/utils";
 import { useAdminJobs } from "../hooks/use-admin-jobs";
 import type { AdminJobDetail } from "../types/admin.types";
@@ -39,9 +32,9 @@ export const JobList = () => {
   } = useAdminJobs();
 
   const [selectedJob, setSelectedJob] = useState<AdminJobDetail | null>(null);
-  const [dialogType, setDialogType] = useState<
-    "block" | "unblock" | null
-  >(null);
+  const [dialogType, setDialogType] = useState<"block" | "unblock" | null>(
+    null,
+  );
 
   const totalPages = Math.ceil(total / itemsPerPage);
 
@@ -195,7 +188,8 @@ export const JobList = () => {
                   </td>
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-1 text-xs text-gray-500 font-bold">
-                      {formatSalaryAmount(job.minSalary, "INR", "full")} - {formatSalaryAmount(job.maxSalary, "INR", "full")}
+                      {formatSalaryAmount(job.minSalary, "INR", "full")} -{" "}
+                      {formatSalaryAmount(job.maxSalary, "INR", "full")}
                     </div>
                   </td>
                   <td className="px-6 py-4">

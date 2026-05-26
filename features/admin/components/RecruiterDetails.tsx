@@ -1,12 +1,12 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/animate-ui/components/buttons/button";
 import { useRecruiterDetails } from "../hooks/use-recruiter-details";
-import { RecruiterHeader } from "./RecruiterHeader";
-import { RecruiterCompanyInfo } from "./RecruiterCompanyInfo";
 import { RecruiterActivityList } from "./RecruiterActivityList";
+import { RecruiterCompanyInfo } from "./RecruiterCompanyInfo";
+import { RecruiterHeader } from "./RecruiterHeader";
 import { RecruiterJobsList } from "./RecruiterJobsList";
 import { RecruiterSidebar } from "./RecruiterSidebar";
 
@@ -41,7 +41,7 @@ export const RecruiterDetails = ({ id }: RecruiterDetailsProps) => {
               <RecruiterActivityList activity={recruiter.activity} />
               <RecruiterJobsList id={id} />
             </div>
-            
+
             {/* Sidebar */}
             <div className="space-y-8">
               <RecruiterSidebar recruiter={recruiter} />

@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import { Mail, Phone, ShieldCheck } from "lucide-react";
+import { ProfileAvatarModal } from "@/components/profile/profile-avatar-modal";
 import type { RecruiterFormValues } from "@/features/recruiter/hooks/use-recruiter-profile";
 import type { RecruiterProfile } from "@/features/recruiter/types/recruiter.types";
-import { ProfileAvatarModal } from "@/components/profile/profile-avatar-modal";
 
 export function HeroAvatarCard({
   formData,
