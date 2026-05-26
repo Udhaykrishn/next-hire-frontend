@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "biome check",
     "format": "biome format --write",
-    "prepare": "husky"
+    "prepare": "husky",
+    "doctor": "npx react-doctor@latest"
   },
   "dependencies": {
     "@base-ui-components/react": "^1.0.0-rc.0",
@@ -83,6 +84,7 @@
     "babel-plugin-react-compiler": "1.0.0",
     "happy-dom": "^20.9.0",
     "husky": "^9.1.7",
+    "react-doctor": "^0.2.8",
     "tailwindcss": "^4",
     "typescript": "^5"
   },

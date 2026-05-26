@@ -1,0 +1,9 @@
+{
+  "ignore": {
+    "files": [
+      "components/animate-ui/**",
+      "components/base/**",
+      "components/foundations/**"
+    ]
+  }
+}

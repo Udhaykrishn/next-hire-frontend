@@ -127,6 +127,25 @@ const AutocompleteInput = ({
   );
 };
 
+const LocationFieldError = ({
+  name,
+  errors,
+}: {
+  name: string;
+  errors: Record<string, string>;
+}) => {
+  if (!errors[name]) return null;
+  return (
+    <motion.p
+      initial={{ opacity: 0, y: -5 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="text-[11px] font-black text-red-500 mt-1.5 flex items-center gap-1.5"
+    >
+      <AlertCircle className="w-3 h-3" /> {errors[name]}
+    </motion.p>
+  );
+};
+
 export const LocationSelector: React.FC<LocationSelectorProps> = ({
   formData,
   setFormData,
@@ -148,19 +167,6 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
       )
       .slice(0, 100);
   }, [citySearch, indianCities]);
-
-  const LocationFieldError = ({ name }: { name: string }) => {
-    if (!errors[name]) return null;
-    return (
-      <motion.p
-        initial={{ opacity: 0, y: -5 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-[11px] font-black text-red-500 mt-1.5 flex items-center gap-1.5"
-      >
-        <AlertCircle className="w-3 h-3" /> {errors[name]}
-      </motion.p>
-    );
-  };
 
   return (
     <div className="space-y-10 pt-10 border-t border-gray-100">
@@ -197,7 +203,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
               ),
             )}
           </div>
-          <LocationFieldError name="locationType" />
+          <LocationFieldError name="locationType" errors={errors} />
         </div>
 
         <AnimatePresence mode="wait">
@@ -235,7 +241,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                     setFormData((prev) => ({ ...prev, officeAddress: val }))
                   }
                 />
-                <LocationFieldError name="officeAddress" />
+                <LocationFieldError name="officeAddress" errors={errors} />
               </div>
             </motion.div>
           )}
@@ -273,7 +279,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                   setFormData((prev) => ({ ...prev, fieldArea: val }))
                 }
               />
-              <LocationFieldError name="fieldArea" />
+              <LocationFieldError name="fieldArea" errors={errors} />
             </motion.div>
           )}
 
@@ -357,7 +363,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                   )}
                 </AnimatePresence>
               </div>
-              <LocationFieldError name="jobCity" />
+              <LocationFieldError name="jobCity" errors={errors} />
             </motion.div>
           )}
         </AnimatePresence>
