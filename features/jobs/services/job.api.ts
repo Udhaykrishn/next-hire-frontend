@@ -60,3 +60,9 @@ export const getCandidateApplications = async (
   });
   return data;
 };
+
+export const getCandidateMatchScore = async (jobId: string, candidateId: string, retry?: boolean): Promise<{ matchScore: number; breakdown: any }> => {
+  const params = retry ? { retry: "true" } : undefined;
+  const { data } = await apiClient.get(`/job/${jobId}/candidates/${candidateId}/match-score`, { params });
+  return data;
+};

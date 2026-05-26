@@ -235,9 +235,9 @@ export default function JobList() {
               </div>
             </div>
 
-            {jobs.map((job) => (
+            {jobs.map((job, index) => (
               <motion.div
-                key={job.id}
+                key={`${job.id || 'job'}-${index}`}
                 layout
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}

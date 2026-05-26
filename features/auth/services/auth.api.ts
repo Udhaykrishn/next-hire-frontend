@@ -208,4 +208,43 @@ export const authService = {
         : "/auth/user/verify-reset-token";
     return await apiClient.post(endpoint, { token });
   },
+
+  verifyOtp: async (
+    email: string,
+    otp: string,
+    role: "recruiter" | "user",
+  ): Promise<AuthResponse> => {
+    const endpoint =
+      role === "recruiter"
+        ? "/auth/recruiter/otp-verify"
+        : "/auth/user/otp-verify";
+    const res = (await apiClient.post(endpoint, {
+      email,
+      otp,
+    })) as ApiResponse<BackendAuthResponse>;
+
+    const response = res.data;
+
+    let defaultRole: UserRole = "CANDIDATE";
+    if (role === "recruiter") defaultRole = "RECRUITER";
+
+    return {
+      user: response?.user || {
+        id: "current",
+        email,
+        role: defaultRole,
+      },
+      token: response?.accessToken || "",
+    };
+  },
+
+  resendOtp: async (
+    email: string,
+    role: "recruiter" | "user",
+  ): Promise<{ message: string }> => {
+    // Both user and recruiter use the same redis keys and mechanism for OTP,
+    // and the backend only provides resend-otp on the user router.
+    const endpoint = "/auth/user/resend-otp";
+    return await apiClient.post(endpoint, { email });
+  },
 };
