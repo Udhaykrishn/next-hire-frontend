@@ -146,10 +146,12 @@ const LocationFieldError = ({
   );
 };
 
+const DEFAULT_ERRORS = {};
+
 export const LocationSelector: React.FC<LocationSelectorProps> = ({
   formData,
   setFormData,
-  errors = {},
+  errors = DEFAULT_ERRORS,
 }) => {
   const indianCities = useMemo(() => City.getCitiesOfCountry("IN") || [], []);
   const [citySearch, setCitySearch] = useState("");

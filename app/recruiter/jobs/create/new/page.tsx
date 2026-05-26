@@ -121,46 +121,6 @@ export function JobWizard({
     );
   }
 
-  const renderStep = () => {
-    switch (currentStep) {
-      case 1:
-        return (
-          <Step1Details
-            formData={formData}
-            setFormData={setFormData}
-            errors={errors}
-          />
-        );
-      case 2:
-        return (
-          <Step2Requirements
-            formData={formData}
-            setFormData={setFormData}
-            errors={errors}
-            activeRequirementTab={activeRequirementTab}
-            setActiveRequirementTab={setActiveRequirementTab}
-          />
-        );
-      case 3:
-        return (
-          <Step3Logistics
-            formData={formData}
-            setFormData={setFormData}
-            errors={errors}
-            walkInDateRange={walkInDateRange}
-            handleWalkInDateChange={handleWalkInDateChange}
-            setIsWalkInMapOpen={setIsWalkInMapOpen}
-          />
-        );
-      case 4:
-        return (
-          <Step4Preview formData={formData} setCurrentStep={setCurrentStep} />
-        );
-      default:
-        return null;
-    }
-  };
-
   const isLastStep = currentStep === STEPS.length;
   const isFirstStep = currentStep === 1;
 
@@ -246,7 +206,50 @@ export function JobWizard({
 
         <main className="max-w-4xl mx-auto px-6 py-12">
           <AnimatePresence mode="wait">
-            <div key={currentStep}>{renderStep()}</div>
+            <div key={currentStep}>
+              {(() => {
+                switch (currentStep) {
+                  case 1:
+                    return (
+                      <Step1Details
+                        formData={formData}
+                        setFormData={setFormData}
+                        errors={errors}
+                      />
+                    );
+                  case 2:
+                    return (
+                      <Step2Requirements
+                        formData={formData}
+                        setFormData={setFormData}
+                        errors={errors}
+                        activeRequirementTab={activeRequirementTab}
+                        setActiveRequirementTab={setActiveRequirementTab}
+                      />
+                    );
+                  case 3:
+                    return (
+                      <Step3Logistics
+                        formData={formData}
+                        setFormData={setFormData}
+                        errors={errors}
+                        walkInDateRange={walkInDateRange}
+                        handleWalkInDateChange={handleWalkInDateChange}
+                        setIsWalkInMapOpen={setIsWalkInMapOpen}
+                      />
+                    );
+                  case 4:
+                    return (
+                      <Step4Preview
+                        formData={formData}
+                        setCurrentStep={setCurrentStep}
+                      />
+                    );
+                  default:
+                    return null;
+                }
+              })()}
+            </div>
           </AnimatePresence>
         </main>
 
