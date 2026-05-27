@@ -1,12 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Building2 } from "lucide-react";
 import { BasicDetailsCard } from "@/features/recruiter/components/profile/basic-details-card";
-import { CompanyIdentityCard } from "@/features/recruiter/components/profile/company-identity-card";
+
 import { HeroAvatarCard } from "@/features/recruiter/components/profile/hero-avatar-card";
 import { StickySaveBar } from "@/features/recruiter/components/profile/sticky-save-bar";
-import { TaxIdentityCard } from "@/features/recruiter/components/profile/tax-identity-card";
+
+import { CompanyVerificationCard } from "@/features/recruiter/components/profile/company-verification-card";
+import type { CompanyProfileData } from "@/features/recruiter/components/profile/companies-managed-card";
 import { useRecruiterProfile } from "@/features/recruiter/hooks/use-recruiter-profile";
+import { useEffect, useState } from "react";
 
 export default function ProfilePage() {
   const {
@@ -25,6 +29,31 @@ export default function ProfilePage() {
     isDeletingAvatar,
   } = useRecruiterProfile();
 
+  const [activeCompanyId, setActiveCompanyId] = useState<string>("");
+  const [companies, setCompanies] = useState<CompanyProfileData[]>([]);
+
+  useEffect(() => {
+    if (recruiterProfile && companies.length === 0) {
+      const primaryCompanyId =
+        recruiterProfile.id ||
+        recruiterProfile.id ||
+        recruiterProfile.email ||
+        "primary";
+      setCompanies([
+        {
+          id: primaryCompanyId,
+          name: recruiterProfile.name || "",
+          industry: recruiterProfile.category || "",
+          logo: recruiterProfile.profile_url?.url || "",
+          activeJobs: 0,
+          isVerified: recruiterProfile.is_verified_company || false,
+          cin: recruiterProfile.CIN || "",
+        },
+      ]);
+      setActiveCompanyId(primaryCompanyId);
+    }
+  }, [recruiterProfile, companies.length]);
+
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -37,51 +66,49 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-[#fafafa] pb-32">
-      <div className="max-w-3xl mx-auto px-4 pt-8 space-y-6">
-        <div className="mb-2">
-          <motion.h1
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-[32px] font-black text-near-black tracking-tight"
-          >
-            Profile
-          </motion.h1>
-          <p className="text-gray-400 font-medium text-[14px] mt-0.5">
-            Manage your recruiter identity and company details.
-          </p>
+      <div className="max-w-4xl mx-auto px-4 pt-12 space-y-8">
+        <div className="mb-8">
+          <div>
+            <motion.h1
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-[36px] font-black text-near-black tracking-tight leading-none"
+            >
+              Profile
+            </motion.h1>
+            <p className="text-gray-500 font-medium text-[15px] mt-2">
+              Manage your personal identity and business organizations.
+            </p>
+          </div>
         </div>
 
-        <HeroAvatarCard
-          formData={formData}
-          recruiterProfile={recruiterProfile}
-          isUploadingAvatar={isUploadingAvatar}
-          handleUploadAvatar={handleUploadAvatar}
-          isDeletingAvatar={isDeletingAvatar}
-          handleDeleteAvatar={handleDeleteAvatar}
-        />
+        <div className="flex flex-col gap-8 mt-8">
+          <div className="space-y-6">
+            <HeroAvatarCard
+              formData={formData}
+              recruiterProfile={recruiterProfile}
+              activeCompany={
+                companies.find((c) => c.id === activeCompanyId) || null
+              }
+              isUploadingAvatar={isUploadingAvatar}
+              handleUploadAvatar={handleUploadAvatar}
+              isDeletingAvatar={isDeletingAvatar}
+              handleDeleteAvatar={handleDeleteAvatar}
+            />
 
-        <BasicDetailsCard
-          formData={formData}
-          setFormData={setFormData}
-          isEditingBasic={editSection === "basic"}
-          editSection={editSection}
-          startEdit={startEdit}
-        />
+            <BasicDetailsCard
+              formData={formData}
+              setFormData={setFormData}
+              isEditingBasic={editSection === "basic"}
+              editSection={editSection}
+              startEdit={startEdit}
+            />
 
-        <CompanyIdentityCard
-          formData={formData}
-          setFormData={setFormData}
-          isEditingCompany={editSection === "company"}
-          editSection={editSection}
-          startEdit={startEdit}
-        />
-
-        <TaxIdentityCard
-          formData={formData}
-          recruiterProfile={recruiterProfile}
-          editSection={editSection}
-          startEdit={startEdit}
-        />
+            <CompanyVerificationCard
+              company={companies.find((c) => c.id === activeCompanyId) || null}
+            />
+          </div>
+        </div>
       </div>
 
       <StickySaveBar
