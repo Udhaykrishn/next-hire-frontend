@@ -12,6 +12,7 @@ import {
   uploadRecruiterProfileImage,
   verifyCompanyOtp,
   verifyRecruiterCompany,
+  createCompanyProfile,
 } from "../services/recruiter.api";
 import type {
   ChangePasswordData,
@@ -62,6 +63,24 @@ export const useUpdateRecruiterProfileMutation = () => {
     onError: (error: unknown) => {
       const message =
         error instanceof Error ? error.message : "Failed to update profile";
+      toast.error(message);
+    },
+  });
+};
+
+export const useCreateCompanyMutation = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data: { name: string; industry: string; website: string; cin: string }) => 
+      createCompanyProfile(data),
+    onSuccess: () => {
+      // Invalidate the recruiter profile / companies queries to refetch them
+      queryClient.invalidateQueries({ queryKey: ["recruiter", "profile"] });
+      queryClient.invalidateQueries({ queryKey: ["recruiter", "companies"] });
+    },
+    onError: (error: unknown) => {
+      const message =
+        error instanceof Error ? error.message : "Failed to create company";
       toast.error(message);
     },
   });

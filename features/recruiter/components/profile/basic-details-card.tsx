@@ -30,7 +30,7 @@ export function BasicDetailsCard({
     >
       <SectionCard
         title="Basic Details"
-        subtitle="Personal identification information"
+        subtitle="Personal and primary company information"
         icon={<User className="w-5 h-5" />}
         sectionKey="basic"
         editSection={editSection}
@@ -93,6 +93,51 @@ export function BasicDetailsCard({
                   />
                 </div>
               </div>
+
+              <div className="col-span-1 sm:col-span-2 pt-4 border-t border-gray-100 mt-2">
+                <h4 className="text-[12px] font-black text-near-black mb-4 uppercase tracking-widest">Company Details</h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div className="space-y-2">
+                    <Label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                      Your Role / Type
+                    </Label>
+                    <Input
+                      value={formData.companyRole}
+                      onChange={(e) =>
+                        setFormData((p) => ({ ...p, companyRole: e.target.value }))
+                      }
+                      className="h-12 bg-gray-50 border-gray-200 rounded-xl font-bold text-[15px] focus-visible:ring-wise-green focus-visible:border-wise-green"
+                      placeholder="e.g. Hiring Manager"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                      Industry
+                    </Label>
+                    <Input
+                      value={formData.category}
+                      onChange={(e) =>
+                        setFormData((p) => ({ ...p, category: e.target.value }))
+                      }
+                      className="h-12 bg-gray-50 border-gray-200 rounded-xl font-bold text-[15px] focus-visible:ring-wise-green focus-visible:border-wise-green"
+                      placeholder="e.g. Technology"
+                    />
+                  </div>
+                  <div className="space-y-2 sm:col-span-2">
+                    <Label className="text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                      Company Website
+                    </Label>
+                    <Input
+                      value={formData.websiteLink}
+                      onChange={(e) =>
+                        setFormData((p) => ({ ...p, websiteLink: e.target.value }))
+                      }
+                      className="h-12 bg-gray-50 border-gray-200 rounded-xl font-bold text-[15px] focus-visible:ring-wise-green focus-visible:border-wise-green"
+                      placeholder="https://..."
+                    />
+                  </div>
+                </div>
+              </div>
             </motion.div>
           ) : (
             <motion.div
@@ -115,6 +160,16 @@ export function BasicDetailsCard({
                 icon={<Phone className="w-4 h-4" />}
                 placeholder="Not provided"
               />
+              <div className="col-span-1 sm:col-span-2 pt-4 border-t border-gray-100 mt-2">
+                <h4 className="text-[12px] font-black text-near-black mb-4 uppercase tracking-widest">Company Details</h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <FieldView label="Your Role / Type" value={formData.companyRole} placeholder="Not provided" />
+                  <FieldView label="Industry" value={formData.category} placeholder="Not provided" />
+                  <div className="sm:col-span-2">
+                    <FieldView label="Company Website" value={formData.websiteLink} placeholder="Not provided" />
+                  </div>
+                </div>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>

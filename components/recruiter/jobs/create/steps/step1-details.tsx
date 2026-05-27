@@ -25,6 +25,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn, formatCurrency } from "@/lib/utils";
+import { useRecruiterProfile } from "@/features/recruiter/hooks/use-recruiter-profile";
 
 interface Step1DetailsProps {
   formData: JobFormData;
@@ -37,6 +38,8 @@ export const Step1Details = ({
   setFormData,
   errors,
 }: Step1DetailsProps) => {
+  const { recruiterProfile } = useRecruiterProfile();
+
   return (
     <motion.div
       key="step1"
@@ -91,14 +94,13 @@ export const Step1Details = ({
                       <SelectValue placeholder="Select a company" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="Your Company">Your Company</SelectItem>
-                      <SelectItem value="Tech Solutions Inc.">
-                        Tech Solutions Inc.
-                      </SelectItem>
-                      <SelectItem value="Global Innovations">
-                        Global Innovations
-                      </SelectItem>
-                      <SelectItem value="Acme Corp">Acme Corp</SelectItem>
+                      {recruiterProfile?.name ? (
+                        <SelectItem value={recruiterProfile.name}>
+                          {recruiterProfile.name}
+                        </SelectItem>
+                      ) : (
+                        <SelectItem value="Your Company">Your Company</SelectItem>
+                      )}
                     </SelectContent>
                   </Select>
                 </div>

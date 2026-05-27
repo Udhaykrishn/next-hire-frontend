@@ -20,7 +20,7 @@ export interface RecruiterFormValues {
   companyRole: string;
 }
 
-export type EditSection = "basic" | "company" | "tax" | null;
+export type EditSection = "basic" | "company" | "tax" | "verification" | null;
 
 export function useRecruiterProfile() {
   const { user } = useAuthContext();

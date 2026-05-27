@@ -162,14 +162,10 @@ export const useJobForm = (initialData: JobFormData, jobId?: string) => {
       localStorage.removeItem("jobFormData");
       localStorage.removeItem("jobCurrentStep");
 
-      if (isPremium || jobId) {
-        toast.success(
-          jobId ? "Job updated successfully!" : "Job posted successfully!",
-        );
-        router.push("/recruiter/jobs");
-      } else {
-        router.push("/recruiter/plan");
-      }
+      toast.success(
+        jobId ? "Job updated successfully!" : "Job posted successfully!",
+      );
+      router.push("/recruiter/jobs");
     } catch (error) {
       console.error(`Failed to ${jobId ? "update" : "post"} job:`, error);
       toast.error(

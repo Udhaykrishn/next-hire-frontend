@@ -59,6 +59,12 @@ export const verifyRecruiterCompany = async (
   await apiClient.post("/recruiter/verify-company", { recruiterId, CIN });
 };
 
+export const createCompanyProfile = async (
+  data: { name: string; industry: string; website: string; cin: string }
+): Promise<ApiResponse<any>> => {
+  return await apiClient.post("/recruiter/company", data);
+};
+
 export const startCompanyVerificationSession = async (
   CIN: string,
 ): Promise<{ message: string; otp?: string }> => {
