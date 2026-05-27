@@ -20,7 +20,7 @@ function Button({
   asChild = false,
   ...props
 }: ButtonProps) {
-  const Component = (asChild ? Slot : motion.button) as React.ElementType;
+  const Component = (asChild ? Slot : m.button) as React.ElementType;
 
   return (
     <Component
