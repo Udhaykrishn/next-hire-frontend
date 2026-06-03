@@ -159,7 +159,7 @@ export const RecruiterDetails = ({ id }: RecruiterDetailsProps) => {
                   <a
                     href={recruiter.website_link}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     className="text-sm font-bold text-wise-green hover:underline"
                   >
                     {recruiter.website_link}

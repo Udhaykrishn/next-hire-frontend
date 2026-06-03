@@ -395,7 +395,7 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
                     key={idx}
                     href={doc.url}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     className="flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-100 group hover:border-wise-green transition-all cursor-pointer"
                   >
                     <div className="flex items-center gap-3">
