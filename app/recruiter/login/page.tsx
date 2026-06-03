@@ -41,7 +41,11 @@ export default function RecruiterLoginPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await login(formData.email, formData.password, "recruiter");
+      const response = await login(
+        formData.email,
+        formData.password,
+        "recruiter",
+      );
       setUser(response.user);
 
       if (response.user.role === "RECRUITER") {

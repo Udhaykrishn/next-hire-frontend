@@ -1,6 +1,8 @@
 import type React from "react";
 
-type ReactComponent = React.ComponentType | React.ForwardRefExoticComponent<unknown>;
+type ReactComponent =
+  | React.ComponentType
+  | React.ForwardRefExoticComponent<unknown>;
 
 /**
  * Checks if a given value is a function component.
@@ -20,8 +22,8 @@ export const isClassComponent = (
   return (
     typeof component === "function" &&
     component.prototype &&
-    (!!(component.prototype as Record<string, unknown>).isReactComponent || 
-     !!(component.prototype as Record<string, unknown>).render)
+    (!!(component.prototype as Record<string, unknown>).isReactComponent ||
+      !!(component.prototype as Record<string, unknown>).render)
   );
 };
 

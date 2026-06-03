@@ -93,7 +93,7 @@ export async function proxy(request: NextRequest) {
         if (!checkBlock.ok) {
           console.log(`Block check failed with status ${checkBlock.status}`);
           if (checkBlock.status === 403) {
-             isBlocked = true;
+            isBlocked = true;
           } else {
             return NextResponse.next();
           }
@@ -159,8 +159,11 @@ export async function proxy(request: NextRequest) {
               ? refreshResponse.headers.getSetCookie()
               : (refreshResponse.headers.get("set-cookie") ?? "")
                   .split(/,(?=[^;])/)
-                  .map((s) => s.trim())
-                  .filter(Boolean);
+                  .reduce<string[]>((acc, s) => {
+                    const trimmed = s.trim();
+                    if (trimmed) acc.push(trimmed);
+                    return acc;
+                  }, []);
 
           for (const cookieStr of setCookieHeaders) {
             response.headers.append("Set-Cookie", cookieStr);

@@ -54,7 +54,11 @@ export const useAuth = () => {
     mutationFn: (idToken) => authService.googleLogin(idToken),
   });
 
-  const logoutMutation = useMutation<void, Error, { role?: "admin" | "recruiter" | "user" }>({
+  const logoutMutation = useMutation<
+    void,
+    Error,
+    { role?: "admin" | "recruiter" | "user" }
+  >({
     mutationFn: ({ role = "user" }) => authService.logout(role),
   });
 
