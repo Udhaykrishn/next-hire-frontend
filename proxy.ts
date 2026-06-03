@@ -93,7 +93,7 @@ export async function proxy(request: NextRequest) {
         if (!checkBlock.ok) {
           console.log(`Block check failed with status ${checkBlock.status}`);
           if (checkBlock.status === 403) {
-             isBlocked = true;
+            isBlocked = true;
           } else {
             return NextResponse.next();
           }

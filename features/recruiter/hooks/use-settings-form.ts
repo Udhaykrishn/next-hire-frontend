@@ -69,7 +69,7 @@ export function useSettingsForm() {
           }
           toast.error(errorMessage);
         },
-      }
+      },
     );
   };
 
