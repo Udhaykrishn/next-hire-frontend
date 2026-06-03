@@ -1,7 +1,11 @@
 import { getRecruiterJobs } from "@/features/jobs/services/job.api";
 import type { JobResponse } from "@/features/jobs/types/job.types";
 import { formatDistanceToNow, parseISO } from "date-fns";
-import type { Candidate, JobListing, RecruiterStats } from "../types/recruiter.types";
+import type {
+  Candidate,
+  JobListing,
+  RecruiterStats,
+} from "../types/recruiter.types";
 
 export const getRecruiterStats = async (): Promise<RecruiterStats> => {
   await new Promise((r) => setTimeout(r, 800));
@@ -84,18 +88,20 @@ import type {
 
 export const changeRecruiterPassword = async (
   id: string,
-  data: ChangePasswordData
+  data: ChangePasswordData,
 ): Promise<void> => {
   await apiClient.patch(`/recruiter/${id}/change-password`, data);
 };
 
-export const getRecruiterProfile = async (): Promise<ApiResponse<RecruiterProfile>> => {
+export const getRecruiterProfile = async (): Promise<
+  ApiResponse<RecruiterProfile>
+> => {
   return await apiClient.get("/recruiter/profile");
 };
 
 export const updateRecruiterProfile = async (
   userId: string,
-  data: UpdateRecruiterProfileDto
+  data: UpdateRecruiterProfileDto,
 ): Promise<ApiResponse<RecruiterProfile>> => {
   return await apiClient.patch(`/recruiter/${userId}`, data);
 };

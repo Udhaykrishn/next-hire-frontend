@@ -18,7 +18,10 @@ export function useRecruiterProfile() {
   const { data: profileResponse, isLoading } = useRecruiterProfileQuery();
   const updateMutation = useUpdateRecruiterProfileMutation();
 
-  const recruiterProfile = profileResponse?.success && profileResponse.data ? profileResponse.data : null;
+  const recruiterProfile =
+    profileResponse?.success && profileResponse.data
+      ? profileResponse.data
+      : null;
 
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState<RecruiterFormValues>({
