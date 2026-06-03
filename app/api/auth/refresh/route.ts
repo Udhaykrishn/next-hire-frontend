@@ -37,12 +37,20 @@ export async function POST(request: Request) {
 
     return res;
   } catch (error) {
-    const axiosError = error as { message?: string; response?: { status?: number; data?: { message?: string; error?: { message?: string } } } };
+    const axiosError = error as {
+      message?: string;
+      response?: {
+        status?: number;
+        data?: { message?: string; error?: { message?: string } };
+      };
+    };
     console.error(`Refresh failed for role ${role}:`, axiosError.message);
     const isBlocked =
       axiosError.response?.status === 403 ||
       axiosError.response?.data?.message?.toLowerCase().includes("blocked") ||
-      axiosError.response?.data?.error?.message?.toLowerCase().includes("blocked");
+      axiosError.response?.data?.error?.message
+        ?.toLowerCase()
+        .includes("blocked");
 
     if (isBlocked) {
       return NextResponse.json(

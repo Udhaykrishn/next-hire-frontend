@@ -141,7 +141,9 @@ export const authService = {
     }
   },
 
-  logout: async (role: "admin" | "recruiter" | "user" = "user"): Promise<void> => {
+  logout: async (
+    role: "admin" | "recruiter" | "user" = "user",
+  ): Promise<void> => {
     let endpoint = "/auth/user/logout";
     if (role === "admin") endpoint = "/auth/admin/logout";
     else if (role === "recruiter") endpoint = "/auth/recruiter/logout";

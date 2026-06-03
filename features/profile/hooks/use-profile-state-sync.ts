@@ -59,7 +59,8 @@ export function useProfileStateSync({
         email: p.email || "",
         phone: p.phone || "",
         cinNumber: p.cinNumber || p.CIN || "",
-        isCompanyVerified: p.isCompanyVerified || p.is_verified_company || false,
+        isCompanyVerified:
+          p.isCompanyVerified || p.is_verified_company || false,
       });
       setSocialLinks({
         linkedin: p.social_link?.linkedin || "",
