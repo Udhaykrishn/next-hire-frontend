@@ -1,5 +1,6 @@
 "use client";
 
+import DOMPurify from "isomorphic-dompurify";
 import { motion } from "framer-motion";
 import { Briefcase, ChevronUp, Info, Medal, Pencil, Users } from "lucide-react";
 import type React from "react";
@@ -170,10 +171,11 @@ export const Step4Preview = ({
                   <div
                     className="prose prose-sm max-w-none text-near-black font-bold"
                     dangerouslySetInnerHTML={{
-                      __html:
+                      __html: DOMPurify.sanitize(
                         formData.jobDescription ||
-                        formData.description ||
-                        "None",
+                          formData.description ||
+                          "None",
+                      ),
                     }}
                   />
                 }
