@@ -154,8 +154,11 @@ export const ProfileProvider = ({
       roles:
         (formData.get("roles") as string)
           ?.split(",")
-          .map((s: string) => s.trim())
-          .filter(Boolean) || [],
+          .reduce((acc: string[], s: string) => {
+            const trimmed = s.trim();
+            if (trimmed) acc.push(trimmed);
+            return acc;
+          }, []) || [],
       workStyles: formData.getAll("workStyles") as string[],
       minSalary: (formData.get("minSalary") as string) || "",
       maxSalary: (formData.get("maxSalary") as string) || "",

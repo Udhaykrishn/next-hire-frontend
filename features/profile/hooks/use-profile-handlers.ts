@@ -210,13 +210,16 @@ export function useProfileHandlers({
 
   const handleAddSkill = (skillInput: string) => {
     if (!skillInput) return;
-    const newSkills = skillInput
-      .split(",")
-      .map((s) => s.trim())
-      .filter((s) => s.length > 0 && !skills.includes(s));
 
-    if (newSkills.length > 0) {
-      const uniqueNewSkills = Array.from(new Set(newSkills));
+    const uniqueNewSkills = skillInput.split(",").reduce<string[]>((acc, s) => {
+      const trimmed = s.trim();
+      if (trimmed && !skills.includes(trimmed) && !acc.includes(trimmed)) {
+        acc.push(trimmed);
+      }
+      return acc;
+    }, []);
+
+    if (uniqueNewSkills.length > 0) {
       updateProfileMutation.mutate({ skills: [...skills, ...uniqueNewSkills] });
     }
   };

@@ -54,12 +54,16 @@ export function PricingContent({
 
   const filteredPlans = useMemo(() => {
     if (!allPlans) return [];
-    return allPlans
-      .filter((plan) => plan.type === type)
-      .map((plan) => ({
-        ...plan,
-        icon: getIcon(plan.iconType),
-      }));
+    type PlanWithIcon = NonNullable<typeof allPlans>[number] & { icon: React.ReactNode };
+    return allPlans.reduce((acc: PlanWithIcon[], plan) => {
+      if (plan.type === type) {
+        acc.push({
+          ...plan,
+          icon: getIcon(plan.iconType),
+        });
+      }
+      return acc;
+    }, []);
   }, [allPlans, type, getIcon]);
 
   if (isLoading) {

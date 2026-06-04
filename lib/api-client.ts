@@ -66,6 +66,8 @@ apiClient.interceptors.response.use(
     const message = backendMessage || error.message || "Something went wrong";
     const isBlockedError = error.response?.status === 403;
 
+    // Do NOT attempt a token refresh if the failing request IS the refresh endpoint.
+    // That would cause an infinite retry loop and an unwarranted logout redirect.
     const isRefreshRequest = (
       originalRequest.url as string | undefined
     )?.includes("/api/auth/refresh");
@@ -127,7 +129,10 @@ apiClient.interceptors.response.use(
               if (errorObj.message === "blocked") {
                 redirectUrl += "?error=blocked";
               }
-              window.location.href = redirectUrl;
+              window.location.href = new URL(
+                redirectUrl,
+                window.location.origin,
+              ).toString();
             }
           }
         }
@@ -145,7 +150,10 @@ apiClient.interceptors.response.use(
             targetPath = "/recruiter/login";
 
           if (pathname !== targetPath) {
-            window.location.href = `${targetPath}?error=blocked`;
+            window.location.href = new URL(
+              `${targetPath}?error=blocked`,
+              window.location.origin,
+            ).toString();
           }
         }
       }

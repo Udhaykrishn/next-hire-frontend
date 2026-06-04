@@ -29,6 +29,7 @@ export const CalendarContextProvider = ({ children }: PropsWithChildren) => {
 
   return (
     <AriaCalendarContext.Provider
+      // @ts-expect-error - React Aria Types mismatch
       value={{ value, onChange, focusedValue, onFocusChange }}
     >
       {children}
