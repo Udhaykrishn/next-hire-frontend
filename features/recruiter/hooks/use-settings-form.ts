@@ -2,11 +2,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useAuthContext } from "@/features/auth/context/auth-context";
-import { useRecruiterChangePasswordMutation } from "./use-recruiter-query";
 import {
-  changePasswordSchema,
   type ChangePasswordValues,
+  changePasswordSchema,
 } from "../schemas/settings.schema";
+import { useRecruiterChangePasswordMutation } from "./use-recruiter-query";
 
 export function useSettingsForm() {
   const { user, logout } = useAuthContext();

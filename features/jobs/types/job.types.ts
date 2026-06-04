@@ -2,6 +2,7 @@ export interface JobResponse {
   id: string;
   belongingCompany: string;
   hiringCompany: string;
+  companyLogo?: string;
   experienceType: string;
   jobTitle: string;
   jobCategory: string;
@@ -57,6 +58,53 @@ export interface JobResponse {
   updated_at: string;
   status: string;
   company_id: string;
-  posted_by: string;
+  posted_by?: string;
   is_published: boolean;
+}
+
+export interface SearchJobsParams {
+  search?: string;
+  page?: number;
+  limit?: number;
+  location?: string;
+  experience?: string[];
+  salary?: string[];
+  jobTypes?: string[];
+}
+
+export interface PaginationResponse<T> {
+  data: T[];
+  page: number;
+  limit: number;
+  total: number;
+  totalPages: number;
+}
+
+export interface JobWithMatchScore extends JobResponse {
+  matchScore?: number;
+  hasApplied?: boolean;
+  applicationStatus?: string;
+}
+
+export interface JobApplication {
+  id: string;
+  jobId: string;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CandidateApplicationResponse {
+  application: JobApplication;
+  job: JobResponse;
+}
+
+export interface CandidateApplicationListResponse {
+  data: CandidateApplicationResponse[];
+  stats: {
+    total: number;
+    reviewing: number;
+    interviews: number;
+    offers: number;
+  };
 }

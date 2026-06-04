@@ -3,35 +3,16 @@
 import {
   Ban,
   Briefcase,
-  Clock,
-  DollarSign,
   Eye,
   Filter,
-  ListChecks,
-  MapPin,
-  MoreHorizontal,
   Search,
   Unlock,
 } from "lucide-react";
 import { useState } from "react";
-import { Button } from "@/components/animate-ui/components/buttons/button";
-import {
-  Dialog,
-  DialogClose,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogPanel,
-  DialogTitle,
-} from "@/components/animate-ui/components/headless/dialog";
+import { useRouter } from "next/navigation";
 import { ConfirmationModal } from "@/components/shared/confirmation-modal";
 import { Pagination } from "@/components/shared/pagination";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { formatSalaryAmount } from "@/lib/salary";
 import {
   Popover,
   PopoverContent,
@@ -42,6 +23,7 @@ import { useAdminJobs } from "../hooks/use-admin-jobs";
 import type { AdminJobDetail } from "../types/admin.types";
 
 export const JobList = () => {
+  const router = useRouter();
   const {
     jobs,
     total,
@@ -58,7 +40,7 @@ export const JobList = () => {
 
   const [selectedJob, setSelectedJob] = useState<AdminJobDetail | null>(null);
   const [dialogType, setDialogType] = useState<
-    "block" | "unblock" | "details" | null
+    "block" | "unblock" | null
   >(null);
 
   const totalPages = Math.ceil(total / itemsPerPage);
@@ -67,6 +49,10 @@ export const JobList = () => {
     job: AdminJobDetail,
     action: "block" | "unblock" | "details",
   ) => {
+    if (action === "details") {
+      router.push(`/admin/jobs/${job.id}`);
+      return;
+    }
     setSelectedJob(job);
     setDialogType(action);
   };
@@ -175,6 +161,9 @@ export const JobList = () => {
                 <th className="px-6 py-4 text-[10px] font-black text-gray-400 uppercase tracking-widest">
                   Posted Date
                 </th>
+                <th className="px-6 py-4 text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                  Expires On
+                </th>
                 <th className="px-6 py-4 text-[10px] font-black text-gray-400 uppercase tracking-widest text-right">
                   Actions
                 </th>
@@ -206,8 +195,7 @@ export const JobList = () => {
                   </td>
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-1 text-xs text-gray-500 font-bold">
-                      <DollarSign className="w-3.5 h-3.5 text-gray-400" />
-                      {job.minSalary} - {job.maxSalary}
+                      {formatSalaryAmount(job.minSalary, "INR", "full")} - {formatSalaryAmount(job.maxSalary, "INR", "full")}
                     </div>
                   </td>
                   <td className="px-6 py-4">
@@ -225,40 +213,36 @@ export const JobList = () => {
                   <td className="px-6 py-4 text-xs font-bold text-gray-400">
                     {job.posted}
                   </td>
+                  <td className="px-6 py-4 text-xs font-bold text-gray-400">
+                    {job.expireIn}
+                  </td>
                   <td className="px-6 py-4 text-right">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger className="p-2 hover:bg-gray-100 rounded-xl transition-all outline-none">
-                        <MoreHorizontal className="w-5 h-5 text-gray-400" />
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent
-                        align="end"
-                        className="w-48 p-2 rounded-2xl shadow-xl border-gray-100 bg-white"
+                    <div className="flex items-center justify-end gap-2">
+                      <button
+                        onClick={() => handleAction(job, "details")}
+                        className="p-2 text-gray-400 hover:text-wise-green hover:bg-wise-green/10 rounded-xl transition-all outline-none"
+                        title="View Details"
                       >
-                        <DropdownMenuItem
-                          onClick={() => handleAction(job, "details")}
-                          className="rounded-xl font-bold text-sm cursor-pointer p-3 focus:bg-gray-50 focus:text-near-black"
+                        <Eye className="w-5 h-5" />
+                      </button>
+                      {job.status === "OPEN" ? (
+                        <button
+                          onClick={() => handleAction(job, "block")}
+                          className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all outline-none"
+                          title="Flag as Threat / Scam"
                         >
-                          View Details
-                        </DropdownMenuItem>
-                        {job.status === "OPEN" ? (
-                          <DropdownMenuItem
-                            onClick={() => handleAction(job, "block")}
-                            className="rounded-xl font-bold text-sm cursor-pointer p-3 text-red-600 focus:bg-red-50 focus:text-red-700"
-                          >
-                            <Ban className="w-4 h-4 mr-2" />
-                            Flag as Threat / Scam
-                          </DropdownMenuItem>
-                        ) : (
-                          <DropdownMenuItem
-                            onClick={() => handleAction(job, "unblock")}
-                            className="rounded-xl font-bold text-sm cursor-pointer p-3 text-green-600 focus:bg-green-50 focus:text-green-700"
-                          >
-                            <Unlock className="w-4 h-4 mr-2" />
-                            Activate Job Post
-                          </DropdownMenuItem>
-                        )}
-                      </DropdownMenuContent>
-                    </DropdownMenu>
+                          <Ban className="w-5 h-5" />
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => handleAction(job, "unblock")}
+                          className="p-2 text-gray-400 hover:text-green-600 hover:bg-green-50 rounded-xl transition-all outline-none"
+                          title="Activate Job Post"
+                        >
+                          <Unlock className="w-5 h-5" />
+                        </button>
+                      )}
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -273,121 +257,6 @@ export const JobList = () => {
           />
         )}
       </div>
-
-      <Dialog open={dialogType === "details"} onClose={closeDialog}>
-        <DialogPanel className="max-w-2xl p-0 overflow-hidden animate-in zoom-in-95 duration-200 bg-white border border-gray-100 rounded-[2.5rem] shadow-2xl">
-          <DialogHeader className="p-8 bg-gray-50/50 border-b border-gray-100">
-            <div className="flex items-center gap-4">
-              <div className="w-16 h-16 bg-wise-green/10 rounded-2xl flex items-center justify-center">
-                <Briefcase className="w-8 h-8 text-wise-green" />
-              </div>
-              <div>
-                <DialogTitle className="text-2xl font-black text-near-black tracking-tight">
-                  {selectedJob?.jobTitle}
-                </DialogTitle>
-                <DialogDescription className="text-gray-500 font-medium italic">
-                  {selectedJob?.hiringCompany} • {selectedJob?.jobType}
-                </DialogDescription>
-              </div>
-            </div>
-          </DialogHeader>
-
-          {selectedJob && (
-            <div className="p-8 space-y-8 max-h-[60vh] overflow-y-auto custom-scrollbar">
-              <div className="grid grid-cols-3 gap-4">
-                <div className="bg-gray-50 p-4 rounded-2xl border border-gray-100 text-center">
-                  <DollarSign className="w-4 h-4 text-gray-400 mx-auto mb-1" />
-                  <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">
-                    Salary Range
-                  </p>
-                  <p className="text-xs font-bold text-near-black">
-                    {selectedJob.minSalary} - {selectedJob.maxSalary}
-                  </p>
-                </div>
-                <div className="bg-gray-50 p-4 rounded-2xl border border-gray-100 text-center">
-                  <MapPin className="w-4 h-4 text-gray-400 mx-auto mb-1" />
-                  <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">
-                    Location Type
-                  </p>
-                  <p className="text-xs font-bold text-near-black">
-                    {selectedJob.locationType}
-                  </p>
-                </div>
-                <div className="bg-gray-50 p-4 rounded-2xl border border-gray-100 text-center">
-                  <Clock className="w-4 h-4 text-gray-400 mx-auto mb-1" />
-                  <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">
-                    Posted Date
-                  </p>
-                  <p className="text-xs font-bold text-near-black">
-                    {selectedJob.posted}
-                  </p>
-                </div>
-              </div>
-
-              <div className="space-y-3">
-                <div className="flex items-center gap-2">
-                  <Eye className="w-4 h-4 text-wise-green" />
-                  <h4 className="font-black text-xs text-near-black uppercase tracking-widest">
-                    Job Description
-                  </h4>
-                </div>
-                <p className="text-gray-600 font-medium leading-relaxed">
-                  {selectedJob.description || "No description provided."}
-                </p>
-              </div>
-
-              <div className="space-y-3">
-                <div className="flex items-center gap-2">
-                  <ListChecks className="w-4 h-4 text-wise-green" />
-                  <h4 className="font-black text-xs text-near-black uppercase tracking-widest">
-                    Experience / Skills
-                  </h4>
-                </div>
-                <div className="space-y-2">
-                  <p className="text-xs text-gray-500">
-                    <span className="font-bold">Required Experience: </span>
-                    {selectedJob.experience}
-                  </p>
-                  {selectedJob.skills.length > 0 && (
-                    <div className="flex flex-wrap gap-2">
-                      {selectedJob.skills.map((skill) => (
-                        <span
-                          key={skill}
-                          className="px-3 py-1.5 bg-white border border-gray-100 rounded-xl text-xs font-bold text-gray-600 shadow-sm"
-                        >
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          )}
-
-          <DialogFooter className="p-8 bg-gray-50/50 border-t border-gray-100 flex justify-between items-center">
-            <DialogClose className="h-12 rounded-xl px-6 text-sm font-black uppercase tracking-wider bg-transparent hover:bg-gray-100 text-near-black">
-              Close Overview
-            </DialogClose>
-            {selectedJob?.status === "OPEN" ? (
-              <Button
-                onClick={() => handleAction(selectedJob, "block")}
-                variant="destructive"
-                className="h-12 rounded-xl px-6 text-sm font-black uppercase tracking-wider"
-              >
-                Flag as Threat
-              </Button>
-            ) : (
-              <Button
-                onClick={() => handleAction(selectedJob!, "unblock")}
-                className="bg-wise-green text-dark-green h-12 rounded-xl px-6 text-sm font-black uppercase tracking-wider hover:bg-wise-green/90 shadow-lg shadow-wise-green/20"
-              >
-                Unblock Post
-              </Button>
-            )}
-          </DialogFooter>
-        </DialogPanel>
-      </Dialog>
 
       <ConfirmationModal
         isOpen={dialogType === "block"}

@@ -7,6 +7,8 @@ import {
   deleteCertificate,
   deleteEducation,
   deleteExperience,
+  deleteProfileImage,
+  deleteResume,
   getCertificates,
   getEducations,
   getExperiences,
@@ -29,6 +31,8 @@ export const useProfileQuery = (role: string | null, options = {}) => {
   return useQuery({
     queryKey: ["profile", role],
     queryFn: () => getProfile(role),
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    refetchOnWindowFocus: false,
     ...options,
   });
 };
@@ -44,7 +48,7 @@ export const useUpdateProfileMutation = (
       queryClient.invalidateQueries({ queryKey: ["profile"] });
       toast.success("Profile updated successfully");
     },
-    onError: (error) => {
+    onError: (error: Error) => {
       toast.error(error.message || "Failed to update profile");
     },
   });
@@ -64,6 +68,20 @@ export const useUploadProfileImageMutation = (role: string | null) => {
   });
 };
 
+export const useDeleteProfileImageMutation = (role: string | null) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: () => deleteProfileImage(role),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["profile"] });
+      toast.success("Profile image deleted successfully");
+    },
+    onError: (error: Error) => {
+      toast.error(error.message || "Failed to delete image");
+    },
+  });
+};
+
 export const useUploadResumeMutation = () => {
   const queryClient = useQueryClient();
   return useMutation({
@@ -72,8 +90,22 @@ export const useUploadResumeMutation = () => {
       queryClient.invalidateQueries({ queryKey: ["profile"] });
       toast.success("Resume uploaded successfully");
     },
-    onError: (error) => {
+    onError: (error: Error) => {
       toast.error(error.message || "Failed to upload resume");
+    },
+  });
+};
+
+export const useDeleteResumeMutation = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: () => deleteResume(),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["profile"] });
+      toast.success("Resume deleted successfully");
+    },
+    onError: (error: Error) => {
+      toast.error(error.message || "Failed to delete resume");
     },
   });
 };
@@ -83,6 +115,8 @@ export const useEducationQuery = (options = {}) => {
   return useQuery({
     queryKey: ["education"],
     queryFn: getEducations,
+    staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
     ...options,
   });
 };
@@ -130,6 +164,8 @@ export const useExperienceQuery = (options = {}) => {
   return useQuery({
     queryKey: ["experience"],
     queryFn: getExperiences,
+    staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
     ...options,
   });
 };
@@ -178,6 +214,8 @@ export const useCertificateQuery = (options = {}) => {
   return useQuery({
     queryKey: ["certificates"],
     queryFn: getCertificates,
+    staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
     ...options,
   });
 };

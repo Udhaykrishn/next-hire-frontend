@@ -1,13 +1,46 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { Button } from "@/components/animate-ui/components/buttons/button";
 import { FormPageLayout } from "@/components/profile/forms/form-page-layout";
 import { useProfile } from "@/hooks/use-profile";
+import { formatSalaryAmount } from "@/lib/salary";
+import { cn } from "@/lib/utils";
+
+const CURRENCIES = [
+  { code: "USD", symbol: "$", name: "USD ($)" },
+  { code: "INR", symbol: "₹", name: "INR (₹)" },
+  { code: "EUR", symbol: "€", name: "EUR (€)" },
+  { code: "GBP", symbol: "£", name: "GBP (£)" },
+  { code: "CAD", symbol: "C$", name: "CAD (C$)" },
+  { code: "AUD", symbol: "A$", name: "AUD (A$)" },
+];
+
+const FREQUENCIES = [
+  { value: "year", label: "Yearly" },
+  { value: "month", label: "Monthly" },
+  { value: "hour", label: "Hourly" },
+];
+
+const FORMATS = [
+  { value: "compact", label: "Compact (e.g. $120k / ₹5L)" },
+  { value: "detailed", label: "Detailed (e.g. $120,000 / ₹5,00,000)" },
+];
 
 export default function EditJobPreferencesPage() {
   const { jobPreferences, handleUpdateJobPreferences } = useProfile();
   const router = useRouter();
+
+  const [currency, setCurrency] = useState(jobPreferences.currency || "USD");
+  const [frequency, setFrequency] = useState(
+    jobPreferences.salaryFrequency || "year",
+  );
+  const [format, setFormat] = useState(
+    jobPreferences.salaryFormat || "compact",
+  );
+  const [minSalary, setMinSalary] = useState(jobPreferences.minSalary || "");
+  const [maxSalary, setMaxSalary] = useState(jobPreferences.maxSalary || "");
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,9 +65,9 @@ export default function EditJobPreferencesPage() {
     >
       <form onSubmit={onSubmit} className="space-y-6">
         <div className="space-y-2">
-          <label className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
+          <span className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1 block">
             Preferred Job Types
-          </label>
+          </span>
           <div className="flex flex-wrap gap-2">
             {jobTypes.map((type) => (
               <label key={type} className="cursor-pointer">
@@ -54,10 +87,14 @@ export default function EditJobPreferencesPage() {
         </div>
 
         <div className="space-y-1.5">
-          <label className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
+          <label
+            htmlFor="roles"
+            className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1"
+          >
             Preferred Roles (comma separated)
           </label>
           <input
+            id="roles"
             name="roles"
             defaultValue={jobPreferences.roles.join(", ")}
             required
@@ -67,9 +104,9 @@ export default function EditJobPreferencesPage() {
         </div>
 
         <div className="space-y-2">
-          <label className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
+          <span className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1 block">
             Work Styles
-          </label>
+          </span>
           <div className="flex flex-wrap gap-2">
             {workStyles.map((style) => (
               <label key={style} className="cursor-pointer">
@@ -88,42 +125,156 @@ export default function EditJobPreferencesPage() {
           </div>
         </div>
 
-        <div className="space-y-1.5">
-          <label className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
-            Expected Salary Range ($k / year)
-          </label>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="relative group">
-              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-[14px] group-focus-within:text-wise-green transition-colors">
-                $
+        <div className="space-y-6 pt-6 border-t border-gray-100">
+          <h3 className="text-[12px] font-black text-near-black uppercase tracking-wider ml-1">
+            Compensation Settings
+          </h3>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Currency Selector */}
+            <div className="space-y-2">
+              <span className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1 block">
+                Currency
               </span>
-              <input
-                name="minSalary"
-                type="number"
-                defaultValue={jobPreferences.minSalary}
-                className="w-full h-11 bg-gray-50 rounded-xl border border-gray-100 pl-8 pr-12 text-[14px] font-bold focus:outline-none focus:border-wise-green transition-colors"
-                placeholder="Min"
-              />
-              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[11px] font-black text-gray-400 uppercase tracking-widest">
-                k
-              </span>
+              <div className="grid grid-cols-3 gap-2">
+                {CURRENCIES.map((curr) => (
+                  <button
+                    key={curr.code}
+                    type="button"
+                    onClick={() => setCurrency(curr.code)}
+                    className={cn(
+                      "px-3 py-2.5 rounded-xl border text-[12px] font-bold transition-all text-center",
+                      currency === curr.code
+                        ? "bg-wise-green border-wise-green text-dark-green shadow-sm"
+                        : "bg-gray-50 border-gray-100 text-gray-500 hover:border-gray-200",
+                    )}
+                  >
+                    {curr.code}
+                  </button>
+                ))}
+              </div>
+              <input type="hidden" name="currency" value={currency} />
             </div>
-            <div className="relative group">
-              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-[14px] group-focus-within:text-wise-green transition-colors">
-                $
+
+            {/* Frequency Selector */}
+            <div className="space-y-2">
+              <span className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1 block">
+                Salary Period (Frequency)
               </span>
-              <input
-                name="maxSalary"
-                type="number"
-                defaultValue={jobPreferences.maxSalary}
-                className="w-full h-11 bg-gray-50 rounded-xl border border-gray-100 pl-8 pr-12 text-[14px] font-bold focus:outline-none focus:border-wise-green transition-colors"
-                placeholder="Max"
-              />
-              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[11px] font-black text-gray-400 uppercase tracking-widest">
-                k
-              </span>
+              <div className="grid grid-cols-3 gap-2">
+                {FREQUENCIES.map((freq) => (
+                  <button
+                    key={freq.value}
+                    type="button"
+                    onClick={() => setFrequency(freq.value)}
+                    className={cn(
+                      "px-3 py-2.5 rounded-xl border text-[12px] font-bold transition-all text-center",
+                      frequency === freq.value
+                        ? "bg-wise-green border-wise-green text-dark-green shadow-sm"
+                        : "bg-gray-50 border-gray-100 text-gray-500 hover:border-gray-200",
+                    )}
+                  >
+                    {freq.label}
+                  </button>
+                ))}
+              </div>
+              <input type="hidden" name="salaryFrequency" value={frequency} />
             </div>
           </div>
+
+          {/* Format Selector */}
+          <div className="space-y-2">
+            <span className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1 block">
+              Salary Formatting Format
+            </span>
+            <div className="grid grid-cols-2 gap-2">
+              {FORMATS.map((fmt) => (
+                <button
+                  key={fmt.value}
+                  type="button"
+                  onClick={() => setFormat(fmt.value)}
+                  className={cn(
+                    "px-3 py-2.5 rounded-xl border text-[12px] font-bold transition-all text-center",
+                    format === fmt.value
+                      ? "bg-wise-green border-wise-green text-dark-green shadow-sm"
+                      : "bg-gray-50 border-gray-100 text-gray-500 hover:border-gray-200",
+                  )}
+                >
+                  {fmt.label}
+                </button>
+              ))}
+            </div>
+            <input type="hidden" name="salaryFormat" value={format} />
+          </div>
+
+          <div className="space-y-1.5">
+            <span className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1 block">
+              Expected Salary Range (
+              {CURRENCIES.find((c) => c.code === currency)?.symbol}{" "}
+              {format === "compact"
+                ? currency === "INR"
+                  ? "Lakhs/Thousands"
+                  : "Thousands (k)"
+                : "Full amount"}
+              )
+            </span>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="relative group">
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-[14px] group-focus-within:text-wise-green transition-colors">
+                  {CURRENCIES.find((c) => c.code === currency)?.symbol || "$"}
+                </span>
+                <input
+                  name="minSalary"
+                  type="number"
+                  value={minSalary}
+                  onChange={(e) => setMinSalary(e.target.value)}
+                  className="w-full h-11 bg-gray-50 rounded-xl border border-gray-100 pl-8 pr-12 text-[14px] font-bold focus:outline-none focus:border-wise-green transition-colors"
+                  placeholder="Min"
+                />
+                {format === "compact" && (
+                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[11px] font-black text-gray-400 uppercase tracking-widest">
+                    {currency === "INR" ? "L / k" : "k"}
+                  </span>
+                )}
+              </div>
+              <div className="relative group">
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-[14px] group-focus-within:text-wise-green transition-colors">
+                  {CURRENCIES.find((c) => c.code === currency)?.symbol || "$"}
+                </span>
+                <input
+                  name="maxSalary"
+                  type="number"
+                  value={maxSalary}
+                  onChange={(e) => setMaxSalary(e.target.value)}
+                  className="w-full h-11 bg-gray-50 rounded-xl border border-gray-100 pl-8 pr-12 text-[14px] font-bold focus:outline-none focus:border-wise-green transition-colors"
+                  placeholder="Max"
+                />
+                {format === "compact" && (
+                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[11px] font-black text-gray-400 uppercase tracking-widest">
+                    {currency === "INR" ? "L / k" : "k"}
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Live Preview Card */}
+          {(minSalary || maxSalary) && (
+            <div className="p-5 rounded-[2rem] bg-wise-green/[0.03] border border-wise-green/10 space-y-2 mt-4 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-wise-green/10 rounded-full blur-2xl" />
+              <p className="text-[10px] font-black text-wise-green uppercase tracking-widest flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-wise-green animate-pulse" />
+                Live Preview on Profile
+              </p>
+              <div className="flex items-center gap-2">
+                <span className="text-[16px] font-black text-gray-900 tracking-tight">
+                  {formatSalaryAmount(minSalary, currency, format)} to{" "}
+                  {formatSalaryAmount(maxSalary, currency, format)} /{" "}
+                  {frequency}
+                </span>
+              </div>
+            </div>
+          )}
         </div>
 
         <Button

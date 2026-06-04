@@ -17,6 +17,7 @@ export interface RecruiterDetail {
   company_role?: string;
   is_verified_company?: boolean;
   admin_approved?: boolean;
+  verification_revoked_reason?: string;
   subscription?: {
     current_plan: string;
     is_subscribed: boolean;
@@ -109,6 +110,7 @@ export interface BackendRecruiter {
   company_role: string;
   is_verified_company: boolean;
   admin_approved: boolean;
+  verification_revoked_reason: string;
   subscription: {
     current_plan: string;
     is_subscribed: boolean;
@@ -119,7 +121,7 @@ export interface BackendRecruiter {
   };
   createdAt: string;
   updatedAt: string | null;
-  company_name?: string; // Some endpoints might return this
+  company_name?: string;
 }
 
 export interface PaginatedResponse<T> {
@@ -136,15 +138,69 @@ export interface AdminJobDetail {
   minSalary: string;
   maxSalary: string;
   posted: string;
+  expireIn: string;
   status: string;
   experience: string;
   skills: string[];
   description: string;
+  jobDescription?: string;
   belongingCompany: string;
+  companyLogo?: string;
+  experienceType?: string;
+  jobCategory?: string;
+  isNightShift?: boolean;
+  officeAddress?: string;
+  fieldArea?: string;
+  jobCity?: string;
+  floorDetails?: string;
+  showFloorDetails?: boolean;
+  industry?: string[];
+  payType?: string;
+  incentiveAmount?: string;
+  perks?: string[];
+  hasJoiningFee?: string;
+  feeAmount?: string;
+  feeReason?: string;
+  feeDetails?: string;
+  feePaymentTiming?: string;
+  gender?: string;
+  minAge?: string;
+  maxAge?: string;
+  education?: string;
+  degreeSpecialization?: string[];
+  regionalLanguages?: string[];
+  englishLevel?: string;
+  minExperience?: string;
+  isWalkIn?: boolean;
+  interviewAddress?: string;
+  walkInStartDate?: string;
+  walkInEndDate?: string;
+  walkInStartTime?: string;
+  walkInEndTime?: string;
+  interviewInstructions?: string;
+  contactPreference?: string;
+  hrName?: string;
+  hrPhone?: string;
+  hrEmail?: string;
+  otherRecruiterName?: string;
+  otherRecruiterWhatsapp?: string;
+  otherRecruiterEmail?: string;
+  canCandidateContact?: string;
+  whatsappAlerts?: string;
+  selectedPlan?: string;
+  company_id?: string;
+  posted_by?: string;
+  is_published?: boolean;
+  stats?: {
+    total: number;
+    reviewing: number;
+    interviews: number;
+    offers: number;
+  };
 }
 
 export interface BackendJob {
-  _id: string;
+  id: string;
   jobTitle: string;
   hiringCompany: string;
   jobType: string;
@@ -155,6 +211,61 @@ export interface BackendJob {
   experience: string;
   skills: string[];
   description: string;
+  jobDescription?: string;
   belongingCompany: string;
-  createdAt: string;
+  companyLogo?: string;
+  experienceType?: string;
+  jobCategory?: string;
+  isNightShift?: boolean;
+  officeAddress?: string;
+  fieldArea?: string;
+  jobCity?: string;
+  floorDetails?: string;
+  showFloorDetails?: boolean;
+  industry?: string[];
+  payType?: string;
+  incentiveAmount?: string;
+  perks?: string[];
+  hasJoiningFee?: string;
+  feeAmount?: string;
+  feeReason?: string;
+  feeDetails?: string;
+  feePaymentTiming?: string;
+  gender?: string;
+  minAge?: string;
+  maxAge?: string;
+  education?: string;
+  degreeSpecialization?: string[];
+  regionalLanguages?: string[];
+  englishLevel?: string;
+  minExperience?: string;
+  isWalkIn?: boolean;
+  interviewAddress?: string;
+  walkInStartDate?: string;
+  walkInEndDate?: string;
+  walkInStartTime?: string;
+  walkInEndTime?: string;
+  interviewInstructions?: string;
+  contactPreference?: string;
+  hrName?: string;
+  hrPhone?: string;
+  hrEmail?: string;
+  otherRecruiterName?: string;
+  otherRecruiterWhatsapp?: string;
+  otherRecruiterEmail?: string;
+  canCandidateContact?: string;
+  whatsappAlerts?: string;
+  selectedPlan?: string;
+  company_id?: string;
+  posted_by?: string;
+  is_published?: boolean;
+  createdAt?: string;
+  created_at?: string;
+  updated_at?: string;
+  stats?: {
+    total: number;
+    reviewing: number;
+    interviews: number;
+    offers: number;
+  };
 }

@@ -4,7 +4,7 @@ import { Lock, Mail, ShieldAlert } from "lucide-react";
 import { motion } from "motion/react";
 import { useRouter } from "next/navigation";
 import type React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/animate-ui/components/buttons/button";
 import { Logo } from "@/components/logo";
 import {
@@ -19,11 +19,17 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuthContext } from "@/features/auth/context/auth-context";
 import { useAuth } from "@/features/auth/hooks/use-auth";
+import { useRoleRedirect } from "@/features/auth/hooks/use-role-redirect";
 
 export default function AdminLoginPage() {
   const router = useRouter();
-  const { login, isLoading, error } = useAuth();
-  const { setUser, isAuthenticated, user } = useAuthContext();
+  const { login, isLoading: loginLoading, error } = useAuth();
+  const {
+    setUser,
+    isAuthenticated,
+    user,
+    isLoading: authLoading,
+  } = useAuthContext();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -31,11 +37,15 @@ export default function AdminLoginPage() {
   });
 
   // Redirect if already authenticated as ADMIN
-  useEffect(() => {
-    if (isAuthenticated && user?.role === "ADMIN") {
-      router.push("/admin/dashboard");
-    }
-  }, [isAuthenticated, user, router]);
+  useRoleRedirect("ADMIN", "/admin/dashboard");
+
+  if (authLoading || (isAuthenticated && user?.role === "ADMIN")) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center font-satoshi">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-wise-green"></div>
+      </div>
+    );
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -145,9 +155,9 @@ export default function AdminLoginPage() {
                 <Button
                   type="submit"
                   className="w-full h-12 bg-wise-green text-dark-green font-black rounded-xl hover:bg-wise-green/90 transition-all text-lg shadow-[0_0_20px_rgba(159,232,112,0.2)] mt-2"
-                  disabled={isLoading}
+                  disabled={loginLoading}
                 >
-                  {isLoading ? "Authenticating..." : "Secure Access"}
+                  {loginLoading ? "Authenticating..." : "Secure Access"}
                 </Button>
               </motion.div>
             </form>

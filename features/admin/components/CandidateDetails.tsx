@@ -302,14 +302,14 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
                     className="flex items-center gap-4 p-5 bg-slate-50/50 hover:bg-slate-50 rounded-3xl border border-slate-100/50 transition-all hover:shadow-sm"
                   >
                     <div className="w-12 h-12 rounded-2xl bg-wise-green/10 text-wise-green flex items-center justify-center font-black text-lg shrink-0">
-                      {cert.name.charAt(0).toUpperCase()}
+                      {cert.certificateName.charAt(0).toUpperCase()}
                     </div>
                     <div>
                       <p className="text-sm font-extrabold text-slate-800 leading-tight">
-                        {cert.name}
+                        {cert.certificateName}
                       </p>
                       <p className="text-xs font-bold text-slate-500 mt-0.5">
-                        {cert.issuer}
+                        {cert.issuingOrganization}
                       </p>
                       <p className="text-[10px] font-bold text-slate-400 mt-1">
                         Earned:{" "}

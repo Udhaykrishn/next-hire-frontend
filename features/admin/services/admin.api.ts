@@ -140,21 +140,27 @@ export const adminService = {
     const { data, total } = paginated.data;
 
     return {
-      data: data.map((j: BackendJob) => ({
-        id: j._id,
-        jobTitle: j.jobTitle || "Untitled Job",
-        hiringCompany: j.hiringCompany || "N/A",
-        jobType: j.jobType || "N/A",
-        locationType: j.locationType || "N/A",
-        minSalary: j.minSalary || "0",
-        maxSalary: j.maxSalary || "0",
-        posted: new Date(j.createdAt).toLocaleDateString(),
-        status: j.status || "OPEN",
-        experience: j.experience || "N/A",
-        skills: j.skills || [],
-        description: j.description || "",
-        belongingCompany: j.belongingCompany || "N/A",
-      })),
+      data: data.map((j: BackendJob) => {
+        const createdDate = j.createdAt || j.created_at ? new Date((j.createdAt || j.created_at) as string) : new Date();
+        const expireDate = new Date(createdDate.getTime() + 15 * 24 * 60 * 60 * 1000);
+
+        return {
+          id: j.id,
+          jobTitle: j.jobTitle,
+          hiringCompany: j.hiringCompany || "N/A",
+          jobType: j.jobType || "N/A",
+          locationType: j.locationType || "N/A",
+          minSalary: j.minSalary || "0",
+          maxSalary: j.maxSalary || "0",
+          posted: createdDate.toLocaleDateString(),
+          expireIn: expireDate.toLocaleDateString(),
+          status: j.status || "OPEN",
+          experience: j.experience || "N/A",
+          skills: j.skills || [],
+          description: j.description || "",
+          belongingCompany: j.belongingCompany || "N/A",
+        };
+      }),
       total,
     };
   },
@@ -183,6 +189,7 @@ export const adminService = {
       company_role: r.company_role || undefined,
       is_verified_company: r.is_verified_company,
       admin_approved: r.admin_approved,
+      verification_revoked_reason: r.verification_revoked_reason || "",
       subscription: r.subscription,
       activity: [
         {
@@ -194,6 +201,94 @@ export const adminService = {
     };
   },
 
+  getJobById: async (id: string): Promise<AdminJobDetail> => {
+    const response = await apiClient.get<BackendResponse<BackendJob>>(`/job/${id}`);
+    const j = (response as unknown as BackendResponse<BackendJob>).data;
+    const createdDate = j.createdAt ? new Date(j.createdAt as string) : new Date();
+    const expireDate = new Date(createdDate.getTime() + 15 * 24 * 60 * 60 * 1000);
+
+    return {
+      id: j.id,
+      jobTitle: j.jobTitle || "Untitled Job",
+      hiringCompany: j.hiringCompany || "N/A",
+      jobType: j.jobType || "N/A",
+      locationType: j.locationType || "N/A",
+      minSalary: j.minSalary || "0",
+      maxSalary: j.maxSalary || "0",
+      posted: createdDate.toLocaleDateString(),
+      expireIn: expireDate.toLocaleDateString(),
+      status: j.status || "OPEN",
+      experience: j.experience || "N/A",
+      skills: j.skills || [],
+      description: j.description || "",
+      jobDescription: j.jobDescription,
+      belongingCompany: j.belongingCompany || "N/A",
+      companyLogo: j.companyLogo,
+      experienceType: j.experienceType,
+      jobCategory: j.jobCategory,
+      isNightShift: j.isNightShift,
+      officeAddress: j.officeAddress,
+      fieldArea: j.fieldArea,
+      jobCity: j.jobCity,
+      floorDetails: j.floorDetails,
+      showFloorDetails: j.showFloorDetails,
+      industry: j.industry,
+      payType: j.payType,
+      incentiveAmount: j.incentiveAmount,
+      perks: j.perks,
+      hasJoiningFee: j.hasJoiningFee,
+      feeAmount: j.feeAmount,
+      feeReason: j.feeReason,
+      feeDetails: j.feeDetails,
+      feePaymentTiming: j.feePaymentTiming,
+      gender: j.gender,
+      minAge: j.minAge,
+      maxAge: j.maxAge,
+      education: j.education,
+      degreeSpecialization: j.degreeSpecialization,
+      regionalLanguages: j.regionalLanguages,
+      englishLevel: j.englishLevel,
+      minExperience: j.minExperience,
+      isWalkIn: j.isWalkIn,
+      interviewAddress: j.interviewAddress,
+      walkInStartDate: j.walkInStartDate,
+      walkInEndDate: j.walkInEndDate,
+      walkInStartTime: j.walkInStartTime,
+      walkInEndTime: j.walkInEndTime,
+      interviewInstructions: j.interviewInstructions,
+      contactPreference: j.contactPreference,
+      hrName: j.hrName,
+      hrPhone: j.hrPhone,
+      hrEmail: j.hrEmail,
+      otherRecruiterName: j.otherRecruiterName,
+      otherRecruiterWhatsapp: j.otherRecruiterWhatsapp,
+      otherRecruiterEmail: j.otherRecruiterEmail,
+      canCandidateContact: j.canCandidateContact,
+      whatsappAlerts: j.whatsappAlerts,
+      selectedPlan: j.selectedPlan,
+      company_id: j.company_id,
+      posted_by: j.posted_by,
+      is_published: j.is_published,
+      stats: j.stats,
+    };
+  },
+
+  getJobStats: async (id: string): Promise<{ total: number; reviewing: number; interviews: number; offers: number }> => {
+    const response = await apiClient.get<BackendResponse<{ total: number; reviewing: number; interviews: number; offers: number }>>(`/job/${id}/stats`);
+    return (response as unknown as BackendResponse<{ total: number; reviewing: number; interviews: number; offers: number }>).data;
+  },
+
+  getJobApplications: async (id: string, page = 1, limit = 10, search?: string, status?: string): Promise<{ data: any[]; total: number }> => {
+    const params: any = { page, limit };
+    if (search) params.search = search;
+    if (status && status !== "ALL") params.status = status;
+
+    const response = await apiClient.get<BackendResponse<{ data: any[]; total: number }>>(`/job/${id}/applications`, {
+      params,
+    });
+    return (response as unknown as BackendResponse<{ data: any[]; total: number }>).data;
+  },
+
   getRecruiterJobs: async (id: string): Promise<AdminJobDetail[]> => {
     const response = await apiClient.get<BackendResponse<BackendJob[]>>(
       `/job/recruiter/${id}`,
@@ -201,21 +296,27 @@ export const adminService = {
     const paginated = response as unknown as BackendResponse<BackendJob[]>;
     const jobs = paginated.data;
 
-    return jobs.map((j) => ({
-      id: j._id,
-      jobTitle: j.jobTitle || "Untitled Job",
-      hiringCompany: j.hiringCompany || "N/A",
-      jobType: j.jobType || "N/A",
-      locationType: j.locationType || "N/A",
-      minSalary: j.minSalary || "0",
-      maxSalary: j.maxSalary || "0",
-      posted: new Date(j.createdAt).toLocaleDateString(),
-      status: j.status || "OPEN",
-      experience: j.experience || "N/A",
-      skills: j.skills || [],
-      description: j.description || "",
-      belongingCompany: j.belongingCompany || "N/A",
-    }));
+    return jobs.map((j) => {
+      const createdDate = j.createdAt ? new Date(j.createdAt as string) : new Date();
+      const expireDate = new Date(createdDate.getTime() + 15 * 24 * 60 * 60 * 1000);
+
+      return {
+        id: j.id,
+        jobTitle: j.jobTitle || "Untitled Job",
+        hiringCompany: j.hiringCompany || "N/A",
+        jobType: j.jobType || "N/A",
+        locationType: j.locationType || "N/A",
+        minSalary: j.minSalary || "0",
+        maxSalary: j.maxSalary || "0",
+        posted: createdDate.toLocaleDateString(),
+        expireIn: expireDate.toLocaleDateString(),
+        status: j.status || "OPEN",
+        experience: j.experience || "N/A",
+        skills: j.skills || [],
+        description: j.description || "",
+        belongingCompany: j.belongingCompany || "N/A",
+      };
+    });
   },
 
   getCandidateById: async (id: string): Promise<CandidateDetail> => {
@@ -240,14 +341,14 @@ export const adminService = {
       about: c.bio || "",
       documents: c.resume_url
         ? [
-            {
-              name: "Resume",
-              type: "PDF",
-              size: "N/A",
-              date: new Date(c.createdAt).toLocaleDateString(),
-              url: c.resume_url.url,
-            },
-          ]
+          {
+            name: "Resume",
+            type: "PDF",
+            size: "N/A",
+            date: new Date(c.createdAt).toLocaleDateString(),
+            url: c.resume_url.url,
+          },
+        ]
         : [],
       applications: [],
       block_description: c.block_description,
@@ -260,6 +361,13 @@ export const adminService = {
     description?: string,
   ): Promise<void> => {
     await apiClient.patch(`/recruiter/${id}/block`, { description });
+  },
+
+  revokeCompanyVerification: async (
+    id: string,
+    reason: string,
+  ): Promise<void> => {
+    await apiClient.patch(`/recruiter/${id}/revoke-verification`, { reason });
   },
 
   updateCandidateStatus: async (

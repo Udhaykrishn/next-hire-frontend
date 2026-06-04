@@ -1,8 +1,7 @@
 "use client";
 
-import { Settings, Lock, KeyRound, ArrowRight } from "lucide-react";
+import { ArrowRight, KeyRound, Lock, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   Form,
   FormControl,
@@ -11,6 +10,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { useSettingsForm } from "@/features/recruiter/hooks/use-settings-form";
 
 export default function RecruiterSettings() {

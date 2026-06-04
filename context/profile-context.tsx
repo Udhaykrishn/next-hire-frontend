@@ -2,13 +2,17 @@
 
 import { usePathname } from "next/navigation";
 import type React from "react";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useProfileHandlers } from "@/features/profile/hooks/use-profile-handlers";
 import {
   useCertificateQuery,
+  useDeleteProfileImageMutation,
+  useDeleteResumeMutation,
   useEducationQuery,
   useExperienceQuery,
   useProfileQuery,
+  useUploadProfileImageMutation,
+  useUploadResumeMutation,
 } from "@/features/profile/hooks/use-profile-query";
 import { useProfileStateSync } from "@/features/profile/hooks/use-profile-state-sync";
 import type {
@@ -22,7 +26,6 @@ import type {
   SocialLinks,
 } from "@/features/profile/types/profile-context.types";
 
-// Re-export UI types for backward-compat with existing imports
 export type {
   ProfileCertificate as Certificate,
   ProfileEducation as Education,
@@ -45,6 +48,7 @@ const DEFAULT_BASIC_INFO: BasicInfo = {
   avatar: "",
   email: "",
   phone: "",
+  bio: "",
   cinNumber: "",
   isCompanyVerified: false,
 };
@@ -61,6 +65,9 @@ const DEFAULT_JOB_PREFERENCES: JobPreferences = {
   workStyles: [],
   minSalary: "",
   maxSalary: "",
+  currency: "INR",
+  salaryFrequency: "year",
+  salaryFormat: "compact",
 };
 
 import { useAuthContext } from "@/features/auth/context/auth-context";
@@ -77,8 +84,7 @@ export const ProfileProvider = ({
   const { user, role, isAuthenticated } = useAuthContext();
 
   const isCandidate = role === "CANDIDATE";
-  const isRecruiter = role === "RECRUITER";
-  const hasProfile = isCandidate || isRecruiter;
+  const hasProfile = isCandidate;
 
   const { data: profileData, isLoading: isProfileLoading } = useProfileQuery(
     role,
@@ -108,6 +114,19 @@ export const ProfileProvider = ({
     DEFAULT_JOB_PREFERENCES,
   );
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("jobPreferences");
+      if (stored) {
+        try {
+          setJobPreferences(JSON.parse(stored));
+        } catch (e) {
+          console.error("Error parsing job preferences from localStorage", e);
+        }
+      }
+    }
+  }, []);
+
   useProfileStateSync({
     profileData,
     eduData,
@@ -130,7 +149,7 @@ export const ProfileProvider = ({
   });
 
   const handleUpdateJobPreferences = (formData: FormData) => {
-    setJobPreferences({
+    const updated = {
       jobTypes: formData.getAll("jobTypes") as string[],
       roles:
         (formData.get("roles") as string)
@@ -143,17 +162,52 @@ export const ProfileProvider = ({
       workStyles: formData.getAll("workStyles") as string[],
       minSalary: (formData.get("minSalary") as string) || "",
       maxSalary: (formData.get("maxSalary") as string) || "",
-    });
+      currency: (formData.get("currency") as string) || "USD",
+      salaryFrequency: (formData.get("salaryFrequency") as string) || "year",
+      salaryFormat: (formData.get("salaryFormat") as string) || "compact",
+    };
+    setJobPreferences(updated);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("jobPreferences", JSON.stringify(updated));
+    }
   };
 
   const handleClearJobPreferences = () => {
-    setJobPreferences({
+    const cleared = {
       jobTypes: [],
       roles: [],
       workStyles: [],
       minSalary: "",
       maxSalary: "",
-    });
+      currency: "USD",
+      salaryFrequency: "year",
+      salaryFormat: "compact",
+    };
+    setJobPreferences(cleared);
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("jobPreferences");
+    }
+  };
+
+  const uploadAvatarMutation = useUploadProfileImageMutation(role);
+  const deleteAvatarMutation = useDeleteProfileImageMutation(role);
+  const uploadResumeMutation = useUploadResumeMutation();
+  const deleteResumeMutation = useDeleteResumeMutation();
+
+  const handleUploadAvatar = async (file: File) => {
+    await uploadAvatarMutation.mutateAsync(file);
+  };
+
+  const handleDeleteAvatar = async () => {
+    await deleteAvatarMutation.mutateAsync();
+  };
+
+  const handleUploadResume = async (file: File) => {
+    await uploadResumeMutation.mutateAsync(file);
+  };
+
+  const handleDeleteResume = async () => {
+    await deleteResumeMutation.mutateAsync();
   };
 
   const isLoading =
@@ -171,9 +225,17 @@ export const ProfileProvider = ({
         jobPreferences,
         languages,
         isLoading,
+        isUploadingAvatar: uploadAvatarMutation.isPending,
+        isDeletingAvatar: deleteAvatarMutation.isPending,
+        isUploadingResume: uploadResumeMutation.isPending,
+        isDeletingResume: deleteResumeMutation.isPending,
         ...handlers,
         handleUpdateJobPreferences,
         handleClearJobPreferences,
+        handleUploadAvatar,
+        handleDeleteAvatar,
+        handleUploadResume,
+        handleDeleteResume,
       }}
     >
       {children}

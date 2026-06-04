@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { notFound, useRouter } from "next/navigation";
 import { use } from "react";
 import { ExperienceForm } from "@/components/profile/forms/experience-form";
 import { FormPageLayout } from "@/components/profile/forms/form-page-layout";
@@ -18,7 +18,7 @@ export default function EditExperiencePage({
   const exp = experience.find((e) => e.id === id);
 
   if (!exp) {
-    return <div>Experience not found</div>;
+    notFound();
   }
 
   const onSubmit = (formData: FormData, start?: Date, end?: Date) => {

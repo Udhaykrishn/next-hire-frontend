@@ -32,8 +32,11 @@ export const useAdminJobs = () => {
 
   const blockMutation = useMutation({
     mutationFn: (id: string) => adminService.updateJobStatus(id, "Blocked"),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["admin-jobs"] });
+    onSuccess: async (_, id) => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["admin-jobs"] }),
+        queryClient.invalidateQueries({ queryKey: ["admin-job", id] }),
+      ]);
       toast.success("Job status updated successfully");
     },
   });

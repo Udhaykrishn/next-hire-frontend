@@ -7,7 +7,7 @@ import type {
   FC,
   ReactNode,
 } from "react";
-import { isValidElement } from "react";
+import React, { isValidElement } from "react";
 import type {
   ButtonProps as AriaButtonProps,
   LinkProps as AriaLinkProps,
@@ -252,9 +252,17 @@ export const Button = ({
     >
       {/* Leading icon */}
       {isValidElement(IconLeading) && IconLeading}
-      {isReactComponent(IconLeading) && (
-        <IconLeading data-icon="leading" className={styles.common.icon} />
-      )}
+      {isReactComponent(IconLeading) &&
+        React.createElement(
+          IconLeading as React.ComponentType<{
+            "data-icon": string;
+            className: string;
+          }>,
+          {
+            "data-icon": "leading",
+            className: styles.common.icon,
+          },
+        )}
 
       {loading && (
         <svg
@@ -267,6 +275,7 @@ export const Button = ({
               "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
           )}
         >
+          <title>Loading</title>
           {/* Background circle */}
           <circle
             className="stroke-current opacity-30"
@@ -301,9 +310,17 @@ export const Button = ({
 
       {/* Trailing icon */}
       {isValidElement(IconTrailing) && IconTrailing}
-      {isReactComponent(IconTrailing) && (
-        <IconTrailing data-icon="trailing" className={styles.common.icon} />
-      )}
+      {isReactComponent(IconTrailing) &&
+        React.createElement(
+          IconTrailing as React.ComponentType<{
+            "data-icon": string;
+            className: string;
+          }>,
+          {
+            "data-icon": "trailing",
+            className: styles.common.icon,
+          },
+        )}
     </Component>
   );
 };

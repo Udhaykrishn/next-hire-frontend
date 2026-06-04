@@ -169,7 +169,7 @@ function TabsTrigger({
     return () => registerTrigger(value, null);
   }, [value, registerTrigger]);
 
-  const Component = asChild ? Slot : motion.button;
+  const Component = (asChild ? Slot : motion.button) as React.ElementType;
 
   return (
     <Component
@@ -288,17 +288,23 @@ function TabsContents({
         animate={{ x: `${activeIndex * -100}%` }}
         transition={transition}
       >
-        {childrenArray.map((child, index) => (
-          <div
-            key={index}
-            ref={(el) => {
-              itemRefs.current[index] = el;
-            }}
-            className="w-full shrink-0 px-2 h-full"
-          >
-            {child}
-          </div>
-        ))}
+        {childrenArray.map((child, index) => {
+          const itemKey =
+            React.isValidElement(child) && child.key
+              ? child.key
+              : `tab-panel-${index}`;
+          return (
+            <div
+              key={itemKey}
+              ref={(el) => {
+                itemRefs.current[index] = el;
+              }}
+              className="w-full shrink-0 px-2 h-full"
+            >
+              {child}
+            </div>
+          );
+        })}
       </motion.div>
     </motion.div>
   );

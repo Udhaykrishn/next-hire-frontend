@@ -5,7 +5,9 @@ import { motion } from "motion/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { toast } from "sonner";
+import { OtpForm } from "@/components/auth/otp-form";
 import { Button } from "@/components/animate-ui/components/buttons/button";
 import { Logo } from "@/components/logo";
 import {
@@ -20,11 +22,17 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuthContext } from "@/features/auth/context/auth-context";
 import { useAuth } from "@/features/auth/hooks/use-auth";
+import { useRoleRedirect } from "@/features/auth/hooks/use-role-redirect";
 
 export default function RecruiterSignupPage() {
   const router = useRouter();
-  const { signup, isLoading, error } = useAuth();
-  const { setUser, isAuthenticated } = useAuthContext();
+  const { signup, verifyOtp, resendOtp, isLoading: signupLoading, error } = useAuth();
+  const {
+    setUser,
+    isAuthenticated,
+    user,
+    isLoading: authLoading,
+  } = useAuthContext();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -34,35 +42,56 @@ export default function RecruiterSignupPage() {
     name: "",
   });
 
-  // Redirect if already authenticated
-  useEffect(() => {
-    if (isAuthenticated) {
-      router.push("/recruiter/dashboard");
-    }
-  }, [isAuthenticated, router]);
+  const [step, setStep] = useState<"FORM" | "OTP">("FORM");
+
+  // Redirect if already authenticated as RECRUITER
+  useRoleRedirect("RECRUITER", "/recruiter/dashboard");
+
+  if (authLoading || (isAuthenticated && user?.role === "RECRUITER")) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center font-satoshi">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-wise-green"></div>
+      </div>
+    );
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
-      import("sonner").then(({ toast }) =>
-        toast.error("Passwords do not match!"),
-      );
+      toast.error("Passwords do not match!");
       return;
     }
 
     try {
-      const response = await signup({ ...formData, role: "RECRUITER" });
-
-      // Update global context with the user from response
-      if (response && "user" in response) {
-        setUser(response.user);
-        router.push("/recruiter/dashboard");
-      } else {
-        router.push("/recruiter/login");
-      }
+      await signup({ ...formData, role: "RECRUITER" });
+      toast.success("Please verify your email!");
+      setStep("OTP");
     } catch (_err) {
       // Error handled by hook
+    }
+  };
+
+  const handleVerifyOtp = async (otp: string) => {
+    try {
+      const response = await verifyOtp(formData.email, otp, "recruiter");
+      if (response && "user" in response) {
+        setUser(response.user);
+        toast.success("Recruiter account created successfully!");
+        router.push("/recruiter/dashboard");
+      }
+    } catch (err) {
+      toast.error("Invalid OTP. Please try again.");
+      throw err;
+    }
+  };
+
+  const handleResendOtp = async () => {
+    try {
+      await resendOtp(formData.email, "recruiter");
+      toast.success("OTP resent to your email.");
+    } catch (err) {
+      toast.error("Failed to resend OTP.");
     }
   };
 
@@ -99,15 +128,18 @@ export default function RecruiterSignupPage() {
             </motion.div>
 
             <CardTitle className="text-3xl font-black leading-tight text-gray-900 tracking-tight mt-2">
-              Recruit the Best
+              {step === "FORM" ? "Recruit the Best" : "Verify Email"}
             </CardTitle>
             <CardDescription className="text-base text-gray-500 font-medium">
-              Create your corporate account to access premium talent.
+              {step === "FORM"
+                ? "Create your corporate account to access premium talent."
+                : `We've sent a code to ${formData.email}`}
             </CardDescription>
           </CardHeader>
 
           <CardContent className="space-y-6 pt-8 px-10">
-            <form onSubmit={handleSubmit} className="space-y-5">
+            {step === "FORM" ? (
+              <form onSubmit={handleSubmit} className="space-y-5">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2 col-span-2">
                   <Label
@@ -207,12 +239,32 @@ export default function RecruiterSignupPage() {
                 <Button
                   type="submit"
                   className="w-full h-12 bg-wise-green text-dark-green font-black rounded-xl hover:bg-wise-green/90 transition-all text-lg shadow-[0_0_20px_rgba(159,232,112,0.2)] mt-2"
-                  disabled={isLoading}
+                  disabled={signupLoading}
                 >
                   Create Recruiter Account
                 </Button>
               </motion.div>
             </form>
+            ) : (
+              <motion.div
+                key="otp"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.3 }}
+              >
+                <OtpForm id={formData.email} role="recruiter" onVerify={handleVerifyOtp} />
+                <div className="mt-6 text-center">
+                  <button
+                    type="button"
+                    onClick={handleResendOtp}
+                    className="text-sm font-bold text-wise-green hover:text-dark-green transition-colors"
+                  >
+                    Resend Code
+                  </button>
+                </div>
+              </motion.div>
+            )}
 
             {error && (
               <motion.p
