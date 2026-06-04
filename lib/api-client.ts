@@ -37,14 +37,19 @@ apiClient.interceptors.response.use(
     const backendMessage =
       error.response?.data?.error?.message || error.response?.data?.message;
     const message = backendMessage || error.message || "Something went wrong";
-    const isBlockedError =
-      error.response?.status === 403;
+    const isBlockedError = error.response?.status === 403;
 
     // Do NOT attempt a token refresh if the failing request IS the refresh endpoint.
     // That would cause an infinite retry loop and an unwarranted logout redirect.
-    const isRefreshRequest = (originalRequest.url as string | undefined)?.includes("/api/auth/refresh");
+    const isRefreshRequest = (
+      originalRequest.url as string | undefined
+    )?.includes("/api/auth/refresh");
 
-    if (error.response?.status === 401 && !originalRequest._retry && !isRefreshRequest) {
+    if (
+      error.response?.status === 401 &&
+      !originalRequest._retry &&
+      !isRefreshRequest
+    ) {
       originalRequest._retry = true;
 
       try {
@@ -64,12 +69,17 @@ apiClient.interceptors.response.use(
         });
 
         if (!refreshRes.ok) {
-          const body = await refreshRes.json().catch(() => ({})) as { blocked?: boolean };
+          const body = (await refreshRes.json().catch(() => ({}))) as {
+            blocked?: boolean;
+          };
           if (body.blocked) throw new Error("blocked");
           throw new Error("refresh_failed");
         }
 
-        const body = await refreshRes.json() as { success: boolean; blocked?: boolean };
+        const body = (await refreshRes.json()) as {
+          success: boolean;
+          blocked?: boolean;
+        };
 
         if (body.blocked) throw new Error("blocked");
 
@@ -80,7 +90,8 @@ apiClient.interceptors.response.use(
           const pathname = window.location.pathname;
           let targetPath = "/login";
           if (pathname.startsWith("/admin")) targetPath = "/admin/login";
-          else if (pathname.startsWith("/recruiter")) targetPath = "/recruiter/login";
+          else if (pathname.startsWith("/recruiter"))
+            targetPath = "/recruiter/login";
 
           if (pathname !== targetPath) {
             let redirectUrl = targetPath;
@@ -88,7 +99,10 @@ apiClient.interceptors.response.use(
             if (errorObj.message === "blocked") {
               redirectUrl += "?error=blocked";
             }
-            window.location.href = redirectUrl;
+            window.location.href = new URL(
+              redirectUrl,
+              window.location.origin,
+            ).toString();
           }
         }
         return Promise.reject(err);
@@ -100,10 +114,14 @@ apiClient.interceptors.response.use(
         const pathname = window.location.pathname;
         let targetPath = "/login";
         if (pathname.startsWith("/admin")) targetPath = "/admin/login";
-        else if (pathname.startsWith("/recruiter")) targetPath = "/recruiter/login";
+        else if (pathname.startsWith("/recruiter"))
+          targetPath = "/recruiter/login";
 
         if (pathname !== targetPath) {
-          window.location.href = targetPath + "?error=blocked";
+          window.location.href = new URL(
+            `${targetPath}?error=blocked`,
+            window.location.origin,
+          ).toString();
         }
       }
     } else {

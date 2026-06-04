@@ -88,8 +88,15 @@ export function useAutoHeight<T extends HTMLElement = HTMLDivElement>(
       ro.disconnect();
       roRef.current = null;
     };
-    // biome-ignore lint/correctness/useExhaustiveDependencies: Dynamic dependencies
-  }, deps);
+  }, [measure, options.includeParentBox]);
+
+  React.useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    setHeight(measure());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [measure, ...deps]);
 
   React.useLayoutEffect(() => {
     if (height === 0) {
