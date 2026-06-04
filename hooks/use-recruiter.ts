@@ -6,7 +6,11 @@ import {
   useRecruiterJobsQuery,
   useRecruiterStatsQuery,
 } from "@/features/recruiter/hooks/use-recruiter-query";
-import type { Candidate, JobListing, RecruiterStats } from "@/features/recruiter/types/recruiter.types";
+import type {
+  Candidate,
+  JobListing,
+  RecruiterStats,
+} from "@/features/recruiter/types/recruiter.types";
 
 export type { Candidate, JobListing, RecruiterStats };
 
