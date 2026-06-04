@@ -7,8 +7,6 @@ export async function proxy(request: NextRequest) {
   const sessionId = request.cookies.get(COOKIE_NAMES.sid);
   const { pathname } = request.nextUrl;
 
-  console.log("middleware working →", pathname);
-
   if (pathname === "/admin") {
     return NextResponse.redirect(new URL("/admin/dashboard", request.url));
   }
