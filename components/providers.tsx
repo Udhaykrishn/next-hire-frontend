@@ -25,10 +25,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
   const googleClientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || "";
 
-  if (typeof window !== "undefined") {
-    console.log("Google Client ID being used:", googleClientId);
-  }
-
   return (
     <QueryClientProvider client={queryClient}>
       <GoogleOAuthProvider clientId={googleClientId}>
