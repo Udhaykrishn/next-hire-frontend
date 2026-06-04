@@ -16,7 +16,6 @@ type WithAsChild<Base extends object> =
   | (Base & { asChild?: false | undefined });
 
 type SlotProps<T extends HTMLElement = HTMLElement> = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   children?: React.ReactNode;
 } & DOMMotionProps<T>;
 
@@ -89,9 +88,9 @@ function Slot<T extends HTMLElement = HTMLElement>({
 }
 
 export {
+  type AnyProps,
+  type DOMMotionProps,
   Slot,
   type SlotProps,
   type WithAsChild,
-  type DOMMotionProps,
-  type AnyProps,
 };
