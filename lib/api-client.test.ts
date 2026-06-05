@@ -96,7 +96,8 @@ describe("apiClient interceptors", () => {
       global.window = {
         location: {
           pathname: "/user/dashboard",
-          href: ""
+          href: "",
+          origin: "http://localhost"
         }
       } as any;
     });
@@ -163,7 +164,7 @@ describe("apiClient interceptors", () => {
         expect(true).toBe(false); // Should not reach here
       } catch (err: any) {
         expect(err.message).toBe("refresh_failed");
-        expect(global.window.location.href).toBe("/login");
+        expect(global.window.location.href).toBe("http://localhost/login");
       }
     });
 
@@ -190,7 +191,7 @@ describe("apiClient interceptors", () => {
         expect(true).toBe(false); // Should not reach here
       } catch (err: any) {
         expect(err.message).toBe("refresh_failed");
-        expect(global.window.location.href).toBe("/admin/login");
+        expect(global.window.location.href).toBe("http://localhost/admin/login");
         expect(global.fetch).toHaveBeenCalledWith("/api/auth/refresh?role=admin", expect.any(Object));
       }
     });
@@ -216,7 +217,7 @@ describe("apiClient interceptors", () => {
         expect(true).toBe(false); // Should not reach here
       } catch (err: any) {
         expect(err.message).toBe("blocked");
-        expect(global.window.location.href).toBe("/login?error=blocked");
+        expect(global.window.location.href).toBe("http://localhost/login?error=blocked");
       }
     });
 
@@ -236,7 +237,7 @@ describe("apiClient interceptors", () => {
         expect(true).toBe(false); // Should not reach here
       } catch (err: any) {
         expect(err.message).toBe("Forbidden");
-        expect(global.window.location.href).toBe("/login?error=blocked");
+        expect(global.window.location.href).toBe("http://localhost/login?error=blocked");
       }
     });
   });
