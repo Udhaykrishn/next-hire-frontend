@@ -6,6 +6,11 @@ const API_URL =
 // Pre-compile regex for faster CSRF token extraction
 const CSRF_TOKEN_REGEX = /(?:^|; )XSRF-TOKEN=([^;]*)/;
 
+/**
+ * Extracts the `XSRF-TOKEN` value from `document.cookie`.
+ *
+ * @returns The decoded `XSRF-TOKEN` cookie value, or an empty string if the token is missing or `document` is not available.
+ */
 function getCsrfToken(): string {
   if (typeof document === "undefined") return "";
   const match = document.cookie.match(CSRF_TOKEN_REGEX);
@@ -49,6 +54,12 @@ const PUBLIC_PATHS = [
   "/admin/login",
 ];
 
+/**
+ * Determines whether a given pathname is considered a public route.
+ *
+ * @param pathname - The request or window location pathname to check (should start with `/`)
+ * @returns `true` if `pathname` exactly matches `/` or equals/starts with any entry in `PUBLIC_PATHS`, `false` otherwise
+ */
 function isPublicRoute(pathname: string): boolean {
   return PUBLIC_PATHS.some((path) => {
     if (path === "/") {
