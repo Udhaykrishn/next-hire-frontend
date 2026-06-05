@@ -10,6 +10,7 @@ export function AdminHeader() {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-wise-green transition-colors" />
           <input
             type="text"
+            aria-label="Search"
             placeholder="Search anything..."
             className="w-full h-10 pl-10 pr-12 bg-gray-50 border border-gray-100 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-wise-green/20 focus:border-wise-green transition-all"
           />
@@ -21,15 +22,27 @@ export function AdminHeader() {
 
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-1 bg-gray-50 p-1 rounded-xl border border-gray-100">
-          <button className="p-2 rounded-lg text-gray-400 hover:text-near-black hover:bg-white transition-all">
+          <button
+            type="button"
+            aria-label="Light mode"
+            className="p-2 rounded-lg text-gray-400 hover:text-near-black hover:bg-white transition-all"
+          >
             <Sun className="w-4 h-4" />
           </button>
-          <button className="p-2 rounded-lg text-gray-400 hover:text-near-black hover:bg-white transition-all">
+          <button
+            type="button"
+            aria-label="Dark mode"
+            className="p-2 rounded-lg text-gray-400 hover:text-near-black hover:bg-white transition-all"
+          >
             <Moon className="w-4 h-4" />
           </button>
         </div>
 
-        <button className="relative p-2.5 bg-gray-50 border border-gray-100 rounded-xl text-gray-500 hover:text-near-black transition-all group">
+        <button
+          type="button"
+          aria-label="Notifications"
+          className="relative p-2.5 bg-gray-50 border border-gray-100 rounded-xl text-gray-500 hover:text-near-black transition-all group"
+        >
           <Bell className="w-5 h-5 group-hover:rotate-12 duration-300" />
           <span className="absolute top-2 right-2 w-2 h-2 bg-wise-green border-2 border-white rounded-full" />
         </button>
