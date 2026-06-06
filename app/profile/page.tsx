@@ -287,7 +287,9 @@ export default function ProfilePage() {
                         <button
                           type="button"
                           onClick={() => handleDeleteSkill(skill)}
-                          className="p-0.5 rounded-md hover:bg-red-50 text-gray-300 hover:text-red-500 transition-all opacity-0 group-hover/skill:opacity-100"
+                          aria-label={`Remove skill: ${skill}`}
+                          title={`Remove skill: ${skill}`}
+                          className="p-0.5 rounded-md hover:bg-red-50 text-gray-300 hover:text-red-500 transition-all opacity-0 group-hover/skill:opacity-100 focus:opacity-100 outline-none focus-visible:ring-2 focus-visible:ring-red-500"
                         >
                           <X className="w-3.5 h-3.5" />
                         </button>
