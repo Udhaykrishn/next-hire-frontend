@@ -127,12 +127,14 @@ const AutocompleteInput = ({
   );
 };
 
+// ⚡ Bolt: Cache heavy static list of cities at the module level instead of re-computing inside the component
+const INDIAN_CITIES = City.getCitiesOfCountry("IN") || [];
+
 export const LocationSelector: React.FC<LocationSelectorProps> = ({
   formData,
   setFormData,
   errors = {},
 }) => {
-  const indianCities = useMemo(() => City.getCitiesOfCountry("IN") || [], []);
   const [citySearch, setCitySearch] = useState("");
   const [showCityDropdown, setShowCityDropdown] = useState(false);
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
@@ -141,13 +143,11 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
   );
 
   const filteredCities = useMemo(() => {
-    if (!citySearch) return indianCities.slice(0, 100);
-    return indianCities
-      .filter((city) =>
-        city.name.toLowerCase().includes(citySearch.toLowerCase()),
-      )
-      .slice(0, 100);
-  }, [citySearch, indianCities]);
+    if (!citySearch) return INDIAN_CITIES.slice(0, 100);
+    return INDIAN_CITIES.filter((city) =>
+      city.name.toLowerCase().includes(citySearch.toLowerCase()),
+    ).slice(0, 100);
+  }, [citySearch]);
 
   const LocationFieldError = ({ name }: { name: string }) => {
     if (!errors[name]) return null;
