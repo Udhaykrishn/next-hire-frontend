@@ -46,8 +46,11 @@ export const BaseSheet = ({
                 </SheetDescription>
               </div>
               <button
+                type="button"
                 onClick={() => onClose()}
-                className="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 hover:text-red-500 transition-all border border-gray-100"
+                aria-label="Close"
+                title="Close"
+                className="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 hover:text-red-500 transition-all border border-gray-100 focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:outline-none"
               >
                 <X className="w-6 h-6" />
               </button>
