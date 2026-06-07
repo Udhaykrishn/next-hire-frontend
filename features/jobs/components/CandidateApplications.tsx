@@ -39,7 +39,10 @@ export function CandidateApplications() {
 
       <div className="space-y-4 relative min-h-[300px]">
         {isLoading ? (
-          <GlobalLoader fullScreen={false} className="absolute inset-0 bg-white/50 z-10" />
+          <GlobalLoader
+            fullScreen={false}
+            className="absolute inset-0 bg-white/50 z-10"
+          />
         ) : filteredApplications.length === 0 ? (
           <CandidateApplicationsEmptyState />
         ) : (

@@ -26,7 +26,13 @@ import { useRoleRedirect } from "@/features/auth/hooks/use-role-redirect";
 
 export default function RecruiterSignupPage() {
   const router = useRouter();
-  const { signup, verifyOtp, resendOtp, isLoading: signupLoading, error } = useAuth();
+  const {
+    signup,
+    verifyOtp,
+    resendOtp,
+    isLoading: signupLoading,
+    error,
+  } = useAuth();
   const {
     setUser,
     isAuthenticated,
@@ -140,111 +146,112 @@ export default function RecruiterSignupPage() {
           <CardContent className="space-y-6 pt-8 px-10">
             {step === "FORM" ? (
               <form onSubmit={handleSubmit} className="space-y-5">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2 col-span-2">
-                  <Label
-                    htmlFor="name"
-                    className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
-                  >
-                    <Briefcase className="w-4 h-4 text-wise-green" /> Full Name
-                  </Label>
-                  <Input
-                    id="name"
-                    placeholder="Jane Smith"
-                    className="h-12 bg-white border-gray-200 text-gray-900 rounded-xl focus:border-wise-green focus:ring-1 focus:ring-wise-green/30 transition-all shadow-sm placeholder:text-gray-400"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                  />
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2 col-span-2">
+                    <Label
+                      htmlFor="name"
+                      className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
+                    >
+                      <Briefcase className="w-4 h-4 text-wise-green" /> Full
+                      Name
+                    </Label>
+                    <Input
+                      id="name"
+                      placeholder="Jane Smith"
+                      className="h-12 bg-white border-gray-200 text-gray-900 rounded-xl focus:border-wise-green focus:ring-1 focus:ring-wise-green/30 transition-all shadow-sm placeholder:text-gray-400"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+
+                  <div className="space-y-2 col-span-2">
+                    <Label
+                      htmlFor="email"
+                      className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
+                    >
+                      <Mail className="w-4 h-4 text-wise-green" /> Work Email
+                    </Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="jane@company.com"
+                      className="h-12 bg-white border-gray-200 text-gray-900 rounded-xl focus:border-wise-green focus:ring-1 focus:ring-wise-green/30 transition-all shadow-sm placeholder:text-gray-400"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+
+                  <div className="space-y-2 col-span-2">
+                    <Label
+                      htmlFor="phone"
+                      className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
+                    >
+                      <Phone className="w-4 h-4 text-wise-green" /> Phone Number
+                    </Label>
+                    <Input
+                      id="phone"
+                      type="tel"
+                      placeholder="+91 1234567890"
+                      className="h-12 bg-white border-gray-200 text-gray-900 rounded-xl focus:border-wise-green focus:ring-1 focus:ring-wise-green/30 transition-all shadow-sm placeholder:text-gray-400"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+
+                  <div className="space-y-2 col-span-1">
+                    <Label
+                      htmlFor="password"
+                      className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
+                    >
+                      <Lock className="w-4 h-4 text-wise-green" /> Password
+                    </Label>
+                    <Input
+                      id="password"
+                      type="password"
+                      placeholder="••••••••"
+                      className="h-12 bg-white border-gray-200 text-gray-900 rounded-xl focus:border-wise-green focus:ring-1 focus:ring-wise-green/30 transition-all shadow-sm placeholder:text-gray-400"
+                      value={formData.password}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+
+                  <div className="space-y-2 col-span-1">
+                    <Label
+                      htmlFor="confirmPassword"
+                      className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
+                    >
+                      <Lock className="w-4 h-4 text-wise-green" /> Confirm
+                    </Label>
+                    <Input
+                      id="confirmPassword"
+                      type="password"
+                      placeholder="••••••••"
+                      className="h-12 bg-white border-gray-200 text-gray-900 rounded-xl focus:border-wise-green focus:ring-1 focus:ring-wise-green/30 transition-all shadow-sm placeholder:text-gray-400"
+                      value={formData.confirmPassword}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
                 </div>
 
-                <div className="space-y-2 col-span-2">
-                  <Label
-                    htmlFor="email"
-                    className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
-                  >
-                    <Mail className="w-4 h-4 text-wise-green" /> Work Email
-                  </Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="jane@company.com"
-                    className="h-12 bg-white border-gray-200 text-gray-900 rounded-xl focus:border-wise-green focus:ring-1 focus:ring-wise-green/30 transition-all shadow-sm placeholder:text-gray-400"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-
-                <div className="space-y-2 col-span-2">
-                  <Label
-                    htmlFor="phone"
-                    className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
-                  >
-                    <Phone className="w-4 h-4 text-wise-green" /> Phone Number
-                  </Label>
-                  <Input
-                    id="phone"
-                    type="tel"
-                    placeholder="+91 1234567890"
-                    className="h-12 bg-white border-gray-200 text-gray-900 rounded-xl focus:border-wise-green focus:ring-1 focus:ring-wise-green/30 transition-all shadow-sm placeholder:text-gray-400"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-
-                <div className="space-y-2 col-span-1">
-                  <Label
-                    htmlFor="password"
-                    className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
-                  >
-                    <Lock className="w-4 h-4 text-wise-green" /> Password
-                  </Label>
-                  <Input
-                    id="password"
-                    type="password"
-                    placeholder="••••••••"
-                    className="h-12 bg-white border-gray-200 text-gray-900 rounded-xl focus:border-wise-green focus:ring-1 focus:ring-wise-green/30 transition-all shadow-sm placeholder:text-gray-400"
-                    value={formData.password}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-
-                <div className="space-y-2 col-span-1">
-                  <Label
-                    htmlFor="confirmPassword"
-                    className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
-                  >
-                    <Lock className="w-4 h-4 text-wise-green" /> Confirm
-                  </Label>
-                  <Input
-                    id="confirmPassword"
-                    type="password"
-                    placeholder="••••••••"
-                    className="h-12 bg-white border-gray-200 text-gray-900 rounded-xl focus:border-wise-green focus:ring-1 focus:ring-wise-green/30 transition-all shadow-sm placeholder:text-gray-400"
-                    value={formData.confirmPassword}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-              </div>
-
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="pt-2"
-              >
-                <Button
-                  type="submit"
-                  className="w-full h-12 bg-wise-green text-dark-green font-black rounded-xl hover:bg-wise-green/90 transition-all text-lg shadow-[0_0_20px_rgba(159,232,112,0.2)] mt-2"
-                  disabled={signupLoading}
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="pt-2"
                 >
-                  Create Recruiter Account
-                </Button>
-              </motion.div>
-            </form>
+                  <Button
+                    type="submit"
+                    className="w-full h-12 bg-wise-green text-dark-green font-black rounded-xl hover:bg-wise-green/90 transition-all text-lg shadow-[0_0_20px_rgba(159,232,112,0.2)] mt-2"
+                    disabled={signupLoading}
+                  >
+                    Create Recruiter Account
+                  </Button>
+                </motion.div>
+              </form>
             ) : (
               <motion.div
                 key="otp"
@@ -253,7 +260,11 @@ export default function RecruiterSignupPage() {
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.3 }}
               >
-                <OtpForm id={formData.email} role="recruiter" onVerify={handleVerifyOtp} />
+                <OtpForm
+                  id={formData.email}
+                  role="recruiter"
+                  onVerify={handleVerifyOtp}
+                />
                 <div className="mt-6 text-center">
                   <button
                     type="button"

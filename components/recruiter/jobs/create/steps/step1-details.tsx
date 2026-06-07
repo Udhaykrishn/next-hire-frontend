@@ -1,7 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Briefcase, Check, FileText, Layers, Banknote, Coins, Wallet, CreditCard } from "lucide-react";
+import {
+  Briefcase,
+  Check,
+  FileText,
+  Layers,
+  Banknote,
+  Coins,
+  Wallet,
+  CreditCard,
+} from "lucide-react";
 import type React from "react";
 import { JOB_CATEGORIES } from "@/app/recruiter/jobs/create/new/constants";
 import type { JobFormData } from "@/app/recruiter/jobs/create/new/types";
@@ -71,7 +80,14 @@ export const Step1Details = ({
                       }));
                     }}
                   >
-                    <SelectTrigger className={cn("w-full h-8 p-0 bg-transparent border-0 font-black text-[15px] focus:ring-0 focus:ring-offset-0 shadow-none hover:bg-transparent data-[state=open]:bg-transparent", errors.hiringCompany ? "text-red-500" : "text-near-black")}>
+                    <SelectTrigger
+                      className={cn(
+                        "w-full h-8 p-0 bg-transparent border-0 font-black text-[15px] focus:ring-0 focus:ring-offset-0 shadow-none hover:bg-transparent data-[state=open]:bg-transparent",
+                        errors.hiringCompany
+                          ? "text-red-500"
+                          : "text-near-black",
+                      )}
+                    >
                       <SelectValue placeholder="Select a company" />
                     </SelectTrigger>
                     <SelectContent>
@@ -86,7 +102,11 @@ export const Step1Details = ({
                     </SelectContent>
                   </Select>
                 </div>
-                {errors.hiringCompany && <p className="text-red-500 text-xs mt-1">{errors.hiringCompany}</p>}
+                {errors.hiringCompany && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.hiringCompany}
+                  </p>
+                )}
               </div>
             </div>
           </div>
@@ -110,9 +130,16 @@ export const Step1Details = ({
                       }))
                     }
                     placeholder="Eg. Backend Developer"
-                    className={cn("w-full h-8 p-0 bg-transparent border-0 font-black text-[15px] focus-visible:ring-0 focus-visible:ring-offset-0 shadow-none placeholder:text-gray-300", errors.jobTitle ? "text-red-500" : "text-near-black")}
+                    className={cn(
+                      "w-full h-8 p-0 bg-transparent border-0 font-black text-[15px] focus-visible:ring-0 focus-visible:ring-offset-0 shadow-none placeholder:text-gray-300",
+                      errors.jobTitle ? "text-red-500" : "text-near-black",
+                    )}
                   />
-                  {errors.jobTitle && <p className="text-red-500 text-xs mt-1">{errors.jobTitle}</p>}
+                  {errors.jobTitle && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.jobTitle}
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
@@ -129,10 +156,18 @@ export const Step1Details = ({
                   <Select
                     value={formData.jobCategory}
                     onValueChange={(val) =>
-                      setFormData((prev) => ({ ...prev, jobCategory: val || "" }))
+                      setFormData((prev) => ({
+                        ...prev,
+                        jobCategory: val || "",
+                      }))
                     }
                   >
-                    <SelectTrigger className={cn("w-full h-8 p-0 bg-transparent border-0 font-black text-[15px] focus:ring-0 focus:ring-offset-0 shadow-none hover:bg-transparent", errors.jobCategory ? "text-red-500" : "text-near-black")}>
+                    <SelectTrigger
+                      className={cn(
+                        "w-full h-8 p-0 bg-transparent border-0 font-black text-[15px] focus:ring-0 focus:ring-offset-0 shadow-none hover:bg-transparent",
+                        errors.jobCategory ? "text-red-500" : "text-near-black",
+                      )}
+                    >
                       <SelectValue placeholder="Select category" />
                     </SelectTrigger>
                     <SelectContent>
@@ -143,7 +178,11 @@ export const Step1Details = ({
                       ))}
                     </SelectContent>
                   </Select>
-                  {errors.jobCategory && <p className="text-red-500 text-xs mt-1">{errors.jobCategory}</p>}
+                  {errors.jobCategory && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.jobCategory}
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
@@ -175,7 +214,9 @@ export const Step1Details = ({
               ),
             )}
           </div>
-          {errors.jobType && <p className="text-red-500 text-xs mt-1">{errors.jobType}</p>}
+          {errors.jobType && (
+            <p className="text-red-500 text-xs mt-1">{errors.jobType}</p>
+          )}
 
           <div className="flex items-center gap-3 ml-1 mt-2">
             <button
@@ -208,27 +249,27 @@ export const Step1Details = ({
             Experience Type *
           </Label>
           <div className="flex flex-wrap gap-3">
-            {["Fresher", "Experienced Only", "Both"].map(
-              (t) => (
-                <button
-                  key={t}
-                  type="button"
-                  onClick={() =>
-                    setFormData((prev) => ({ ...prev, experienceType: t }))
-                  }
-                  className={cn(
-                    "px-6 py-2.5 rounded-full text-[13px] font-bold border transition-all",
-                    formData.experienceType === t
-                      ? "bg-wise-green/10 border-wise-green text-near-black"
-                      : "bg-white border-gray-100 text-gray-400 hover:border-gray-200",
-                  )}
-                >
-                  {t}
-                </button>
-              ),
-            )}
+            {["Fresher", "Experienced Only", "Both"].map((t) => (
+              <button
+                key={t}
+                type="button"
+                onClick={() =>
+                  setFormData((prev) => ({ ...prev, experienceType: t }))
+                }
+                className={cn(
+                  "px-6 py-2.5 rounded-full text-[13px] font-bold border transition-all",
+                  formData.experienceType === t
+                    ? "bg-wise-green/10 border-wise-green text-near-black"
+                    : "bg-white border-gray-100 text-gray-400 hover:border-gray-200",
+                )}
+              >
+                {t}
+              </button>
+            ))}
           </div>
-          {errors.experienceType && <p className="text-red-500 text-xs mt-1">{errors.experienceType}</p>}
+          {errors.experienceType && (
+            <p className="text-red-500 text-xs mt-1">{errors.experienceType}</p>
+          )}
         </div>
       </div>
 
@@ -247,7 +288,7 @@ export const Step1Details = ({
             Details about salary, incentives, and joining fees.
           </p>
         </div>
-        
+
         <div className="bg-white rounded-[24px] border border-gray-100 overflow-hidden shadow-sm shadow-black/[0.02]">
           <div className="p-8 space-y-8">
             <div className="space-y-1">
@@ -255,7 +296,8 @@ export const Step1Details = ({
                 Compensation
               </h3>
               <p className="text-[13px] font-medium text-gray-500">
-                Job postings with right salary & incentives will help you find the right candidates.
+                Job postings with right salary & incentives will help you find
+                the right candidates.
               </p>
             </div>
 
@@ -264,33 +306,43 @@ export const Step1Details = ({
                 What is the pay type? <span className="text-red-500">*</span>
               </Label>
               <div className="flex gap-3">
-                {["Fixed Only", "Fixed + Incentive", "Incentive Only"].map((opt) => (
-                  <button
-                    key={opt}
-                    type="button"
-                    onClick={() =>
-                      setFormData((prev) => ({ ...prev, payType: opt }))
-                    }
-                    className={cn(
-                      "px-5 py-2 rounded-full text-[13px] font-bold border transition-all",
-                      formData.payType === opt
-                        ? "bg-wise-green text-near-black border-wise-green shadow-sm"
-                        : "bg-white border-gray-200 text-gray-500 hover:border-gray-300"
-                    )}
-                  >
-                    {opt}
-                  </button>
-                ))}
+                {["Fixed Only", "Fixed + Incentive", "Incentive Only"].map(
+                  (opt) => (
+                    <button
+                      key={opt}
+                      type="button"
+                      onClick={() =>
+                        setFormData((prev) => ({ ...prev, payType: opt }))
+                      }
+                      className={cn(
+                        "px-5 py-2 rounded-full text-[13px] font-bold border transition-all",
+                        formData.payType === opt
+                          ? "bg-wise-green text-near-black border-wise-green shadow-sm"
+                          : "bg-white border-gray-200 text-gray-500 hover:border-gray-300",
+                      )}
+                    >
+                      {opt}
+                    </button>
+                  ),
+                )}
               </div>
-              {errors.payType && <p className="text-red-500 text-xs mt-1">{errors.payType}</p>}
+              {errors.payType && (
+                <p className="text-red-500 text-xs mt-1">{errors.payType}</p>
+              )}
             </div>
 
             <div className="flex gap-4 items-start">
               {formData.payType !== "Incentive Only" && (
                 <div className="flex-1 space-y-4">
-                  <div className="flex items-center gap-1.5" id="field-minSalary">
+                  <div
+                    className="flex items-center gap-1.5"
+                    id="field-minSalary"
+                  >
                     <Label className="text-[14px] font-bold text-near-black">
-                      Fixed salary / month {formData.payType === "Fixed + Incentive" && "(excluding incentives)"} <span className="text-red-500">*</span>
+                      Fixed salary / month{" "}
+                      {formData.payType === "Fixed + Incentive" &&
+                        "(excluding incentives)"}{" "}
+                      <span className="text-red-500">*</span>
                     </Label>
                     <div className="w-3.5 h-3.5 rounded-full border border-gray-400 flex items-center justify-center text-[9px] font-bold text-gray-500 cursor-help">
                       i
@@ -298,13 +350,22 @@ export const Step1Details = ({
                   </div>
                   <div className="flex items-center rounded-md border border-gray-200 overflow-hidden">
                     <div className="relative flex-1 bg-white">
-                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 font-bold">₹</span>
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 font-bold">
+                        ₹
+                      </span>
                       <Input
                         type="text"
                         placeholder="30,000"
-                        value={formData.minSalary ? formatCurrency(formData.minSalary) : ""}
+                        value={
+                          formData.minSalary
+                            ? formatCurrency(formData.minSalary)
+                            : ""
+                        }
                         onChange={(e) =>
-                          setFormData((prev) => ({ ...prev, minSalary: e.target.value.replace(/\D/g, "") }))
+                          setFormData((prev) => ({
+                            ...prev,
+                            minSalary: e.target.value.replace(/\D/g, ""),
+                          }))
                         }
                         className="w-full h-10 pl-7 border-0 focus-visible:ring-0 shadow-none font-bold bg-transparent"
                       />
@@ -313,20 +374,31 @@ export const Step1Details = ({
                       to
                     </div>
                     <div className="relative flex-1 bg-white">
-                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 font-bold">₹</span>
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 font-bold">
+                        ₹
+                      </span>
                       <Input
                         type="text"
                         placeholder="40,000"
-                        value={formData.maxSalary ? formatCurrency(formData.maxSalary) : ""}
+                        value={
+                          formData.maxSalary
+                            ? formatCurrency(formData.maxSalary)
+                            : ""
+                        }
                         onChange={(e) =>
-                          setFormData((prev) => ({ ...prev, maxSalary: e.target.value.replace(/\D/g, "") }))
+                          setFormData((prev) => ({
+                            ...prev,
+                            maxSalary: e.target.value.replace(/\D/g, ""),
+                          }))
                         }
                         className="w-full h-10 pl-7 border-0 focus-visible:ring-0 shadow-none font-bold bg-transparent"
                       />
                     </div>
                   </div>
                   {(errors.minSalary || errors.maxSalary) && (
-                    <p className="text-red-500 text-xs mt-1">{errors.minSalary || errors.maxSalary}</p>
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.minSalary || errors.maxSalary}
+                    </p>
                   )}
                 </div>
               )}
@@ -337,30 +409,43 @@ export const Step1Details = ({
                 </div>
               )}
 
-              {(formData.payType === "Fixed + Incentive" || formData.payType === "Incentive Only") && (
+              {(formData.payType === "Fixed + Incentive" ||
+                formData.payType === "Incentive Only") && (
                 <div className="flex-1 space-y-4" id="field-incentiveAmount">
                   <div className="flex items-center gap-1.5">
                     <Label className="text-[14px] font-bold text-near-black">
-                      Average Incentive / month <span className="text-red-500">*</span>
+                      Average Incentive / month{" "}
+                      <span className="text-red-500">*</span>
                     </Label>
                     <div className="w-3.5 h-3.5 rounded-full border border-gray-400 flex items-center justify-center text-[9px] font-bold text-gray-500 cursor-help">
                       i
                     </div>
                   </div>
                   <div className="relative rounded-md border border-gray-200 overflow-hidden bg-white">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 font-bold">₹</span>
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 font-bold">
+                      ₹
+                    </span>
                     <Input
                       type="text"
                       placeholder="e.g. 5,000"
-                      value={formData.incentiveAmount ? formatCurrency(formData.incentiveAmount) : ""}
+                      value={
+                        formData.incentiveAmount
+                          ? formatCurrency(formData.incentiveAmount)
+                          : ""
+                      }
                       onChange={(e) =>
-                        setFormData((prev) => ({ ...prev, incentiveAmount: e.target.value.replace(/\D/g, "") }))
+                        setFormData((prev) => ({
+                          ...prev,
+                          incentiveAmount: e.target.value.replace(/\D/g, ""),
+                        }))
                       }
                       className="w-full h-10 pl-7 border-0 focus-visible:ring-0 shadow-none font-bold bg-transparent"
                     />
                   </div>
                   {errors.incentiveAmount && (
-                    <p className="text-red-500 text-xs mt-1">{errors.incentiveAmount}</p>
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.incentiveAmount}
+                    </p>
                   )}
                 </div>
               )}
@@ -374,7 +459,8 @@ export const Step1Details = ({
                 <div className="flex justify-between text-[13px] text-gray-500 font-medium">
                   <span>Fixed Salary / Month</span>
                   <span className="font-bold text-near-black">
-                    ₹ {formatCurrency(formData.minSalary)} - {formatCurrency(formData.maxSalary)}
+                    ₹ {formatCurrency(formData.minSalary)} -{" "}
+                    {formatCurrency(formData.maxSalary)}
                   </span>
                 </div>
                 <div className="flex justify-between text-[13px] text-gray-500 font-medium">
@@ -386,7 +472,13 @@ export const Step1Details = ({
                 <div className="flex justify-between text-[14px] font-black text-near-black pt-3 border-t border-slate-200">
                   <span>Earning Potential / Month</span>
                   <span>
-                    ₹ {formatCurrency(formData.minSalary)} - {formatCurrency(String((Number(formData.maxSalary) || 0) + (Number(formData.incentiveAmount) || 0)))}
+                    ₹ {formatCurrency(formData.minSalary)} -{" "}
+                    {formatCurrency(
+                      String(
+                        (Number(formData.maxSalary) || 0) +
+                          (Number(formData.incentiveAmount) || 0),
+                      ),
+                    )}
                   </span>
                 </div>
               </div>
@@ -437,7 +529,7 @@ export const Step1Details = ({
                         "px-3.5 py-1.5 rounded-full text-[13px] font-bold border transition-all flex items-center gap-1.5",
                         isSelected
                           ? "bg-wise-green text-near-black border-wise-green shadow-sm"
-                          : "bg-white border-gray-200 text-gray-500 hover:border-gray-300"
+                          : "bg-white border-gray-200 text-gray-500 hover:border-gray-300",
                       )}
                     >
                       {perk}
@@ -455,7 +547,8 @@ export const Step1Details = ({
 
             <div className="space-y-4 pt-2" id="field-hasJoiningFee">
               <Label className="text-[14px] font-bold text-near-black">
-                Is there any joining fee or deposit required from the candidate? <span className="text-red-500">*</span>
+                Is there any joining fee or deposit required from the candidate?{" "}
+                <span className="text-red-500">*</span>
               </Label>
               <div className="flex gap-3">
                 {["Yes", "No"].map((opt) => (
@@ -463,13 +556,16 @@ export const Step1Details = ({
                     key={opt}
                     type="button"
                     onClick={() =>
-                      setFormData((prev) => ({ ...prev, hasJoiningFee: opt as "Yes" | "No" }))
+                      setFormData((prev) => ({
+                        ...prev,
+                        hasJoiningFee: opt as "Yes" | "No",
+                      }))
                     }
                     className={cn(
                       "px-5 py-2 rounded-full text-[13px] font-bold border transition-all",
                       formData.hasJoiningFee === opt
                         ? "bg-wise-green text-near-black border-wise-green shadow-sm"
-                        : "bg-white border-gray-200 text-gray-500 hover:border-gray-300"
+                        : "bg-white border-gray-200 text-gray-500 hover:border-gray-300",
                     )}
                   >
                     {opt}
@@ -481,62 +577,101 @@ export const Step1Details = ({
             {formData.hasJoiningFee === "Yes" && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                 <div className="space-y-2" id="field-feeAmount">
-                  <Label className="text-[13px] font-medium">Fee Amount *</Label>
+                  <Label className="text-[13px] font-medium">
+                    Fee Amount *
+                  </Label>
                   <Input
                     type="text"
                     placeholder="e.g. 1000"
-                    value={formData.feeAmount ? formatCurrency(formData.feeAmount) : ""}
+                    value={
+                      formData.feeAmount
+                        ? formatCurrency(formData.feeAmount)
+                        : ""
+                    }
                     onChange={(e) =>
-                      setFormData((prev) => ({ ...prev, feeAmount: e.target.value.replace(/\D/g, "") }))
+                      setFormData((prev) => ({
+                        ...prev,
+                        feeAmount: e.target.value.replace(/\D/g, ""),
+                      }))
                     }
                     className="h-10"
                   />
-                  {errors.feeAmount && <p className="text-red-500 text-xs">{errors.feeAmount}</p>}
+                  {errors.feeAmount && (
+                    <p className="text-red-500 text-xs">{errors.feeAmount}</p>
+                  )}
                 </div>
                 <div className="space-y-2" id="field-feeReason">
-                  <Label className="text-[13px] font-medium">Fee Reason *</Label>
+                  <Label className="text-[13px] font-medium">
+                    Fee Reason *
+                  </Label>
                   <Input
                     placeholder="e.g. Background check, Uniform"
                     value={formData.feeReason}
                     onChange={(e) =>
-                      setFormData((prev) => ({ ...prev, feeReason: e.target.value }))
+                      setFormData((prev) => ({
+                        ...prev,
+                        feeReason: e.target.value,
+                      }))
                     }
                     className="h-10"
                   />
-                  {errors.feeReason && <p className="text-red-500 text-xs">{errors.feeReason}</p>}
+                  {errors.feeReason && (
+                    <p className="text-red-500 text-xs">{errors.feeReason}</p>
+                  )}
                 </div>
                 <div className="space-y-2" id="field-feeDetails">
-                  <Label className="text-[13px] font-medium">Fee Details *</Label>
+                  <Label className="text-[13px] font-medium">
+                    Fee Details *
+                  </Label>
                   <Input
                     placeholder="e.g. Refundable after 3 months"
                     value={formData.feeDetails}
                     onChange={(e) =>
-                      setFormData((prev) => ({ ...prev, feeDetails: e.target.value }))
+                      setFormData((prev) => ({
+                        ...prev,
+                        feeDetails: e.target.value,
+                      }))
                     }
                     className="h-10"
                   />
-                  {errors.feeDetails && <p className="text-red-500 text-xs">{errors.feeDetails}</p>}
+                  {errors.feeDetails && (
+                    <p className="text-red-500 text-xs">{errors.feeDetails}</p>
+                  )}
                 </div>
                 <div className="space-y-2" id="field-feePaymentTiming">
-                  <Label className="text-[13px] font-medium">Payment Timing *</Label>
+                  <Label className="text-[13px] font-medium">
+                    Payment Timing *
+                  </Label>
                   <Select
                     value={formData.feePaymentTiming}
                     onValueChange={(v) =>
-                      setFormData((prev) => ({ ...prev, feePaymentTiming: v || "" }))
+                      setFormData((prev) => ({
+                        ...prev,
+                        feePaymentTiming: v || "",
+                      }))
                     }
                   >
                     <SelectTrigger className="h-10">
                       <SelectValue placeholder="When to pay?" />
                     </SelectTrigger>
                     <SelectContent>
-                      {["Before Interview", "After Interview", "Before Joining", "After Joining"].map((e) => (
+                      {[
+                        "Before Interview",
+                        "After Interview",
+                        "Before Joining",
+                        "After Joining",
+                      ].map((e) => (
                         <SelectItem key={e} value={e}>
                           {e}
                         </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
-                  {errors.feePaymentTiming && <p className="text-red-500 text-xs">{errors.feePaymentTiming}</p>}
+                  {errors.feePaymentTiming && (
+                    <p className="text-red-500 text-xs">
+                      {errors.feePaymentTiming}
+                    </p>
+                  )}
                 </div>
               </div>
             )}

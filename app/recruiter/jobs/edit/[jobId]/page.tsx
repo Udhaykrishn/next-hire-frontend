@@ -27,7 +27,8 @@ export default function EditJobPage() {
     jobCategory: job.jobCategory || "",
     jobType: job.jobType || "",
     isNightShift: job.isNightShift || false,
-    locationType: (job.locationType as JobFormData["locationType"]) || "Work From Office",
+    locationType:
+      (job.locationType as JobFormData["locationType"]) || "Work From Office",
     officeAddress: job.officeAddress || "",
     fieldArea: job.fieldArea || "",
     jobCity: job.jobCity || "",
@@ -63,7 +64,8 @@ export default function EditJobPage() {
     walkInStartTime: job.walkInStartTime || "",
     walkInEndTime: job.walkInEndTime || "",
     interviewInstructions: job.interviewInstructions || "",
-    contactPreference: (job.contactPreference as JobFormData["contactPreference"]) || "",
+    contactPreference:
+      (job.contactPreference as JobFormData["contactPreference"]) || "",
     whatsappAlerts: (job.whatsappAlerts as JobFormData["whatsappAlerts"]) || "",
     hrName: job.hrName || "",
     hrPhone: job.hrPhone || "",
@@ -71,7 +73,8 @@ export default function EditJobPage() {
     otherRecruiterName: job.otherRecruiterName || "",
     otherRecruiterWhatsapp: job.otherRecruiterWhatsapp || "",
     otherRecruiterEmail: job.otherRecruiterEmail || "",
-    canCandidateContact: (job.canCandidateContact as JobFormData["canCandidateContact"]) || "No",
+    canCandidateContact:
+      (job.canCandidateContact as JobFormData["canCandidateContact"]) || "No",
     selectedPlan: job.selectedPlan || "",
   };
 

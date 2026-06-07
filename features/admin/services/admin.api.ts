@@ -141,8 +141,13 @@ export const adminService = {
 
     return {
       data: data.map((j: BackendJob) => {
-        const createdDate = j.createdAt || j.created_at ? new Date((j.createdAt || j.created_at) as string) : new Date();
-        const expireDate = new Date(createdDate.getTime() + 15 * 24 * 60 * 60 * 1000);
+        const createdDate =
+          j.createdAt || j.created_at
+            ? new Date((j.createdAt || j.created_at) as string)
+            : new Date();
+        const expireDate = new Date(
+          createdDate.getTime() + 15 * 24 * 60 * 60 * 1000,
+        );
 
         return {
           id: j.id,
@@ -202,10 +207,16 @@ export const adminService = {
   },
 
   getJobById: async (id: string): Promise<AdminJobDetail> => {
-    const response = await apiClient.get<BackendResponse<BackendJob>>(`/job/${id}`);
+    const response = await apiClient.get<BackendResponse<BackendJob>>(
+      `/job/${id}`,
+    );
     const j = (response as unknown as BackendResponse<BackendJob>).data;
-    const createdDate = j.createdAt ? new Date(j.createdAt as string) : new Date();
-    const expireDate = new Date(createdDate.getTime() + 15 * 24 * 60 * 60 * 1000);
+    const createdDate = j.createdAt
+      ? new Date(j.createdAt as string)
+      : new Date();
+    const expireDate = new Date(
+      createdDate.getTime() + 15 * 24 * 60 * 60 * 1000,
+    );
 
     return {
       id: j.id,
@@ -273,20 +284,51 @@ export const adminService = {
     };
   },
 
-  getJobStats: async (id: string): Promise<{ total: number; reviewing: number; interviews: number; offers: number }> => {
-    const response = await apiClient.get<BackendResponse<{ total: number; reviewing: number; interviews: number; offers: number }>>(`/job/${id}/stats`);
-    return (response as unknown as BackendResponse<{ total: number; reviewing: number; interviews: number; offers: number }>).data;
+  getJobStats: async (
+    id: string,
+  ): Promise<{
+    total: number;
+    reviewing: number;
+    interviews: number;
+    offers: number;
+  }> => {
+    const response = await apiClient.get<
+      BackendResponse<{
+        total: number;
+        reviewing: number;
+        interviews: number;
+        offers: number;
+      }>
+    >(`/job/${id}/stats`);
+    return (
+      response as unknown as BackendResponse<{
+        total: number;
+        reviewing: number;
+        interviews: number;
+        offers: number;
+      }>
+    ).data;
   },
 
-  getJobApplications: async (id: string, page = 1, limit = 10, search?: string, status?: string): Promise<{ data: any[]; total: number }> => {
+  getJobApplications: async (
+    id: string,
+    page = 1,
+    limit = 10,
+    search?: string,
+    status?: string,
+  ): Promise<{ data: any[]; total: number }> => {
     const params: any = { page, limit };
     if (search) params.search = search;
     if (status && status !== "ALL") params.status = status;
 
-    const response = await apiClient.get<BackendResponse<{ data: any[]; total: number }>>(`/job/${id}/applications`, {
+    const response = await apiClient.get<
+      BackendResponse<{ data: any[]; total: number }>
+    >(`/job/${id}/applications`, {
       params,
     });
-    return (response as unknown as BackendResponse<{ data: any[]; total: number }>).data;
+    return (
+      response as unknown as BackendResponse<{ data: any[]; total: number }>
+    ).data;
   },
 
   getRecruiterJobs: async (id: string): Promise<AdminJobDetail[]> => {
@@ -297,8 +339,12 @@ export const adminService = {
     const jobs = paginated.data;
 
     return jobs.map((j) => {
-      const createdDate = j.createdAt ? new Date(j.createdAt as string) : new Date();
-      const expireDate = new Date(createdDate.getTime() + 15 * 24 * 60 * 60 * 1000);
+      const createdDate = j.createdAt
+        ? new Date(j.createdAt as string)
+        : new Date();
+      const expireDate = new Date(
+        createdDate.getTime() + 15 * 24 * 60 * 60 * 1000,
+      );
 
       return {
         id: j.id,
@@ -341,14 +387,14 @@ export const adminService = {
       about: c.bio || "",
       documents: c.resume_url
         ? [
-          {
-            name: "Resume",
-            type: "PDF",
-            size: "N/A",
-            date: new Date(c.createdAt).toLocaleDateString(),
-            url: c.resume_url.url,
-          },
-        ]
+            {
+              name: "Resume",
+              type: "PDF",
+              size: "N/A",
+              date: new Date(c.createdAt).toLocaleDateString(),
+              url: c.resume_url.url,
+            },
+          ]
         : [],
       applications: [],
       block_description: c.block_description,

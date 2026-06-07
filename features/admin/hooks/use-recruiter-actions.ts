@@ -3,9 +3,11 @@ import { useRestrictRecruiter } from "./use-restrict-recruiter";
 import { useRevokeCompanyVerification } from "./use-revoke-company-verification";
 
 export function useRecruiterActions(id: string) {
-  const { mutate: restrictRecruiter, isPending: isRestricting } = useRestrictRecruiter();
-  const { mutate: revokeVerification, isPending: isRevoking } = useRevokeCompanyVerification();
-  
+  const { mutate: restrictRecruiter, isPending: isRestricting } =
+    useRestrictRecruiter();
+  const { mutate: revokeVerification, isPending: isRevoking } =
+    useRevokeCompanyVerification();
+
   const [isBlocking, setIsBlocking] = useState(false);
   const [isRevokingModal, setIsRevokingModal] = useState(false);
   const [revokeReason, setRevokeReason] = useState("");
@@ -26,7 +28,7 @@ export function useRecruiterActions(id: string) {
           setRevokeReason("");
           setSelectedPreset("");
         },
-      }
+      },
     );
   };
 
@@ -42,6 +44,6 @@ export function useRecruiterActions(id: string) {
     selectedPreset,
     setSelectedPreset,
     handleConfirmBlock,
-    handleConfirmRevoke
+    handleConfirmRevoke,
   };
 }

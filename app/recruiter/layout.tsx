@@ -89,7 +89,7 @@ export default function RecruiterLayout({
     await logout("/login");
   };
 
-  const isCreatingOrEditingJob = 
+  const isCreatingOrEditingJob =
     pathname.startsWith("/recruiter/jobs/create/new") ||
     pathname.startsWith("/recruiter/jobs/edit");
   const isPlanPage = pathname.startsWith("/recruiter/plan");
@@ -100,7 +100,8 @@ export default function RecruiterLayout({
     pathname.startsWith("/recruiter/onboarding") ||
     pathname.startsWith("/recruiter/forgot-password") ||
     pathname.startsWith("/recruiter/reset-password");
-  const hideSidebarAndHeader = isCreatingOrEditingJob || isPlanPage || isAuthRoute;
+  const hideSidebarAndHeader =
+    isCreatingOrEditingJob || isPlanPage || isAuthRoute;
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated && !isAuthRoute) {

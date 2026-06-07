@@ -27,7 +27,14 @@ import { useAuthRedirect } from "@/features/auth/hooks/use-role-redirect";
 import { useRouter } from "next/navigation";
 
 export default function UserSignupPage() {
-  const { signup, googleAuth, verifyOtp, resendOtp, isLoading: signupLoading, error } = useAuth();
+  const {
+    signup,
+    googleAuth,
+    verifyOtp,
+    resendOtp,
+    isLoading: signupLoading,
+    error,
+  } = useAuth();
   const { setUser, isAuthenticated, isLoading: authLoading } = useAuthContext();
   const router = useRouter();
 
@@ -152,7 +159,8 @@ export default function UserSignupPage() {
                   {step === "OTP" && "Verify Email"}
                 </CardTitle>
                 <CardDescription className="text-base text-gray-500 font-medium mt-2">
-                  {step === "INITIAL" && "Start your professional career journey today."}
+                  {step === "INITIAL" &&
+                    "Start your professional career journey today."}
                   {step === "FORM" && "Fill in your details to get started."}
                   {step === "OTP" && `We've sent a code to ${formData.email}`}
                 </CardDescription>
@@ -331,7 +339,11 @@ export default function UserSignupPage() {
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <OtpForm id={formData.email} role="user" onVerify={handleVerifyOtp} />
+                  <OtpForm
+                    id={formData.email}
+                    role="user"
+                    onVerify={handleVerifyOtp}
+                  />
                   <div className="mt-6 text-center">
                     <button
                       type="button"

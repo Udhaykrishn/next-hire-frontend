@@ -5,7 +5,9 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function formatCurrency(amount: string | number | undefined | null): string {
+export function formatCurrency(
+  amount: string | number | undefined | null,
+): string {
   if (!amount) return "0";
   const rawString = String(amount).replace(/\D/g, "");
   if (!rawString) return "0";

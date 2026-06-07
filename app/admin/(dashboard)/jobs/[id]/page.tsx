@@ -4,7 +4,11 @@ import { adminService } from "@/features/admin/services/admin.api";
 import { AdminJobDetails } from "@/features/admin/components/AdminJobDetails";
 import { Suspense } from "react";
 
-export default async function Page({ params }: { params: Promise<{ id: string }> }) {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const { id } = await params;
   const queryClient = getQueryClient();
   await queryClient.prefetchQuery({

@@ -8,16 +8,18 @@ interface RecruiterDashboardHeaderProps {
   onMenuClick: () => void;
 }
 
-export function RecruiterDashboardHeader({ onMenuClick }: RecruiterDashboardHeaderProps) {
+export function RecruiterDashboardHeader({
+  onMenuClick,
+}: RecruiterDashboardHeaderProps) {
   const router = useRouter();
 
   return (
     <div className="px-4 lg:px-8 pt-4 lg:pt-6 pb-4 sticky top-0 z-30 bg-gradient-to-b from-[#fcfdfd] via-[#fcfdfd]/95 to-transparent backdrop-blur-md">
       <header className="h-16 bg-white border border-gray-100 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex items-center justify-between px-3 lg:px-5 transition-all duration-300 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
         <div className="flex items-center gap-2 lg:gap-4">
-          <Button 
-            variant="ghost" 
-            size="icon" 
+          <Button
+            variant="ghost"
+            size="icon"
             className="lg:hidden text-near-black hover:bg-wise-green/10 hover:text-wise-green transition-colors"
             onClick={onMenuClick}
           >
@@ -27,7 +29,7 @@ export function RecruiterDashboardHeader({ onMenuClick }: RecruiterDashboardHead
             <CompanySwitcher />
           </div>
         </div>
-        
+
         <div className="flex items-center gap-3 lg:gap-6 pr-1 lg:pr-2">
           <div className="flex items-center gap-3 bg-gray-50/50 rounded-xl px-3 py-1.5 border border-gray-100/50 hover:bg-gray-50 transition-colors cursor-pointer group">
             <div className="hidden sm:flex flex-col items-end justify-center">

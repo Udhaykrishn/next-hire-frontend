@@ -1,4 +1,9 @@
-import { Building, ChevronRight, IndianRupee, MoreVertical } from "lucide-react";
+import {
+  Building,
+  ChevronRight,
+  IndianRupee,
+  MoreVertical,
+} from "lucide-react";
 import { motion } from "motion/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -19,17 +24,23 @@ interface CandidateApplicationCardProps {
   index: number;
 }
 
-export function CandidateApplicationCard({ applicationData, index }: CandidateApplicationCardProps) {
+export function CandidateApplicationCard({
+  applicationData,
+  index,
+}: CandidateApplicationCardProps) {
   const router = useRouter();
   const { application, job } = applicationData;
   const statusConfig = getStatusConfig(application.status);
-  
-  const appliedDate = new Date(application.createdAt).toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  });
-  
+
+  const appliedDate = new Date(application.createdAt).toLocaleDateString(
+    "en-US",
+    {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    },
+  );
+
   const salaryStr = formatSalaryRange(
     job.minSalary,
     job.maxSalary,
@@ -71,9 +82,7 @@ export function CandidateApplicationCard({ applicationData, index }: CandidateAp
           <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1.5">
             Applied On
           </p>
-          <p className="text-[14px] font-bold text-gray-800">
-            {appliedDate}
-          </p>
+          <p className="text-[14px] font-bold text-gray-800">{appliedDate}</p>
         </div>
         <div>
           <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1.5">
@@ -97,9 +106,7 @@ export function CandidateApplicationCard({ applicationData, index }: CandidateAp
 
         <div className="flex items-center gap-2">
           <DropdownMenu>
-            <DropdownMenuTrigger
-              className="p-2.5 bg-white border border-gray-200/60 hover:bg-gray-50 hover:border-gray-300 rounded-xl transition-all duration-300 outline-none focus:ring-2 focus:ring-wise-green/50 flex items-center justify-center text-gray-400 hover:text-gray-600 shadow-sm"
-            >
+            <DropdownMenuTrigger className="p-2.5 bg-white border border-gray-200/60 hover:bg-gray-50 hover:border-gray-300 rounded-xl transition-all duration-300 outline-none focus:ring-2 focus:ring-wise-green/50 flex items-center justify-center text-gray-400 hover:text-gray-600 shadow-sm">
               <MoreVertical className="w-4 h-4" />
             </DropdownMenuTrigger>
             <DropdownMenuContent

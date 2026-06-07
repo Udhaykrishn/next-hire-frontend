@@ -18,17 +18,21 @@ export function useJobDetails() {
   const isCandidate = role === "CANDIDATE";
 
   const { data: job } = useJobDetailsQuery(id);
-  const { data: applicationsResponse, isPending: isApplicationsPending } = useQuery({
-    queryKey: ["candidate-applications"],
-    queryFn: () => getCandidateApplications(),
-    enabled: isAuthenticated && isCandidate,
-    staleTime: 0,
-  });
-  
+  const { data: applicationsResponse, isPending: isApplicationsPending } =
+    useQuery({
+      queryKey: ["candidate-applications"],
+      queryFn: () => getCandidateApplications(),
+      enabled: isAuthenticated && isCandidate,
+      staleTime: 0,
+    });
+
   const { basicInfo, skills, isLoading: isProfileLoading } = useProfile();
 
-  const isPageLoading = isAuthLoading || isProfileLoading || (isAuthenticated && isCandidate && isApplicationsPending);
-  
+  const isPageLoading =
+    isAuthLoading ||
+    isProfileLoading ||
+    (isAuthenticated && isCandidate && isApplicationsPending);
+
   const applyMutation = useApplyJobMutation();
 
   const missingFields: string[] = [];
@@ -119,9 +123,15 @@ export function useJobDetails() {
     }
   };
 
-  const existingApplication = applicationsResponse?.data?.find((app) => app.job.id === id);
-  const hasApplied = !!existingApplication || job?.hasApplied || hasAppliedLocally;
-  const applicationStatus = existingApplication?.application.status || job?.applicationStatus || (hasAppliedLocally ? "PENDING" : null);
+  const existingApplication = applicationsResponse?.data?.find(
+    (app) => app.job.id === id,
+  );
+  const hasApplied =
+    !!existingApplication || job?.hasApplied || hasAppliedLocally;
+  const applicationStatus =
+    existingApplication?.application.status ||
+    job?.applicationStatus ||
+    (hasAppliedLocally ? "PENDING" : null);
 
   return {
     job,

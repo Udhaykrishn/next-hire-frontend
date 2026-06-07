@@ -1,4 +1,12 @@
-import { test, expect, describe, spyOn, beforeEach, afterEach, mock } from "bun:test";
+import {
+  test,
+  expect,
+  describe,
+  spyOn,
+  beforeEach,
+  afterEach,
+  mock,
+} from "bun:test";
 import { authService } from "./auth.api";
 import { apiClient } from "@/lib/api-client";
 
@@ -88,7 +96,9 @@ describe("authService.getCurrentUser", () => {
 
   test("error path: recruiter API fails", async () => {
     setWindowPathname("/recruiter");
-    spyOn(apiClient, "get").mockRejectedValue(new Error("Recruiter API Failed"));
+    spyOn(apiClient, "get").mockRejectedValue(
+      new Error("Recruiter API Failed"),
+    );
 
     const result = await authService.getCurrentUser();
     expect(result).toBeNull();

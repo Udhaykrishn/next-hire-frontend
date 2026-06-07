@@ -13,7 +13,10 @@ import {
   jobStep5Schema,
 } from "@/app/recruiter/jobs/create/new/schema";
 import type { JobFormData } from "@/app/recruiter/jobs/create/new/types";
-import { useCreateJobMutation, useUpdateJobMutation } from "@/features/jobs/hooks/use-jobs-query";
+import {
+  useCreateJobMutation,
+  useUpdateJobMutation,
+} from "@/features/jobs/hooks/use-jobs-query";
 import { toast } from "sonner";
 
 export const useJobForm = (initialData: JobFormData, jobId?: string) => {
@@ -155,12 +158,14 @@ export const useJobForm = (initialData: JobFormData, jobId?: string) => {
       } else {
         await createJob(formData);
       }
-      
+
       localStorage.removeItem("jobFormData");
       localStorage.removeItem("jobCurrentStep");
 
       if (isPremium || jobId) {
-        toast.success(jobId ? "Job updated successfully!" : "Job posted successfully!");
+        toast.success(
+          jobId ? "Job updated successfully!" : "Job posted successfully!",
+        );
         router.push("/recruiter/jobs");
       } else {
         router.push("/recruiter/plan");
@@ -168,7 +173,7 @@ export const useJobForm = (initialData: JobFormData, jobId?: string) => {
     } catch (error) {
       console.error(`Failed to ${jobId ? "update" : "post"} job:`, error);
       toast.error(
-        `Failed to ${jobId ? "update" : "post"} job. Please check your company verification status and subscription limits.`
+        `Failed to ${jobId ? "update" : "post"} job. Please check your company verification status and subscription limits.`,
       );
     } finally {
       setIsSubmitting(false);

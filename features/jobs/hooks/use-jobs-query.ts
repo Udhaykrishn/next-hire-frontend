@@ -51,7 +51,13 @@ export const useUpdateJobMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ jobId, data }: { jobId: string; data: Partial<JobFormData> }) => updateJob(jobId, data),
+    mutationFn: ({
+      jobId,
+      data,
+    }: {
+      jobId: string;
+      data: Partial<JobFormData>;
+    }) => updateJob(jobId, data),
     onSuccess: (_, { jobId }) => {
       queryClient.invalidateQueries({ queryKey: ["recruiter", "jobs"] });
       queryClient.invalidateQueries({ queryKey: ["job", jobId] });
@@ -75,7 +81,10 @@ export const useJobDetailsQuery = (id: string) => {
   });
 };
 
-export const useCandidateApplicationsQuery = (params?: { search?: string; status?: string }) => {
+export const useCandidateApplicationsQuery = (params?: {
+  search?: string;
+  status?: string;
+}) => {
   return useQuery({
     queryKey: ["candidate-applications", params],
     queryFn: () => getCandidateApplications(params),

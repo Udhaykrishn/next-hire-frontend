@@ -22,7 +22,9 @@ interface RecruiterCompanyInfoProps {
   recruiter: RecruiterDetail;
 }
 
-export const RecruiterCompanyInfo = ({ recruiter }: RecruiterCompanyInfoProps) => {
+export const RecruiterCompanyInfo = ({
+  recruiter,
+}: RecruiterCompanyInfoProps) => {
   const [isVerifOpen, setIsVerifOpen] = useState(false);
   const isVerified = recruiter.is_verified_company === true;
   const wasRevoked = !isVerified && !!recruiter.verification_revoked_reason;
@@ -43,37 +45,60 @@ export const RecruiterCompanyInfo = ({ recruiter }: RecruiterCompanyInfoProps) =
           <div className="w-10 h-10 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center mb-3">
             <UserCheck className="w-5 h-5 text-gray-400" />
           </div>
-          <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">Company Role</p>
-          <p className="text-sm font-bold text-near-black">{recruiter.company_role || "N/A"}</p>
+          <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">
+            Company Role
+          </p>
+          <p className="text-sm font-bold text-near-black">
+            {recruiter.company_role || "N/A"}
+          </p>
         </div>
         <div className="bg-gray-50/50 p-5 rounded-3xl border border-gray-100 flex flex-col items-center justify-center text-center transition-transform hover:scale-[1.02]">
           <div className="w-10 h-10 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center mb-3">
             <LayoutGrid className="w-5 h-5 text-gray-400" />
           </div>
-          <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">Category</p>
-          <p className="text-sm font-bold text-near-black">{recruiter.category || "N/A"}</p>
+          <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">
+            Category
+          </p>
+          <p className="text-sm font-bold text-near-black">
+            {recruiter.category || "N/A"}
+          </p>
         </div>
         <div className="bg-gray-50/50 p-5 rounded-3xl border border-gray-100 flex flex-col items-center justify-center text-center transition-transform hover:scale-[1.02]">
           <div className="w-10 h-10 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center mb-3">
             <FileDigit className="w-5 h-5 text-gray-400" />
           </div>
-          <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">GSTIN</p>
-          <p className="text-sm font-bold text-near-black">{recruiter.GSTIN || "N/A"}</p>
+          <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">
+            GSTIN
+          </p>
+          <p className="text-sm font-bold text-near-black">
+            {recruiter.GSTIN || "N/A"}
+          </p>
         </div>
         <div className="bg-gray-50/50 p-5 rounded-3xl border border-gray-100 flex flex-col items-center justify-center text-center transition-transform hover:scale-[1.02]">
           <div className="w-10 h-10 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center mb-3">
             <Building2 className="w-5 h-5 text-gray-400" />
           </div>
-          <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">CIN</p>
-          <p className="text-sm font-bold text-near-black">{recruiter.CIN || "N/A"}</p>
+          <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">
+            CIN
+          </p>
+          <p className="text-sm font-bold text-near-black">
+            {recruiter.CIN || "N/A"}
+          </p>
         </div>
         <div className="bg-gray-50/50 p-5 rounded-3xl border border-gray-100 flex flex-col items-center justify-center text-center transition-transform hover:scale-[1.02] md:col-span-2">
           <div className="w-10 h-10 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center mb-3">
             <Globe className="w-5 h-5 text-gray-400" />
           </div>
-          <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">Website</p>
+          <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">
+            Website
+          </p>
           {recruiter.website_link ? (
-            <a href={recruiter.website_link} target="_blank" rel="noreferrer" className="text-sm font-bold text-wise-green hover:underline">
+            <a
+              href={recruiter.website_link}
+              target="_blank"
+              rel="noreferrer"
+              className="text-sm font-bold text-wise-green hover:underline"
+            >
               {recruiter.website_link}
             </a>
           ) : (
@@ -84,12 +109,35 @@ export const RecruiterCompanyInfo = ({ recruiter }: RecruiterCompanyInfoProps) =
         {/* Company Verification */}
         <div className="p-6 bg-white border border-gray-200 rounded-3xl md:col-span-2 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Company Verification</p>
-            <p className="text-xs text-gray-400 font-bold mb-2">Recruiter self-verified via CIN + OTP flow</p>
+            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">
+              Company Verification
+            </p>
+            <p className="text-xs text-gray-400 font-bold mb-2">
+              Recruiter self-verified via CIN + OTP flow
+            </p>
             <div className="flex items-center gap-2">
-              {isVerified ? <ShieldCheck className="w-4 h-4 text-wise-green" /> : wasRevoked ? <ShieldX className="w-4 h-4 text-red-500" /> : <ShieldOff className="w-4 h-4 text-gray-400" />}
-              <span className={cn("text-sm font-black uppercase tracking-widest", isVerified ? "text-wise-green" : wasRevoked ? "text-red-500" : "text-gray-400")}>
-                {isVerified ? "Verified" : wasRevoked ? "Revoked" : "Not Verified"}
+              {isVerified ? (
+                <ShieldCheck className="w-4 h-4 text-wise-green" />
+              ) : wasRevoked ? (
+                <ShieldX className="w-4 h-4 text-red-500" />
+              ) : (
+                <ShieldOff className="w-4 h-4 text-gray-400" />
+              )}
+              <span
+                className={cn(
+                  "text-sm font-black uppercase tracking-widest",
+                  isVerified
+                    ? "text-wise-green"
+                    : wasRevoked
+                      ? "text-red-500"
+                      : "text-gray-400",
+                )}
+              >
+                {isVerified
+                  ? "Verified"
+                  : wasRevoked
+                    ? "Revoked"
+                    : "Not Verified"}
               </span>
             </div>
           </div>
@@ -97,11 +145,29 @@ export const RecruiterCompanyInfo = ({ recruiter }: RecruiterCompanyInfoProps) =
           <div className="hidden md:block w-px h-16 bg-gray-100" />
 
           <div>
-            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Admin Approval</p>
-            <p className="text-xs text-gray-400 font-bold mb-2">Manual review and approval by platform admin</p>
+            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">
+              Admin Approval
+            </p>
+            <p className="text-xs text-gray-400 font-bold mb-2">
+              Manual review and approval by platform admin
+            </p>
             <div className="flex items-center gap-2">
-              <UserCog className={cn("w-4 h-4", recruiter.admin_approved ? "text-wise-green" : "text-gray-400")} />
-              <span className={cn("text-sm font-black uppercase tracking-widest", recruiter.admin_approved ? "text-wise-green" : "text-gray-400")}>
+              <UserCog
+                className={cn(
+                  "w-4 h-4",
+                  recruiter.admin_approved
+                    ? "text-wise-green"
+                    : "text-gray-400",
+                )}
+              />
+              <span
+                className={cn(
+                  "text-sm font-black uppercase tracking-widest",
+                  recruiter.admin_approved
+                    ? "text-wise-green"
+                    : "text-gray-400",
+                )}
+              >
                 {recruiter.admin_approved ? "Approved" : "Pending Approval"}
               </span>
             </div>
@@ -112,9 +178,20 @@ export const RecruiterCompanyInfo = ({ recruiter }: RecruiterCompanyInfoProps) =
           <div className="w-10 h-10 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center mb-3">
             <CreditCard className="w-5 h-5 text-wise-green" />
           </div>
-          <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">Subscription Plan</p>
+          <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">
+            Subscription Plan
+          </p>
           <p className="text-sm font-bold text-near-black">
-            {recruiter.subscription?.current_plan || "Free"} <span className={recruiter.subscription?.is_subscribed ? "text-wise-green" : "text-gray-400"}>({recruiter.subscription?.is_subscribed ? "Active" : "Inactive"})</span>
+            {recruiter.subscription?.current_plan || "Free"}{" "}
+            <span
+              className={
+                recruiter.subscription?.is_subscribed
+                  ? "text-wise-green"
+                  : "text-gray-400"
+              }
+            >
+              ({recruiter.subscription?.is_subscribed ? "Active" : "Inactive"})
+            </span>
           </p>
         </div>
       </div>
@@ -145,7 +222,9 @@ export const RecruiterCompanyInfo = ({ recruiter }: RecruiterCompanyInfoProps) =
                 <ShieldX className="w-5 h-5 text-red-500" />
               )}
               <span className="text-[10px] font-black uppercase tracking-[0.4em] text-near-black">
-                {isVerified ? "Company Verification Details" : "Revocation Details"}
+                {isVerified
+                  ? "Company Verification Details"
+                  : "Revocation Details"}
               </span>
               <span
                 className={cn(
