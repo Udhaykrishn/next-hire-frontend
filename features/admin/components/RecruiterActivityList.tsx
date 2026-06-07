@@ -22,7 +22,9 @@ interface RecruiterActivityListProps {
   activity: RecruiterDetail["activity"];
 }
 
-export const RecruiterActivityList = ({ activity }: RecruiterActivityListProps) => {
+export const RecruiterActivityList = ({
+  activity,
+}: RecruiterActivityListProps) => {
   return (
     <section className="bg-white border border-gray-100 rounded-[2.5rem] p-8 shadow-sm">
       <div className="text-xs font-black text-near-black uppercase tracking-[0.2em] mb-8 flex items-center gap-2">

@@ -54,7 +54,9 @@ export function PricingContent({
 
   const filteredPlans = useMemo(() => {
     if (!allPlans) return [];
-    type PlanWithIcon = NonNullable<typeof allPlans>[number] & { icon: React.ReactNode };
+    type PlanWithIcon = NonNullable<typeof allPlans>[number] & {
+      icon: React.ReactNode;
+    };
     return allPlans.reduce((acc: PlanWithIcon[], plan) => {
       if (plan.type === type) {
         acc.push({

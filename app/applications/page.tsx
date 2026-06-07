@@ -1,7 +1,14 @@
 "use client";
 
 import { motion } from "motion/react";
-import { Building, CheckCircle, Clock, FileText, Search, ShieldCheck } from "lucide-react";
+import {
+  Building,
+  CheckCircle,
+  Clock,
+  FileText,
+  Search,
+  ShieldCheck,
+} from "lucide-react";
 import { LandingNavbar } from "@/components/landing-navbar";
 import { LandingFooter } from "@/components/landing-footer";
 import Link from "next/link";
@@ -46,7 +53,7 @@ export default function CandidateApplicationsPage() {
           >
             {/* Decorative Background */}
             <div className="absolute -top-24 -right-24 w-64 h-64 bg-[#258265]/5 rounded-full blur-[80px] pointer-events-none" />
-            
+
             <div className="w-24 h-24 bg-[#258265]/10 text-[#258265] rounded-full flex items-center justify-center mb-8 relative">
               <FileText className="w-10 h-10" />
               <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-sm">
@@ -58,7 +65,8 @@ export default function CandidateApplicationsPage() {
               No Applications Yet
             </h2>
             <p className="text-gray-500 font-medium max-w-md mx-auto leading-relaxed mb-8">
-              You haven't applied to any jobs yet. Start exploring opportunities and your applications will appear here.
+              You haven't applied to any jobs yet. Start exploring opportunities
+              and your applications will appear here.
             </p>
 
             <Link

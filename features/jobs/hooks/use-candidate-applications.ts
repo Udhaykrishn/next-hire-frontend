@@ -23,7 +23,11 @@ export function useCandidateApplications() {
 
   const debouncedSearch = useDebounce(searchQuery, 400);
 
-  const { data: response, refetch, isFetching } = useCandidateApplicationsQuery({
+  const {
+    data: response,
+    refetch,
+    isFetching,
+  } = useCandidateApplicationsQuery({
     search: debouncedSearch,
     status: statusFilter,
   });

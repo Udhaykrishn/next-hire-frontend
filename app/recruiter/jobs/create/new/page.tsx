@@ -106,7 +106,9 @@ export function JobWizard({
 
   useEffect(() => {
     if (!isProfileLoading && !recruiterProfile?.is_verified_company) {
-      toast.error(`Please verify your company with a CIN number to ${jobId ? 'edit' : 'post'} jobs.`);
+      toast.error(
+        `Please verify your company with a CIN number to ${jobId ? "edit" : "post"} jobs.`,
+      );
       router.push("/recruiter/profile");
     }
   }, [recruiterProfile?.is_verified_company, isProfileLoading, router, jobId]);
@@ -270,7 +272,13 @@ export function JobWizard({
                   <span>Processing...</span>
                 </div>
               ) : (
-                <span>{isLastStep ? (jobId ? "Update Job Now" : "Post Job Now") : "Continue"}</span>
+                <span>
+                  {isLastStep
+                    ? jobId
+                      ? "Update Job Now"
+                      : "Post Job Now"
+                    : "Continue"}
+                </span>
               )}
             </Button>
           </div>

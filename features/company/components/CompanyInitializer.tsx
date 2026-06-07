@@ -6,16 +6,16 @@ import { useCompany } from "../../../context/company-context";
 import { useAuthContext } from "@/features/auth/context/auth-context";
 
 export const CompanyInitializer = () => {
-	const { isAuthenticated } = useAuthContext();
-	// Only fetch if authenticated
-	const { data, isLoading } = useCompanyQuery();
-	const { setCompanies } = useCompany();
+  const { isAuthenticated } = useAuthContext();
+  // Only fetch if authenticated
+  const { data, isLoading } = useCompanyQuery();
+  const { setCompanies } = useCompany();
 
-	useEffect(() => {
-		if (data?.data) {
-			setCompanies(data.data);
-		}
-	}, [data, setCompanies]);
+  useEffect(() => {
+    if (data?.data) {
+      setCompanies(data.data);
+    }
+  }, [data, setCompanies]);
 
-	return null;
+  return null;
 };

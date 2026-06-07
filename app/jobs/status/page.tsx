@@ -20,11 +20,13 @@ export default function JobStatusPage() {
           </p>
         </header>
 
-        <Suspense fallback={
-          <div className="flex items-center justify-center p-20 text-gray-400 font-bold">
-            Loading your applications...
-          </div>
-        }>
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center p-20 text-gray-400 font-bold">
+              Loading your applications...
+            </div>
+          }
+        >
           <CandidateApplications />
         </Suspense>
       </main>

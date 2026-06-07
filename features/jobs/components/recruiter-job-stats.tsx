@@ -22,9 +22,7 @@ export function RecruiterJobStats({ jobId }: { jobId: string }) {
         </div>
         <div className="flex flex-col items-center">
           <div className="flex items-center gap-1 leading-none">
-            <span className="text-[18px] font-black text-gray-200">
-              -
-            </span>
+            <span className="text-[18px] font-black text-gray-200">-</span>
             <Database className="w-3.5 h-3.5 text-gray-200" />
           </div>
           <span className="text-[10px] font-bold text-gray-400 mt-1.5 text-center leading-tight">

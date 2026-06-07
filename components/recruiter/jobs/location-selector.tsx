@@ -132,7 +132,13 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
   setFormData,
   errors = {},
 }) => {
-  const indianCities = useMemo(() => City.getCitiesOfCountry("IN") || [], []);
+  const indianCities = useMemo(() => {
+    const cities = City.getCitiesOfCountry("IN") || [];
+    return cities.map((city) => ({
+      ...city,
+      searchName: city.name.toLowerCase(),
+    }));
+  }, []);
   const [citySearch, setCitySearch] = useState("");
   const [showCityDropdown, setShowCityDropdown] = useState(false);
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
@@ -142,11 +148,15 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
 
   const filteredCities = useMemo(() => {
     if (!citySearch) return indianCities.slice(0, 100);
-    return indianCities
-      .filter((city) =>
-        city.name.toLowerCase().includes(citySearch.toLowerCase()),
-      )
-      .slice(0, 100);
+    const lowerSearch = citySearch.toLowerCase();
+    const result = [];
+    for (let i = 0; i < indianCities.length; i++) {
+      if (indianCities[i].searchName.includes(lowerSearch)) {
+        result.push(indianCities[i]);
+        if (result.length >= 100) break;
+      }
+    }
+    return result;
   }, [citySearch, indianCities]);
 
   const LocationFieldError = ({ name }: { name: string }) => {

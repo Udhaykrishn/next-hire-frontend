@@ -18,9 +18,12 @@ import {
   MapPin,
   Clock,
   IndianRupee,
-  X
+  X,
 } from "lucide-react";
-import { useRecruiterJobApplicationsQuery, useUpdateApplicationStatusMutation } from "@/features/jobs/hooks/use-recruiter-applications";
+import {
+  useRecruiterJobApplicationsQuery,
+  useUpdateApplicationStatusMutation,
+} from "@/features/jobs/hooks/use-recruiter-applications";
 import { formatDistanceToNow, parseISO } from "date-fns";
 import { apiClient } from "@/lib/api-client";
 import {
@@ -32,11 +35,16 @@ import {
 
 const getStatusStyles = (status: string) => {
   switch (status) {
-    case "REVIEWING": return "bg-[#38c8ff]/10 text-[#0e0f0c] border-[#38c8ff]/20";
-    case "SHORTLISTED": return "bg-[#cdffad] text-[#0e0f0c] border-[#9fe870]/30";
-    case "HIRED": return "bg-[#054d28]/10 text-[#054d28] border-[#054d28]/20";
-    case "REJECTED": return "bg-[#d03238]/10 text-[#d03238] border-[#d03238]/20";
-    default: return "bg-[#e8ebe6] text-[#454745] border-[#0e0f0c]/10";
+    case "REVIEWING":
+      return "bg-[#38c8ff]/10 text-[#0e0f0c] border-[#38c8ff]/20";
+    case "SHORTLISTED":
+      return "bg-[#cdffad] text-[#0e0f0c] border-[#9fe870]/30";
+    case "HIRED":
+      return "bg-[#054d28]/10 text-[#054d28] border-[#054d28]/20";
+    case "REJECTED":
+      return "bg-[#d03238]/10 text-[#d03238] border-[#d03238]/20";
+    default:
+      return "bg-[#e8ebe6] text-[#454745] border-[#0e0f0c]/10";
   }
 };
 
@@ -63,11 +71,24 @@ export default function JobApplicationsPage() {
     },
   });
 
-  const { data, isLoading } = useRecruiterJobApplicationsQuery(id, 1, 100, search, statusFilter);
+  const { data, isLoading } = useRecruiterJobApplicationsQuery(
+    id,
+    1,
+    100,
+    search,
+    statusFilter,
+  );
   const { mutate: updateStatus } = useUpdateApplicationStatusMutation(id);
 
   const job = jobData?.data || jobData || null;
-  const stats = statsData?.data || statsData || { total: 0, reviewing: 0, interviews: 0, offers: 0, rejected: 0 };
+  const stats = statsData?.data ||
+    statsData || {
+      total: 0,
+      reviewing: 0,
+      interviews: 0,
+      offers: 0,
+      rejected: 0,
+    };
 
   return (
     <div className="max-w-6xl mx-auto space-y-6 pb-24 font-satoshi">
@@ -106,34 +127,45 @@ export default function JobApplicationsPage() {
                   <div className="flex flex-wrap items-center gap-4 text-[14px] font-[500] text-[#454745]">
                     {job.locationType && (
                       <span className="flex items-center gap-1.5">
-                        <MapPin className="w-4 h-4 text-[#868685]" /> {job.locationType}
+                        <MapPin className="w-4 h-4 text-[#868685]" />{" "}
+                        {job.locationType}
                       </span>
                     )}
                     {job.jobType && (
                       <span className="flex items-center gap-1.5">
-                        <Clock className="w-4 h-4 text-[#868685]" /> {job.jobType}
+                        <Clock className="w-4 h-4 text-[#868685]" />{" "}
+                        {job.jobType}
                       </span>
                     )}
                     {(job.minSalary || job.maxSalary) && (
                       <span className="flex items-center gap-1.5">
                         <IndianRupee className="w-4 h-4 text-[#868685]" />
-                        {job.minSalary && job.maxSalary ? `₹${job.minSalary} - ₹${job.maxSalary}` : 'Negotiable'}
+                        {job.minSalary && job.maxSalary
+                          ? `₹${job.minSalary} - ₹${job.maxSalary}`
+                          : "Negotiable"}
                       </span>
                     )}
                     {job.createdAt && (
                       <span className="flex items-center gap-1.5 text-[#868685] border-l border-[rgba(14,15,12,0.12)] pl-4">
-                        Posted {formatDistanceToNow(parseISO(job.createdAt), { addSuffix: true })}
+                        Posted{" "}
+                        {formatDistanceToNow(parseISO(job.createdAt), {
+                          addSuffix: true,
+                        })}
                       </span>
                     )}
                   </div>
                 </>
               ) : (
-                <div className="text-[#868685]">Job information unavailable</div>
+                <div className="text-[#868685]">
+                  Job information unavailable
+                </div>
               )}
             </div>
 
             <div className="flex flex-col gap-2 min-w-[140px]">
-              <div className="text-[12px] font-[500] text-[#868685] uppercase tracking-wider mb-1">Status</div>
+              <div className="text-[12px] font-[500] text-[#868685] uppercase tracking-wider mb-1">
+                Status
+              </div>
               <div className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full bg-[#054d28]/10 text-[#054d28] font-[600] border border-[#054d28]/20 text-[14px]">
                 <div className="w-2 h-2 rounded-full bg-[#054d28]" />
                 Active & Accepting
@@ -150,13 +182,18 @@ export default function JobApplicationsPage() {
           { label: "Reviewing", value: stats.reviewing || 0 },
           { label: "Shortlisted", value: stats.interviews || 0 },
           { label: "Hired", value: stats.offers || 0 },
-          { label: "Rejected", value: stats.rejected || 0 }
+          { label: "Rejected", value: stats.rejected || 0 },
         ].map((stat, i) => (
-          <div key={i} className="bg-[#ffffff] p-[24px] rounded-[16px] border border-[rgba(14,15,12,0.12)] flex flex-col justify-between h-28">
+          <div
+            key={i}
+            className="bg-[#ffffff] p-[24px] rounded-[16px] border border-[rgba(14,15,12,0.12)] flex flex-col justify-between h-28"
+          >
             <div className="text-[#454745] font-[500] text-[12px] uppercase tracking-wider flex items-center justify-between">
               {stat.label}
             </div>
-            <div className="text-[32px] font-[800] text-[#0e0f0c] leading-none">{stat.value}</div>
+            <div className="text-[32px] font-[800] text-[#0e0f0c] leading-none">
+              {stat.value}
+            </div>
           </div>
         ))}
       </div>
@@ -174,14 +211,23 @@ export default function JobApplicationsPage() {
           />
         </div>
         <div className="flex items-center gap-1 bg-[#e8ebe6] p-1.5 rounded-full w-full lg:w-auto overflow-x-auto no-scrollbar border border-[rgba(14,15,12,0.05)]">
-          {["ALL", "AI_MATCHED", "PENDING", "REVIEWING", "SHORTLISTED", "HIRED", "REJECTED"].map((st) => (
+          {[
+            "ALL",
+            "AI_MATCHED",
+            "PENDING",
+            "REVIEWING",
+            "SHORTLISTED",
+            "HIRED",
+            "REJECTED",
+          ].map((st) => (
             <button
               key={st}
               onClick={() => setStatusFilter(st)}
-              className={`px-4 py-2 rounded-full text-[12px] font-[600] transition-colors whitespace-nowrap ${statusFilter === st
+              className={`px-4 py-2 rounded-full text-[12px] font-[600] transition-colors whitespace-nowrap ${
+                statusFilter === st
                   ? "bg-[#ffffff] text-[#0e0f0c] shadow-sm border border-[rgba(14,15,12,0.08)]"
                   : "text-[#454745] hover:text-[#0e0f0c] hover:bg-[rgba(14,15,12,0.04)]"
-                }`}
+              }`}
             >
               {st.replace("_", " ")}
             </button>
@@ -194,7 +240,9 @@ export default function JobApplicationsPage() {
         {isLoading ? (
           <div className="flex flex-col items-center justify-center min-h-[40vh] gap-4">
             <div className="w-10 h-10 border-4 border-[#e8ebe6] border-t-[#0e0f0c] rounded-full animate-spin" />
-            <p className="text-[#868685] font-[500] text-[15px]">Loading candidates...</p>
+            <p className="text-[#868685] font-[500] text-[15px]">
+              Loading candidates...
+            </p>
           </div>
         ) : data?.data && data.data.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -208,7 +256,11 @@ export default function JobApplicationsPage() {
                     <div className="flex items-center gap-4">
                       <div className="w-12 h-12 rounded-full bg-[#e8ebe6] overflow-hidden shrink-0">
                         {app.candidate.profileImage ? (
-                          <img src={app.candidate.profileImage} alt={app.candidate.name} className="w-full h-full object-cover" />
+                          <img
+                            src={app.candidate.profileImage}
+                            alt={app.candidate.name}
+                            className="w-full h-full object-cover"
+                          />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center text-[#868685]">
                             <User className="w-5 h-5" />
@@ -218,7 +270,11 @@ export default function JobApplicationsPage() {
                       <div className="flex flex-col">
                         <h3
                           className="font-[700] text-[16px] text-[#0e0f0c] group-hover:text-[#054d28] transition-colors cursor-pointer"
-                          onClick={() => router.push(`/recruiter/jobs/${id}/applications/${app.id}?candidateId=${app.candidate.id}`)}
+                          onClick={() =>
+                            router.push(
+                              `/recruiter/jobs/${id}/applications/${app.id}?candidateId=${app.candidate.id}`,
+                            )
+                          }
                         >
                           {app.candidate.name}
                         </h3>
@@ -234,7 +290,9 @@ export default function JobApplicationsPage() {
                           {app.matchScore}% Match
                         </div>
                       )}
-                      <div className={`px-2.5 py-1 rounded-md text-[12px] font-[600] border ${getStatusStyles(app.status)}`}>
+                      <div
+                        className={`px-2.5 py-1 rounded-md text-[12px] font-[600] border ${getStatusStyles(app.status)}`}
+                      >
                         {app.status}
                       </div>
 
@@ -242,28 +300,51 @@ export default function JobApplicationsPage() {
                         <DropdownMenuTrigger className="flex items-center justify-center h-8 w-8 rounded-full text-[#868685] hover:text-[#0e0f0c] hover:bg-[#e8ebe6] transition-colors focus:outline-none">
                           <MoreVertical className="w-4 h-4" />
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" className="w-48 font-satoshi rounded-[12px] border-[rgba(14,15,12,0.12)] shadow-lg p-1.5">
+                        <DropdownMenuContent
+                          align="end"
+                          className="w-48 font-satoshi rounded-[12px] border-[rgba(14,15,12,0.12)] shadow-lg p-1.5"
+                        >
                           <DropdownMenuItem
-                            onClick={() => updateStatus({ applicationId: app.id, status: "REVIEWING" })}
+                            onClick={() =>
+                              updateStatus({
+                                applicationId: app.id,
+                                status: "REVIEWING",
+                              })
+                            }
                             className="text-[14px] font-[500] text-[#0e0f0c] focus:bg-[#e8ebe6] rounded-[8px] cursor-pointer py-2 px-2.5"
                           >
                             Mark as Reviewing
                           </DropdownMenuItem>
                           <DropdownMenuItem
-                            onClick={() => updateStatus({ applicationId: app.id, status: "SHORTLISTED" })}
+                            onClick={() =>
+                              updateStatus({
+                                applicationId: app.id,
+                                status: "SHORTLISTED",
+                              })
+                            }
                             className="text-[14px] font-[500] text-[#0e0f0c] focus:bg-[#cdffad] rounded-[8px] cursor-pointer py-2 px-2.5"
                           >
                             Shortlist Candidate
                           </DropdownMenuItem>
                           <DropdownMenuItem
-                            onClick={() => updateStatus({ applicationId: app.id, status: "HIRED" })}
+                            onClick={() =>
+                              updateStatus({
+                                applicationId: app.id,
+                                status: "HIRED",
+                              })
+                            }
                             className="text-[14px] font-[500] text-[#054d28] focus:bg-[#e2f6d5] rounded-[8px] cursor-pointer py-2 px-2.5"
                           >
                             Mark as Hired
                           </DropdownMenuItem>
                           <div className="h-px bg-[rgba(14,15,12,0.05)] my-1 mx-1" />
                           <DropdownMenuItem
-                            onClick={() => updateStatus({ applicationId: app.id, status: "REJECTED" })}
+                            onClick={() =>
+                              updateStatus({
+                                applicationId: app.id,
+                                status: "REJECTED",
+                              })
+                            }
                             className="text-[14px] font-[500] text-[#d03238] focus:bg-[#d03238]/10 rounded-[8px] cursor-pointer py-2 px-2.5"
                           >
                             Reject Candidate
@@ -276,19 +357,28 @@ export default function JobApplicationsPage() {
 
                 <div className="mt-2 pt-4 border-t border-[rgba(14,15,12,0.05)] flex items-center justify-between">
                   <p className="text-[12px] font-[500] text-[#868685] flex items-center gap-1.5">
-                    <Calendar className="w-3.5 h-3.5" /> Applied {formatDistanceToNow(parseISO(app.createdAt), { addSuffix: true })}
+                    <Calendar className="w-3.5 h-3.5" /> Applied{" "}
+                    {formatDistanceToNow(parseISO(app.createdAt), {
+                      addSuffix: true,
+                    })}
                   </p>
 
                   <div className="flex gap-2">
                     <button
-                      onClick={() => router.push(`/recruiter/jobs/${id}/applications/${app.id}?candidateId=${app.candidate.id}`)}
+                      onClick={() =>
+                        router.push(
+                          `/recruiter/jobs/${id}/applications/${app.id}?candidateId=${app.candidate.id}`,
+                        )
+                      }
                       className="px-4 py-2 rounded-full bg-[#163300]/[0.08] text-[#0e0f0c] font-[600] text-[14px] hover:bg-[#163300]/[0.12] transition-colors"
                     >
                       View Profile
                     </button>
                     {app.candidate.resume && (
                       <button
-                        onClick={() => window.open(app.candidate.resume as string, "_blank")}
+                        onClick={() =>
+                          window.open(app.candidate.resume as string, "_blank")
+                        }
                         className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#ffffff] text-[#0e0f0c] font-[600] text-[14px] border border-[rgba(14,15,12,0.12)] hover:bg-[#e8ebe6] transition-colors"
                       >
                         <ExternalLink className="w-3.5 h-3.5" /> Resume

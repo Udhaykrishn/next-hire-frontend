@@ -28,6 +28,8 @@ describe("cn", () => {
   });
 
   test("merges tailwind classes properly with complex inputs", () => {
-    expect(cn("bg-red-500", { "bg-blue-500": true }, ["text-center"])).toBe("bg-blue-500 text-center");
+    expect(cn("bg-red-500", { "bg-blue-500": true }, ["text-center"])).toBe(
+      "bg-blue-500 text-center",
+    );
   });
 });

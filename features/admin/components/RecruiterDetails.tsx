@@ -41,7 +41,7 @@ export const RecruiterDetails = ({ id }: RecruiterDetailsProps) => {
               <RecruiterActivityList activity={recruiter.activity} />
               <RecruiterJobsList id={id} />
             </div>
-            
+
             {/* Sidebar */}
             <div className="space-y-8">
               <RecruiterSidebar recruiter={recruiter} />

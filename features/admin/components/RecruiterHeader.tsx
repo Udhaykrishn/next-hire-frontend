@@ -43,7 +43,7 @@ export const RecruiterHeader = ({ recruiter, id }: RecruiterHeaderProps) => {
     selectedPreset,
     setSelectedPreset,
     handleConfirmBlock,
-    handleConfirmRevoke
+    handleConfirmRevoke,
   } = useRecruiterActions(id);
 
   const isVerified = recruiter.is_verified_company === true;
@@ -70,7 +70,7 @@ export const RecruiterHeader = ({ recruiter, id }: RecruiterHeaderProps) => {
                   "px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm",
                   recruiter.status === "Active"
                     ? "bg-green-100 text-green-700 border border-green-200"
-                    : "bg-red-100 text-red-700 border border-red-200"
+                    : "bg-red-100 text-red-700 border border-red-200",
                 )}
               >
                 {recruiter.status}
@@ -109,11 +109,19 @@ export const RecruiterHeader = ({ recruiter, id }: RecruiterHeaderProps) => {
               "p-4 rounded-2xl transition-all outline-none border shadow-sm",
               recruiter.status === "Blocked"
                 ? "bg-green-50 text-green-600 hover:bg-green-100 border-green-100"
-                : "bg-red-50 text-red-600 hover:bg-red-100 border-red-100"
+                : "bg-red-50 text-red-600 hover:bg-red-100 border-red-100",
             )}
-            title={recruiter.status === "Blocked" ? "Restore Partner Access" : "Restrict Partner Access"}
+            title={
+              recruiter.status === "Blocked"
+                ? "Restore Partner Access"
+                : "Restrict Partner Access"
+            }
           >
-            {recruiter.status === "Blocked" ? <Unlock className="w-6 h-6" /> : <Ban className="w-6 h-6" />}
+            {recruiter.status === "Blocked" ? (
+              <Unlock className="w-6 h-6" />
+            ) : (
+              <Ban className="w-6 h-6" />
+            )}
           </button>
 
           {isVerified && (
@@ -146,7 +154,9 @@ export const RecruiterHeader = ({ recruiter, id }: RecruiterHeaderProps) => {
             : "This will immediately revoke account access and disable all active job postings for this company."
         }
         confirmText={
-          recruiter.status === "Blocked" ? "Confirm Restore" : "Confirm Restriction"
+          recruiter.status === "Blocked"
+            ? "Confirm Restore"
+            : "Confirm Restriction"
         }
         variant={recruiter.status === "Blocked" ? "info" : "danger"}
       />
@@ -164,7 +174,8 @@ export const RecruiterHeader = ({ recruiter, id }: RecruiterHeaderProps) => {
                   Revoke Company Verification
                 </h2>
                 <p className="text-xs text-gray-400 font-bold">
-                  This action cannot be undone without recruiter re-verification.
+                  This action cannot be undone without recruiter
+                  re-verification.
                 </p>
               </div>
             </div>

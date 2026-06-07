@@ -90,7 +90,8 @@ export const useAuth = () => {
     Error,
     { email: string; otp: string; role: "recruiter" | "user" }
   >({
-    mutationFn: ({ email, otp, role }) => authService.verifyOtp(email, otp, role),
+    mutationFn: ({ email, otp, role }) =>
+      authService.verifyOtp(email, otp, role),
   });
 
   const resendOtpMutation = useMutation<
@@ -136,7 +137,11 @@ export const useAuth = () => {
     return resetPasswordMutation.mutateAsync({ data, role });
   };
 
-  const verifyOtp = async (email: string, otp: string, role: "recruiter" | "user") => {
+  const verifyOtp = async (
+    email: string,
+    otp: string,
+    role: "recruiter" | "user",
+  ) => {
     return verifyOtpMutation.mutateAsync({ email, otp, role });
   };
 

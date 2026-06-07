@@ -1,4 +1,10 @@
-import { Clock, Search, MessageSquare, XCircle, CheckCircle2 } from "lucide-react";
+import {
+  Clock,
+  Search,
+  MessageSquare,
+  XCircle,
+  CheckCircle2,
+} from "lucide-react";
 
 export const getStatusConfig = (status: string) => {
   switch (status) {

@@ -91,7 +91,10 @@ export const jobStep1Schema = z
       });
     }
 
-    if (data.payType === "Fixed + Incentive" || data.payType === "Incentive Only") {
+    if (
+      data.payType === "Fixed + Incentive" ||
+      data.payType === "Incentive Only"
+    ) {
       const incentive = parseInt(data.incentiveAmount.replace(/,/g, ""), 10);
       if (Number.isNaN(incentive) || incentive < 1000) {
         ctx.addIssue({
