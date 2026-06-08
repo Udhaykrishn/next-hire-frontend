@@ -1,3 +1,3 @@
-## 2024-06-05 - Admin Header Accessibility Improvements
-**Learning:** Found several icon-only buttons in the AdminHeader component (Sun, Moon, Bell) that lacked ARIA labels, making them inaccessible to screen reader users. This seems to be a common pattern for utility buttons in the header.
-**Action:** Always verify icon-only buttons have descriptive `aria-label`s and appropriate `title` attributes for tooltips, and consider adding screen reader specific text (`sr-only`) if appropriate.
+## 2024-06-08 - Job List Action Accessibility
+**Learning:** Found several icon-only action buttons in the admin JobList component (View, Flag as Threat, Activate Job Post) that lacked ARIA labels, making them inaccessible to screen reader users. Additionally, they lacked explicit `type="button"` attributes, which triggered linting errors and could cause accidental form submissions if wrapped in a form.
+**Action:** Always ensure icon-only action buttons within data tables or lists have descriptive `aria-label`s and explicit `type="button"` attributes to improve accessibility and satisfy strict Biome linting rules.
