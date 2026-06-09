@@ -1,23 +1,16 @@
 "use client";
 
-import {
-  Ban,
-  Briefcase,
-  Eye,
-  Filter,
-  Search,
-  Unlock,
-} from "lucide-react";
-import { useState } from "react";
+import { Ban, Briefcase, Eye, Filter, Search, Unlock } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { ConfirmationModal } from "@/components/shared/confirmation-modal";
 import { Pagination } from "@/components/shared/pagination";
-import { formatSalaryAmount } from "@/lib/salary";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { formatSalaryAmount } from "@/lib/salary";
 import { cn } from "@/lib/utils";
 import { useAdminJobs } from "../hooks/use-admin-jobs";
 import type { AdminJobDetail } from "../types/admin.types";
@@ -39,9 +32,9 @@ export const JobList = () => {
   } = useAdminJobs();
 
   const [selectedJob, setSelectedJob] = useState<AdminJobDetail | null>(null);
-  const [dialogType, setDialogType] = useState<
-    "block" | "unblock" | null
-  >(null);
+  const [dialogType, setDialogType] = useState<"block" | "unblock" | null>(
+    null,
+  );
 
   const totalPages = Math.ceil(total / itemsPerPage);
 
@@ -195,7 +188,8 @@ export const JobList = () => {
                   </td>
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-1 text-xs text-gray-500 font-bold">
-                      {formatSalaryAmount(job.minSalary, "INR", "full")} - {formatSalaryAmount(job.maxSalary, "INR", "full")}
+                      {formatSalaryAmount(job.minSalary, "INR", "full")} -{" "}
+                      {formatSalaryAmount(job.maxSalary, "INR", "full")}
                     </div>
                   </td>
                   <td className="px-6 py-4">
@@ -219,6 +213,8 @@ export const JobList = () => {
                   <td className="px-6 py-4 text-right">
                     <div className="flex items-center justify-end gap-2">
                       <button
+                        type="button"
+                        aria-label="View Details"
                         onClick={() => handleAction(job, "details")}
                         className="p-2 text-gray-400 hover:text-wise-green hover:bg-wise-green/10 rounded-xl transition-all outline-none"
                         title="View Details"
@@ -227,6 +223,8 @@ export const JobList = () => {
                       </button>
                       {job.status === "OPEN" ? (
                         <button
+                          type="button"
+                          aria-label="Flag as Threat / Scam"
                           onClick={() => handleAction(job, "block")}
                           className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all outline-none"
                           title="Flag as Threat / Scam"
@@ -235,6 +233,8 @@ export const JobList = () => {
                         </button>
                       ) : (
                         <button
+                          type="button"
+                          aria-label="Activate Job Post"
                           onClick={() => handleAction(job, "unblock")}
                           className="p-2 text-gray-400 hover:text-green-600 hover:bg-green-50 rounded-xl transition-all outline-none"
                           title="Activate Job Post"
