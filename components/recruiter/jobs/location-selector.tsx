@@ -142,11 +142,22 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
 
   const filteredCities = useMemo(() => {
     if (!citySearch) return indianCities.slice(0, 100);
-    return indianCities
-      .filter((city) =>
-        city.name.toLowerCase().includes(citySearch.toLowerCase()),
-      )
-      .slice(0, 100);
+
+    // Bolt: ⚡ Performance Optimization
+    // Precompute lowercase search to avoid recalculating per item
+    const searchLower = citySearch.toLowerCase();
+    const result = [];
+
+    // Bolt: ⚡ Performance Optimization
+    // Use native loop with early exit instead of evaluating all items with .filter().slice()
+    for (let i = 0; i < indianCities.length; i++) {
+      if (indianCities[i].name.toLowerCase().includes(searchLower)) {
+        result.push(indianCities[i]);
+        if (result.length === 100) break;
+      }
+    }
+
+    return result;
   }, [citySearch, indianCities]);
 
   const LocationFieldError = ({ name }: { name: string }) => {
