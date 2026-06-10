@@ -19,10 +19,14 @@ export const JobPreferenceForm = ({
   <BaseSheet isOpen={isOpen} onClose={onClose} title="Job Preferences">
     <form onSubmit={onSubmit} className="space-y-8">
       <div className="space-y-2">
-        <label className="text-[12px] font-black text-gray-400 uppercase tracking-widest ml-1">
+        <label
+          htmlFor="preferred-roles"
+          className="text-[12px] font-black text-gray-400 uppercase tracking-widest ml-1"
+        >
           Preferred Roles (comma separated)
         </label>
         <input
+          id="preferred-roles"
           name="roles"
           defaultValue={initialData.roles.join(", ")}
           required
@@ -30,10 +34,14 @@ export const JobPreferenceForm = ({
         />
       </div>
       <div className="space-y-2">
-        <label className="text-[12px] font-black text-gray-400 uppercase tracking-widest ml-1">
+        <label
+          htmlFor="job-types"
+          className="text-[12px] font-black text-gray-400 uppercase tracking-widest ml-1"
+        >
           Job Types (comma separated)
         </label>
         <input
+          id="job-types"
           name="jobTypes"
           defaultValue={initialData.jobTypes.join(", ")}
           required
@@ -41,10 +49,14 @@ export const JobPreferenceForm = ({
         />
       </div>
       <div className="space-y-2">
-        <label className="text-[12px] font-black text-gray-400 uppercase tracking-widest ml-1">
+        <label
+          htmlFor="work-styles"
+          className="text-[12px] font-black text-gray-400 uppercase tracking-widest ml-1"
+        >
           Work Styles (comma separated)
         </label>
         <input
+          id="work-styles"
           name="workStyles"
           defaultValue={initialData.workStyles.join(", ")}
           required

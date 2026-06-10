@@ -173,13 +173,13 @@ export default function RecruiterLandingPage() {
                 { number: "2x", label: "Faster time to hire" },
                 { number: "40%", label: "Reduction in cost per hire" },
                 { number: "98%", label: "Client satisfaction rate" },
-              ].map((stat, i) => (
+              ].map((stat) => (
                 <motion.div
-                  key={i}
+                  key={stat.label}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
+                  transition={{ delay: 0.1 }}
                   className="text-center p-8 rounded-3xl bg-gray-50 border border-gray-100"
                 >
                   <div className="text-4xl md:text-5xl font-black text-wise-green mb-2">
@@ -239,13 +239,13 @@ export default function RecruiterLandingPage() {
                   title: "Compliance Ready",
                   desc: "Built-in GDPR compliance, diversity tracking, and fair hiring guardrails out of the box.",
                 },
-              ].map((feature, i) => (
+              ].map((feature) => (
                 <motion.div
-                  key={i}
+                  key={feature.title}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
+                  transition={{ delay: 0.1 }}
                   className="p-8 rounded-[2rem] bg-white border border-gray-100 shadow-xl shadow-gray-200/20 hover:shadow-2xl hover:shadow-wise-green/10 transition-all hover:-translate-y-1 group"
                 >
                   <div className="w-16 h-16 rounded-2xl bg-gray-50 flex items-center justify-center mb-6 group-hover:bg-wise-green/10 transition-colors">
@@ -292,9 +292,9 @@ export default function RecruiterLandingPage() {
                     "Customizable Kanban-style pipelines",
                     "Automated candidate stage progression",
                     "Real-time team collaboration notes",
-                  ].map((item, i) => (
+                  ].map((item) => (
                     <li
-                      key={i}
+                      key={item}
                       className="flex items-center gap-3 text-near-black font-medium"
                     >
                       <CheckCircle2 className="w-5 h-5 text-wise-green shrink-0" />{" "}
@@ -320,9 +320,9 @@ export default function RecruiterLandingPage() {
                     "Context-aware resume parsing",
                     "Automated skill validation",
                     "Bias-reduction algorithms",
-                  ].map((item, i) => (
+                  ].map((item) => (
                     <li
-                      key={i}
+                      key={item}
                       className="flex items-center gap-3 text-near-black font-medium"
                     >
                       <CheckCircle2 className="w-5 h-5 text-wise-green shrink-0" />{" "}
@@ -377,14 +377,15 @@ export default function RecruiterLandingPage() {
                   title: "Recruiting Manager, Acme Corp",
                   stars: 5,
                 },
-              ].map((review, i) => (
+              ].map((review) => (
                 <div
-                  key={i}
+                  key={review.name}
                   className="p-8 rounded-3xl bg-gray-50 border border-gray-100 relative hover:-translate-y-1 transition-transform duration-300"
                 >
                   <div className="flex gap-1 mb-6">
                     {[...Array(review.stars)].map((_, j) => (
                       <Star
+                        // biome-ignore lint/suspicious/noArrayIndexKey: static list of stars
                         key={j}
                         className="w-5 h-5 fill-wise-green text-wise-green"
                       />

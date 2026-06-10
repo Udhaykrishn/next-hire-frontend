@@ -4,12 +4,12 @@ import { type CredentialResponse, GoogleLogin } from "@react-oauth/google";
 import { ArrowRight, Mail, Phone, ShieldCheck, User } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import type React from "react";
-
 import { useState } from "react";
 import { toast } from "sonner";
-import { OtpForm } from "@/components/auth/otp-form";
 import { Button } from "@/components/animate-ui/components/buttons/button";
+import { OtpForm } from "@/components/auth/otp-form";
 import { Logo } from "@/components/logo";
 import {
   Card,
@@ -24,10 +24,16 @@ import { Label } from "@/components/ui/label";
 import { useAuthContext } from "@/features/auth/context/auth-context";
 import { useAuth } from "@/features/auth/hooks/use-auth";
 import { useAuthRedirect } from "@/features/auth/hooks/use-role-redirect";
-import { useRouter } from "next/navigation";
 
 export default function UserSignupPage() {
-  const { signup, googleAuth, verifyOtp, resendOtp, isLoading: signupLoading, error } = useAuth();
+  const {
+    signup,
+    googleAuth,
+    verifyOtp,
+    resendOtp,
+    isLoading: signupLoading,
+    error,
+  } = useAuth();
   const { setUser, isAuthenticated, isLoading: authLoading } = useAuthContext();
   const router = useRouter();
 
@@ -111,7 +117,7 @@ export default function UserSignupPage() {
     try {
       await resendOtp(formData.email, "user");
       toast.success("OTP resent to your email.");
-    } catch (err) {
+    } catch (_err) {
       toast.error("Failed to resend OTP.");
     }
   };
@@ -152,7 +158,8 @@ export default function UserSignupPage() {
                   {step === "OTP" && "Verify Email"}
                 </CardTitle>
                 <CardDescription className="text-base text-gray-500 font-medium mt-2">
-                  {step === "INITIAL" && "Start your professional career journey today."}
+                  {step === "INITIAL" &&
+                    "Start your professional career journey today."}
                   {step === "FORM" && "Fill in your details to get started."}
                   {step === "OTP" && `We've sent a code to ${formData.email}`}
                 </CardDescription>
@@ -331,7 +338,7 @@ export default function UserSignupPage() {
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <OtpForm id={formData.email} role="user" onVerify={handleVerifyOtp} />
+                  <OtpForm id={formData.email} onVerify={handleVerifyOtp} />
                   <div className="mt-6 text-center">
                     <button
                       type="button"

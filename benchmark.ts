@@ -4,7 +4,7 @@ const rawSetCookie =
 
 console.time("Original");
 for (let i = 0; i < iterations; i++) {
-  const result = rawSetCookie
+  const _result = rawSetCookie
     .split(/,(?=[^;])/)
     .map((s) => s.trim())
     .filter(Boolean);
@@ -13,7 +13,7 @@ console.timeEnd("Original");
 
 console.time("Optimized");
 for (let i = 0; i < iterations; i++) {
-  const result = rawSetCookie.split(/,(?=[^;])/).reduce<string[]>((acc, s) => {
+  const _result = rawSetCookie.split(/,(?=[^;])/).reduce<string[]>((acc, s) => {
     const trimmed = s.trim();
     if (trimmed) acc.push(trimmed);
     return acc;

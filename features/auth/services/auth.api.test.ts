@@ -1,6 +1,14 @@
-import { test, expect, describe, spyOn, beforeEach, afterEach, mock } from "bun:test";
-import { authService } from "./auth.api";
+import {
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  mock,
+  spyOn,
+  test,
+} from "bun:test";
 import { apiClient } from "@/lib/api-client";
+import { authService } from "./auth.api";
 
 describe("authService.getCurrentUser", () => {
   let originalWindow: typeof window | undefined;
@@ -88,7 +96,9 @@ describe("authService.getCurrentUser", () => {
 
   test("error path: recruiter API fails", async () => {
     setWindowPathname("/recruiter");
-    spyOn(apiClient, "get").mockRejectedValue(new Error("Recruiter API Failed"));
+    spyOn(apiClient, "get").mockRejectedValue(
+      new Error("Recruiter API Failed"),
+    );
 
     const result = await authService.getCurrentUser();
     expect(result).toBeNull();
@@ -135,7 +145,7 @@ describe("authService.getCurrentUser", () => {
     // Some environments define window as non-configurable, but let's cast to undefined for testing
     // To ensure typeof window === "undefined" inside the code, we actually need to bypass or redefine globalThis
     // In bun test without DOM, window is typically undefined anyway. Let's force it:
-    // @ts-ignore
+    // @ts-expect-error
     delete globalThis.window;
 
     const result = await authService.getCurrentUser();
@@ -153,7 +163,7 @@ describe("authService.getCurrentUser", () => {
   test("error path: window undefined and both APIs fail", async () => {
     spyOn(apiClient, "get").mockRejectedValue(new Error("All APIs Failed"));
 
-    // @ts-ignore
+    // @ts-expect-error
     delete globalThis.window;
 
     const result = await authService.getCurrentUser();

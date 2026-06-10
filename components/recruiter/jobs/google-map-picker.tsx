@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  Map,
+  Map as GoogleMap,
   type MapMouseEvent,
   Marker, // Switching to standard Marker for maximum compatibility
   useApiIsLoaded,
@@ -125,7 +125,7 @@ export const GoogleMapPicker: React.FC<GoogleMapPickerProps> = ({
       style={{ height }}
       className="w-full relative rounded-2xl overflow-hidden border border-gray-100 shadow-inner"
     >
-      <Map
+      <GoogleMap
         style={{ width: "100%", height: "100%" }}
         defaultCenter={markerPos}
         center={markerPos}
@@ -139,7 +139,7 @@ export const GoogleMapPicker: React.FC<GoogleMapPickerProps> = ({
           draggable={true}
           onDragEnd={onMarkerDragEnd}
         />
-      </Map>
+      </GoogleMap>
 
       <div className="absolute top-4 left-4 right-4 flex justify-between pointer-events-none">
         <div className="bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-sm border border-gray-100 pointer-events-auto">

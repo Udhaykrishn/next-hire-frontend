@@ -63,10 +63,14 @@ export const ExperienceForm = ({
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="space-y-5">
         <div className="space-y-1.5">
-          <label className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
+          <label
+            htmlFor="job-title"
+            className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1"
+          >
             Job Title
           </label>
           <input
+            id="job-title"
             name="title"
             defaultValue={initialData?.title}
             required
@@ -76,9 +80,9 @@ export const ExperienceForm = ({
         </div>
 
         <div className="space-y-1.5">
-          <label className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
+          <span className="text-[11px] font-black text-gray-400 uppercase tracking-widest block ml-1">
             Job Role
-          </label>
+          </span>
           <div className="flex flex-wrap gap-2">
             {["Frontend", "Backend", "Full-stack", "DevOps", "UI/UX"].map(
               (role) => (
@@ -105,7 +109,10 @@ export const ExperienceForm = ({
 
         <div className="space-y-1.5">
           <div className="flex justify-between items-end ml-1">
-            <label className="text-[11px] font-black text-gray-400 uppercase tracking-widest">
+            <label
+              htmlFor="job-description"
+              className="text-[11px] font-black text-gray-400 uppercase tracking-widest"
+            >
               Description
             </label>
             <span className="text-[10px] font-black text-gray-300">
@@ -113,6 +120,7 @@ export const ExperienceForm = ({
             </span>
           </div>
           <textarea
+            id="job-description"
             name="description"
             defaultValue={initialData?.description}
             required
@@ -128,10 +136,14 @@ export const ExperienceForm = ({
         </h3>
         <div className="grid md:grid-cols-2 gap-3">
           <div className="space-y-1.5">
-            <label className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
+            <label
+              htmlFor="company-name"
+              className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1"
+            >
               Company Name
             </label>
             <input
+              id="company-name"
               name="company"
               defaultValue={initialData?.company}
               required
@@ -140,10 +152,14 @@ export const ExperienceForm = ({
             />
           </div>
           <div className="space-y-1.5">
-            <label className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
+            <label
+              htmlFor="company-location"
+              className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1"
+            >
               Location / Address
             </label>
             <input
+              id="company-location"
               name="location"
               defaultValue={initialData?.location}
               required
@@ -152,9 +168,9 @@ export const ExperienceForm = ({
             />
           </div>
           <div className="space-y-1.5 col-span-2">
-            <label className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
+            <span className="text-[11px] font-black text-gray-400 uppercase tracking-widest block ml-1">
               Industry
-            </label>
+            </span>
             <div className="flex flex-wrap gap-2">
               {[
                 "Technology",
@@ -187,9 +203,9 @@ export const ExperienceForm = ({
 
       <div className="space-y-5 pt-3 border-t border-gray-50">
         <div className="flex items-center justify-between">
-          <label className="text-[13px] font-black text-gray-900 uppercase tracking-tight">
+          <span className="text-[13px] font-black text-gray-900 uppercase tracking-tight">
             Currently working here?
-          </label>
+          </span>
           <div className="flex bg-gray-50 p-1 rounded-xl border border-gray-100">
             {["Yes", "No"].map((opt) => (
               <label key={opt} className="cursor-pointer">
@@ -211,7 +227,10 @@ export const ExperienceForm = ({
 
         <div className="grid md:grid-cols-2 gap-5">
           <div className="space-y-1.5">
-            <label className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
+            <label
+              htmlFor="employment-type"
+              className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1"
+            >
               Employment Type
             </label>
             <Select
@@ -219,7 +238,10 @@ export const ExperienceForm = ({
               value={employmentType}
               onValueChange={(val) => setEmploymentType(val ?? "Full-time")}
             >
-              <SelectTrigger className="w-full h-11 bg-gray-50 rounded-xl border border-gray-100 px-4 text-[13px] font-bold focus:ring-0 focus:border-wise-green transition-colors">
+              <SelectTrigger
+                id="employment-type"
+                className="w-full h-11 bg-gray-50 rounded-xl border border-gray-100 px-4 text-[13px] font-bold focus:ring-0 focus:border-wise-green transition-colors"
+              >
                 <SelectValue placeholder="Employment type" />
               </SelectTrigger>
               <SelectContent>
@@ -231,7 +253,10 @@ export const ExperienceForm = ({
             </Select>
           </div>
           <div className="space-y-1.5">
-            <label className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
+            <label
+              htmlFor="notice-period"
+              className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1"
+            >
               Notice Period
             </label>
             <Select
@@ -241,7 +266,10 @@ export const ExperienceForm = ({
                 setNoticePeriod(val ?? "No notice period")
               }
             >
-              <SelectTrigger className="w-full h-11 bg-gray-50 rounded-xl border border-gray-100 px-4 text-[13px] font-bold focus:ring-0 focus:border-wise-green transition-colors">
+              <SelectTrigger
+                id="notice-period"
+                className="w-full h-11 bg-gray-50 rounded-xl border border-gray-100 px-4 text-[13px] font-bold focus:ring-0 focus:border-wise-green transition-colors"
+              >
                 <SelectValue placeholder="Notice period" />
               </SelectTrigger>
               <SelectContent>
@@ -263,7 +291,7 @@ export const ExperienceForm = ({
 
         <div className="grid md:grid-cols-2 gap-6">
           <div className="space-y-1.5">
-            <label className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1 block">
+            <span className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1 block">
               Start Date{" "}
               {expStartDate && (
                 <span className="text-wise-green ml-1">
@@ -271,7 +299,7 @@ export const ExperienceForm = ({
                   )
                 </span>
               )}
-            </label>
+            </span>
             <DatePicker
               aria-label="Start Date"
               value={expStartDate}
@@ -283,7 +311,7 @@ export const ExperienceForm = ({
 
           {currentlyWorking === "no" && (
             <div className="space-y-1.5">
-              <label className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1 block">
+              <span className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1 block">
                 End Date{" "}
                 {expEndDate && (
                   <span className="text-wise-green ml-1">
@@ -291,7 +319,7 @@ export const ExperienceForm = ({
                     )
                   </span>
                 )}
-              </label>
+              </span>
               <DatePicker
                 aria-label="End Date"
                 value={expEndDate}

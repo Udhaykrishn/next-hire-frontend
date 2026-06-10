@@ -1,10 +1,14 @@
-import { getQueryClient } from "@/shared/lib/query-client";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
-import { adminService } from "@/features/admin/services/admin.api";
-import { AdminJobDetails } from "@/features/admin/components/AdminJobDetails";
 import { Suspense } from "react";
+import { AdminJobDetails } from "@/features/admin/components/AdminJobDetails";
+import { adminService } from "@/features/admin/services/admin.api";
+import { getQueryClient } from "@/shared/lib/query-client";
 
-export default async function Page({ params }: { params: Promise<{ id: string }> }) {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const { id } = await params;
   const queryClient = getQueryClient();
   await queryClient.prefetchQuery({

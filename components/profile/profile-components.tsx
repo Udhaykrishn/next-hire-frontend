@@ -43,6 +43,7 @@ export const ProfileSection = ({
         ) : (
           onAddClick && (
             <button
+              type="button"
               onClick={onAddClick}
               className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 hover:text-wise-green hover:bg-wise-green/10 transition-all border border-gray-100"
             >
@@ -110,6 +111,7 @@ export const ProfileItemCard = ({
                 )}
                 {onDeleteClick && (
                   <button
+                    type="button"
                     onClick={onDeleteClick}
                     className="p-1.5 rounded-lg hover:bg-red-50 text-gray-400 hover:text-red-500 transition-colors"
                   >
@@ -165,9 +167,9 @@ export const ProfileItemCard = ({
         )}
         {badges && badges.length > 0 && (
           <div className="flex flex-wrap gap-2 pt-1">
-            {badges.map((badge, idx) => (
+            {badges.map((badge) => (
               <span
-                key={idx}
+                key={badge}
                 className="px-3 py-1 bg-gray-50 border border-gray-100 rounded-lg text-[11px] font-bold text-gray-500 uppercase tracking-wider"
               >
                 {badge}

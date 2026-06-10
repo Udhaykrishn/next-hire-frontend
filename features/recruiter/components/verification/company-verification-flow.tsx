@@ -40,6 +40,7 @@ export function CompanyVerificationFlow() {
   return (
     <div className="max-w-md mx-auto w-full space-y-8">
       <button
+        type="button"
         onClick={() => router.push("/recruiter/profile")}
         className="flex items-center text-sm font-medium text-gray-500 hover:text-near-black transition-colors"
       >
@@ -77,10 +78,14 @@ export function CompanyVerificationFlow() {
         {step === "CIN" ? (
           <form onSubmit={handleStartSession} className="space-y-6">
             <div className="space-y-2">
-              <label className="text-sm font-bold text-gray-700">
+              <label
+                htmlFor="company-cin"
+                className="text-sm font-bold text-gray-700"
+              >
                 Company CIN
               </label>
               <input
+                id="company-cin"
                 type="text"
                 value={cin}
                 onChange={(e) => setCin(e.target.value)}
@@ -113,6 +118,7 @@ export function CompanyVerificationFlow() {
                   <InputOTPGroup className="gap-2">
                     {[...Array(6)].map((_, i) => (
                       <InputOTPSlot
+                        // biome-ignore lint/suspicious/noArrayIndexKey: Static OTP input
                         key={i}
                         index={i}
                         className="w-12 h-14 text-xl border-2 border-gray-200 rounded-xl bg-gray-50"

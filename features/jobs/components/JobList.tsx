@@ -10,6 +10,7 @@ import {
   Search,
 } from "lucide-react";
 import { motion } from "motion/react";
+import Image from "next/image";
 import Link from "next/link";
 import {
   Accordion,
@@ -161,27 +162,24 @@ export default function JobList() {
                     Salary Range
                   </AccordionTrigger>
                   <AccordionPanel className="pt-2 pb-4 space-y-3">
-                    {[
-                      "₹0 - ₹3L",
-                      "₹3L - ₹5L",
-                      "₹5L - ₹10L",
-                      "₹10L+",
-                    ].map((sal) => (
-                      <label
-                        key={sal}
-                        className="flex items-center gap-3 cursor-pointer group"
-                      >
-                        <input
-                          type="checkbox"
-                          checked={selectedSalary.includes(sal)}
-                          onChange={() => toggleSalary(sal)}
-                          className="w-4 h-4 rounded border-gray-200 text-wise-green focus:ring-wise-green/20"
-                        />
-                        <span className="text-[14px] text-gray-600 font-medium group-hover:text-gray-900 transition-colors">
-                          {sal}
-                        </span>
-                      </label>
-                    ))}
+                    {["₹0 - ₹3L", "₹3L - ₹5L", "₹5L - ₹10L", "₹10L+"].map(
+                      (sal) => (
+                        <label
+                          key={sal}
+                          className="flex items-center gap-3 cursor-pointer group"
+                        >
+                          <input
+                            type="checkbox"
+                            checked={selectedSalary.includes(sal)}
+                            onChange={() => toggleSalary(sal)}
+                            className="w-4 h-4 rounded border-gray-200 text-wise-green focus:ring-wise-green/20"
+                          />
+                          <span className="text-[14px] text-gray-600 font-medium group-hover:text-gray-900 transition-colors">
+                            {sal}
+                          </span>
+                        </label>
+                      ),
+                    )}
                   </AccordionPanel>
                 </AccordionItem>
 
@@ -229,7 +227,10 @@ export default function JobList() {
                 <span className="text-[14px] text-gray-500 font-medium">
                   Sort by:
                 </span>
-                <button className="text-[14px] font-bold text-gray-900 flex items-center gap-1">
+                <button
+                  type="button"
+                  className="text-[14px] font-bold text-gray-900 flex items-center gap-1"
+                >
                   Relevance <ChevronDown className="w-4 h-4" />
                 </button>
               </div>
@@ -237,7 +238,7 @@ export default function JobList() {
 
             {jobs.map((job, index) => (
               <motion.div
-                key={`${job.id || 'job'}-${index}`}
+                key={`${job.id || "job"}-${index}`}
                 layout
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -250,9 +251,15 @@ export default function JobList() {
                   rel="noopener noreferrer"
                 />
                 <div className="flex gap-5 relative z-10 pointer-events-none">
-                  <div className="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center shrink-0 border border-gray-100 group-hover:bg-wise-green/10 transition-colors overflow-hidden">
+                  <div className="w-16 h-16 relative bg-gray-50 rounded-2xl flex items-center justify-center shrink-0 border border-gray-100 group-hover:bg-wise-green/10 transition-colors overflow-hidden">
                     {job.companyLogo ? (
-                      <img src={job.companyLogo} alt={job.hiringCompany} className="w-full h-full object-cover" />
+                      <Image
+                        unoptimized
+                        src={job.companyLogo}
+                        alt={job.hiringCompany}
+                        fill
+                        className="object-cover"
+                      />
                     ) : (
                       <span className="text-xl font-black text-gray-400 group-hover:text-wise-green transition-colors">
                         {job.hiringCompany?.[0] || "J"}

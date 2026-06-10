@@ -327,7 +327,11 @@ function Highlight<T extends React.ElementType = "div">({
           ? render(children)
           : render(
               React.Children.map(children, (child, index) => (
-                <HighlightItem key={index} className={props?.itemsClassName}>
+                <HighlightItem
+                  // biome-ignore lint/suspicious/noArrayIndexKey: generic wrapper mapping
+                  key={index}
+                  className={props?.itemsClassName}
+                >
                   {child}
                 </HighlightItem>
               )),

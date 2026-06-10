@@ -110,20 +110,41 @@ const AutocompleteInput = ({
       {isReady && status === "OK" && (
         <ul className="absolute z-50 w-full mt-2 bg-white border border-gray-100 rounded-xl shadow-xl max-h-60 overflow-y-auto overflow-x-hidden py-2 animate-in fade-in zoom-in-95 duration-200">
           {data.map((suggestion) => (
-            <li
-              key={suggestion.place_id}
-              onClick={handleSelect(suggestion)}
-              className="px-5 py-3 hover:bg-wise-green/5 cursor-pointer flex items-start gap-3 group transition-colors"
-            >
-              <MapPin className="w-4 h-4 mt-0.5 text-gray-400 group-hover:text-wise-green" />
-              <span className="text-[13px] font-medium text-near-black">
-                {suggestion.description}
-              </span>
+            <li key={suggestion.place_id}>
+              <button
+                type="button"
+                onClick={handleSelect(suggestion)}
+                className="w-full px-5 py-3 hover:bg-wise-green/5 cursor-pointer flex items-start gap-3 group transition-colors text-left bg-transparent"
+              >
+                <MapPin className="w-4 h-4 mt-0.5 text-gray-400 group-hover:text-wise-green" />
+                <span className="text-[13px] font-medium text-near-black">
+                  {suggestion.description}
+                </span>
+              </button>
             </li>
           ))}
         </ul>
       )}
     </div>
+  );
+};
+
+const LocationFieldError = ({
+  name,
+  errors,
+}: {
+  name: string;
+  errors: Record<string, string>;
+}) => {
+  if (!errors[name]) return null;
+  return (
+    <motion.p
+      initial={{ opacity: 0, y: -5 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="text-[11px] font-black text-red-500 mt-1.5 flex items-center gap-1.5"
+    >
+      <AlertCircle className="w-3 h-3" /> {errors[name]}
+    </motion.p>
   );
 };
 
@@ -148,19 +169,6 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
       )
       .slice(0, 100);
   }, [citySearch, indianCities]);
-
-  const LocationFieldError = ({ name }: { name: string }) => {
-    if (!errors[name]) return null;
-    return (
-      <motion.p
-        initial={{ opacity: 0, y: -5 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-[11px] font-black text-red-500 mt-1.5 flex items-center gap-1.5"
-      >
-        <AlertCircle className="w-3 h-3" /> {errors[name]}
-      </motion.p>
-    );
-  };
 
   return (
     <div className="space-y-10 pt-10 border-t border-gray-100">
@@ -197,7 +205,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
               ),
             )}
           </div>
-          <LocationFieldError name="locationType" />
+          <LocationFieldError name="locationType" errors={errors} />
         </div>
 
         <AnimatePresence mode="wait">
@@ -235,7 +243,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                     setFormData((prev) => ({ ...prev, officeAddress: val }))
                   }
                 />
-                <LocationFieldError name="officeAddress" />
+                <LocationFieldError name="officeAddress" errors={errors} />
               </div>
             </motion.div>
           )}
@@ -273,7 +281,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                   setFormData((prev) => ({ ...prev, fieldArea: val }))
                 }
               />
-              <LocationFieldError name="fieldArea" />
+              <LocationFieldError name="fieldArea" errors={errors} />
             </motion.div>
           )}
 
@@ -289,8 +297,9 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                 Job City *
               </Label>
               <div className="relative">
-                <div
-                  className="w-full h-12 px-5 bg-white border-gray-100 rounded-xl font-medium shadow-sm flex items-center justify-between cursor-pointer focus-within:ring-2 focus-within:ring-wise-green/20"
+                <button
+                  type="button"
+                  className="w-full h-12 px-5 bg-white border-gray-100 rounded-xl font-medium shadow-sm flex items-center justify-between cursor-pointer focus-within:ring-2 focus-within:ring-wise-green/20 text-left"
                   onClick={() => setShowCityDropdown(!showCityDropdown)}
                 >
                   <span
@@ -307,7 +316,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                       showCityDropdown && "rotate-180",
                     )}
                   />
-                </div>
+                </button>
 
                 <AnimatePresence>
                   {showCityDropdown && (
@@ -332,9 +341,10 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                       <div className="max-h-60 overflow-y-auto py-1">
                         {filteredCities.length > 0 ? (
                           filteredCities.map((city) => (
-                            <div
+                            <button
+                              type="button"
                               key={`${city.name}-${city.latitude}`}
-                              className="px-5 py-3 hover:bg-wise-green/5 cursor-pointer text-[13px] font-medium text-near-black transition-colors"
+                              className="w-full px-5 py-3 hover:bg-wise-green/5 cursor-pointer text-[13px] font-medium text-near-black transition-colors text-left bg-transparent"
                               onClick={() => {
                                 setFormData((prev) => ({
                                   ...prev,
@@ -345,7 +355,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                               }}
                             >
                               {city.name}, {city.stateCode}
-                            </div>
+                            </button>
                           ))
                         ) : (
                           <div className="px-5 py-8 text-center text-gray-400 text-[12px] font-bold">
@@ -357,7 +367,7 @@ export const LocationSelector: React.FC<LocationSelectorProps> = ({
                   )}
                 </AnimatePresence>
               </div>
-              <LocationFieldError name="jobCity" />
+              <LocationFieldError name="jobCity" errors={errors} />
             </motion.div>
           )}
         </AnimatePresence>

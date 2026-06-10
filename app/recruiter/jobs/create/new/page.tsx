@@ -106,7 +106,9 @@ export function JobWizard({
 
   useEffect(() => {
     if (!isProfileLoading && !recruiterProfile?.is_verified_company) {
-      toast.error(`Please verify your company with a CIN number to ${jobId ? 'edit' : 'post'} jobs.`);
+      toast.error(
+        `Please verify your company with a CIN number to ${jobId ? "edit" : "post"} jobs.`,
+      );
       router.push("/recruiter/profile");
     }
   }, [recruiterProfile?.is_verified_company, isProfileLoading, router, jobId]);
@@ -181,13 +183,19 @@ export function JobWizard({
               </h1>
             </div>
             <div className="flex items-center gap-6">
-              <button className="flex items-center gap-2 text-[13px] font-bold text-slate-500 hover:text-near-black">
+              <button
+                type="button"
+                className="flex items-center gap-2 text-[13px] font-bold text-slate-500 hover:text-near-black"
+              >
                 <div className="w-5 h-5 rounded-full bg-slate-100 flex items-center justify-center">
                   <span className="text-[11px]">?</span>
                 </div>
                 Support
               </button>
-              <button className="text-slate-400 hover:text-near-black">
+              <button
+                type="button"
+                className="text-slate-400 hover:text-near-black"
+              >
                 <span className="text-[20px] leading-none">×</span>
               </button>
             </div>
@@ -270,7 +278,13 @@ export function JobWizard({
                   <span>Processing...</span>
                 </div>
               ) : (
-                <span>{isLastStep ? (jobId ? "Update Job Now" : "Post Job Now") : "Continue"}</span>
+                <span>
+                  {isLastStep
+                    ? jobId
+                      ? "Update Job Now"
+                      : "Post Job Now"
+                    : "Continue"}
+                </span>
               )}
             </Button>
           </div>

@@ -12,7 +12,11 @@ export const getRecruiterJobListings = async (): Promise<JobListing[]> => {
     posted: job.created_at
       ? formatDistanceToNow(parseISO(job.created_at), { addSuffix: true })
       : "",
-    status: job.is_published ? (job.status === "OPEN" ? "Active" : "Closed") : "Draft",
+    status: job.is_published
+      ? job.status === "OPEN"
+        ? "Active"
+        : "Closed"
+      : "Draft",
     location: job.jobCity || job.officeAddress || "",
     postedBy: job.posted_by || "",
     isPublished: job.is_published ?? false,

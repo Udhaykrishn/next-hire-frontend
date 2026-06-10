@@ -19,10 +19,14 @@ export const ProfileEditForm = ({
   <BaseSheet isOpen={isOpen} onClose={onClose} title="Edit Profile">
     <form onSubmit={onSubmit} className="space-y-6">
       <div className="space-y-2">
-        <label className="text-[12px] font-black text-gray-400 uppercase tracking-widest ml-1">
+        <label
+          htmlFor="full-name"
+          className="text-[12px] font-black text-gray-400 uppercase tracking-widest ml-1"
+        >
           Full Name
         </label>
         <input
+          id="full-name"
           name="name"
           defaultValue={initialData.name}
           required
@@ -30,10 +34,14 @@ export const ProfileEditForm = ({
         />
       </div>
       <div className="space-y-2">
-        <label className="text-[12px] font-black text-gray-400 uppercase tracking-widest ml-1">
+        <label
+          htmlFor="location"
+          className="text-[12px] font-black text-gray-400 uppercase tracking-widest ml-1"
+        >
           Location
         </label>
         <input
+          id="location"
           name="location"
           defaultValue={initialData.location}
           required
@@ -41,10 +49,14 @@ export const ProfileEditForm = ({
         />
       </div>
       <div className="space-y-2">
-        <label className="text-[12px] font-black text-gray-400 uppercase tracking-widest ml-1">
+        <label
+          htmlFor="tagline"
+          className="text-[12px] font-black text-gray-400 uppercase tracking-widest ml-1"
+        >
           Tagline
         </label>
         <input
+          id="tagline"
           name="tagline"
           defaultValue={initialData.tagline}
           required

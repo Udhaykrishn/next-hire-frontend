@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useCandidateApplicationsQuery } from "./use-jobs-query";
 
 // Simple custom debounce hook
@@ -23,7 +23,11 @@ export function useCandidateApplications() {
 
   const debouncedSearch = useDebounce(searchQuery, 400);
 
-  const { data: response, refetch, isFetching } = useCandidateApplicationsQuery({
+  const {
+    data: response,
+    refetch,
+    isFetching,
+  } = useCandidateApplicationsQuery({
     search: debouncedSearch,
     status: statusFilter,
   });

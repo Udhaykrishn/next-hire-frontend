@@ -153,6 +153,7 @@ export default function RecruiterPlanSetupPage() {
                 Monthly
               </span>
               <button
+                type="button"
                 onClick={() =>
                   setBillingCycle((prev) =>
                     prev === "monthly" ? "yearly" : "monthly",
@@ -241,8 +242,8 @@ export default function RecruiterPlanSetupPage() {
                   </div>
 
                   <div className="space-y-4 mb-10 flex-1">
-                    {plan.features.map((feature, fIdx) => (
-                      <div key={fIdx} className="flex items-center gap-3">
+                    {plan.features.map((feature) => (
+                      <div key={feature} className="flex items-center gap-3">
                         <div
                           className={cn(
                             "w-5 h-5 rounded-full flex items-center justify-center shrink-0 transition-colors",

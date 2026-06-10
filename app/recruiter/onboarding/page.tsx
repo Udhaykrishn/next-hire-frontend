@@ -195,6 +195,7 @@ export default function RecruiterOnboardingPage() {
                         ].map((type) => (
                           <button
                             key={type.id}
+                            type="button"
                             onClick={() =>
                               setOnboardingType(type.id as OnboardingType)
                             }
@@ -407,6 +408,7 @@ export default function RecruiterOnboardingPage() {
                             ].map((goal) => (
                               <button
                                 key={goal}
+                                type="button"
                                 onClick={() => handleChange("hiringGoal", goal)}
                                 className={cn(
                                   "h-14 rounded-2xl border-2 transition-all font-black text-[14px] flex items-center justify-center px-4",

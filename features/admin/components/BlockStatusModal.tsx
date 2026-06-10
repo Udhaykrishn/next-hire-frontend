@@ -56,10 +56,14 @@ export const BlockStatusModal = ({
       {!isBlocked && (
         <div className="space-y-4 mt-4 w-full animate-in fade-in duration-300">
           <div className="space-y-2">
-            <label className="text-[10px] font-black text-near-black uppercase tracking-wider block">
+            <label
+              htmlFor="block-reason-select"
+              className="text-[10px] font-black text-near-black uppercase tracking-wider block"
+            >
               Choose Reason <span className="text-red-500">*</span>
             </label>
             <select
+              id="block-reason-select"
               value={selectedReason}
               onChange={(e) => setSelectedReason(e.target.value)}
               className="w-full h-12 px-4 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-wise-green/20 focus:border-wise-green bg-white transition-all outline-none font-bold text-near-black cursor-pointer"
@@ -82,10 +86,14 @@ export const BlockStatusModal = ({
 
           {selectedReason === "Other" && (
             <div className="space-y-2 animate-in fade-in slide-in-from-top-2 duration-300">
-              <label className="text-[10px] font-black text-near-black uppercase tracking-wider block">
+              <label
+                htmlFor="custom-reason-textarea"
+                className="text-[10px] font-black text-near-black uppercase tracking-wider block"
+              >
                 Custom Description <span className="text-red-500">*</span>
               </label>
               <textarea
+                id="custom-reason-textarea"
                 value={customReason}
                 onChange={(e) => setCustomReason(e.target.value)}
                 placeholder="Enter details of policy violation..."

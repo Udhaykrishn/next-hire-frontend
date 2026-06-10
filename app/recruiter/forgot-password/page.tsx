@@ -51,7 +51,7 @@ export default function RecruiterForgotPasswordPage() {
           </CardHeader>
 
           <CardContent className="space-y-6 pt-8 px-10">
-            <ForgotPasswordForm role="recruiter" />
+            <ForgotPasswordForm authRole="recruiter" />
           </CardContent>
 
           <CardFooter className="flex justify-center pb-8 pt-4">

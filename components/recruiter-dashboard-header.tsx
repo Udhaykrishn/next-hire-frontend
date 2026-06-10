@@ -1,23 +1,24 @@
-import React from "react";
-import { Button } from "@/components/ui/button";
 import { CreditCard, Menu } from "lucide-react";
-import { CompanySwitcher } from "@/features/company/components/CompanySwitcher";
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { CompanySwitcher } from "@/features/company/components/CompanySwitcher";
 
 interface RecruiterDashboardHeaderProps {
   onMenuClick: () => void;
 }
 
-export function RecruiterDashboardHeader({ onMenuClick }: RecruiterDashboardHeaderProps) {
+export function RecruiterDashboardHeader({
+  onMenuClick,
+}: RecruiterDashboardHeaderProps) {
   const router = useRouter();
 
   return (
     <div className="px-4 lg:px-8 pt-4 lg:pt-6 pb-4 sticky top-0 z-30 bg-gradient-to-b from-[#fcfdfd] via-[#fcfdfd]/95 to-transparent backdrop-blur-md">
       <header className="h-16 bg-white border border-gray-100 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex items-center justify-between px-3 lg:px-5 transition-all duration-300 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
         <div className="flex items-center gap-2 lg:gap-4">
-          <Button 
-            variant="ghost" 
-            size="icon" 
+          <Button
+            variant="ghost"
+            size="icon"
             className="lg:hidden text-near-black hover:bg-wise-green/10 hover:text-wise-green transition-colors"
             onClick={onMenuClick}
           >
@@ -27,7 +28,7 @@ export function RecruiterDashboardHeader({ onMenuClick }: RecruiterDashboardHead
             <CompanySwitcher />
           </div>
         </div>
-        
+
         <div className="flex items-center gap-3 lg:gap-6 pr-1 lg:pr-2">
           <div className="flex items-center gap-3 bg-gray-50/50 rounded-xl px-3 py-1.5 border border-gray-100/50 hover:bg-gray-50 transition-colors cursor-pointer group">
             <div className="hidden sm:flex flex-col items-end justify-center">
@@ -45,9 +46,10 @@ export function RecruiterDashboardHeader({ onMenuClick }: RecruiterDashboardHead
 
           <div className="h-8 w-[1px] bg-gray-100 hidden sm:block" />
 
-          <div
+          <button
+            type="button"
             onClick={() => router.push("/recruiter/profile")}
-            className="flex items-center cursor-pointer group relative"
+            className="flex items-center cursor-pointer group relative bg-transparent border-none p-0 outline-none"
           >
             <div className="absolute inset-0 bg-wise-green rounded-full blur opacity-0 group-hover:opacity-40 transition-opacity duration-300" />
             <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-near-black to-gray-800 p-[2px] shadow-sm shadow-near-black/10 relative z-10 group-hover:scale-105 transition-transform duration-300">
@@ -58,7 +60,7 @@ export function RecruiterDashboardHeader({ onMenuClick }: RecruiterDashboardHead
             </div>
             {/* Active Status Indicator */}
             <div className="absolute bottom-0 right-0 w-3 h-3 bg-wise-green border-2 border-white rounded-full z-20 shadow-sm" />
-          </div>
+          </button>
         </div>
       </header>
     </div>

@@ -1,6 +1,6 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { apiClient } from "@/lib/api-client";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
+import { apiClient } from "@/lib/api-client";
 
 export interface RecruiterJobApplication {
   id: string;
@@ -23,9 +23,22 @@ export interface RecruiterJobApplication {
   };
 }
 
-export function useRecruiterJobApplicationsQuery(jobId: string, page = 1, limit = 10, search = "", status = "") {
+export function useRecruiterJobApplicationsQuery(
+  jobId: string,
+  page = 1,
+  limit = 10,
+  search = "",
+  status = "",
+) {
   return useQuery({
-    queryKey: ["recruiter-job-applications", jobId, page, limit, search, status],
+    queryKey: [
+      "recruiter-job-applications",
+      jobId,
+      page,
+      limit,
+      search,
+      status,
+    ],
     queryFn: async () => {
       const params = new URLSearchParams({
         page: page.toString(),
@@ -34,9 +47,10 @@ export function useRecruiterJobApplicationsQuery(jobId: string, page = 1, limit 
       if (search) params.append("search", search);
       if (status && status !== "ALL") params.append("status", status);
 
-      const { data } = await apiClient.get<{ data: RecruiterJobApplication[]; total: number }>(
-        `/job/${jobId}/applications?${params.toString()}`
-      );
+      const { data } = await apiClient.get<{
+        data: RecruiterJobApplication[];
+        total: number;
+      }>(`/job/${jobId}/applications?${params.toString()}`);
       return data;
     },
   });
@@ -46,13 +60,26 @@ export function useUpdateApplicationStatusMutation(jobId: string) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({ applicationId, status }: { applicationId: string; status: string }) => {
-      const { data } = await apiClient.patch(`/job/application/${applicationId}/status`, { status });
+    mutationFn: async ({
+      applicationId,
+      status,
+    }: {
+      applicationId: string;
+      status: string;
+    }) => {
+      const { data } = await apiClient.patch(
+        `/job/application/${applicationId}/status`,
+        { status },
+      );
       return data;
     },
     onSuccess: (_, variables) => {
-      toast.success(`Application status updated to ${variables.status.replace("_", " ")}`);
-      queryClient.invalidateQueries({ queryKey: ["recruiter-job-applications", jobId] });
+      toast.success(
+        `Application status updated to ${variables.status.replace("_", " ")}`,
+      );
+      queryClient.invalidateQueries({
+        queryKey: ["recruiter-job-applications", jobId],
+      });
       queryClient.invalidateQueries({ queryKey: ["jobStats", jobId] });
     },
     onError: (error) => {
@@ -74,10 +101,10 @@ export function useRecruiterCandidateDetailsQuery(candidateId: string) {
       ]);
 
       return {
-        user: (userRes)?.data || userRes,
-        education: (eduRes)?.data || eduRes || [],
-        experience: (expRes)?.data || expRes || [],
-        certificates: (certRes)?.data || certRes || [],
+        user: userRes?.data || userRes,
+        education: eduRes?.data || eduRes || [],
+        experience: expRes?.data || expRes || [],
+        certificates: certRes?.data || certRes || [],
       };
     },
     enabled: !!candidateId,
@@ -96,9 +123,20 @@ export function useRecruiterCandidateDetailsQuery(candidateId: string) {
 
 export function useCalculateMatchScoreMutation() {
   return useMutation({
-    mutationFn: async ({ jobId, candidateId, retry }: { jobId: string; candidateId: string; retry?: boolean }) => {
+    mutationFn: async ({
+      jobId,
+      candidateId,
+      retry,
+    }: {
+      jobId: string;
+      candidateId: string;
+      retry?: boolean;
+    }) => {
       const params = retry ? { retry: "true" } : undefined;
-      const { data } = await apiClient.get(`/job/${jobId}/candidates/${candidateId}/match-score`, { params });
+      const { data } = await apiClient.get(
+        `/job/${jobId}/candidates/${candidateId}/match-score`,
+        { params },
+      );
       return data;
     },
     onError: (error) => {

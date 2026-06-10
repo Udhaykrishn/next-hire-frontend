@@ -1,7 +1,7 @@
 "use client";
 
+import { CheckCircle, Filter, Users } from "lucide-react";
 import { motion } from "motion/react";
-import { Users, Filter, Clock, CheckCircle } from "lucide-react";
 import { Button } from "@/components/animate-ui/components/buttons/button";
 
 export default function RecruiterApplicationsPage() {
@@ -34,7 +34,7 @@ export default function RecruiterApplicationsPage() {
         className="bg-white rounded-[2rem] p-12 border border-gray-100 shadow-xl shadow-[#258265]/5 flex flex-col items-center justify-center text-center relative overflow-hidden"
       >
         <div className="absolute -top-24 -right-24 w-64 h-64 bg-blue-500/5 rounded-full blur-[80px] pointer-events-none" />
-        
+
         <div className="w-24 h-24 bg-[#258265]/10 text-[#258265] rounded-full flex items-center justify-center mb-8 relative">
           <Users className="w-10 h-10" />
           <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-sm">
@@ -46,9 +46,9 @@ export default function RecruiterApplicationsPage() {
           No Applications Yet
         </h2>
         <p className="text-gray-500 font-medium max-w-md mx-auto leading-relaxed mb-8">
-          Once candidates apply to your active job postings, their applications will appear here for you to review and manage.
+          Once candidates apply to your active job postings, their applications
+          will appear here for you to review and manage.
         </p>
-
       </motion.div>
     </div>
   );

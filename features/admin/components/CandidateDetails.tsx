@@ -133,9 +133,9 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
             </h3>
             <div className="flex flex-wrap gap-2">
               {candidate.skills && candidate.skills.length > 0 ? (
-                candidate.skills.map((skill: string, idx: number) => (
+                candidate.skills.map((skill: string) => (
                   <span
-                    key={idx}
+                    key={skill}
                     className="px-4 py-2 bg-gray-50 text-near-black text-xs font-black uppercase tracking-widest rounded-xl border border-gray-100 hover:border-wise-green/30 hover:bg-white transition-all cursor-default"
                   >
                     {skill}
@@ -212,9 +212,9 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
                       </p>
                       {exp.skillsLearned && exp.skillsLearned.length > 0 && (
                         <div className="flex flex-wrap gap-1.5 mt-3">
-                          {exp.skillsLearned.map((s, sIdx) => (
+                          {exp.skillsLearned.map((s) => (
                             <span
-                              key={sIdx}
+                              key={s}
                               className="text-[10px] font-black uppercase tracking-wider text-slate-600 bg-slate-100 px-2.5 py-1 rounded-lg"
                             >
                               {s}
@@ -342,9 +342,9 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
             </div>
             <div className="space-y-4">
               {candidate.applications && candidate.applications.length > 0 ? (
-                candidate.applications.map((app, idx: number) => (
+                candidate.applications.map((app) => (
                   <div
-                    key={idx}
+                    key={`${app.company}-${app.jobTitle}`}
                     className="p-6 bg-gray-50 hover:bg-white hover:shadow-xl hover:shadow-gray-200/50 rounded-3xl border border-transparent hover:border-gray-100 transition-all"
                   >
                     <div className="flex items-center justify-between">
@@ -390,9 +390,9 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {candidate.documents && candidate.documents.length > 0 ? (
-                candidate.documents.map((doc, idx: number) => (
+                candidate.documents.map((doc) => (
                   <a
-                    key={idx}
+                    key={doc.name}
                     href={doc.url}
                     target="_blank"
                     rel="noopener noreferrer"

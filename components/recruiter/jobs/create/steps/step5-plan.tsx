@@ -100,8 +100,8 @@ export const Step5Plan = ({
                   </div>
                 </div>
                 <div className="space-y-4 flex-1">
-                  {p.features.map((f, i) => (
-                    <div key={i} className="flex items-start gap-3">
+                  {p.features.map((f) => (
+                    <div key={f} className="flex items-start gap-3">
                       <Check className="w-4 h-4 text-wise-green shrink-0 mt-0.5" />
                       <span className="text-[12px] font-bold text-gray-400 leading-snug">
                         {f}

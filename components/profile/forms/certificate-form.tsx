@@ -38,10 +38,14 @@ export const CertificateForm = ({
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="space-y-1.5">
-        <label className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
+        <label
+          htmlFor="certificate-name"
+          className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1"
+        >
           Certificate Name
         </label>
         <input
+          id="certificate-name"
           name="name"
           defaultValue={initialData?.name}
           required
@@ -50,10 +54,14 @@ export const CertificateForm = ({
         />
       </div>
       <div className="space-y-1.5">
-        <label className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
+        <label
+          htmlFor="issuing-organization"
+          className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1"
+        >
           Issuing Organization
         </label>
         <input
+          id="issuing-organization"
           name="issuer"
           defaultValue={initialData?.issuer}
           required
@@ -62,14 +70,14 @@ export const CertificateForm = ({
         />
       </div>
       <div className="space-y-1.5">
-        <label className="text-[11px] font-black text-gray-400 uppercase tracking-widest block ml-1">
+        <span className="text-[11px] font-black text-gray-400 uppercase tracking-widest block ml-1">
           Date Earned{" "}
           {certDate && (
             <span className="text-wise-green ml-1">
               ({format(certDate.toDate(getLocalTimeZone()), "MMM yyyy")})
             </span>
           )}
-        </label>
+        </span>
         <DatePicker
           aria-label="Date Earned"
           value={certDate}

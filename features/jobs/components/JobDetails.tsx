@@ -5,9 +5,8 @@ import { LandingFooter } from "@/components/landing-footer";
 import { LandingNavbar } from "@/components/landing-navbar";
 import { GlobalLoader } from "@/components/shared/global-loader";
 import { useJobDetails } from "../hooks/use-job-details";
-
-import { JobHeaderCard } from "./job-details/JobHeaderCard";
 import { JobDescriptionCard } from "./job-details/JobDescriptionCard";
+import { JobHeaderCard } from "./job-details/JobHeaderCard";
 import { JobSidebar } from "./job-details/JobSidebar";
 import { JobSuccessModal } from "./job-details/JobSuccessModal";
 
@@ -45,6 +44,7 @@ export default function JobDetails() {
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <div className="flex justify-between items-center mb-10">
             <button
+              type="button"
               onClick={handleBack}
               className="flex items-center gap-2 text-[14px] font-black text-gray-500 hover:text-wise-green transition-colors uppercase tracking-widest"
             >

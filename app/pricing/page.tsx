@@ -10,6 +10,19 @@ import { LandingNavbar } from "@/components/landing-navbar";
 import { usePricing } from "@/hooks/use-pricing";
 import { cn } from "@/lib/utils";
 
+const getIcon = (iconType: string) => {
+  switch (iconType) {
+    case "zap":
+      return <Zap className="w-6 h-6 text-gray-400" />;
+    case "crown":
+      return <Crown className="w-6 h-6 text-wise-green" />;
+    case "shield":
+      return <Shield className="w-6 h-6 text-gray-400" />;
+    default:
+      return <Zap className="w-6 h-6 text-gray-400" />;
+  }
+};
+
 export function PricingContent({
   hideNavbar = false,
 }: {
@@ -39,22 +52,11 @@ export function PricingContent({
     }
   }, [roleParam, tabParam, pathname]);
 
-  const getIcon = (iconType: string) => {
-    switch (iconType) {
-      case "zap":
-        return <Zap className="w-6 h-6 text-gray-400" />;
-      case "crown":
-        return <Crown className="w-6 h-6 text-wise-green" />;
-      case "shield":
-        return <Shield className="w-6 h-6 text-gray-400" />;
-      default:
-        return <Zap className="w-6 h-6 text-gray-400" />;
-    }
-  };
-
   const filteredPlans = useMemo(() => {
     if (!allPlans) return [];
-    type PlanWithIcon = NonNullable<typeof allPlans>[number] & { icon: React.ReactNode };
+    type PlanWithIcon = NonNullable<typeof allPlans>[number] & {
+      icon: React.ReactNode;
+    };
     return allPlans.reduce((acc: PlanWithIcon[], plan) => {
       if (plan.type === type) {
         acc.push({
@@ -64,7 +66,7 @@ export function PricingContent({
       }
       return acc;
     }, []);
-  }, [allPlans, type, getIcon]);
+  }, [allPlans, type]);
 
   if (isLoading) {
     return (
@@ -106,6 +108,7 @@ export function PricingContent({
             <div className="flex justify-center mb-12">
               <div className="bg-gray-100 p-1 rounded-2xl flex items-center gap-1 border border-gray-200">
                 <button
+                  type="button"
                   onClick={() => setType("candidate")}
                   className={cn(
                     "px-6 py-2 rounded-xl text-[14px] font-black transition-all",
@@ -117,6 +120,7 @@ export function PricingContent({
                   For Job Seekers
                 </button>
                 <button
+                  type="button"
                   onClick={() => setType("recruiter")}
                   className={cn(
                     "px-6 py-2 rounded-xl text-[14px] font-black transition-all",
@@ -188,8 +192,8 @@ export function PricingContent({
                 </div>
 
                 <div className="space-y-4 mb-10 flex-1">
-                  {plan.features.map((feature, fIdx) => (
-                    <div key={fIdx} className="flex items-center gap-3">
+                  {plan.features.map((feature) => (
+                    <div key={feature} className="flex items-center gap-3">
                       <div
                         className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${plan.highlight ? "bg-wise-green text-dark-green" : "bg-gray-100 text-gray-400"}`}
                       >
@@ -220,7 +224,10 @@ export function PricingContent({
         <section className="px-4 text-center">
           <p className="text-[14px] text-gray-500 font-medium">
             Need a custom plan for your organization?{" "}
-            <button className="text-wise-green font-black hover:underline ml-1">
+            <button
+              type="button"
+              className="text-wise-green font-black hover:underline ml-1"
+            >
               Contact our team
             </button>
           </p>

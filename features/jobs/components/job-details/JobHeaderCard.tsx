@@ -1,6 +1,15 @@
-import { Building, CheckCircle, Clock, DollarSign, Loader2, MapPin, Share2, Target } from "lucide-react";
+import {
+  Building,
+  CheckCircle,
+  Clock,
+  DollarSign,
+  Loader2,
+  MapPin,
+  Share2,
+  Target,
+} from "lucide-react";
 import { Button } from "@/components/animate-ui/components/buttons/button";
-import { JobWithMatchScore } from "@/features/jobs/types/job.types";
+import type { JobWithMatchScore } from "@/features/jobs/types/job.types";
 
 interface JobHeaderCardProps {
   job: JobWithMatchScore;
@@ -65,22 +74,31 @@ export function JobHeaderCard({
         <Button
           onClick={handleApply}
           disabled={isApplying || hasApplied || job.status !== "OPEN"}
-          className={`flex-1 h-12 rounded-lg text-[15px] font-semibold transition-all flex items-center justify-center gap-2 ${hasApplied || job.status !== "OPEN"
-            ? "bg-gray-100 text-gray-500 cursor-default"
-            : "bg-dark-green text-white hover:bg-dark-green/90"
-            }`}
+          className={`flex-1 h-12 rounded-lg text-[15px] font-semibold transition-all flex items-center justify-center gap-2 ${
+            hasApplied || job.status !== "OPEN"
+              ? "bg-gray-100 text-gray-500 cursor-default"
+              : "bg-dark-green text-white hover:bg-dark-green/90"
+          }`}
         >
           {isApplying ? (
-            <><Loader2 className="w-4 h-4 animate-spin" /> Applying...</>
+            <>
+              <Loader2 className="w-4 h-4 animate-spin" /> Applying...
+            </>
           ) : hasApplied ? (
-            <><CheckCircle className="w-4 h-4" /> Applied</>
+            <>
+              <CheckCircle className="w-4 h-4" /> Applied
+            </>
           ) : job.status !== "OPEN" ? (
             "Job Unavailable"
           ) : (
             "Apply on NextHire"
           )}
         </Button>
-        <button onClick={handleShare} className="h-12 px-6 rounded-lg border border-dark-green text-dark-green font-medium flex items-center justify-center gap-2 hover:bg-dark-green/5 transition-colors">
+        <button
+          type="button"
+          onClick={handleShare}
+          className="h-12 px-6 rounded-lg border border-dark-green text-dark-green font-medium flex items-center justify-center gap-2 hover:bg-dark-green/5 transition-colors"
+        >
           <Share2 className="w-4 h-4" /> Share
         </button>
       </div>

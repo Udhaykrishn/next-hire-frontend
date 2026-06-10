@@ -11,10 +11,10 @@ import { Label } from "@/components/ui/label";
 import { useAuth } from "@/features/auth/hooks/use-auth";
 
 interface ForgotPasswordFormProps {
-  role: "recruiter" | "user";
+  authRole: "recruiter" | "user";
 }
 
-export function ForgotPasswordForm({ role }: ForgotPasswordFormProps) {
+export function ForgotPasswordForm({ authRole }: ForgotPasswordFormProps) {
   const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { forgotPassword, isLoading, error } = useAuth();
@@ -22,7 +22,7 @@ export function ForgotPasswordForm({ role }: ForgotPasswordFormProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await forgotPassword(email, role);
+      await forgotPassword(email, authRole);
       setIsSubmitted(true);
       toast.success("Password reset link sent successfully!");
     } catch (err: unknown) {

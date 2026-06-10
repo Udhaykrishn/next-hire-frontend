@@ -1,6 +1,6 @@
 import { useState, useTransition } from "react";
-import { useJobsForCandidateQuery } from "./use-jobs-query";
 import { useAuthContext } from "@/features/auth/context/auth-context";
+import { useJobsForCandidateQuery } from "./use-jobs-query";
 
 export function useJobList() {
   const [query, setQuery] = useState("");

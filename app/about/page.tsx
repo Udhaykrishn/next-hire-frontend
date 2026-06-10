@@ -63,9 +63,9 @@ export default function AboutPage() {
         <section className="px-4 mb-32">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {stats.map((stat, idx) => (
+              {stats.map((stat) => (
                 <div
-                  key={idx}
+                  key={stat.label}
                   className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm text-center"
                 >
                   <div className="text-4xl font-black text-gray-900 mb-2">
@@ -120,9 +120,9 @@ export default function AboutPage() {
               </h2>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {values.map((value, idx) => (
+              {values.map((value) => (
                 <div
-                  key={idx}
+                  key={value.title}
                   className="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-md transition-shadow"
                 >
                   <div className="w-14 h-14 bg-wise-green/10 rounded-2xl flex items-center justify-center mb-6">

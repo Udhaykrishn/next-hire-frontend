@@ -41,10 +41,11 @@ const SidebarItem = ({
   badge,
   onClick,
 }: SidebarItemProps) => (
-  <div
+  <button
+    type="button"
     onClick={onClick}
     className={cn(
-      "flex items-center justify-between px-6 py-3 cursor-pointer transition-all border-r-4 group",
+      "flex items-center justify-between px-6 py-3 cursor-pointer transition-all border-r-4 group w-full text-left bg-transparent border-y-0 border-l-0 focus:outline-none focus:bg-gray-50",
       active
         ? "bg-wise-green/5 border-wise-green text-near-black"
         : "border-transparent text-gray-400 hover:bg-gray-50 hover:text-near-black",
@@ -73,7 +74,7 @@ const SidebarItem = ({
         {badge}
       </span>
     )}
-  </div>
+  </button>
 );
 
 export default function RecruiterLayout({
@@ -83,13 +84,13 @@ export default function RecruiterLayout({
 }) {
   const router = useRouter();
   const pathname = usePathname();
-  const { logout, user, isAuthenticated, isLoading } = useAuthContext();
+  const { logout, isAuthenticated, isLoading } = useAuthContext();
 
   const handleLogout = async () => {
     await logout("/login");
   };
 
-  const isCreatingOrEditingJob = 
+  const isCreatingOrEditingJob =
     pathname.startsWith("/recruiter/jobs/create/new") ||
     pathname.startsWith("/recruiter/jobs/edit");
   const isPlanPage = pathname.startsWith("/recruiter/plan");
@@ -100,7 +101,8 @@ export default function RecruiterLayout({
     pathname.startsWith("/recruiter/onboarding") ||
     pathname.startsWith("/recruiter/forgot-password") ||
     pathname.startsWith("/recruiter/reset-password");
-  const hideSidebarAndHeader = isCreatingOrEditingJob || isPlanPage || isAuthRoute;
+  const hideSidebarAndHeader =
+    isCreatingOrEditingJob || isPlanPage || isAuthRoute;
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated && !isAuthRoute) {
@@ -246,15 +248,16 @@ export default function RecruiterLayout({
               </div>
             </div>
 
-            <div
+            <button
+              type="button"
               onClick={() => router.push("/recruiter/profile")}
-              className="flex items-center gap-3 border-l border-gray-100 pl-5 cursor-pointer group"
+              className="flex items-center gap-3 border-l border-gray-100 pl-5 cursor-pointer group bg-transparent border-y-0 border-r-0 focus:outline-none"
             >
               <div className="w-9 h-9 rounded-full bg-near-black text-white flex items-center justify-center font-black text-xs transition-transform group-hover:scale-105">
                 U
               </div>
               <Menu className="w-4 h-4 text-gray-300 group-hover:text-near-black transition-colors" />
-            </div>
+            </button>
           </header>
 
           {/* Page Content */}

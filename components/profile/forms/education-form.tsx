@@ -55,9 +55,9 @@ export const EducationForm = ({
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="space-y-1.5">
-        <label className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
+        <span className="text-[11px] font-black text-gray-400 uppercase tracking-widest block ml-1">
           Education Level
-        </label>
+        </span>
         <div className="flex flex-wrap gap-2">
           {eduLevels.map((lvl) => (
             <label key={lvl} className="cursor-pointer">
@@ -81,10 +81,14 @@ export const EducationForm = ({
       </div>
 
       <div className="space-y-1.5">
-        <label className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
+        <label
+          htmlFor="school-name"
+          className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1"
+        >
           Institution / School Name
         </label>
         <input
+          id="school-name"
           name="school"
           defaultValue={initialData?.school}
           required
@@ -95,10 +99,14 @@ export const EducationForm = ({
 
       <div className="grid md:grid-cols-2 gap-4">
         <div className="space-y-1.5">
-          <label className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
+          <label
+            htmlFor="degree-name"
+            className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1"
+          >
             Degree
           </label>
           <input
+            id="degree-name"
             name="degree"
             defaultValue={initialData?.degree}
             required
@@ -107,10 +115,14 @@ export const EducationForm = ({
           />
         </div>
         <div className="space-y-1.5">
-          <label className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1">
+          <label
+            htmlFor="specialisation-name"
+            className="text-[11px] font-black text-gray-400 uppercase tracking-widest ml-1"
+          >
             Specialisation
           </label>
           <input
+            id="specialisation-name"
             name="specialisation"
             defaultValue={initialData?.specialisation}
             required
@@ -122,14 +134,14 @@ export const EducationForm = ({
 
       <div className="grid md:grid-cols-2 gap-6">
         <div className="space-y-1.5">
-          <label className="text-[11px] font-black text-gray-400 uppercase tracking-widest block ml-1">
+          <span className="text-[11px] font-black text-gray-400 uppercase tracking-widest block ml-1">
             Start Date{" "}
             {eduStartDate && (
               <span className="text-wise-green ml-1">
                 ({format(eduStartDate.toDate(getLocalTimeZone()), "MMM yyyy")})
               </span>
             )}
-          </label>
+          </span>
           <DatePicker
             aria-label="Start Date"
             value={eduStartDate}
@@ -139,14 +151,14 @@ export const EducationForm = ({
           />
         </div>
         <div className="space-y-1.5">
-          <label className="text-[11px] font-black text-gray-400 uppercase tracking-widest block ml-1">
+          <span className="text-[11px] font-black text-gray-400 uppercase tracking-widest block ml-1">
             End Date{" "}
             {eduEndDate && (
               <span className="text-wise-green ml-1">
                 ({format(eduEndDate.toDate(getLocalTimeZone()), "MMM yyyy")})
               </span>
             )}
-          </label>
+          </span>
           <DatePicker
             aria-label="End Date"
             value={eduEndDate}

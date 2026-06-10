@@ -1,6 +1,7 @@
 "use client";
 
 import { Check, Eye, Trash2, Upload, ZoomIn, ZoomOut } from "lucide-react";
+import Image from "next/image";
 import Cropper from "react-easy-crop";
 import { Button } from "@/components/ui/button";
 import {
@@ -131,11 +132,12 @@ export function ProfileAvatarModal({
 
           <div className="mt-4">
             {!selectedImage ? (
-              <div
+              <button
+                type="button"
                 onDragOver={onDragOver}
                 onDrop={onDrop}
                 onClick={() => fileInputRef.current?.click()}
-                className="border-2 border-dashed border-gray-200 hover:border-wise-green/50 hover:bg-wise-green/[0.01] rounded-[2rem] p-10 text-center cursor-pointer transition-all flex flex-col items-center justify-center gap-4 group"
+                className="border-2 border-dashed border-gray-200 hover:border-wise-green/50 hover:bg-wise-green/[0.01] rounded-[2rem] p-10 text-center cursor-pointer transition-all flex flex-col items-center justify-center gap-4 group w-full bg-transparent"
               >
                 <div className="w-14 h-14 rounded-2xl bg-gray-50 flex items-center justify-center border border-gray-100 group-hover:scale-105 transition-transform shadow-sm">
                   <Upload className="w-6 h-6 text-gray-400 group-hover:text-wise-green transition-colors" />
@@ -152,7 +154,7 @@ export function ProfileAvatarModal({
                   Tip: A square profile picture with clear lighting works best
                   for professional profiles.
                 </div>
-              </div>
+              </button>
             ) : (
               <div className="space-y-6">
                 <div className="relative w-full h-80 bg-gray-900 rounded-[2rem] overflow-hidden border border-gray-100 shadow-inner">
@@ -241,11 +243,12 @@ export function ProfileAvatarModal({
 
           <div className="mt-4 flex justify-center">
             <div className="relative w-64 h-64 rounded-[3rem] bg-gray-50 border-4 border-white shadow-2xl overflow-hidden flex items-center justify-center">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
+                unoptimized
                 src={avatarUrl}
                 alt={name}
-                className="w-full h-full object-cover"
+                fill
+                className="object-cover"
               />
             </div>
           </div>

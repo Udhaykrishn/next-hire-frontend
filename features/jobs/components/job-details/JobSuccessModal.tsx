@@ -18,6 +18,7 @@ export function JobSuccessModal({ show, onClose }: JobSuccessModalProps) {
         className="bg-white w-full max-w-md rounded-[2rem] p-8 relative shadow-2xl"
       >
         <button
+          type="button"
           onClick={onClose}
           className="absolute top-6 right-6 text-gray-400 hover:text-gray-600 transition-colors"
         >

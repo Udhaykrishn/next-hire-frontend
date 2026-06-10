@@ -169,7 +169,8 @@ export const Step3Logistics = ({
                         <SelectTrigger
                           className={cn(
                             "h-14 w-full rounded-xl border-gray-200 font-bold",
-                            errors.walkInStartTime && "border-red-200 bg-red-50"
+                            errors.walkInStartTime &&
+                              "border-red-200 bg-red-50",
                           )}
                         >
                           <SelectValue placeholder="Start Time" />
@@ -202,7 +203,7 @@ export const Step3Logistics = ({
                         <SelectTrigger
                           className={cn(
                             "h-14 w-full rounded-xl border-gray-200 font-bold",
-                            errors.walkInEndTime && "border-red-200 bg-red-50"
+                            errors.walkInEndTime && "border-red-200 bg-red-50",
                           )}
                         >
                           <SelectValue placeholder="End Time" />

@@ -67,6 +67,7 @@ export function UpgradeModal({ isOpen, onClose }: ModalProps) {
         className="relative w-full max-w-4xl bg-white rounded-[2.5rem] overflow-hidden shadow-[0_32px_128px_-12px_rgba(0,0,0,0.5)] flex flex-col md:flex-row min-h-[500px]"
       >
         <button
+          type="button"
           onClick={onClose}
           className="absolute top-8 right-8 z-20 text-gray-400 hover:text-near-black transition-colors"
         >
@@ -183,6 +184,7 @@ export function JobCreationModal({ isOpen, onClose }: ModalProps) {
         className="relative w-full max-w-xl bg-white rounded-[2.5rem] p-10 md:p-14 shadow-[0_32px_128px_-12px_rgba(0,0,0,0.5)] overflow-hidden"
       >
         <button
+          type="button"
           onClick={onClose}
           className="absolute top-10 right-10 z-20 text-gray-400 hover:text-near-black transition-colors"
         >

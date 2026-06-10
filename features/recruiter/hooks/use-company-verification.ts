@@ -1,3 +1,4 @@
+import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -41,10 +42,12 @@ export function useCompanyVerification() {
       setStep("CIN");
       setCin("");
       setOtp("");
-    } catch (error: any) {
-      toast.error(
-        error?.response?.data?.message || "Failed to delete session.",
-      );
+    } catch (error: unknown) {
+      const message =
+        error instanceof AxiosError
+          ? (error.response?.data as { message?: string })?.message
+          : undefined;
+      toast.error(message || "Failed to delete session.");
     }
   };
 
@@ -61,10 +64,12 @@ export function useCompanyVerification() {
       );
       setStep("OTP");
       sessionQuery.refetch();
-    } catch (error: any) {
-      toast.error(
-        error?.response?.data?.message || "Failed to start verification.",
-      );
+    } catch (error: unknown) {
+      const message =
+        error instanceof AxiosError
+          ? (error.response?.data as { message?: string })?.message
+          : undefined;
+      toast.error(message || "Failed to start verification.");
     }
   };
 
@@ -78,8 +83,12 @@ export function useCompanyVerification() {
       await verifyMutation.mutateAsync(otp);
       toast.success("Company successfully verified!");
       router.push("/recruiter/profile");
-    } catch (error: any) {
-      toast.error(error?.response?.data?.message || "Invalid OTP.");
+    } catch (error: unknown) {
+      const message =
+        error instanceof AxiosError
+          ? (error.response?.data as { message?: string })?.message
+          : undefined;
+      toast.error(message || "Invalid OTP.");
     }
   };
 

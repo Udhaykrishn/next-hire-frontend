@@ -96,7 +96,10 @@ export function LandingNavbar() {
               </Link>
 
               <div className="relative group">
-                <button className="text-xs font-black text-gray-500 hover:text-wise-green transition-colors uppercase tracking-widest flex items-center gap-1">
+                <button
+                  type="button"
+                  className="text-xs font-black text-gray-500 hover:text-wise-green transition-colors uppercase tracking-widest flex items-center gap-1"
+                >
                   Services
                   <ChevronDown className="w-3 h-3 transition-transform group-hover:rotate-180" />
                 </button>
@@ -140,7 +143,10 @@ export function LandingNavbar() {
             <div className="flex items-center gap-4 border-l border-gray-100 pl-8">
               {isAuthenticated ? (
                 <div className="relative group">
-                  <button className="flex items-center gap-3 pl-2 pr-1 py-1 rounded-full bg-gray-50 border border-gray-100 hover:border-wise-green transition-all">
+                  <button
+                    type="button"
+                    className="flex items-center gap-3 pl-2 pr-1 py-1 rounded-full bg-gray-50 border border-gray-100 hover:border-wise-green transition-all"
+                  >
                     <div className="w-8 h-8 rounded-full bg-wise-green flex items-center justify-center text-dark-green font-black text-xs">
                       {user?.fullName?.charAt(0) ||
                         user?.email.charAt(0).toUpperCase()}
@@ -171,6 +177,7 @@ export function LandingNavbar() {
                       My Profile
                     </Link>
                     <button
+                      type="button"
                       onClick={() => logout()}
                       className="w-full flex items-center gap-3 px-5 py-3 text-xs font-bold text-red-500 hover:bg-red-50 transition-colors"
                     >

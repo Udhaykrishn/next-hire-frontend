@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { 
-  useRecruiterJobApplicationsQuery, 
-  useRecruiterCandidateDetailsQuery, 
-  useUpdateApplicationStatusMutation, 
-  useCalculateMatchScoreMutation 
+import { useEffect, useState } from "react";
+import {
+  useCalculateMatchScoreMutation,
+  useRecruiterCandidateDetailsQuery,
+  useRecruiterJobApplicationsQuery,
+  useUpdateApplicationStatusMutation,
 } from "@/features/jobs/hooks/use-recruiter-applications";
 
 export function useCandidateProfile() {
@@ -16,8 +16,11 @@ export function useCandidateProfile() {
   const applicationId = params.applicationId;
   const candidateId = searchParams.get("candidateId");
 
-  const { data: applicationsData, isLoading: isApplicationsLoading } = useRecruiterJobApplicationsQuery(jobId, 1, 100);
-  const application = applicationsData?.data?.find(a => a.id === applicationId);
+  const { data: applicationsData, isLoading: isApplicationsLoading } =
+    useRecruiterJobApplicationsQuery(jobId, 1, 100);
+  const application = applicationsData?.data?.find(
+    (a) => a.id === applicationId,
+  );
 
   const {
     data: candidateData,
@@ -26,14 +29,18 @@ export function useCandidateProfile() {
     certificates,
     isPending,
     isError,
-    error
+    error,
   } = useRecruiterCandidateDetailsQuery(candidateId || "");
 
   const { mutate: updateStatus } = useUpdateApplicationStatusMutation(jobId);
-  const { mutateAsync: calculateMatchScore, isPending: isAnalyzing } = useCalculateMatchScoreMutation();
+  const { mutateAsync: calculateMatchScore, isPending: isAnalyzing } =
+    useCalculateMatchScoreMutation();
 
   const [matchScore, setMatchScore] = useState<number | null>(null);
-  const [matchBreakdown, setMatchBreakdown] = useState<{ keywords: string[]; notes: string } | null>(null);
+  const [matchBreakdown, setMatchBreakdown] = useState<{
+    keywords: string[];
+    notes: string;
+  } | null>(null);
 
   useEffect(() => {
     if (application && application.matchScore > 0) {

@@ -1,6 +1,6 @@
-import { describe, it, expect, mock, spyOn, beforeEach } from "bun:test";
-import { authService } from "../auth.api";
+import { beforeEach, describe, expect, it, mock, spyOn } from "bun:test";
 import { apiClient } from "@/lib/api-client";
+import { authService } from "../auth.api";
 
 describe("authService.login", () => {
   beforeEach(() => {
@@ -11,8 +11,8 @@ describe("authService.login", () => {
     const postSpy = spyOn(apiClient, "post").mockResolvedValue({
       data: {
         user: { id: "1", email: "test@example.com", role: "CANDIDATE" },
-        accessToken: "token123"
-      }
+        accessToken: "token123",
+      },
     });
 
     const result = await authService.login("test@example.com", "password123");
@@ -29,11 +29,15 @@ describe("authService.login", () => {
     const postSpy = spyOn(apiClient, "post").mockResolvedValue({
       data: {
         user: { id: "1", email: "admin@example.com", role: "ADMIN" },
-        accessToken: "token123"
-      }
+        accessToken: "token123",
+      },
     });
 
-    const result = await authService.login("admin@example.com", "password123", "admin");
+    const result = await authService.login(
+      "admin@example.com",
+      "password123",
+      "admin",
+    );
 
     expect(postSpy).toHaveBeenCalledWith("/auth/admin/login", {
       email: "admin@example.com",
@@ -46,11 +50,15 @@ describe("authService.login", () => {
     const postSpy = spyOn(apiClient, "post").mockResolvedValue({
       data: {
         user: { id: "1", email: "recruiter@example.com", role: "RECRUITER" },
-        accessToken: "token123"
-      }
+        accessToken: "token123",
+      },
     });
 
-    const result = await authService.login("recruiter@example.com", "password123", "recruiter");
+    const result = await authService.login(
+      "recruiter@example.com",
+      "password123",
+      "recruiter",
+    );
 
     expect(postSpy).toHaveBeenCalledWith("/auth/recruiter/login", {
       email: "recruiter@example.com",
@@ -60,21 +68,33 @@ describe("authService.login", () => {
   });
 
   it("should return default role fallback if user property is missing in response", async () => {
-    const postSpy = spyOn(apiClient, "post").mockResolvedValue({
+    const _postSpy = spyOn(apiClient, "post").mockResolvedValue({
       data: {
-        accessToken: "token123"
-      }
+        accessToken: "token123",
+      },
     });
 
-    const resultAdmin = await authService.login("admin@example.com", "password123", "admin");
+    const resultAdmin = await authService.login(
+      "admin@example.com",
+      "password123",
+      "admin",
+    );
     expect(resultAdmin.user.role).toBe("ADMIN");
     expect(resultAdmin.user.email).toBe("admin@example.com");
     expect(resultAdmin.user.id).toBe("current");
 
-    const resultRecruiter = await authService.login("recruiter@example.com", "password123", "recruiter");
+    const resultRecruiter = await authService.login(
+      "recruiter@example.com",
+      "password123",
+      "recruiter",
+    );
     expect(resultRecruiter.user.role).toBe("RECRUITER");
 
-    const resultUser = await authService.login("user@example.com", "password123", "user");
+    const resultUser = await authService.login(
+      "user@example.com",
+      "password123",
+      "user",
+    );
     expect(resultUser.user.role).toBe("CANDIDATE");
   });
 });

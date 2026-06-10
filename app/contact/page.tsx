@@ -99,20 +99,28 @@ export default function ContactPage() {
               <form className="space-y-6">
                 <div className="grid grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-gray-700">
+                    <label
+                      htmlFor="first-name"
+                      className="text-sm font-bold text-gray-700"
+                    >
                       First Name
                     </label>
                     <input
+                      id="first-name"
                       type="text"
                       className="w-full h-12 px-4 rounded-xl border-2 border-gray-100 bg-gray-50/50 focus:bg-white focus:border-wise-green focus:ring-0 transition-colors font-medium outline-none"
                       placeholder="Jane"
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-gray-700">
+                    <label
+                      htmlFor="last-name"
+                      className="text-sm font-bold text-gray-700"
+                    >
                       Last Name
                     </label>
                     <input
+                      id="last-name"
                       type="text"
                       className="w-full h-12 px-4 rounded-xl border-2 border-gray-100 bg-gray-50/50 focus:bg-white focus:border-wise-green focus:ring-0 transition-colors font-medium outline-none"
                       placeholder="Doe"
@@ -121,10 +129,14 @@ export default function ContactPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-gray-700">
+                  <label
+                    htmlFor="email"
+                    className="text-sm font-bold text-gray-700"
+                  >
                     Email Address
                   </label>
                   <input
+                    id="email"
                     type="email"
                     className="w-full h-12 px-4 rounded-xl border-2 border-gray-100 bg-gray-50/50 focus:bg-white focus:border-wise-green focus:ring-0 transition-colors font-medium outline-none"
                     placeholder="jane@example.com"
@@ -132,10 +144,14 @@ export default function ContactPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-gray-700">
+                  <label
+                    htmlFor="message"
+                    className="text-sm font-bold text-gray-700"
+                  >
                     Message
                   </label>
                   <textarea
+                    id="message"
                     className="w-full p-4 rounded-xl border-2 border-gray-100 bg-gray-50/50 focus:bg-white focus:border-wise-green focus:ring-0 transition-colors font-medium outline-none resize-none min-h-[150px]"
                     placeholder="How can we help you?"
                   />

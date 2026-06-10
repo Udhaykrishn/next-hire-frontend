@@ -7,13 +7,11 @@ import { type Area, getCroppedImg } from "../utils/crop-image";
 interface UseAvatarManagerParams {
   handleUploadAvatar: (file: File) => Promise<void>;
   handleDeleteAvatar: () => Promise<void>;
-  avatarUrl: string;
 }
 
 export function useAvatarManager({
   handleUploadAvatar,
   handleDeleteAvatar,
-  avatarUrl,
 }: UseAvatarManagerParams) {
   const [isUploadOpen, setIsUploadOpen] = useState(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);

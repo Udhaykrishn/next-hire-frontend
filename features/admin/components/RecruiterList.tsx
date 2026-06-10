@@ -118,11 +118,16 @@ export const RecruiterList = () => {
             </h4>
             <div className="space-y-3">
               {["Active", "Pending", "Blocked"].map((status) => (
-                <div
+                <label
                   key={status}
-                  onClick={() => handleStatusToggle(status)}
                   className="flex items-center gap-3 cursor-pointer group select-none"
                 >
+                  <input
+                    type="checkbox"
+                    checked={selectedStatuses.includes(status)}
+                    onChange={() => handleStatusToggle(status)}
+                    className="sr-only"
+                  />
                   <div
                     className={cn(
                       "w-5 h-5 rounded-lg border-2 transition-all flex items-center justify-center",
@@ -138,7 +143,7 @@ export const RecruiterList = () => {
                   <span className="text-xs font-bold text-near-black uppercase tracking-widest">
                     {status}
                   </span>
-                </div>
+                </label>
               ))}
             </div>
             {selectedStatuses.length > 0 && (

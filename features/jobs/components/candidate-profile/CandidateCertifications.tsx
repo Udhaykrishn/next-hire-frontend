@@ -11,7 +11,9 @@ interface CandidateCertificationsProps {
   certificates: CandidateCertificationData[];
 }
 
-export function CandidateCertifications({ certificates }: CandidateCertificationsProps) {
+export function CandidateCertifications({
+  certificates,
+}: CandidateCertificationsProps) {
   if (!certificates || certificates.length === 0) return null;
 
   return (
@@ -21,22 +23,38 @@ export function CandidateCertifications({ certificates }: CandidateCertification
       </h3>
       <div className="grid gap-5 md:grid-cols-2">
         {certificates.map((cert, idx: number) => (
-          <div key={idx} className="p-5 rounded-[16px] bg-[#f9faf9] border border-[rgba(14,15,12,0.05)] flex items-start gap-4 hover:shadow-sm transition-shadow">
+          <div
+            key={`${cert.certificateName}-${cert.issuingOrganization}-${idx}`}
+            className="p-5 rounded-[16px] bg-[#f9faf9] border border-[rgba(14,15,12,0.05)] flex items-start gap-4 hover:shadow-sm transition-shadow"
+          >
             <div className="w-10 h-10 rounded-full bg-[#054d28]/10 flex items-center justify-center shrink-0">
               <Award className="w-5 h-5 text-[#054d28]" />
             </div>
             <div className="w-full">
-              <h4 className="text-[16px] font-[800] text-[#0e0f0c]">{cert.certificateName}</h4>
-              <p className="text-[14px] font-[500] text-[#454745] mt-1 mb-2">{cert.issuingOrganization}</p>
-              
+              <h4 className="text-[16px] font-[800] text-[#0e0f0c]">
+                {cert.certificateName}
+              </h4>
+              <p className="text-[14px] font-[500] text-[#454745] mt-1 mb-2">
+                {cert.issuingOrganization}
+              </p>
+
               {cert.issueDate && (
                 <p className="text-[12px] font-[500] text-[#868685]">
-                  Issued: {new Date(cert.issueDate).toLocaleDateString(undefined, { month: 'short', year: 'numeric' })}
+                  Issued:{" "}
+                  {new Date(cert.issueDate).toLocaleDateString(undefined, {
+                    month: "short",
+                    year: "numeric",
+                  })}
                 </p>
               )}
-              
+
               {cert.certificateUrl && (
-                <a href={cert.certificateUrl} target="_blank" rel="noreferrer" className="inline-block mt-3 text-[13px] font-[600] text-[#054d28] hover:underline">
+                <a
+                  href={cert.certificateUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-block mt-3 text-[13px] font-[600] text-[#054d28] hover:underline"
+                >
                   View Credential ↗
                 </a>
               )}

@@ -153,6 +153,7 @@ export function PlanForm({
               <div className="flex gap-4">
                 {["candidate", "recruiter"].map((type) => (
                   <button
+                    type="button"
                     key={type}
                     onClick={() =>
                       setNewPlan({
@@ -262,6 +263,7 @@ export function PlanForm({
               </div>
               <div className="space-y-3 max-h-[280px] overflow-y-auto pr-2 custom-scrollbar">
                 {newPlan.features.map((feature, idx) => (
+                  // biome-ignore lint/suspicious/noArrayIndexKey: feature text is editable and cannot be used as a key
                   <div key={`feature-${idx}`} className="flex gap-2 group">
                     <Input
                       placeholder={`Value driver #${idx + 1}`}

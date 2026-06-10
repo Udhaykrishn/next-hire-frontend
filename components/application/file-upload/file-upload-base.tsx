@@ -158,7 +158,9 @@ export const FileUploadDropZone = ({
     // Handle oversized files
     if (oversizedFiles.length > 0 && typeof onSizeLimitExceed === "function") {
       const dataTransfer = new DataTransfer();
-      oversizedFiles.forEach((file) => dataTransfer.items.add(file));
+      oversizedFiles.forEach((file) => {
+        dataTransfer.items.add(file);
+      });
 
       setIsInvalid(true);
       onSizeLimitExceed(dataTransfer.files);
@@ -167,7 +169,9 @@ export const FileUploadDropZone = ({
     // Handle accepted files
     if (acceptedFiles.length > 0 && typeof onDropFiles === "function") {
       const dataTransfer = new DataTransfer();
-      acceptedFiles.forEach((file) => dataTransfer.items.add(file));
+      acceptedFiles.forEach((file) => {
+        dataTransfer.items.add(file);
+      });
       onDropFiles(dataTransfer.files);
     }
 
@@ -177,7 +181,9 @@ export const FileUploadDropZone = ({
       typeof onDropUnacceptedFiles === "function"
     ) {
       const unacceptedDataTransfer = new DataTransfer();
-      unacceptedFiles.forEach((file) => unacceptedDataTransfer.items.add(file));
+      unacceptedFiles.forEach((file) => {
+        unacceptedDataTransfer.items.add(file);
+      });
 
       setIsInvalid(true);
       onDropUnacceptedFiles(unacceptedDataTransfer.files);
@@ -203,6 +209,7 @@ export const FileUploadDropZone = ({
   };
 
   return (
+    // biome-ignore lint/a11y/noStaticElementInteractions: drag and drop zone container
     <div
       data-dropzone
       onDragOver={handleDragIn}

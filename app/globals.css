@@ -164,3 +164,25 @@
     line-height: 56px;
   }
 }
+
+/* Accessibility: Support prefers-reduced-motion globally */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    /* biome-ignore lint/complexity/noImportantStyles: global reset */
+    animation-delay: -1ms !important;
+    /* biome-ignore lint/complexity/noImportantStyles: global reset */
+    animation-duration: 1ms !important;
+    /* biome-ignore lint/complexity/noImportantStyles: global reset */
+    animation-iteration-count: 1 !important;
+    /* biome-ignore lint/complexity/noImportantStyles: global reset */
+    background-attachment: initial !important;
+    /* biome-ignore lint/complexity/noImportantStyles: global reset */
+    scroll-behavior: auto !important;
+    /* biome-ignore lint/complexity/noImportantStyles: global reset */
+    transition-duration: 0s !important;
+    /* biome-ignore lint/complexity/noImportantStyles: global reset */
+    transition-delay: 0s !important;
+  }
+}

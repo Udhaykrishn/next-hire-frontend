@@ -1,6 +1,7 @@
 "use client";
 
 import { easeOut, motion } from "motion/react";
+import Image from "next/image";
 import * as React from "react";
 import { Button } from "@/components/ui/button";
 
@@ -43,70 +44,86 @@ export function FlipCard({ data }: FlipCardProps) {
     if (!isTouchDevice) setIsFlipped(false);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      handleClick();
+    }
+  };
+
   const cardVariants = {
     front: { rotateY: 0, transition: { duration: 0.5, ease: easeOut } },
     back: { rotateY: 180, transition: { duration: 0.5, ease: easeOut } },
   };
 
   return (
-    <div
-      className="mt-2 relative w-40 h-60 md:w-60 md:h-80 perspective-1000 cursor-pointer mx-auto"
-      onClick={handleClick}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      {/* FRONT: Profile */}
-      <motion.div
-        className="absolute inset-0 backface-hidden rounded-md border-2 border-foreground/20 px-4 py-6 flex flex-col items-center justify-center bg-gradient-to-br from-muted via-background to-muted text-center"
-        animate={isFlipped ? "back" : "front"}
-        variants={cardVariants}
-        style={{ transformStyle: "preserve-3d" }}
+    <>
+      {/* biome-ignore lint/a11y/useSemanticElements: composite interactive container with nested follow button */}
+      <div
+        role="button"
+        tabIndex={0}
+        className="mt-2 relative w-40 h-60 md:w-60 md:h-80 perspective-1000 cursor-pointer mx-auto focus:outline-none focus:ring-2 focus:ring-wise-green/50 rounded-md"
+        onClick={handleClick}
+        onKeyDown={handleKeyDown}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
-        <img
-          src={data.image}
-          alt={data.name}
-          className="size-20 md:size-24 rounded-full object-cover mb-4 border-2"
-        />
-        <h2 className="text-lg font-bold text-foreground">{data.name}</h2>
-        <p className="text-sm text-muted-foreground">@{data.username}</p>
-      </motion.div>
+        {/* FRONT: Profile */}
+        <motion.div
+          className="absolute inset-0 backface-hidden rounded-md border-2 border-foreground/20 px-4 py-6 flex flex-col items-center justify-center bg-gradient-to-br from-muted via-background to-muted text-center"
+          animate={isFlipped ? "back" : "front"}
+          variants={cardVariants}
+          style={{ transformStyle: "preserve-3d" }}
+        >
+          <Image
+            unoptimized
+            src={data.image}
+            alt={data.name}
+            width={96}
+            height={96}
+            className="size-20 md:size-24 rounded-full object-cover mb-4 border-2"
+          />
+          <h2 className="text-lg font-bold text-foreground">{data.name}</h2>
+          <p className="text-sm text-muted-foreground">@{data.username}</p>
+        </motion.div>
 
-      {/* BACK: Bio + Stats + Socials */}
-      <motion.div
-        className="absolute inset-0 backface-hidden rounded-md border-2 border-foreground/20 px-4 py-6 flex flex-col justify-between items-center gap-y-4 bg-gradient-to-tr from-muted via-background to-muted "
-        initial={{ rotateY: 180 }}
-        animate={isFlipped ? "front" : "back"}
-        variants={cardVariants}
-        style={{ transformStyle: "preserve-3d", rotateY: 180 }}
-      >
-        <p className="text-xs md:text-sm text-muted-foreground text-center">
-          {data.bio}
-        </p>
+        {/* BACK: Bio + Stats + Socials */}
+        <motion.div
+          className="absolute inset-0 backface-hidden rounded-md border-2 border-foreground/20 px-4 py-6 flex flex-col justify-between items-center gap-y-4 bg-gradient-to-tr from-muted via-background to-muted "
+          initial={{ rotateY: 180 }}
+          animate={isFlipped ? "front" : "back"}
+          variants={cardVariants}
+          style={{ transformStyle: "preserve-3d", rotateY: 180 }}
+        >
+          <p className="text-xs md:text-sm text-muted-foreground text-center">
+            {data.bio}
+          </p>
 
-        <div className="px-6 flex items-center justify-between w-full">
-          <div>
-            <p className="text-base font-bold">{data.stats.following}</p>
-            <p className="text-xs text-muted-foreground">Following</p>
-          </div>
-          <div>
-            <p className="text-base font-bold">{data.stats.followers}</p>
-            <p className="text-xs text-muted-foreground">Followers</p>
-          </div>
-          {data.stats.posts && (
+          <div className="px-6 flex items-center justify-between w-full">
             <div>
-              <p className="text-base font-bold">{data.stats.posts}</p>
-              <p className="text-xs text-muted-foreground">Posts</p>
+              <p className="text-base font-bold">{data.stats.following}</p>
+              <p className="text-xs text-muted-foreground">Following</p>
             </div>
-          )}
-        </div>
+            <div>
+              <p className="text-base font-bold">{data.stats.followers}</p>
+              <p className="text-xs text-muted-foreground">Followers</p>
+            </div>
+            {data.stats.posts && (
+              <div>
+                <p className="text-base font-bold">{data.stats.posts}</p>
+                <p className="text-xs text-muted-foreground">Posts</p>
+              </div>
+            )}
+          </div>
 
-        {/* Social Media Icons */}
-        <div className="flex items-center justify-center gap-4">
-          {/* Icons disabled due to import issues in lucide-react v1.11.0 */}
-        </div>
+          {/* Social Media Icons */}
+          <div className="flex items-center justify-center gap-4">
+            {/* Icons disabled due to import issues in lucide-react v1.11.0 */}
+          </div>
 
-        <Button>Follow</Button>
-      </motion.div>
-    </div>
+          <Button>Follow</Button>
+        </motion.div>
+      </div>
+    </>
   );
 }

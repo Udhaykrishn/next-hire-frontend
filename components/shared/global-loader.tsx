@@ -5,9 +5,12 @@ interface GlobalLoaderProps {
   className?: string;
 }
 
-export function GlobalLoader({ fullScreen = true, className = "" }: GlobalLoaderProps = {}) {
+export function GlobalLoader({
+  fullScreen = true,
+  className = "",
+}: GlobalLoaderProps = {}) {
   return (
-    <div 
+    <div
       className={`${fullScreen ? "fixed inset-0 z-50" : "relative w-full py-20"} flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-xl ${className}`}
     >
       <div className="relative flex items-center justify-center w-24 h-24">
@@ -17,14 +20,14 @@ export function GlobalLoader({ fullScreen = true, className = "" }: GlobalLoader
           animate={{ scale: [1, 1.25, 1], opacity: [0.8, 0, 0.8] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         />
-        
+
         {/* Spinning Accent Ring */}
         <motion.div
           className="absolute inset-2 rounded-full border-[3px] border-transparent border-t-dark-green border-r-wise-green"
           animate={{ rotate: 360 }}
           transition={{ duration: 1.2, repeat: Infinity, ease: "linear" }}
         />
-        
+
         {/* Inner Pulse */}
         <motion.div
           className="absolute inset-4 rounded-full border-[3px] border-transparent border-b-dark-green border-l-wise-green/50"
@@ -33,7 +36,7 @@ export function GlobalLoader({ fullScreen = true, className = "" }: GlobalLoader
         />
 
         {/* Center Core */}
-        <motion.div 
+        <motion.div
           className="w-10 h-10 bg-dark-green rounded-full shadow-lg shadow-wise-green/40 flex items-center justify-center"
           animate={{ scale: [0.9, 1.1, 0.9] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}

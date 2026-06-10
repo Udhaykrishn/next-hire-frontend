@@ -1,5 +1,5 @@
-import type { PricingPlan } from "@/types/pricing";
 import { afterEach, beforeEach, describe, expect, it } from "bun:test";
+import type { PricingPlan } from "@/types/pricing";
 import { pricingService } from "./pricing.service";
 
 // We use `bun:test` but mock setTimeout to resolve immediately for faster tests.
@@ -9,7 +9,7 @@ const originalSetTimeout = global.setTimeout;
 describe("pricingService", () => {
   beforeEach(() => {
     // Override setTimeout to resolve immediately
-    global.setTimeout = ((fn: Function) =>
+    global.setTimeout = ((fn: () => void) =>
       fn()) as unknown as typeof setTimeout;
   });
 

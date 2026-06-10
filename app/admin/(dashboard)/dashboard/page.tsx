@@ -47,10 +47,16 @@ export default function AdminDashboard() {
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <button className="px-5 py-2.5 bg-white border border-gray-100 rounded-xl text-sm font-bold text-gray-600 hover:bg-gray-50 transition-all shadow-sm">
+          <button
+            type="button"
+            className="px-5 py-2.5 bg-white border border-gray-100 rounded-xl text-sm font-bold text-gray-600 hover:bg-gray-50 transition-all shadow-sm"
+          >
             Download Report
           </button>
-          <button className="px-5 py-2.5 bg-near-black text-white rounded-xl text-sm font-black hover:bg-wise-green hover:text-near-black transition-all shadow-lg shadow-near-black/10">
+          <button
+            type="button"
+            className="px-5 py-2.5 bg-near-black text-white rounded-xl text-sm font-black hover:bg-wise-green hover:text-near-black transition-all shadow-lg shadow-near-black/10"
+          >
             Export Data
           </button>
         </div>
@@ -75,44 +81,40 @@ export default function AdminDashboard() {
           </div>
 
           <div className="h-64 flex items-end justify-between gap-2 pt-4">
-            {[40, 60, 45, 90, 65, 85, 40, 75, 95, 60, 80, 70].map(
-              (height, i) => (
-                <div
-                  key={i}
-                  className="flex-1 flex flex-col items-center gap-3 group"
-                >
-                  <div className="w-full relative">
-                    <motion.div
-                      initial={{ height: 0 }}
-                      animate={{ height: `${height}%` }}
-                      transition={{ duration: 1, delay: i * 0.05 }}
-                      className={cn(
-                        "w-full rounded-t-xl transition-all duration-300 group-hover:opacity-80",
-                        i % 3 === 0 ? "bg-wise-green" : "bg-near-black",
-                      )}
-                    />
-                  </div>
-                  <span className="text-[10px] font-black text-gray-300 uppercase">
-                    {
-                      [
-                        "Jan",
-                        "Feb",
-                        "Mar",
-                        "Apr",
-                        "May",
-                        "Jun",
-                        "Jul",
-                        "Aug",
-                        "Sep",
-                        "Oct",
-                        "Nov",
-                        "Dec",
-                      ][i]
-                    }
-                  </span>
+            {[
+              { month: "Jan", height: 40 },
+              { month: "Feb", height: 60 },
+              { month: "Mar", height: 45 },
+              { month: "Apr", height: 90 },
+              { month: "May", height: 65 },
+              { month: "Jun", height: 85 },
+              { month: "Jul", height: 40 },
+              { month: "Aug", height: 75 },
+              { month: "Sep", height: 95 },
+              { month: "Oct", height: 60 },
+              { month: "Nov", height: 80 },
+              { month: "Dec", height: 70 },
+            ].map(({ month, height }, i) => (
+              <div
+                key={month}
+                className="flex-1 flex flex-col items-center gap-3 group"
+              >
+                <div className="w-full relative">
+                  <motion.div
+                    initial={{ height: 0 }}
+                    animate={{ height: `${height}%` }}
+                    transition={{ duration: 1, delay: i * 0.05 }}
+                    className={cn(
+                      "w-full rounded-t-xl transition-all duration-300 group-hover:opacity-80",
+                      i % 3 === 0 ? "bg-wise-green" : "bg-near-black",
+                    )}
+                  />
                 </div>
-              ),
-            )}
+                <span className="text-[10px] font-black text-gray-300 uppercase">
+                  {month}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -141,7 +143,10 @@ export default function AdminDashboard() {
               </div>
             ))}
           </div>
-          <button className="w-full mt-8 py-3 bg-white/5 hover:bg-white/10 rounded-xl text-xs font-black uppercase tracking-widest transition-all border border-white/10">
+          <button
+            type="button"
+            className="w-full mt-8 py-3 bg-white/5 hover:bg-white/10 rounded-xl text-xs font-black uppercase tracking-widest transition-all border border-white/10"
+          >
             View All Activity
           </button>
         </div>

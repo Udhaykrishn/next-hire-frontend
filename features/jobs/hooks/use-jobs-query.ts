@@ -1,20 +1,20 @@
 import {
   useMutation,
+  useQuery,
   useQueryClient,
   useSuspenseQuery,
-  useQuery,
 } from "@tanstack/react-query";
+import type { JobFormData } from "@/app/recruiter/jobs/create/new/types";
 import {
   applyToJob,
   createJob,
+  getCandidateApplications,
   getJobById,
   getJobsForCandidate,
   getRecruiterJobs,
   updateJob,
-  getCandidateApplications,
 } from "../services/job.api";
 import type { SearchJobsParams } from "../types/job.types";
-import { JobFormData } from "@/app/recruiter/jobs/create/new/types";
 
 export const useRecruiterJobsQuery = () => {
   return useSuspenseQuery({
@@ -51,7 +51,13 @@ export const useUpdateJobMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ jobId, data }: { jobId: string; data: Partial<JobFormData> }) => updateJob(jobId, data),
+    mutationFn: ({
+      jobId,
+      data,
+    }: {
+      jobId: string;
+      data: Partial<JobFormData>;
+    }) => updateJob(jobId, data),
     onSuccess: (_, { jobId }) => {
       queryClient.invalidateQueries({ queryKey: ["recruiter", "jobs"] });
       queryClient.invalidateQueries({ queryKey: ["job", jobId] });
@@ -75,7 +81,10 @@ export const useJobDetailsQuery = (id: string) => {
   });
 };
 
-export const useCandidateApplicationsQuery = (params?: { search?: string; status?: string }) => {
+export const useCandidateApplicationsQuery = (params?: {
+  search?: string;
+  status?: string;
+}) => {
   return useQuery({
     queryKey: ["candidate-applications", params],
     queryFn: () => getCandidateApplications(params),
