@@ -77,6 +77,7 @@ export function AdminSidebar() {
 
       <div className="p-4 border-t border-gray-50">
         <button
+          type="button"
           onClick={handleLogout}
           className="flex items-center gap-3 px-4 py-3 w-full rounded-xl text-sm font-bold text-red-500 hover:bg-red-50 transition-colors group"
         >
