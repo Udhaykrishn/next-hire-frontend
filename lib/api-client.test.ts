@@ -8,14 +8,14 @@ import {
 import { apiClient } from "./api-client";
 
 describe("apiClient interceptors", () => {
-  let originalDocument: Document | undefined;
+  let originalDocument: unknown;
 
   beforeEach(() => {
     originalDocument = global.document;
 
     global.document = {
       cookie: "XSRF-TOKEN=test-token-123",
-    } as unknown as Document;
+    } as unknown;
   });
 
   afterEach(() => {
@@ -24,7 +24,7 @@ describe("apiClient interceptors", () => {
 
   describe("request interceptor", () => {
     it("adds CSRF token for POST requests", async () => {
-      let interceptedConfig: InternalAxiosRequestConfig | undefined;
+      let interceptedConfig: unknown;
       const adapter = async (config: InternalAxiosRequestConfig) => {
         interceptedConfig = config;
         return {
@@ -41,7 +41,7 @@ describe("apiClient interceptors", () => {
     });
 
     it("adds CSRF token for PUT requests", async () => {
-      let interceptedConfig: InternalAxiosRequestConfig | undefined;
+      let interceptedConfig: unknown;
       const adapter = async (config: InternalAxiosRequestConfig) => {
         interceptedConfig = config;
         return {
@@ -58,7 +58,7 @@ describe("apiClient interceptors", () => {
     });
 
     it("adds CSRF token for DELETE requests", async () => {
-      let interceptedConfig: InternalAxiosRequestConfig | undefined;
+      let interceptedConfig: unknown;
       const adapter = async (config: InternalAxiosRequestConfig) => {
         interceptedConfig = config;
         return {
@@ -75,7 +75,7 @@ describe("apiClient interceptors", () => {
     });
 
     it("does not add CSRF token for GET requests", async () => {
-      let interceptedConfig: InternalAxiosRequestConfig | undefined;
+      let interceptedConfig: unknown;
       const adapter = async (config: InternalAxiosRequestConfig) => {
         interceptedConfig = config;
         return {
@@ -92,7 +92,7 @@ describe("apiClient interceptors", () => {
     });
 
     it("does not add CSRF token for HEAD requests", async () => {
-      let interceptedConfig: InternalAxiosRequestConfig | undefined;
+      let interceptedConfig: unknown;
       const adapter = async (config: InternalAxiosRequestConfig) => {
         interceptedConfig = config;
         return {
@@ -109,7 +109,7 @@ describe("apiClient interceptors", () => {
     });
 
     it("does not add CSRF token for OPTIONS requests", async () => {
-      let interceptedConfig: InternalAxiosRequestConfig | undefined;
+      let interceptedConfig: unknown;
       const adapter = async (config: InternalAxiosRequestConfig) => {
         interceptedConfig = config;
         return {
@@ -127,8 +127,8 @@ describe("apiClient interceptors", () => {
   });
 
   describe("response interceptor", () => {
-    let originalWindow: Window & typeof globalThis;
-    let originalFetch: typeof global.fetch;
+    let originalWindow: unknown;
+    let originalFetch: unknown;
 
     beforeEach(() => {
       originalWindow = global.window;
@@ -138,8 +138,9 @@ describe("apiClient interceptors", () => {
         location: {
           pathname: "/user/dashboard",
           href: "",
+          origin: "http://localhost",
         },
-      } as unknown as Window & typeof globalThis;
+      } as unknown;
     });
 
     afterEach(() => {
@@ -159,7 +160,7 @@ describe("apiClient interceptors", () => {
       };
 
       const response = await apiClient.get("/test", { adapter });
-      expect(response).toEqual({ success: true });
+      expect(response).toEqual({ success: true } as unknown);
     });
 
     it("handles 401 error, retries the request on successful refresh", async () => {
@@ -167,13 +168,19 @@ describe("apiClient interceptors", () => {
       const adapter = async (config: InternalAxiosRequestConfig) => {
         adapterCallCount++;
         if (adapterCallCount === 1) {
-          throw new AxiosError("Unauthorized", "401", config, undefined, {
-            data: { message: "Unauthorized" },
-            status: 401,
-            statusText: "Unauthorized",
-            headers: new AxiosHeaders(),
+          throw new AxiosError(
+            "Unauthorized",
+            "401",
             config,
-          } as AxiosResponse);
+            {} as unknown,
+            {
+              data: { message: "Unauthorized" },
+              status: 401,
+              statusText: "Unauthorized",
+              headers: new AxiosHeaders(),
+              config,
+            } as AxiosResponse,
+          );
         }
         return {
           data: { success: true },
@@ -188,11 +195,11 @@ describe("apiClient interceptors", () => {
         Promise.resolve({
           ok: true,
           json: () => Promise.resolve({ success: true }),
-        } as unknown as Response),
-      ) as unknown as typeof global.fetch;
+        }),
+      ) as unknown;
 
       const response = await apiClient.get("/test", { adapter });
-      expect(response).toEqual({ success: true });
+      expect(response).toEqual({ success: true } as unknown);
       expect(global.fetch).toHaveBeenCalledWith(
         "/api/auth/refresh?role=user",
         expect.any(Object),
@@ -202,28 +209,34 @@ describe("apiClient interceptors", () => {
 
     it("redirects to login when 401 refresh fails", async () => {
       const adapter = async (config: InternalAxiosRequestConfig) => {
-        throw new AxiosError("Unauthorized", "401", config, undefined, {
-          data: { message: "Unauthorized" },
-          status: 401,
-          statusText: "Unauthorized",
-          headers: new AxiosHeaders(),
+        throw new AxiosError(
+          "Unauthorized",
+          "401",
           config,
-        } as AxiosResponse);
+          {} as unknown,
+          {
+            data: { message: "Unauthorized" },
+            status: 401,
+            statusText: "Unauthorized",
+            headers: new AxiosHeaders(),
+            config,
+          } as AxiosResponse,
+        );
       };
 
       global.fetch = mock(() =>
         Promise.resolve({
           ok: false,
           json: () => Promise.resolve({}),
-        } as unknown as Response),
-      ) as unknown as typeof global.fetch;
+        }),
+      ) as unknown;
 
       try {
         await apiClient.get("/test", { adapter });
         expect(true).toBe(false); // Should not reach here
       } catch (err: unknown) {
-        expect((err as Error).message).toBe("refresh_failed");
-        expect(global.window.location.href).toBe("/login");
+        expect(err.message).toBe("refresh_failed");
+        expect(global.window.location.href).toBe("http://localhost/login");
       }
     });
 
@@ -231,28 +244,36 @@ describe("apiClient interceptors", () => {
       global.window.location.pathname = "/admin/dashboard";
 
       const adapter = async (config: InternalAxiosRequestConfig) => {
-        throw new AxiosError("Unauthorized", "401", config, undefined, {
-          data: { message: "Unauthorized" },
-          status: 401,
-          statusText: "Unauthorized",
-          headers: new AxiosHeaders(),
+        throw new AxiosError(
+          "Unauthorized",
+          "401",
           config,
-        } as AxiosResponse);
+          {} as unknown,
+          {
+            data: { message: "Unauthorized" },
+            status: 401,
+            statusText: "Unauthorized",
+            headers: new AxiosHeaders(),
+            config,
+          } as AxiosResponse,
+        );
       };
 
       global.fetch = mock(() =>
         Promise.resolve({
           ok: false,
           json: () => Promise.resolve({}),
-        } as unknown as Response),
-      ) as unknown as typeof global.fetch;
+        }),
+      ) as unknown;
 
       try {
         await apiClient.get("/test", { adapter });
         expect(true).toBe(false); // Should not reach here
       } catch (err: unknown) {
-        expect((err as Error).message).toBe("refresh_failed");
-        expect(global.window.location.href).toBe("/admin/login");
+        expect(err.message).toBe("refresh_failed");
+        expect(global.window.location.href).toBe(
+          "http://localhost/admin/login",
+        );
         expect(global.fetch).toHaveBeenCalledWith(
           "/api/auth/refresh?role=admin",
           expect.any(Object),
@@ -262,48 +283,64 @@ describe("apiClient interceptors", () => {
 
     it("handles blocked error from 401 refresh", async () => {
       const adapter = async (config: InternalAxiosRequestConfig) => {
-        throw new AxiosError("Unauthorized", "401", config, undefined, {
-          data: { message: "Unauthorized" },
-          status: 401,
-          statusText: "Unauthorized",
-          headers: new AxiosHeaders(),
+        throw new AxiosError(
+          "Unauthorized",
+          "401",
           config,
-        } as AxiosResponse);
+          {} as unknown,
+          {
+            data: { message: "Unauthorized" },
+            status: 401,
+            statusText: "Unauthorized",
+            headers: new AxiosHeaders(),
+            config,
+          } as AxiosResponse,
+        );
       };
 
       global.fetch = mock(() =>
         Promise.resolve({
           ok: true,
           json: () => Promise.resolve({ blocked: true }),
-        } as unknown as Response),
-      ) as unknown as typeof global.fetch;
+        }),
+      ) as unknown;
 
       try {
         await apiClient.get("/test", { adapter });
         expect(true).toBe(false); // Should not reach here
       } catch (err: unknown) {
-        expect((err as Error).message).toBe("blocked");
-        expect(global.window.location.href).toBe("/login?error=blocked");
+        expect(err.message).toBe("blocked");
+        expect(global.window.location.href).toBe(
+          "http://localhost/login?error=blocked",
+        );
       }
     });
 
     it("handles 403 blocked error directly", async () => {
       const adapter = async (config: InternalAxiosRequestConfig) => {
-        throw new AxiosError("Forbidden", "403", config, undefined, {
-          data: { message: "Forbidden" },
-          status: 403,
-          statusText: "Forbidden",
-          headers: new AxiosHeaders(),
+        throw new AxiosError(
+          "Forbidden",
+          "403",
           config,
-        } as AxiosResponse);
+          {} as unknown,
+          {
+            data: { message: "Forbidden" },
+            status: 403,
+            statusText: "Forbidden",
+            headers: new AxiosHeaders(),
+            config,
+          } as AxiosResponse,
+        );
       };
 
       try {
         await apiClient.get("/test", { adapter });
         expect(true).toBe(false); // Should not reach here
       } catch (err: unknown) {
-        expect((err as Error).message).toBe("Forbidden");
-        expect(global.window.location.href).toBe("/login?error=blocked");
+        expect(err.message).toBe("Forbidden");
+        expect(global.window.location.href).toBe(
+          "http://localhost/login?error=blocked",
+        );
       }
     });
   });

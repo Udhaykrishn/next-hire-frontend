@@ -3,12 +3,13 @@ import axios from "axios";
 const API_URL =
   process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/api/v1";
 
+// Pre-compile regex for faster CSRF token extraction
+const CSRF_TOKEN_REGEX = /(?:^|; )XSRF-TOKEN=([^;]*)/;
+
 function getCsrfToken(): string {
   if (typeof document === "undefined") return "";
-  const match = document.cookie
-    .split("; ")
-    .find((row) => row.startsWith("XSRF-TOKEN="));
-  return match ? decodeURIComponent(match.split("=")[1]) : "";
+  const match = document.cookie.match(CSRF_TOKEN_REGEX);
+  return match ? decodeURIComponent(match[1]) : "";
 }
 
 export const apiClient = axios.create({

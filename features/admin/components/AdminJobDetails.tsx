@@ -1,6 +1,5 @@
 "use client";
 
-import DOMPurify from "isomorphic-dompurify";
 import {
   ArrowLeft,
   Ban,
@@ -23,6 +22,7 @@ import { useRouter } from "next/navigation";
 import { type ElementType, useState } from "react";
 import { Button } from "@/components/animate-ui/components/buttons/button";
 import { ConfirmationModal } from "@/components/shared/confirmation-modal";
+import { RichTextViewer } from "@/components/ui/rich-text-viewer";
 import { formatSalaryAmount } from "@/lib/salary";
 import { useAdminJobDetails } from "../hooks/use-admin-job-details";
 import { useAdminJobStats } from "../hooks/use-admin-job-stats";
@@ -232,12 +232,9 @@ export const AdminJobDetails = ({ id }: { id: string }) => {
                 <h4 className="text-[12px] font-bold text-gray-400 uppercase tracking-widest mb-3">
                   Brief Overview
                 </h4>
-                <div
+                <RichTextViewer
+                  content={job.description}
                   className="text-gray-700 font-medium leading-relaxed prose prose-sm max-w-none bg-gray-50/50 p-5 rounded-2xl border border-gray-100"
-                  // biome-ignore lint/security/noDangerouslySetInnerHtml: Sanitized with DOMPurify
-                  dangerouslySetInnerHTML={{
-                    __html: DOMPurify.sanitize(job.description),
-                  }}
                 />
               </div>
             )}
@@ -247,12 +244,9 @@ export const AdminJobDetails = ({ id }: { id: string }) => {
                 <h4 className="text-[12px] font-bold text-gray-400 uppercase tracking-widest mb-3">
                   Detailed Responsibilities
                 </h4>
-                <div
+                <RichTextViewer
+                  content={job.jobDescription}
                   className="text-gray-700 font-medium leading-relaxed prose prose-sm max-w-none prose-p:mb-4 prose-ul:list-disc prose-ul:pl-4 prose-li:mb-1 marker:text-wise-green"
-                  // biome-ignore lint/security/noDangerouslySetInnerHtml: Sanitized with DOMPurify
-                  dangerouslySetInnerHTML={{
-                    __html: DOMPurify.sanitize(job.jobDescription || ""),
-                  }}
                 />
               </div>
             ) : (

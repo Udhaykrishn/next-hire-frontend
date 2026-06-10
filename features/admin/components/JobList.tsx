@@ -107,32 +107,28 @@ export const JobList = () => {
             </h4>
             <div className="space-y-3">
               {["OPEN", "BLOCKED"].map((status) => (
-                <label
+                <button
+                  type="button"
                   key={status}
-                  className="flex items-center gap-3 cursor-pointer group"
+                  onClick={() => handleStatusToggle(status)}
+                  className="flex items-center gap-3 cursor-pointer group w-full text-left bg-transparent border-none p-0 m-0"
                 >
-                  <input
-                    type="checkbox"
-                    checked={selectedStatuses.includes(status)}
-                    onChange={() => handleStatusToggle(status)}
-                    className="sr-only"
-                  />
                   <div
                     className={cn(
-                      "w-5 h-5 rounded-lg border-2 transition-all flex items-center justify-center",
+                      "w-5 h-5 rounded-md border flex items-center justify-center transition-all",
                       selectedStatuses.includes(status)
-                        ? "bg-near-black border-near-black"
-                        : "border-gray-200 group-hover:border-wise-green",
+                        ? "bg-wise-green/10 border-wise-green"
+                        : "bg-white border-gray-200 group-hover:border-wise-green/50",
                     )}
                   >
                     {selectedStatuses.includes(status) && (
                       <div className="w-2 h-2 rounded-sm bg-wise-green" />
                     )}
                   </div>
-                  <span className="text-xs font-bold text-near-black uppercase tracking-widest">
+                  <span className="text-sm font-semibold text-gray-700">
                     {status}
                   </span>
-                </label>
+                </button>
               ))}
             </div>
           </PopoverContent>
@@ -219,6 +215,7 @@ export const JobList = () => {
                     <div className="flex items-center justify-end gap-2">
                       <button
                         type="button"
+                        aria-label="View Details"
                         onClick={() => handleAction(job, "details")}
                         className="p-2 text-gray-400 hover:text-wise-green hover:bg-wise-green/10 rounded-xl transition-all outline-none"
                         title="View Details"
@@ -228,6 +225,7 @@ export const JobList = () => {
                       {job.status === "OPEN" ? (
                         <button
                           type="button"
+                          aria-label="Flag as Threat / Scam"
                           onClick={() => handleAction(job, "block")}
                           className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all outline-none"
                           title="Flag as Threat / Scam"
@@ -237,6 +235,7 @@ export const JobList = () => {
                       ) : (
                         <button
                           type="button"
+                          aria-label="Activate Job Post"
                           onClick={() => handleAction(job, "unblock")}
                           className="p-2 text-gray-400 hover:text-green-600 hover:bg-green-50 rounded-xl transition-all outline-none"
                           title="Activate Job Post"

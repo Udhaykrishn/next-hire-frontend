@@ -1,6 +1,6 @@
-import DOMPurify from "isomorphic-dompurify";
 import { Building, Clock, Target } from "lucide-react";
 import Image from "next/image";
+import { RichTextViewer } from "@/components/ui/rich-text-viewer";
 import type { JobWithMatchScore } from "@/features/jobs/types/job.types";
 
 interface JobDescriptionCardProps {
@@ -15,14 +15,9 @@ export function JobDescriptionCard({ job }: JobDescriptionCardProps) {
           <span className="w-1 h-5 bg-wise-green rounded-full"></span>
           Job Description
         </h2>
-        <div
+        <RichTextViewer
+          content={job.jobDescription || job.description || ""}
           className="text-[14px] text-gray-800 font-medium leading-[1.6] [&>p]:mb-4 last:[&>p]:mb-0 [&>ul]:list-disc [&>ul]:pl-6 [&>ul]:mb-4 [&>ul>li]:mb-1.5 marker:text-wise-green [&>ol]:list-decimal [&>ol]:pl-6 [&>ol]:mb-4 [&>ol>li]:mb-1.5 [&>h1]:text-xl [&>h1]:font-bold [&>h1]:text-dark-green [&>h1]:mb-4 [&>h2]:text-lg [&>h2]:font-bold [&>h2]:text-dark-green [&>h2]:mb-3 [&>h3]:text-base [&>h3]:font-bold [&>h3]:text-dark-green [&>h3]:mb-2 [&_strong]:font-bold [&_strong]:text-dark-green [&_u]:underline decoration-wise-green/40 underline-offset-4"
-          // biome-ignore lint/security/noDangerouslySetInnerHtml: Sanitized using DOMPurify
-          dangerouslySetInnerHTML={{
-            __html: DOMPurify.sanitize(
-              job.jobDescription || job.description || "",
-            ),
-          }}
         />
       </section>
 
@@ -126,14 +121,15 @@ export function JobDescriptionCard({ job }: JobDescriptionCardProps) {
           About company
         </h2>
         <div className="flex items-start gap-4">
-          <div className="w-16 h-16 relative bg-white rounded-2xl flex items-center justify-center border-2 border-wise-green/20 shadow-md shadow-wise-green/5 shrink-0 overflow-hidden">
+          <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center border-2 border-wise-green/20 shadow-md shadow-wise-green/5 shrink-0 overflow-hidden">
             {job.companyLogo ? (
               <Image
-                unoptimized
                 src={job.companyLogo}
-                alt={job.hiringCompany}
-                fill
-                className="object-cover"
+                alt={job.hiringCompany || "Company Logo"}
+                width={64}
+                height={64}
+                className="w-full h-full object-cover"
+                unoptimized
               />
             ) : (
               <span className="text-2xl font-black text-dark-green">
