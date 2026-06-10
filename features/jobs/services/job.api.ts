@@ -1,4 +1,5 @@
 import type { JobFormData } from "@/app/recruiter/jobs/create/new/types";
+import { ApiRecruiterRoutes, ApiUserRoutes } from "@/constants/api-routes";
 import { apiClient } from "@/lib/api-client";
 import type {
   CandidateApplicationListResponse,
@@ -9,12 +10,12 @@ import type {
 } from "../types/job.types";
 
 export const createJob = async (jobData: JobFormData) => {
-  const { data } = await apiClient.post("/job", jobData);
+  const { data } = await apiClient.post(ApiRecruiterRoutes.JOBS, jobData);
   return data;
 };
 
 export const getRecruiterJobs = async (): Promise<JobResponse[]> => {
-  const { data } = await apiClient.get("/job/recruiter");
+  const { data } = await apiClient.get(ApiRecruiterRoutes.JOBS_RECRUITER);
   return data;
 };
 
@@ -23,7 +24,7 @@ export const getJobsForCandidate = async (
   headers?: Record<string, string>,
 ): Promise<PaginationResponse<JobWithMatchScore>> => {
   const { data } = await apiClient.get<PaginationResponse<JobWithMatchScore>>(
-    "/job",
+    ApiUserRoutes.JOBS,
     { params, headers },
   );
   return data;
@@ -33,14 +34,17 @@ export const getJobById = async (
   id: string,
   headers?: Record<string, string>,
 ): Promise<JobWithMatchScore> => {
-  const { data } = await apiClient.get<JobWithMatchScore>(`/job/${id}`, {
-    headers,
-  });
+  const { data } = await apiClient.get<JobWithMatchScore>(
+    `${ApiUserRoutes.JOBS}/${id}`,
+    {
+      headers,
+    },
+  );
   return data;
 };
 
 export const applyToJob = async (jobId: string): Promise<unknown> => {
-  const { data } = await apiClient.post(`/job/apply/${jobId}`);
+  const { data } = await apiClient.post(`${ApiUserRoutes.JOBS}/apply/${jobId}`);
   return data;
 };
 
@@ -48,7 +52,10 @@ export const updateJob = async (
   jobId: string,
   updateData: Partial<JobFormData>,
 ): Promise<JobResponse> => {
-  const { data } = await apiClient.patch(`/job/${jobId}`, updateData);
+  const { data } = await apiClient.patch(
+    `${ApiRecruiterRoutes.JOBS}/${jobId}`,
+    updateData,
+  );
   return data;
 };
 
@@ -63,7 +70,7 @@ export const getCandidateApplications = async (params?: {
     };
   }
   const { data } = await apiClient.get<CandidateApplicationListResponse>(
-    `/job/applications`,
+    ApiUserRoutes.APPLICATIONS,
     {
       params,
     },
@@ -81,7 +88,7 @@ export const getCandidateMatchScore = async (
 }> => {
   const params = retry ? { retry: "true" } : undefined;
   const { data } = await apiClient.get(
-    `/job/${jobId}/candidates/${candidateId}/match-score`,
+    `${ApiUserRoutes.JOBS}/${jobId}/candidates/${candidateId}/match-score`,
     { params },
   );
   return data;

@@ -1,3 +1,4 @@
+import { ApiAdminRoutes, ApiUserRoutes } from "@/constants/api-routes";
 import type {
   ApiResponse,
   Certificate,
@@ -57,7 +58,7 @@ export const adminService = {
   ): Promise<PaginatedResponse<RecruiterDetail>> => {
     const response = await apiClient.get<
       BackendResponse<BackendPaginationResponse<BackendRecruiter>>
-    >("/recruiter", {
+    >(ApiAdminRoutes.RECRUITERS, {
       params: { page, limit, search, status: mapStatusToBackend(status) },
     });
 
@@ -92,7 +93,7 @@ export const adminService = {
   ): Promise<PaginatedResponse<CandidateDetail>> => {
     const response = await apiClient.get<
       BackendResponse<BackendPaginationResponse<BackendUser>>
-    >("/user", {
+    >(ApiAdminRoutes.CANDIDATES, {
       params: { page, limit, search, status: mapStatusToBackend(status) },
     });
 
@@ -131,7 +132,7 @@ export const adminService = {
   ): Promise<PaginatedResponse<AdminJobDetail>> => {
     const response = await apiClient.get<
       BackendResponse<BackendPaginationResponse<BackendJob>>
-    >("/job/all", {
+    >(ApiAdminRoutes.JOBS, {
       params: { page, limit, search, status },
     });
 
@@ -173,7 +174,7 @@ export const adminService = {
 
   getRecruiterById: async (id: string): Promise<RecruiterDetail> => {
     const response = await apiClient.get<BackendResponse<BackendRecruiter>>(
-      `/recruiter/${id}`,
+      `${ApiAdminRoutes.RECRUITERS}/${id}`,
     );
     const paginated = response as unknown as BackendResponse<BackendRecruiter>;
     const r = paginated.data;
@@ -209,7 +210,7 @@ export const adminService = {
 
   getJobById: async (id: string): Promise<AdminJobDetail> => {
     const response = await apiClient.get<BackendResponse<BackendJob>>(
-      `/job/${id}`,
+      `${ApiUserRoutes.JOBS}/${id}`,
     );
     const j = (response as unknown as BackendResponse<BackendJob>).data;
     const createdDate = j.createdAt
@@ -300,7 +301,7 @@ export const adminService = {
         interviews: number;
         offers: number;
       }>
-    >(`/job/${id}/stats`);
+    >(`${ApiUserRoutes.JOBS}/${id}/stats`);
     return (
       response as unknown as BackendResponse<{
         total: number;
@@ -324,7 +325,7 @@ export const adminService = {
 
     const response = await apiClient.get<
       BackendResponse<{ data: AdminJobApplication[]; total: number }>
-    >(`/job/${id}/applications`, {
+    >(`${ApiUserRoutes.JOBS}/${id}/applications`, {
       params,
     });
     return (
@@ -337,7 +338,7 @@ export const adminService = {
 
   getRecruiterJobs: async (id: string): Promise<AdminJobDetail[]> => {
     const response = await apiClient.get<BackendResponse<BackendJob[]>>(
-      `/job/recruiter/${id}`,
+      `${ApiUserRoutes.JOBS}/recruiter/${id}`,
     );
     const paginated = response as unknown as BackendResponse<BackendJob[]>;
     const jobs = paginated.data;
@@ -371,7 +372,7 @@ export const adminService = {
 
   getCandidateById: async (id: string): Promise<CandidateDetail> => {
     const response = await apiClient.get<BackendResponse<BackendUser>>(
-      `/user/${id}`,
+      `${ApiAdminRoutes.CANDIDATES}/${id}`,
     );
     const paginated = response as unknown as BackendResponse<BackendUser>;
     const c = paginated.data;
@@ -410,14 +411,19 @@ export const adminService = {
     _status: string,
     description?: string,
   ): Promise<void> => {
-    await apiClient.patch(`/recruiter/${id}/block`, { description });
+    await apiClient.patch(`${ApiAdminRoutes.RECRUITERS}/${id}/block`, {
+      description,
+    });
   },
 
   revokeCompanyVerification: async (
     id: string,
     reason: string,
   ): Promise<void> => {
-    await apiClient.patch(`/recruiter/${id}/revoke-verification`, { reason });
+    await apiClient.patch(
+      `${ApiAdminRoutes.RECRUITERS}/${id}/revoke-verification`,
+      { reason },
+    );
   },
 
   updateCandidateStatus: async (
@@ -425,7 +431,9 @@ export const adminService = {
     _status: string,
     description?: string,
   ): Promise<void> => {
-    await apiClient.patch(`/user/${id}/block`, { description });
+    await apiClient.patch(`${ApiAdminRoutes.CANDIDATES}/${id}/block`, {
+      description,
+    });
   },
 
   updateJobStatus: async (
@@ -433,25 +441,25 @@ export const adminService = {
     _status: string,
     description?: string,
   ): Promise<void> => {
-    await apiClient.patch(`/job/block/${id}`, { description });
+    await apiClient.patch(`${ApiUserRoutes.JOBS}/block/${id}`, { description });
   },
 
   getCandidateEducation: async (userId: string): Promise<Education[]> => {
-    const response = (await apiClient.get("/education", {
+    const response = (await apiClient.get(ApiUserRoutes.EDUCATION, {
       params: { userId },
     })) as ApiResponse<Education[]>;
     return response.data;
   },
 
   getCandidateExperiences: async (userId: string): Promise<Experience[]> => {
-    const response = (await apiClient.get("/project", {
+    const response = (await apiClient.get(ApiUserRoutes.PROJECT, {
       params: { userId },
     })) as ApiResponse<Experience[]>;
     return response.data;
   },
 
   getCandidateCertificates: async (userId: string): Promise<Certificate[]> => {
-    const response = (await apiClient.get("/certificate", {
+    const response = (await apiClient.get(ApiUserRoutes.CERTIFICATE, {
       params: { userId },
     })) as ApiResponse<Certificate[]>;
     return response.data;

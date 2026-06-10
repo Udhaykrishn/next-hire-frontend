@@ -24,6 +24,7 @@ export const getRecruiterJobListings = async (): Promise<JobListing[]> => {
   }));
 };
 
+import { ApiAdminRoutes, ApiRecruiterRoutes } from "@/constants/api-routes";
 import type { ApiResponse } from "@/features/profile/types/profile.types";
 import { apiClient } from "@/lib/api-client";
 import type {
@@ -36,33 +37,39 @@ export const changeRecruiterPassword = async (
   id: string,
   data: ChangePasswordData,
 ): Promise<void> => {
-  await apiClient.patch(`/recruiter/${id}/change-password`, data);
+  await apiClient.patch(
+    `${ApiAdminRoutes.RECRUITERS}/${id}/change-password`,
+    data,
+  );
 };
 
 export const getRecruiterProfile = async (): Promise<
   ApiResponse<RecruiterProfile>
 > => {
-  return await apiClient.get("/recruiter/profile");
+  return await apiClient.get(ApiRecruiterRoutes.PROFILE);
 };
 
 export const updateRecruiterProfile = async (
   userId: string,
   data: UpdateRecruiterProfileDto,
 ): Promise<ApiResponse<RecruiterProfile>> => {
-  return await apiClient.patch(`/recruiter/${userId}`, data);
+  return await apiClient.patch(`${ApiAdminRoutes.RECRUITERS}/${userId}`, data);
 };
 
 export const verifyRecruiterCompany = async (
   recruiterId: string,
   CIN: string,
 ): Promise<void> => {
-  await apiClient.post("/recruiter/verify-company", { recruiterId, CIN });
+  await apiClient.post(ApiRecruiterRoutes.VERIFY_COMPANY, {
+    recruiterId,
+    CIN,
+  });
 };
 
 export const startCompanyVerificationSession = async (
   CIN: string,
 ): Promise<{ message: string; otp?: string }> => {
-  const { data } = await apiClient.post("/recruiter/verification/start", {
+  const { data } = await apiClient.post(ApiRecruiterRoutes.VERIFICATION_START, {
     CIN,
   });
   return data;
@@ -73,23 +80,28 @@ export const getCompanyVerificationSession = async (): Promise<{
   cin: string;
   otp: string;
 } | null> => {
-  const { data } = await apiClient.get("/recruiter/verification/session");
+  const { data } = await apiClient.get(ApiRecruiterRoutes.VERIFICATION_SESSION);
   return data;
 };
 
 export const deleteCompanyVerificationSession = async (): Promise<{
   message: string;
 }> => {
-  const { data } = await apiClient.delete("/recruiter/verification/session");
+  const { data } = await apiClient.delete(
+    ApiRecruiterRoutes.VERIFICATION_SESSION,
+  );
   return data;
 };
 
 export const verifyCompanyOtp = async (
   otp: string,
 ): Promise<{ message: string }> => {
-  const { data } = await apiClient.post("/recruiter/verification/verify", {
-    otp,
-  });
+  const { data } = await apiClient.post(
+    ApiRecruiterRoutes.VERIFICATION_VERIFY,
+    {
+      otp,
+    },
+  );
   return data;
 };
 
@@ -99,7 +111,7 @@ export const uploadRecruiterProfileImage = async (
 ): Promise<{ message: string }> => {
   const formData = new FormData();
   formData.append("image", file);
-  return await apiClient.post(`/recruiter/profile/upload`, formData, {
+  return await apiClient.post(ApiRecruiterRoutes.UPLOAD_IMAGE, formData, {
     headers: { "Content-Type": "multipart/form-data" },
   });
 };
@@ -107,5 +119,5 @@ export const uploadRecruiterProfileImage = async (
 export const deleteRecruiterProfileImage = async (): Promise<{
   message: string;
 }> => {
-  return await apiClient.delete(`/recruiter/profile/upload`);
+  return await apiClient.delete(ApiRecruiterRoutes.UPLOAD_IMAGE);
 };

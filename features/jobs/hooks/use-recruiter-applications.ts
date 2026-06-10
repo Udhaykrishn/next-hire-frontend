@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
+import { ApiAdminRoutes, ApiUserRoutes } from "@/constants/api-routes";
 import { apiClient } from "@/lib/api-client";
 
 export interface RecruiterJobApplication {
@@ -50,7 +51,7 @@ export function useRecruiterJobApplicationsQuery(
       const { data } = await apiClient.get<{
         data: RecruiterJobApplication[];
         total: number;
-      }>(`/job/${jobId}/applications?${params.toString()}`);
+      }>(`${ApiUserRoutes.JOBS}/${jobId}/applications?${params.toString()}`);
       return data;
     },
   });
@@ -68,7 +69,7 @@ export function useUpdateApplicationStatusMutation(jobId: string) {
       status: string;
     }) => {
       const { data } = await apiClient.patch(
-        `/job/application/${applicationId}/status`,
+        `${ApiUserRoutes.JOBS}/application/${applicationId}/status`,
         { status },
       );
       return data;
@@ -94,10 +95,10 @@ export function useRecruiterCandidateDetailsQuery(candidateId: string) {
     queryKey: ["recruiter-candidate-details", candidateId],
     queryFn: async () => {
       const [userRes, eduRes, expRes, certRes] = await Promise.all([
-        apiClient.get(`/user/${candidateId}`),
-        apiClient.get(`/education?userId=${candidateId}`),
-        apiClient.get(`/project?userId=${candidateId}`),
-        apiClient.get(`/certificate?userId=${candidateId}`),
+        apiClient.get(`${ApiAdminRoutes.CANDIDATES}/${candidateId}`),
+        apiClient.get(`${ApiUserRoutes.EDUCATION}?userId=${candidateId}`),
+        apiClient.get(`${ApiUserRoutes.PROJECT}?userId=${candidateId}`),
+        apiClient.get(`${ApiUserRoutes.CERTIFICATE}?userId=${candidateId}`),
       ]);
 
       return {
@@ -134,7 +135,7 @@ export function useCalculateMatchScoreMutation() {
     }) => {
       const params = retry ? { retry: "true" } : undefined;
       const { data } = await apiClient.get(
-        `/job/${jobId}/candidates/${candidateId}/match-score`,
+        `${ApiUserRoutes.JOBS}/${jobId}/candidates/${candidateId}/match-score`,
         { params },
       );
       return data;

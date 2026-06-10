@@ -1,3 +1,8 @@
+import {
+  ApiAuthRoutes,
+  ApiRecruiterRoutes,
+  ApiUserRoutes,
+} from "@/constants/api-routes";
 import type { ApiResponse } from "@/features/profile/types/profile.types";
 import { apiClient } from "@/lib/api-client";
 import type {
@@ -14,9 +19,9 @@ export const authService = {
     password: string,
     role: "admin" | "recruiter" | "user" = "user",
   ): Promise<AuthResponse> => {
-    let endpoint = "/auth/user/login";
-    if (role === "admin") endpoint = "/auth/admin/login";
-    else if (role === "recruiter") endpoint = "/auth/recruiter/login";
+    let endpoint: string = ApiAuthRoutes.USER_LOGIN;
+    if (role === "admin") endpoint = ApiAuthRoutes.ADMIN_LOGIN;
+    else if (role === "recruiter") endpoint = ApiAuthRoutes.RECRUITER_LOGIN;
 
     const res = (await apiClient.post(endpoint, {
       email,
@@ -50,8 +55,8 @@ export const authService = {
   }): Promise<AuthResponse> => {
     const endpoint =
       data.role === "RECRUITER"
-        ? "/auth/recruiter/signup"
-        : "/auth/user/signup";
+        ? ApiAuthRoutes.RECRUITER_SIGNUP
+        : ApiAuthRoutes.USER_SIGNUP;
 
     const signupPayload: Record<string, unknown> = {
       email: data.email,
@@ -86,7 +91,7 @@ export const authService = {
       if (typeof window !== "undefined") {
         const pathname = window.location.pathname;
         if (pathname.startsWith("/admin")) {
-          const res = await apiClient.get("/auth/admin/recruiter/status");
+          const res = await apiClient.get(ApiAuthRoutes.ADMIN_STATUS);
           if (res) {
             return {
               data: {
@@ -99,7 +104,7 @@ export const authService = {
         }
         if (pathname.startsWith("/recruiter")) {
           const res = (await apiClient.get(
-            "/recruiter/profile",
+            ApiRecruiterRoutes.PROFILE,
           )) as ApiResponse<Record<string, unknown>>;
           return {
             data: {
@@ -112,7 +117,7 @@ export const authService = {
 
       // Default/Fallback logic
       try {
-        const res = (await apiClient.get("/user/profile")) as ApiResponse<
+        const res = (await apiClient.get(ApiUserRoutes.PROFILE)) as ApiResponse<
           Record<string, unknown>
         >;
         return {
@@ -124,7 +129,7 @@ export const authService = {
       } catch (userErr: unknown) {
         try {
           const res = (await apiClient.get(
-            "/recruiter/profile",
+            ApiRecruiterRoutes.PROFILE,
           )) as ApiResponse<Record<string, unknown>>;
           return {
             data: {
@@ -144,14 +149,14 @@ export const authService = {
   logout: async (
     role: "admin" | "recruiter" | "user" = "user",
   ): Promise<void> => {
-    let endpoint = "/auth/user/logout";
-    if (role === "admin") endpoint = "/auth/admin/logout";
-    else if (role === "recruiter") endpoint = "/auth/recruiter/logout";
+    let endpoint: string = ApiAuthRoutes.USER_LOGOUT;
+    if (role === "admin") endpoint = ApiAuthRoutes.ADMIN_LOGOUT;
+    else if (role === "recruiter") endpoint = ApiAuthRoutes.RECRUITER_LOGOUT;
     await apiClient.post(endpoint);
   },
 
   googleLogin: async (idToken: string): Promise<AuthResponse> => {
-    const res = (await apiClient.post("/auth/user/google", {
+    const res = (await apiClient.post(ApiAuthRoutes.USER_GOOGLE, {
       credential: idToken,
     })) as ApiResponse<BackendAuthResponse>;
 
@@ -169,7 +174,7 @@ export const authService = {
   },
 
   submitOnboarding: async (data: RecruiterOnboardingData): Promise<void> => {
-    await apiClient.post("/recruiter/onboarding", data);
+    await apiClient.post(ApiRecruiterRoutes.ONBOARDING, data);
   },
 
   forgotPassword: async (
@@ -178,8 +183,8 @@ export const authService = {
   ): Promise<{ message: string }> => {
     const endpoint =
       role === "recruiter"
-        ? "/auth/recruiter/forgot-password"
-        : "/auth/user/forgot-password";
+        ? ApiAuthRoutes.RECRUITER_FORGOT_PASSWORD
+        : ApiAuthRoutes.USER_FORGOT_PASSWORD;
     return await apiClient.post(endpoint, { email });
   },
 
@@ -193,8 +198,8 @@ export const authService = {
   ): Promise<{ success: boolean; message: string }> => {
     const endpoint =
       role === "recruiter"
-        ? "/auth/recruiter/reset-password"
-        : "/auth/user/reset-password";
+        ? ApiAuthRoutes.RECRUITER_RESET_PASSWORD
+        : ApiAuthRoutes.USER_RESET_PASSWORD;
     return await apiClient.post(endpoint, data);
   },
 
@@ -204,8 +209,8 @@ export const authService = {
   ): Promise<boolean> => {
     const endpoint =
       role === "recruiter"
-        ? "/auth/recruiter/verify-reset-token"
-        : "/auth/user/verify-reset-token";
+        ? ApiAuthRoutes.RECRUITER_VERIFY_RESET_TOKEN
+        : ApiAuthRoutes.USER_VERIFY_RESET_TOKEN;
     return await apiClient.post(endpoint, { token });
   },
 
@@ -216,8 +221,8 @@ export const authService = {
   ): Promise<AuthResponse> => {
     const endpoint =
       role === "recruiter"
-        ? "/auth/recruiter/otp-verify"
-        : "/auth/user/otp-verify";
+        ? ApiAuthRoutes.RECRUITER_OTP_VERIFY
+        : ApiAuthRoutes.USER_OTP_VERIFY;
     const res = (await apiClient.post(endpoint, {
       email,
       otp,
@@ -244,7 +249,7 @@ export const authService = {
   ): Promise<{ message: string }> => {
     // Both user and recruiter use the same redis keys and mechanism for OTP,
     // and the backend only provides resend-otp on the user router.
-    const endpoint = "/auth/user/resend-otp";
+    const endpoint = ApiAuthRoutes.USER_RESEND_OTP;
     return await apiClient.post(endpoint, { email });
   },
 };
