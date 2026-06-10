@@ -9,6 +9,10 @@ export async function GET(request: Request) {
   const role = searchParams.get("role");
   const cookie = request.headers.get("cookie");
 
+  if (!cookie) {
+    return NextResponse.json({ blocked: false }, { status: 401 });
+  }
+
   console.log(`API check: block status for role=${role}`);
 
   // For block check, we can just hit the profile endpoint

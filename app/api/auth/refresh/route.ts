@@ -9,6 +9,13 @@ export async function POST(request: Request) {
   const role = searchParams.get("role");
   const cookie = request.headers.get("cookie");
 
+  if (!cookie) {
+    return NextResponse.json(
+      { success: false, blocked: false },
+      { status: 401 },
+    );
+  }
+
   let endpoint = "";
   if (role === "admin") endpoint = "/auth/admin/refresh";
   else if (role === "recruiter") endpoint = "/auth/recruiter/refresh";
