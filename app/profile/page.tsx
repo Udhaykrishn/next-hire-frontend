@@ -287,7 +287,7 @@ export default function ProfilePage() {
                         <button
                           type="button"
                           onClick={() => handleDeleteSkill(skill)}
-                          className="p-0.5 rounded-md hover:bg-red-50 text-gray-300 hover:text-red-500 transition-all opacity-0 group-hover/skill:opacity-100"
+                          className="p-0.5 rounded-md hover:bg-red-50 text-gray-300 hover:text-red-500 transition-all opacity-0 focus:opacity-100 group-hover/skill:opacity-100"
                         >
                           <X className="w-3.5 h-3.5" />
                         </button>
@@ -355,7 +355,7 @@ export default function ProfilePage() {
                         </p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="flex items-center gap-2 opacity-0 focus-within:opacity-100 group-hover:opacity-100 transition-opacity">
                       <Link
                         href={`/profile/language/edit/${lang.id}`}
                         className="p-2 rounded-xl hover:bg-wise-green/10 text-gray-400 hover:text-wise-green transition-colors"
