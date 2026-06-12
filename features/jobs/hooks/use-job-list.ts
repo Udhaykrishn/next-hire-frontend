@@ -1,10 +1,16 @@
 import { useState, useTransition } from "react";
 import { useAuthContext } from "@/features/auth/context/auth-context";
+import { useDebounce } from "@/hooks/use-debounce";
 import { useJobsForCandidateQuery } from "./use-jobs-query";
 
 export function useJobList() {
   const [query, setQuery] = useState("");
   const [location, setLocation] = useState("");
+
+  // Bolt: ⚡ Performance Optimization
+  // Debounce rapid input changes to reduce unnecessary API calls when typing
+  const debouncedQuery = useDebounce(query, 400);
+  const debouncedLocation = useDebounce(location, 400);
   const [selectedExperience, setSelectedExperience] = useState<string[]>([]);
   const [selectedSalary, setSelectedSalary] = useState<string[]>([]);
   const [selectedJobTypes, setSelectedJobTypes] = useState<string[]>([]);
@@ -13,8 +19,8 @@ export function useJobList() {
   const { isLoading: isAuthLoading } = useAuthContext();
 
   const { data: paginationResult } = useJobsForCandidateQuery({
-    search: query,
-    location: location,
+    search: debouncedQuery,
+    location: debouncedLocation,
     experience: selectedExperience,
     salary: selectedSalary,
     jobTypes: selectedJobTypes,

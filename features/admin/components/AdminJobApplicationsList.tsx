@@ -1,18 +1,18 @@
 "use client";
 
-import { useDebouncedValue } from "@tanstack/react-pacer";
 import { ExternalLink, FileText, Filter, Search, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { Button } from "@/components/animate-ui/components/buttons/button";
+import { useDebounce } from "@/hooks/use-debounce";
 import { useAdminJobApplications } from "../hooks/use-admin-job-applications";
 
 export const AdminJobApplicationsList = ({ jobId }: { jobId: string }) => {
   const [page, setPage] = useState(1);
   const limit = 10;
   const [searchTerm, setSearchTerm] = useState("");
-  const [debouncedSearch] = useDebouncedValue(searchTerm, { wait: 500 });
+  const debouncedSearch = useDebounce(searchTerm, 500);
   const [statusFilter, setStatusFilter] = useState("ALL");
 
   const { data, isLoading } = useAdminJobApplications(
