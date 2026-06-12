@@ -1,19 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useDebounce } from "@/hooks/use-debounce";
 import { useCandidateApplicationsQuery } from "./use-jobs-query";
-
-// Simple custom debounce hook
-function useDebounce<T>(value: T, delay: number): T {
-  const [debouncedValue, setDebouncedValue] = useState<T>(value);
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [value, delay]);
-  return debouncedValue;
-}
 
 const defaultStats = { total: 0, reviewing: 0, interviews: 0, offers: 0 };
 

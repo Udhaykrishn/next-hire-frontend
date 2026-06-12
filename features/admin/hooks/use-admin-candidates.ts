@@ -1,7 +1,7 @@
-import { useDebouncedValue } from "@tanstack/react-pacer";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { toast } from "sonner";
+import { useDebounce } from "@/hooks/use-debounce";
 import { adminService } from "../services/admin.api";
 
 export const useAdminCandidates = () => {
@@ -11,8 +11,8 @@ export const useAdminCandidates = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
 
-  // Use TanStack Pacer's useDebouncedValue to throttle/debounce search queries to the NestJS backend
-  const [debouncedSearchQuery] = useDebouncedValue(searchQuery, { wait: 400 });
+  // Use debounce hook to throttle/debounce search queries to the backend
+  const debouncedSearchQuery = useDebounce(searchQuery, 400);
 
   const { data, isPending } = useQuery({
     queryKey: [
