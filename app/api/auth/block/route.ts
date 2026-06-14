@@ -1,9 +1,18 @@
 import axios from "axios";
+import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { COOKIE_NAMES } from "@/constants/routes";
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL;
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
+  if (
+    !request.cookies.has(COOKIE_NAMES.at) &&
+    !request.cookies.has(COOKIE_NAMES.sid)
+  ) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const { searchParams } = new URL(request.url);
   const role = searchParams.get("role");
   const cookie = request.headers.get("cookie");

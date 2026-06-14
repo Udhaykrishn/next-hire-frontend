@@ -2,3 +2,7 @@
 **Vulnerability:** Found `dangerouslySetInnerHTML` in `JobDescriptionCard.tsx` and `AdminJobDetails.tsx` being used with unsanitized user inputs (`job.description` and `job.jobDescription`), resulting in potential Cross-Site Scripting (XSS) vulnerabilities.
 **Learning:** Even internal and admin-facing components are susceptible to XSS if user-provided content (like job descriptions) is rendered directly without sanitization. The use of React's `dangerouslySetInnerHTML` requires mandatory sanitization for safety.
 **Prevention:** Always use a well-tested HTML sanitization library (such as `DOMPurify`, or `isomorphic-dompurify` for Next.js SSR applications) to wrap user-provided HTML content *before* rendering it via `dangerouslySetInnerHTML`.
+## 2026-06-14 - Add authentication check to Auth API routes
+**Vulnerability:** Unauthenticated API routes (`/api/auth/block` and `/api/auth/refresh`) allowed anyone to trigger server-side requests to the backend. This could potentially lead to Server-Side Request Forgery (SSRF) risks, resource exhaustion, or other abuse.
+**Learning:** Even internal-facing proxy endpoints or routes intended for authenticated workflows (like refreshing a token or checking block status) must explicitly validate authentication context (e.g., verifying `accessToken` or `session_id` cookies) before proxying requests to the backend.
+**Prevention:** Always use `NextRequest` and `request.cookies.has()` to ensure the correct authentication cookies are present before executing any backend request logic in Next.js route handlers.
