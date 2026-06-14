@@ -1,0 +1,3 @@
+## 2024-05-24 - Screen Reader Support & Keyboard Accessibility for Icon-only Hover Actions
+**Learning:** Hiding icon-only action buttons (like Edit/Delete) using `opacity-0 group-hover:opacity-100` makes them completely inaccessible to keyboard users and screen readers unless paired with `focus-within:opacity-100` on the parent, `focus-visible:ring` on the interactive element itself, and appropriate `aria-label`/`title` attributes.
+**Action:** Always ensure that any interactive elements hidden via hover states also appear on `focus-within`. Additionally, verify that any icon-only button contains explicit `aria-label` and `title` attributes for screen reader and tooltip support.
