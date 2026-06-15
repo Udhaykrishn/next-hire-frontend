@@ -96,8 +96,11 @@ export default function AdminSettings() {
                   </div>
                   <button
                     type="button"
+                    role="switch"
+                    aria-checked={setting.enabled}
+                    aria-label={`Toggle ${setting.name}`}
                     className={cn(
-                      "w-12 h-6 rounded-full relative transition-all duration-300 focus:outline-none",
+                      "w-12 h-6 rounded-full relative transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-wise-green focus-visible:ring-offset-2",
                       setting.enabled
                         ? "bg-wise-green shadow-inner"
                         : "bg-gray-200",
