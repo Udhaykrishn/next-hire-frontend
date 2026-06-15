@@ -1,3 +1,4 @@
+import { useDebouncedValue } from "@tanstack/react-pacer";
 import { useState, useTransition } from "react";
 import { useAuthContext } from "@/features/auth/context/auth-context";
 import { useJobsForCandidateQuery } from "./use-jobs-query";
@@ -12,9 +13,12 @@ export function useJobList() {
 
   const { isLoading: isAuthLoading } = useAuthContext();
 
+  const [debouncedQuery] = useDebouncedValue(query, { wait: 400 });
+  const [debouncedLocation] = useDebouncedValue(location, { wait: 400 });
+
   const { data: paginationResult } = useJobsForCandidateQuery({
-    search: query,
-    location: location,
+    search: debouncedQuery,
+    location: debouncedLocation,
     experience: selectedExperience,
     salary: selectedSalary,
     jobTypes: selectedJobTypes,
