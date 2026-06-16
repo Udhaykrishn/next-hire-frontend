@@ -9,6 +9,19 @@ export async function POST(request: Request) {
   const role = searchParams.get("role");
   const cookie = request.headers.get("cookie");
 
+  const csrfHeader = request.headers.get("x-xsrf-token");
+  const csrfCookieMatch = cookie?.match(/(?:^|; )XSRF-TOKEN=([^;]*)/);
+  const csrfCookie = csrfCookieMatch
+    ? decodeURIComponent(csrfCookieMatch[1])
+    : null;
+
+  if (!csrfHeader || !csrfCookie || csrfHeader !== csrfCookie) {
+    return NextResponse.json(
+      { success: false, error: "CSRF token mismatch" },
+      { status: 403 },
+    );
+  }
+
   let endpoint = "";
   if (role === "admin") endpoint = "/auth/admin/refresh";
   else if (role === "recruiter") endpoint = "/auth/recruiter/refresh";

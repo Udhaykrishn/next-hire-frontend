@@ -93,9 +93,11 @@ apiClient.interceptors.response.use(
         // Use fetch() with a root-relative path so the request always hits the
         // Next.js API route at /api/auth/refresh — NOT the backend via apiClient's
         // baseURL (which would resolve to http://backend-host/api/v1/api/auth/refresh).
+        const token = getCsrfToken();
         const refreshRes = await fetch(`/api/auth/refresh?role=${role}`, {
           method: "POST",
           credentials: "include",
+          headers: token ? { "X-XSRF-TOKEN": token } : undefined,
         });
 
         if (!refreshRes.ok) {
