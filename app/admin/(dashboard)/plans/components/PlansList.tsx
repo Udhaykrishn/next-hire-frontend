@@ -157,10 +157,12 @@ export function PlansList({
                       </button>
                     </td>
                     <td className="px-8 py-6 text-right">
-                      <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-all">
+                      <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-all">
                         <button
                           type="button"
                           className="p-3 bg-gray-50 text-gray-400 hover:text-near-black hover:bg-white border border-transparent hover:border-gray-100 rounded-xl transition-all"
+                          aria-label={`Edit ${plan.name} plan`}
+                          title={`Edit ${plan.name} plan`}
                         >
                           <Edit2 className="w-4 h-4" />
                         </button>
@@ -168,6 +170,8 @@ export function PlansList({
                           type="button"
                           onClick={() => handleDelete(plan.id)}
                           className="p-3 bg-gray-50 text-gray-400 hover:text-red-500 hover:bg-red-50 border border-transparent hover:border-red-100 rounded-xl transition-all"
+                          aria-label={`Delete ${plan.name} plan`}
+                          title={`Delete ${plan.name} plan`}
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
