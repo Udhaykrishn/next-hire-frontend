@@ -1,8 +1,13 @@
+"use client";
+
 import { ArrowLeft, Compass, Home } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Logo } from "@/components/logo";
 
 export default function NotFound() {
+  const router = useRouter();
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col font-satoshi selection:bg-wise-green selection:text-dark-green relative overflow-hidden">
       {/* Immersive Glowing Background Blobs */}
@@ -43,13 +48,14 @@ export default function NotFound() {
 
           {/* Actions */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-            <Link
-              href="/profile"
+            <button
+              type="button"
+              onClick={() => router.back()}
               className="w-full sm:w-auto h-12 px-8 rounded-2xl bg-gray-900 text-white hover:bg-black hover:shadow-lg hover:shadow-gray-900/10 transition-all text-[13px] font-black flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98]"
             >
               <ArrowLeft className="w-4 h-4" />
-              Back to Profile
-            </Link>
+              Go Back
+            </button>
             <Link
               href="/"
               className="w-full sm:w-auto h-12 px-8 rounded-2xl bg-white text-gray-700 hover:bg-gray-50 transition-all text-[13px] font-black flex items-center justify-center gap-2 border border-gray-200/80 hover:border-gray-300 hover:scale-[1.02] active:scale-[0.98]"

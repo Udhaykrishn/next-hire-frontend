@@ -11,4 +11,5 @@ export interface PricingPlan {
   type: "candidate" | "recruiter";
   status: "Active" | "Archived" | "Draft" | "Inactive";
   subscribers: number;
+  stripePriceId?: string;
 }

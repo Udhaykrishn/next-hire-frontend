@@ -65,7 +65,7 @@ apiClient.interceptors.response.use(
     const backendMessage =
       error.response?.data?.error?.message || error.response?.data?.message;
     const message = backendMessage || error.message || "Something went wrong";
-    const isBlockedError = error.response?.status === 403;
+    const _isBlockedError = error.response?.status === 403;
 
     // Do NOT attempt a token refresh if the failing request IS the refresh endpoint.
     // That would cause an infinite retry loop and an unwarranted logout redirect.
@@ -141,30 +141,30 @@ apiClient.interceptors.response.use(
       }
     }
 
-    if (isBlockedError) {
-      if (typeof window !== "undefined") {
-        const pathname = window.location.pathname;
-        if (!isPublicRoute(pathname)) {
-          let targetPath = "/login";
-          if (pathname.startsWith("/admin")) targetPath = "/admin/login";
-          else if (pathname.startsWith("/recruiter"))
-            targetPath = "/recruiter/login";
+    // if (isBlockedError) {
+    //   if (typeof window !== "undefined") {
+    //     const pathname = window.location.pathname;
+    //     if (!isPublicRoute(pathname)) {
+    //       let targetPath = "/login";
+    //       if (pathname.startsWith("/admin")) targetPath = "/admin/login";
+    //       else if (pathname.startsWith("/recruiter"))
+    //         targetPath = "/recruiter/login";
 
-          if (pathname !== targetPath) {
-            window.location.href = new URL(
-              `${targetPath}?error=blocked`,
-              window.location.origin,
-            ).toString();
-          }
-        }
-      }
-    } else {
-      const url = error.config?.url;
-      const _isExpectedAuthError =
-        url === "/user/profile" ||
-        url === "/recruiter/profile" ||
-        url?.includes("/auth/admin/recruiter/status");
-    }
+    //       if (pathname !== targetPath) {
+    //         window.location.href = new URL(
+    //           `${targetPath}?error=blocked`,
+    //           window.location.origin,
+    //         ).toString();
+    //       }
+    //     }
+    //   }
+    // } else {
+    //   const url = error.config?.url;
+    //   const _isExpectedAuthError =
+    //     url === "/user/profile" ||
+    //     url === "/recruiter/profile" ||
+    //     url?.includes("/auth/admin/recruiter/status");
+    // }
 
     return Promise.reject(new Error(message));
   },

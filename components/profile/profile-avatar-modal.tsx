@@ -57,14 +57,13 @@ export function ProfileAvatarModal({
   } = useAvatarManager({
     handleUploadAvatar,
     handleDeleteAvatar,
-    avatarUrl,
   });
 
-  const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+  const onDragOver = (e: React.DragEvent<HTMLButtonElement>) => {
     e.preventDefault();
   };
 
-  const onDrop = (e: React.DragEvent<HTMLDivElement>) => {
+  const onDrop = (e: React.DragEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const file = e.dataTransfer.files?.[0];
     if (file) {

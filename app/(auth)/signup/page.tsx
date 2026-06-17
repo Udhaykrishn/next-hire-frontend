@@ -338,7 +338,12 @@ export default function UserSignupPage() {
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <OtpForm id={formData.email} onVerify={handleVerifyOtp} />
+                  {/* biome-ignore lint/a11y/useValidAriaRole: Custom role prop for this component */}
+                  <OtpForm
+                    id={formData.email}
+                    role="user"
+                    onVerify={handleVerifyOtp}
+                  />
                   <div className="mt-6 text-center">
                     <button
                       type="button"
