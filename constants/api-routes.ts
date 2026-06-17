@@ -61,3 +61,7 @@ export enum ApiAdminRoutes {
   CANDIDATES = "/user",
   JOBS = "/job/all",
 }
+
+export enum ApiStripeRoutes {
+  CREATE_CHECKOUT_SESSION = "/stripe/create-checkout-session",
+}

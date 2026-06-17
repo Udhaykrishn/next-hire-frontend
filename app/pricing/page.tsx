@@ -7,6 +7,8 @@ import { Suspense, useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/animate-ui/components/buttons/button";
 import { LandingFooter } from "@/components/landing-footer";
 import { LandingNavbar } from "@/components/landing-navbar";
+import { useAuthContext } from "@/features/auth/context/auth-context";
+import { useCheckout } from "@/features/pricing/hooks/useCheckout";
 import { usePricing } from "@/hooks/use-pricing";
 import { cn } from "@/lib/utils";
 
@@ -35,6 +37,8 @@ export function PricingContent({
   const tabParam = searchParams.get("tab");
   const [type, setType] = useState<"candidate" | "recruiter">("candidate");
   const [isRoleForced, setIsRoleForced] = useState(false);
+  const { user, isAuthenticated, role } = useAuthContext();
+  const checkoutMutation = useCheckout();
 
   useEffect(() => {
     const isRecruiterPath = pathname?.startsWith("/recruiter");
@@ -212,8 +216,45 @@ export function PricingContent({
                       ? "bg-wise-green text-dark-green hover:bg-wise-green/90 shadow-lg shadow-wise-green/20"
                       : "bg-gray-900 text-white hover:bg-gray-800"
                   }`}
+                  disabled={
+                    checkoutMutation.isPending &&
+                    checkoutMutation.variables?.priceId === plan.stripePriceId
+                  }
+                  onClick={() => {
+                    if (plan.stripePriceId) {
+                      if (!isAuthenticated || !user) {
+                        // Redirect to login if they try to checkout while unauthenticated
+                        window.location.href =
+                          type === "recruiter" ? "/recruiter/login" : "/login";
+                        return;
+                      }
+                      checkoutMutation.mutate({
+                        priceId: plan.stripePriceId,
+                        userId: user.id,
+                        email: user.email,
+                        role: role || type,
+                      });
+                    } else {
+                      // Handle non-paid plans (e.g. "Free" plan)
+                      if (!isAuthenticated) {
+                        window.location.href =
+                          type === "recruiter"
+                            ? "/recruiter/signup"
+                            : "/signup";
+                      } else {
+                        // Maybe redirect to dashboard
+                        window.location.href =
+                          type === "recruiter"
+                            ? "/recruiter/dashboard"
+                            : "/jobs";
+                      }
+                    }
+                  }}
                 >
-                  {plan.cta}
+                  {checkoutMutation.isPending &&
+                  checkoutMutation.variables?.priceId === plan.stripePriceId
+                    ? "Loading..."
+                    : plan.cta}
                 </Button>
               </motion.div>
             ))}

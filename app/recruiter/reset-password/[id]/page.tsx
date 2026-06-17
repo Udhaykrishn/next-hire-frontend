@@ -58,7 +58,8 @@ export default function RecruiterResetPasswordPage({
           </CardHeader>
 
           <CardContent className="space-y-6 pt-8 px-10">
-            <ResetPasswordForm token={resolvedParams.id} />
+            {/* biome-ignore lint/a11y/useValidAriaRole: Custom role prop for this component */}
+            <ResetPasswordForm token={resolvedParams.id} role="recruiter" />
           </CardContent>
 
           <CardFooter className="flex justify-center pb-8 pt-4">
