@@ -1,6 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { pricingService } from "@/services/pricing.service";
+import {
+  getAdminPlans,
+  createAdminPlan,
+  deleteAdminPlan,
+  updateAdminPlanStatus,
+} from "../services/admin-plans.api";
 import type { PricingPlan } from "@/types/pricing";
 
 export const usePlansAdmin = () => {
@@ -27,12 +32,12 @@ export const usePlansAdmin = () => {
 
   const { data: plans = [], isLoading } = useQuery({
     queryKey: ["admin-plans"],
-    queryFn: () => pricingService.getPlans(),
+    queryFn: () => getAdminPlans(),
   });
 
   const createMutation = useMutation({
     mutationFn: (plan: Omit<PricingPlan, "id" | "subscribers" | "status">) =>
-      pricingService.createPlan(plan),
+      createAdminPlan(plan),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["admin-plans"] });
       setIsCreating(false);
@@ -52,7 +57,7 @@ export const usePlansAdmin = () => {
   });
 
   const deleteMutation = useMutation({
-    mutationFn: (id: string) => pricingService.deletePlan(id),
+    mutationFn: (id: string) => deleteAdminPlan(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["admin-plans"] });
     },
@@ -65,7 +70,7 @@ export const usePlansAdmin = () => {
     }: {
       id: string;
       status: "Active" | "Archived" | "Inactive";
-    }) => pricingService.updatePlan(id, { status }),
+    }) => updateAdminPlanStatus(id, status),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["admin-plans"] });
     },
