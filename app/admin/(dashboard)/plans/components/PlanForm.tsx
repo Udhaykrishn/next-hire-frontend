@@ -273,8 +273,10 @@ export function PlanForm({
                     />
                     <button
                       type="button"
+                      aria-label={`Remove value driver #${idx + 1}`}
+                      title={`Remove value driver #${idx + 1}`}
                       onClick={() => removeFeature(idx)}
-                      className="w-14 h-14 rounded-xl border border-gray-100 flex items-center justify-center text-gray-300 hover:text-red-500 hover:bg-red-50 transition-all opacity-0 group-hover:opacity-100"
+                      className="w-14 h-14 rounded-xl border border-gray-100 flex items-center justify-center text-gray-300 hover:text-red-500 hover:bg-red-50 transition-all opacity-0 group-hover:opacity-100 focus:opacity-100"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>

@@ -355,15 +355,19 @@ export default function ProfilePage() {
                         </p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity">
                       <Link
                         href={`/profile/language/edit/${lang.id}`}
+                        aria-label={`Edit ${lang.language} language`}
+                        title={`Edit ${lang.language} language`}
                         className="p-2 rounded-xl hover:bg-wise-green/10 text-gray-400 hover:text-wise-green transition-colors"
                       >
                         <Edit2 className="w-4 h-4" />
                       </Link>
                       <button
                         type="button"
+                        aria-label={`Delete ${lang.language} language`}
+                        title={`Delete ${lang.language} language`}
                         onClick={() => handleDeleteLanguage(lang.id)}
                         className="p-2 rounded-xl hover:bg-red-50 text-gray-400 hover:text-red-500 transition-colors"
                       >
