@@ -178,7 +178,7 @@ export const Step4Preview = ({
               }
             />
 
-            <div className="pt-6 mt-6 border-t border-gray-100">
+            <div className="pt-6 mt-6 border-t border-gray-100 space-y-6">
               <InfoRow
                 label="Job Description"
                 value={
@@ -187,9 +187,21 @@ export const Step4Preview = ({
                     // biome-ignore lint/security/noDangerouslySetInnerHtml: Sanitized using DOMPurify
                     dangerouslySetInnerHTML={{
                       __html: DOMPurify.sanitize(
-                        formData.jobDescription ||
-                          formData.description ||
-                          "None",
+                        formData.description || "None",
+                      ),
+                    }}
+                  />
+                }
+              />
+              <InfoRow
+                label="Detailed Job Role & Responsibilities"
+                value={
+                  <div
+                    className="prose prose-sm max-w-none text-near-black font-bold"
+                    // biome-ignore lint/security/noDangerouslySetInnerHtml: Sanitized using DOMPurify
+                    dangerouslySetInnerHTML={{
+                      __html: DOMPurify.sanitize(
+                        formData.jobDescription || "None",
                       ),
                     }}
                   />
