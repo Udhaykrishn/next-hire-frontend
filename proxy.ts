@@ -133,6 +133,7 @@ export async function proxy(request: NextRequest) {
           method: "POST",
           headers: {
             cookie: request.headers.get("cookie") ?? "",
+            "X-XSRF-TOKEN": request.cookies.get("XSRF-TOKEN")?.value ?? "",
           },
         },
       );
