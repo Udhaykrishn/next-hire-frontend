@@ -2,7 +2,7 @@
 
 import ISO6391 from "iso-639-1";
 import { ChevronDown } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "@/components/animate-ui/components/buttons/button";
 import type { Language } from "@/context/profile-context";
 
@@ -52,9 +52,15 @@ export const LanguageForm = ({
     };
   }, [selectedLanguage]);
 
-  const filteredLanguages = LANGUAGES_LIST.filter((lang) =>
-    lang.toLowerCase().includes(searchQuery.toLowerCase()),
-  );
+  // Bolt: ⚡ Performance Optimization
+  // Wrap in useMemo and extract toLowerCase() to prevent recalculating on every render
+  const filteredLanguages = useMemo(() => {
+    if (!searchQuery) return LANGUAGES_LIST;
+    const searchLower = searchQuery.toLowerCase();
+    return LANGUAGES_LIST.filter((lang) =>
+      lang.toLowerCase().includes(searchLower),
+    );
+  }, [searchQuery]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
