@@ -25,14 +25,16 @@ export function AdminHeader() {
           <button
             type="button"
             aria-label="Light mode"
-            className="p-2 rounded-lg text-gray-400 hover:text-near-black hover:bg-white transition-all"
+            title="Light mode"
+            className="p-2 rounded-lg text-gray-400 hover:text-near-black hover:bg-white focus-visible:ring-2 focus-visible:ring-wise-green focus-visible:outline-none transition-all"
           >
             <Sun className="w-4 h-4" />
           </button>
           <button
             type="button"
             aria-label="Dark mode"
-            className="p-2 rounded-lg text-gray-400 hover:text-near-black hover:bg-white transition-all"
+            title="Dark mode"
+            className="p-2 rounded-lg text-gray-400 hover:text-near-black hover:bg-white focus-visible:ring-2 focus-visible:ring-wise-green focus-visible:outline-none transition-all"
           >
             <Moon className="w-4 h-4" />
           </button>
@@ -41,7 +43,8 @@ export function AdminHeader() {
         <button
           type="button"
           aria-label="Notifications"
-          className="relative p-2.5 bg-gray-50 border border-gray-100 rounded-xl text-gray-500 hover:text-near-black transition-all group"
+          title="Notifications"
+          className="relative p-2.5 bg-gray-50 border border-gray-100 rounded-xl text-gray-500 hover:text-near-black focus-visible:ring-2 focus-visible:ring-wise-green focus-visible:outline-none transition-all group"
         >
           <Bell className="w-5 h-5 group-hover:rotate-12 duration-300" />
           <span className="absolute top-2 right-2 w-2 h-2 bg-wise-green border-2 border-white rounded-full" />
