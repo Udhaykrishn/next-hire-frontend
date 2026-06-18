@@ -132,6 +132,8 @@ export function CandidateApplicationCard({
           <Link href={`/jobs/${job.id}`} passHref>
             <button
               type="button"
+              aria-label="View Job Details"
+              title="View Job Details"
               className="w-[42px] h-[42px] flex items-center justify-center bg-gray-900 text-white hover:bg-wise-green hover:text-dark-green rounded-xl transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-wise-green/20 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-wise-green focus-visible:ring-offset-2 group/btn"
             >
               <ChevronRight className="w-4 h-4 group-hover/btn:translate-x-0.5 transition-transform" />
