@@ -1,4 +1,4 @@
-import { Building, Briefcase, Clock, MapPin, ChevronDown } from "lucide-react";
+import { Building, Briefcase, Clock, MapPin, ChevronDown, SearchX } from "lucide-react";
 import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -44,6 +44,7 @@ interface JobResultsListProps {
   experience: string[];
   salary: string[];
   jobTypes: string[];
+  locationTypes: string[];
 }
 
 export function JobResultsList({
@@ -52,6 +53,7 @@ export function JobResultsList({
   experience,
   salary,
   jobTypes,
+  locationTypes,
 }: JobResultsListProps) {
   const { data: paginationResult } = useJobsForCandidateQuery({
     search,
@@ -59,6 +61,7 @@ export function JobResultsList({
     experience,
     salary,
     jobTypes,
+    locationTypes,
   });
 
   const jobs = paginationResult?.data || [];
@@ -83,9 +86,22 @@ export function JobResultsList({
         </div>
       </div>
 
-      {jobs.map((job, index) => (
-        <motion.div
-          key={`${job.id || "job"}-${index}`}
+      {jobs.length === 0 ? (
+        <div className="bg-white p-12 rounded-[2rem] border border-gray-100 shadow-sm flex flex-col items-center justify-center text-center mt-6">
+          <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mb-6">
+            <SearchX className="w-10 h-10 text-gray-400" />
+          </div>
+          <h3 className="text-[20px] font-black text-gray-900 mb-2">
+            No jobs found
+          </h3>
+          <p className="text-[15px] font-medium text-gray-500 max-w-md">
+            We couldn't find any jobs matching your current filters. Try adjusting your search criteria or clearing filters.
+          </p>
+        </div>
+      ) : (
+        jobs.map((job, index) => (
+          <motion.div
+            key={`${job.id || "job"}-${index}`}
           layout
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

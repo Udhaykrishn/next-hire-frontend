@@ -26,9 +26,11 @@ export default function JobList() {
     selectedExperience,
     selectedSalary,
     selectedJobTypes,
+    selectedLocationTypes,
     toggleExperience,
     toggleSalary,
     toggleJobType,
+    toggleLocationType,
     resetFilters,
     debouncedQuery,
     debouncedLocation,
@@ -173,6 +175,30 @@ export default function JobList() {
                     ))}
                   </AccordionPanel>
                 </AccordionItem>
+
+                <AccordionItem value="location-type" className="border-none">
+                  <AccordionTrigger className="px-0 py-2 hover:no-underline font-bold text-[15px] text-gray-900">
+                    Location Type
+                  </AccordionTrigger>
+                  <AccordionPanel className="pt-2 pb-4 space-y-3">
+                    {["Remote", "On-site", "Hybrid"].map((type) => (
+                      <label
+                        key={type}
+                        className="flex items-center gap-3 cursor-pointer group"
+                      >
+                        <input
+                          type="checkbox"
+                          checked={selectedLocationTypes.includes(type)}
+                          onChange={() => toggleLocationType(type)}
+                          className="w-4 h-4 rounded border-gray-200 text-wise-green focus:ring-wise-green/20"
+                        />
+                        <span className="text-[14px] text-gray-600 font-medium group-hover:text-gray-900 transition-colors">
+                          {type}
+                        </span>
+                      </label>
+                    ))}
+                  </AccordionPanel>
+                </AccordionItem>
               </Accordion>
             </div>
           </aside>
@@ -193,6 +219,7 @@ export default function JobList() {
               experience={selectedExperience}
               salary={selectedSalary}
               jobTypes={selectedJobTypes}
+              locationTypes={selectedLocationTypes}
             />
           </Suspense>
 

@@ -70,6 +70,7 @@ export interface SearchJobsParams {
   experience?: string[];
   salary?: string[];
   jobTypes?: string[];
+  locationTypes?: string[];
 }
 
 export interface PaginationResponse<T> {

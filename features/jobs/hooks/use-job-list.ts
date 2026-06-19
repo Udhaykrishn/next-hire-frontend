@@ -8,6 +8,7 @@ export function useJobList() {
   const [selectedExperience, setSelectedExperience] = useState<string[]>([]);
   const [selectedSalary, setSelectedSalary] = useState<string[]>([]);
   const [selectedJobTypes, setSelectedJobTypes] = useState<string[]>([]);
+  const [selectedLocationTypes, setSelectedLocationTypes] = useState<string[]>([]);
   const [_isPending, startTransition] = useTransition();
 
   const { isLoading: isAuthLoading } = useAuthContext();
@@ -45,11 +46,22 @@ export function useJobList() {
     });
   };
 
+  const toggleLocationType = (type: string) => {
+    startTransition(() => {
+      setSelectedLocationTypes((prev) =>
+        prev.includes(type)
+          ? prev.filter((item) => item !== type)
+          : [...prev, type],
+      );
+    });
+  };
+
   const resetFilters = () => {
     startTransition(() => {
       setSelectedExperience([]);
       setSelectedSalary([]);
       setSelectedJobTypes([]);
+      setSelectedLocationTypes([]);
       setQuery("");
       setLocation("");
     });
@@ -63,9 +75,11 @@ export function useJobList() {
     selectedExperience,
     selectedSalary,
     selectedJobTypes,
+    selectedLocationTypes,
     toggleExperience,
     toggleSalary,
     toggleJobType,
+    toggleLocationType,
     resetFilters,
     debouncedQuery,
     debouncedLocation,
