@@ -2,6 +2,7 @@ import {
   ApiAuthRoutes,
   ApiRecruiterRoutes,
   ApiUserRoutes,
+  ApiInterviewerRoutes,
 } from "@/constants/api-routes";
 import type { ApiResponse } from "@/features/profile/types/profile.types";
 import { apiClient } from "@/lib/api-client";
@@ -17,11 +18,12 @@ export const authService = {
   login: async (
     email: string,
     password: string,
-    role: "admin" | "recruiter" | "user" = "user",
+    role: "admin" | "recruiter" | "user" | "interviewer" = "user",
   ): Promise<AuthResponse> => {
     let endpoint: string = ApiAuthRoutes.USER_LOGIN;
     if (role === "admin") endpoint = ApiAuthRoutes.ADMIN_LOGIN;
     else if (role === "recruiter") endpoint = ApiAuthRoutes.RECRUITER_LOGIN;
+    else if (role === "interviewer") endpoint = ApiAuthRoutes.INTERVIEWER_LOGIN;
 
     const res = (await apiClient.post(endpoint, {
       email,
@@ -33,6 +35,7 @@ export const authService = {
     let defaultRole: UserRole = "CANDIDATE";
     if (role === "admin") defaultRole = "ADMIN";
     else if (role === "recruiter") defaultRole = "RECRUITER";
+    else if (role === "interviewer") defaultRole = "INTERVIEWER";
 
     return {
       user: response?.user || {
@@ -113,6 +116,17 @@ export const authService = {
             },
           };
         }
+        if (pathname.startsWith("/interviewer")) {
+          const res = (await apiClient.get(
+            ApiInterviewerRoutes.PROFILE,
+          )) as ApiResponse<Record<string, unknown>>;
+          return {
+            data: {
+              ...res.data,
+              role: "INTERVIEWER",
+            },
+          };
+        }
       }
 
       // Default/Fallback logic
@@ -138,7 +152,19 @@ export const authService = {
             },
           };
         } catch {
-          throw userErr;
+          try {
+            const res = (await apiClient.get(
+              ApiInterviewerRoutes.PROFILE,
+            )) as ApiResponse<Record<string, unknown>>;
+            return {
+              data: {
+                ...res.data,
+                role: "INTERVIEWER",
+              },
+            };
+          } catch {
+            throw userErr;
+          }
         }
       }
     } catch {
@@ -147,11 +173,13 @@ export const authService = {
   },
 
   logout: async (
-    role: "admin" | "recruiter" | "user" = "user",
+    role: "admin" | "recruiter" | "user" | "interviewer" = "user",
   ): Promise<void> => {
     let endpoint: string = ApiAuthRoutes.USER_LOGOUT;
     if (role === "admin") endpoint = ApiAuthRoutes.ADMIN_LOGOUT;
     else if (role === "recruiter") endpoint = ApiAuthRoutes.RECRUITER_LOGOUT;
+    else if (role === "interviewer")
+      endpoint = ApiAuthRoutes.INTERVIEWER_LOGOUT;
     await apiClient.post(endpoint);
   },
 

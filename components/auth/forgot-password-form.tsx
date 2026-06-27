@@ -6,23 +6,59 @@ import type React from "react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/animate-ui/components/buttons/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { AUTH_PRIMARY_BTN } from "@/components/auth/auth-shell";
+import { DynamicFormFields } from "@/components/forms/dynamic-form-fields";
+import { useFormConfig } from "@/features/admin-forms/hooks/use-form-config";
+import { validateForm } from "@/features/admin-forms/lib/validate-form";
+import type { FormField } from "@/features/admin-forms/types/form.types";
 import { useAuth } from "@/features/auth/hooks/use-auth";
 
 interface ForgotPasswordFormProps {
   authRole: "recruiter" | "user";
 }
 
+const FALLBACK_FIELDS: FormField[] = [
+  {
+    key: "email",
+    label: "Email address",
+    type: "email",
+    placeholder: "jane@company.com",
+    required: true,
+    enabled: true,
+    locked: true,
+    custom: false,
+    order: 0,
+  },
+];
+
 export function ForgotPasswordForm({ authRole }: ForgotPasswordFormProps) {
-  const [email, setEmail] = useState("");
+  const [values, setValues] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { forgotPassword, isLoading, error } = useAuth();
+  const { fields: configFields } = useFormConfig("auth.forgot-password");
+  const fields = configFields ?? FALLBACK_FIELDS;
+
+  const handleChange = (key: string, value: string) => {
+    setValues((prev) => ({ ...prev, [key]: value }));
+    setErrors((prev) => {
+      if (!prev[key]) return prev;
+      const next = { ...prev };
+      delete next[key];
+      return next;
+    });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const errs = validateForm(fields, values);
+    if (Object.keys(errs).length > 0) {
+      setErrors(errs);
+      return;
+    }
+    setErrors({});
     try {
-      await forgotPassword(email, authRole);
+      await forgotPassword(values.email, authRole);
       setIsSubmitted(true);
       toast.success("Password reset link sent successfully!");
     } catch (err: unknown) {
@@ -37,15 +73,17 @@ export function ForgotPasswordForm({ authRole }: ForgotPasswordFormProps) {
 
   if (isSubmitted) {
     return (
-      <div className="space-y-4 text-center py-6">
-        <div className="w-12 h-12 bg-wise-green/10 text-wise-green rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
-          <Mail className="w-6 h-6" />
+      <div className="flex flex-col items-center text-center space-y-4 py-4">
+        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-success/10 text-success">
+          <Mail className="h-6 w-6" />
         </div>
-        <h3 className="text-xl font-bold text-gray-900">Check your email</h3>
-        <p className="text-sm text-gray-500 font-medium leading-relaxed max-w-sm mx-auto">
-          We have sent a secure password reset link to{" "}
-          <span className="font-bold text-gray-800">{email}</span>. Please click
-          the link in the email to reset your password.
+        <h3 className="font-display text-[22px] font-medium tracking-tight text-ink">
+          Check your email
+        </h3>
+        <p className="max-w-sm text-sm leading-relaxed text-muted-soft">
+          If an account exists for{" "}
+          <span className="font-semibold text-ink">{values.email}</span>, a
+          reset link is on its way. The link works for 30 minutes.
         </p>
       </div>
     );
@@ -53,35 +91,17 @@ export function ForgotPasswordForm({ authRole }: ForgotPasswordFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
-      <div className="space-y-2">
-        <Label
-          htmlFor="email"
-          className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
-        >
-          <Mail className="w-4 h-4 text-wise-green" /> Email Address
-        </Label>
-        <Input
-          id="email"
-          type="email"
-          placeholder="jane@company.com"
-          className="h-12 bg-white border-gray-200 text-gray-900 rounded-xl focus:border-wise-green focus:ring-1 focus:ring-wise-green/30 transition-all shadow-sm placeholder:text-gray-400"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-      </div>
+      <DynamicFormFields
+        fields={fields}
+        values={values}
+        onChange={handleChange}
+        errors={errors}
+        idPrefix="forgot"
+      />
 
-      <motion.div
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-        className="pt-2"
-      >
-        <Button
-          type="submit"
-          className="w-full h-12 bg-wise-green text-dark-green font-black rounded-xl hover:bg-wise-green/90 transition-all text-lg shadow-[0_0_20px_rgba(159,232,112,0.2)] mt-2"
-          disabled={isLoading}
-        >
-          {isLoading ? "Sending Link..." : "Send Reset Link"}
+      <motion.div whileTap={{ scale: 0.98 }} className="pt-2">
+        <Button type="submit" className={AUTH_PRIMARY_BTN} disabled={isLoading}>
+          {isLoading ? "Sending link…" : "Send reset link"}
         </Button>
       </motion.div>
 
@@ -89,7 +109,8 @@ export function ForgotPasswordForm({ authRole }: ForgotPasswordFormProps) {
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="text-sm text-red-600 text-center font-bold bg-red-50 border border-red-200 p-3 rounded-lg mt-4"
+          role="alert"
+          className="mt-4 rounded-xl bg-red-50 p-3 text-center text-sm font-semibold text-destructive"
         >
           {error}
         </motion.p>

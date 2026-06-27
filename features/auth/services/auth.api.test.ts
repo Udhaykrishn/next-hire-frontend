@@ -106,14 +106,19 @@ describe("authService.getCurrentUser", () => {
 
   test("error path: default/candidate API fails, falls back to recruiter", async () => {
     setWindowPathname("/");
-    const getSpy = spyOn(apiClient, "get").mockImplementation(async (url) => {
+    const getSpy = spyOn(apiClient, "get").mockImplementation(((
+      url: string,
+    ) => {
       if (url === "/user/profile") {
         throw new Error("User profile not found");
       }
       if (url === "/recruiter/profile") {
-        return { data: { id: "789", name: "Fallback Recruiter" } };
+        return Promise.resolve({
+          data: { id: "789", name: "Fallback Recruiter" },
+        });
       }
-    });
+      return Promise.resolve(undefined);
+    }) as never);
 
     const result = await authService.getCurrentUser();
 

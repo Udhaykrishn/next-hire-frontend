@@ -1,6 +1,6 @@
 "use client";
 
-import { Eye } from "lucide-react";
+import { FileText } from "lucide-react";
 import type { RecruiterDetail } from "../types/admin.types";
 
 interface RecruiterSidebarProps {
@@ -9,17 +9,15 @@ interface RecruiterSidebarProps {
 
 export const RecruiterSidebar = ({ recruiter }: RecruiterSidebarProps) => {
   return (
-    <section className="bg-white border border-gray-100 rounded-[2.5rem] p-8 shadow-sm">
-      <div className="flex items-center gap-3 border-b border-gray-200/60 pb-4 mb-6">
-        <div className="w-8 h-8 bg-wise-green/20 rounded-xl flex items-center justify-center">
-          <Eye className="w-4 h-4 text-wise-green" />
-        </div>
-        <h4 className="font-black text-sm text-near-black uppercase tracking-widest">
-          About
-        </h4>
+    <section className="rounded-xl border border-hairline bg-white p-6">
+      <div className="mb-4 flex items-center gap-2.5 border-b border-hairline-soft pb-4">
+        <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-surface-soft text-muted-ink">
+          <FileText className="h-4 w-4" />
+        </span>
+        <h3 className="text-[15px] font-semibold text-ink">About</h3>
       </div>
-      <p className="text-sm font-medium text-gray-500 leading-relaxed italic">
-        &quot;{recruiter.about}&quot;
+      <p className="text-sm leading-relaxed text-muted-ink">
+        {recruiter.about}
       </p>
     </section>
   );

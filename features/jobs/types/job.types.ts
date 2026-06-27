@@ -60,6 +60,7 @@ export interface JobResponse {
   company_id: string;
   posted_by?: string;
   is_published: boolean;
+  is_chat_enabled: boolean;
 }
 
 export interface SearchJobsParams {
@@ -71,6 +72,10 @@ export interface SearchJobsParams {
   salary?: string[];
   jobTypes?: string[];
   locationTypes?: string[];
+  jobCategories?: string[];
+  nightShift?: boolean;
+  datePosted?: string;
+  sort?: string;
 }
 
 export interface PaginationResponse<T> {

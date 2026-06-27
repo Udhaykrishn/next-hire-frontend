@@ -12,76 +12,104 @@ import {
   Zap,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/animate-ui/components/buttons/button";
+import { useAuthContext } from "@/features/auth/context/auth-context";
+import { useCheckout } from "@/features/pricing/hooks/useCheckout";
+import { usePricing } from "@/hooks/use-pricing";
 import { cn } from "@/lib/utils";
 
-const plans = [
-  {
-    id: "free",
-    name: "Starter",
-    price: "₹0",
-    period: "Free Forever",
-    description:
-      "Perfect for exploring the platform and making your first few hires.",
-    icon: <Shield className="w-6 h-6" />,
-    features: [
-      "2 Active Job Posts",
-      "Standard AI Matching",
-      "Basic Applicant Tracking",
-      "Email Support",
-    ],
-    color: "bg-gray-50",
-    textColor: "text-gray-900",
-    iconColor: "text-gray-400",
-  },
-  {
-    id: "growth",
-    name: "Growth",
-    price: "₹1,499",
-    period: "/month",
-    description:
-      "Ideal for growing teams needing advanced AI tools and more visibility.",
-    icon: <Zap className="w-6 h-6" />,
-    features: [
-      "10 Active Job Posts",
-      "Premium AI Matching",
-      "Featured Job Listings",
-      "Priority Support",
-      "Analytics Dashboard",
-    ],
-    color: "bg-wise-green",
-    textColor: "text-near-black",
-    iconColor: "text-dark-green",
-    popular: true,
-  },
-  {
-    id: "pro",
-    name: "Elite",
-    price: "₹4,999",
-    period: "/month",
-    description:
-      "Designed for high-volume hiring with dedicated support and full access.",
-    icon: <Crown className="w-6 h-6" />,
-    features: [
-      "Unlimited Job Posts",
-      "Custom Branding",
-      "Dedicated Account Manager",
-      "API Access",
-      "Bulk Import/Export",
-    ],
-    color: "bg-near-black",
-    textColor: "text-white",
-    iconColor: "text-wise-green",
-  },
-];
+const getIcon = (iconType: string) => {
+  switch (iconType) {
+    case "zap":
+      return <Zap className="w-6 h-6" />;
+    case "crown":
+      return <Crown className="w-6 h-6" />;
+    case "shield":
+      return <Shield className="w-6 h-6" />;
+    default:
+      return <Zap className="w-6 h-6" />;
+  }
+};
+
+const formatPrice = (price: string) =>
+  price.trim().startsWith("₹") ? price : `₹${price}`;
 
 export default function RecruiterPlanSetupPage() {
   const router = useRouter();
-  const [selectedPlan, setSelectedPlan] = useState("growth");
-  const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">(
-    "monthly",
-  );
+  const { data: allPlans, isLoading, isError } = usePricing();
+  const { user, isAuthenticated } = useAuthContext();
+  const checkoutMutation = useCheckout();
+  const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
+
+  // Only recruiter plans that are live for purchase.
+  const plans = useMemo(() => {
+    if (!allPlans) return [];
+    return allPlans
+      .filter((plan) => plan.type === "recruiter" && plan.status === "Active")
+      .map((plan) => ({ ...plan, icon: getIcon(plan.iconType) }));
+  }, [allPlans]);
+
+  // Default selection: highlighted plan, otherwise the first one.
+  useEffect(() => {
+    if (selectedPlan || plans.length === 0) return;
+    const highlighted = plans.find((plan) => plan.highlight) ?? plans[0];
+    setSelectedPlan(highlighted.id);
+  }, [plans, selectedPlan]);
+
+  const handleConfirm = () => {
+    const plan = plans.find((p) => p.id === selectedPlan);
+    if (!plan) return;
+
+    // Free / non-paid plan: no checkout, straight to the dashboard.
+    if (!plan.stripePriceId) {
+      router.push("/recruiter/dashboard");
+      return;
+    }
+
+    if (!isAuthenticated || !user) {
+      router.push("/recruiter/login");
+      return;
+    }
+
+    checkoutMutation.mutate({
+      priceId: plan.stripePriceId,
+      userId: user.id,
+      email: user.email,
+      role: "recruiter",
+    });
+  };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-wise-green border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  if (isError || plans.length === 0) {
+    return (
+      <div className="min-h-screen bg-white flex flex-col items-center justify-center gap-4 px-6 text-center">
+        <p className="text-gray-600 font-bold">
+          {isError
+            ? "Failed to load plans. Please try again."
+            : "No recruiter plans are available right now."}
+        </p>
+        <div className="flex gap-3">
+          <Button onClick={() => window.location.reload()}>Retry</Button>
+          <Button
+            variant="ghost"
+            onClick={() => router.push("/recruiter/dashboard")}
+          >
+            Skip for now
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  const isCheckingOut = checkoutMutation.isPending;
 
   return (
     <div className="min-h-screen bg-white font-satoshi selection:bg-wise-green/30 text-near-black overflow-x-hidden">
@@ -89,7 +117,7 @@ export default function RecruiterPlanSetupPage() {
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
         <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-wise-green/[0.05] rounded-full blur-[120px]" />
         <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-wise-green/[0.05] rounded-full blur-[120px]" />
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay" />
+        <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-[0.03] mix-blend-overlay" />
       </div>
 
       <div className="relative z-10 max-w-[1400px] mx-auto min-h-screen flex flex-col px-6 py-12">
@@ -134,54 +162,6 @@ export default function RecruiterPlanSetupPage() {
               Choose your <br />
               <span className="text-wise-green italic">Growth Engine</span>
             </motion.h1>
-
-            {/* Billing Toggle */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
-              className="flex items-center justify-center gap-4 pt-4"
-            >
-              <span
-                className={cn(
-                  "text-sm font-black transition-colors",
-                  billingCycle === "monthly"
-                    ? "text-near-black"
-                    : "text-gray-300",
-                )}
-              >
-                Monthly
-              </span>
-              <button
-                type="button"
-                onClick={() =>
-                  setBillingCycle((prev) =>
-                    prev === "monthly" ? "yearly" : "monthly",
-                  )
-                }
-                className="w-14 h-7 bg-gray-100 rounded-full p-1 relative flex items-center transition-all border border-gray-200"
-              >
-                <motion.div
-                  className="w-5 h-5 bg-near-black rounded-full"
-                  animate={{ x: billingCycle === "monthly" ? 0 : 28 }}
-                />
-              </button>
-              <div className="flex items-center gap-2">
-                <span
-                  className={cn(
-                    "text-sm font-black transition-colors",
-                    billingCycle === "yearly"
-                      ? "text-near-black"
-                      : "text-gray-300",
-                  )}
-                >
-                  Yearly
-                </span>
-                <span className="px-2 py-0.5 bg-green-100 text-green-700 text-[9px] font-black uppercase rounded">
-                  Save 20%
-                </span>
-              </div>
-            </motion.div>
           </div>
 
           {/* Pricing Grid */}
@@ -208,7 +188,7 @@ export default function RecruiterPlanSetupPage() {
                       : "bg-white border-gray-100 hover:border-gray-200",
                   )}
                 >
-                  {plan.popular && (
+                  {plan.highlight && (
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-wise-green text-dark-green px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-lg shadow-wise-green/20">
                       Recommended
                     </div>
@@ -230,10 +210,10 @@ export default function RecruiterPlanSetupPage() {
                     </h3>
                     <div className="flex items-baseline gap-1 mb-4">
                       <span className="text-[40px] font-black text-near-black tracking-tight">
-                        {plan.price}
+                        {formatPrice(plan.price)}
                       </span>
                       <span className="text-gray-400 font-bold text-[15px]">
-                        {plan.period}
+                        {plan.period ?? "/month"}
                       </span>
                     </div>
                     <p className="text-[14px] text-gray-500 font-medium leading-relaxed italic">
@@ -284,7 +264,7 @@ export default function RecruiterPlanSetupPage() {
                   Secure Checkout
                 </p>
                 <p className="text-xs font-bold text-gray-400 italic leading-none">
-                  Cancel or switch tiers anytime.
+                  Pay by card or UPI. Cancel or switch tiers anytime.
                 </p>
               </div>
             </div>
@@ -293,15 +273,17 @@ export default function RecruiterPlanSetupPage() {
               <Button
                 variant="ghost"
                 onClick={() => router.back()}
+                disabled={isCheckingOut}
                 className="h-16 px-10 rounded-[2rem] font-black text-sm uppercase tracking-widest hover:bg-gray-50"
               >
                 Previous Step
               </Button>
               <Button
-                onClick={() => router.push("/recruiter/dashboard")}
-                className="h-16 px-12 rounded-[2rem] bg-near-black text-white hover:bg-wise-green hover:text-near-black transition-all font-black text-sm uppercase tracking-[0.2em] shadow-2xl shadow-near-black/20 group"
+                onClick={handleConfirm}
+                disabled={isCheckingOut || !selectedPlan}
+                className="h-16 px-12 rounded-[2rem] bg-near-black text-white hover:bg-wise-green hover:text-near-black transition-all font-black text-sm uppercase tracking-[0.2em] shadow-2xl shadow-near-black/20 group disabled:opacity-60"
               >
-                Confirm & Launch
+                {isCheckingOut ? "Redirecting…" : "Confirm & Launch"}
                 <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform" />
               </Button>
             </div>

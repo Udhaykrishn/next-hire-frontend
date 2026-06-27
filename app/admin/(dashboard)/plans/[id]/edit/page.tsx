@@ -21,10 +21,12 @@ export default function EditPlanPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-[60vh] flex items-center justify-center font-satoshi">
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-10 h-10 border-4 border-gray-100 border-t-wise-green rounded-full animate-spin" />
-          <p className="text-sm font-semibold text-gray-400">Loading plan...</p>
+      <div className="flex min-h-[60vh] items-center justify-center font-satoshi">
+        <div className="flex flex-col items-center gap-3">
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-hairline border-t-coral" />
+          <p className="text-[13px] font-medium text-muted-soft">
+            Loading plan
+          </p>
         </div>
       </div>
     );
@@ -32,18 +34,18 @@ export default function EditPlanPage() {
 
   if (isError || !plan) {
     return (
-      <div className="min-h-[60vh] flex flex-col items-center justify-center font-satoshi text-center p-6 bg-white border border-gray-100 rounded-2xl shadow-sm max-w-md mx-auto mt-12">
-        <p className="text-red-500 font-bold text-lg">Plan Not Found</p>
-        <p className="text-gray-400 text-sm mt-1">
+      <div className="mx-auto mt-12 flex min-h-[40vh] max-w-md flex-col items-center justify-center rounded-xl border border-hairline bg-white p-8 text-center font-satoshi">
+        <p className="text-base font-semibold text-ink">Plan not found</p>
+        <p className="mt-1 text-sm text-muted-ink">
           The requested subscription tier could not be retrieved or does not
           exist.
         </p>
         <button
           type="button"
           onClick={() => router.push("/admin/plans")}
-          className="mt-6 px-6 py-2.5 bg-gray-900 text-white rounded-full text-sm font-semibold hover:bg-black transition-colors"
+          className="mt-5 inline-flex items-center rounded-lg bg-coral px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-coral-active active:translate-y-px"
         >
-          Back to Plans
+          Back to plans
         </button>
       </div>
     );
@@ -51,7 +53,7 @@ export default function EditPlanPage() {
 
   return (
     <PlanForm
-      title="Edit Plan"
+      title="Edit plan"
       subtitle="Modify the details and pricing of this subscription tier."
       defaultValues={defaultValues}
       onSubmit={handleSubmit}

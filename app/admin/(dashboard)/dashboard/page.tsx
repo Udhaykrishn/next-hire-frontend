@@ -1,7 +1,65 @@
 "use client";
 
-import { motion } from "framer-motion";
+import {
+  Briefcase,
+  Download,
+  TrendingUp,
+  UserSquare2,
+  Users,
+} from "lucide-react";
+import { motion } from "motion/react";
+import {
+  AdminPageHeader,
+  AdminPrimaryButton,
+  StatCard,
+} from "@/components/admin/ui";
 import { cn } from "@/lib/utils";
+
+const stats = [
+  {
+    label: "Active candidates",
+    value: "2.4M",
+    hint: "+12% this month",
+    icon: <UserSquare2 className="h-4 w-4" />,
+    tone: "coral" as const,
+  },
+  {
+    label: "Hiring companies",
+    value: "10.2k",
+    hint: "+340 new",
+    icon: <Users className="h-4 w-4" />,
+    tone: "ink" as const,
+  },
+  {
+    label: "Live job posts",
+    value: "48.9k",
+    hint: "+5% this week",
+    icon: <Briefcase className="h-4 w-4" />,
+    tone: "teal" as const,
+  },
+  {
+    label: "Monthly revenue",
+    value: "$182k",
+    hint: "+18% vs last month",
+    icon: <TrendingUp className="h-4 w-4" />,
+    tone: "amber" as const,
+  },
+];
+
+const chart = [
+  { month: "Jan", height: 40 },
+  { month: "Feb", height: 60 },
+  { month: "Mar", height: 45 },
+  { month: "Apr", height: 90 },
+  { month: "May", height: 65 },
+  { month: "Jun", height: 85 },
+  { month: "Jul", height: 50 },
+  { month: "Aug", height: 75 },
+  { month: "Sep", height: 95 },
+  { month: "Oct", height: 60 },
+  { month: "Nov", height: 80 },
+  { month: "Dec", height: 70 },
+];
 
 const recentActivities = [
   {
@@ -9,108 +67,87 @@ const recentActivities = [
     user: "Tech Solutions Inc.",
     action: "Posted new job: Senior React Dev",
     time: "2 mins ago",
-    type: "job",
   },
   {
     id: 2,
     user: "Rahul Sharma",
-    action: "Upgraded to Professional Plan",
+    action: "Upgraded to Professional plan",
     time: "15 mins ago",
-    type: "billing",
   },
   {
     id: 3,
     user: "Global Systems",
     action: "Verified company profile",
     time: "1 hour ago",
-    type: "verification",
   },
   {
     id: 4,
     user: "Priya Patel",
     action: "Applied for UI/UX Designer at Meta",
     time: "2 hours ago",
-    type: "application",
   },
 ];
 
 export default function AdminDashboard() {
   return (
-    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-black text-near-black tracking-tight">
-            Admin Overview
-          </h1>
-          <p className="text-gray-500 font-medium">
-            Welcome back, here's what's happening today.
-          </p>
-        </div>
-        <div className="flex items-center gap-3">
-          <button
-            type="button"
-            className="px-5 py-2.5 bg-white border border-gray-100 rounded-xl text-sm font-bold text-gray-600 hover:bg-gray-50 transition-all shadow-sm"
-          >
-            Download Report
-          </button>
-          <button
-            type="button"
-            className="px-5 py-2.5 bg-near-black text-white rounded-xl text-sm font-black hover:bg-wise-green hover:text-near-black transition-all shadow-lg shadow-near-black/10"
-          >
-            Export Data
-          </button>
-        </div>
+    <div className="space-y-8">
+      <AdminPageHeader
+        title="Overview"
+        description="A snapshot of platform health, growth, and the latest marketplace activity."
+        actions={
+          <AdminPrimaryButton>
+            <Download className="h-4 w-4" /> Export data
+          </AdminPrimaryButton>
+        }
+      />
+
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {stats.map((s) => (
+          <StatCard key={s.label} {...s} />
+        ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Mock Chart Section */}
-        <div className="lg:col-span-2 p-8 bg-white rounded-3xl border border-gray-50 shadow-sm">
-          <div className="flex items-center justify-between mb-8">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+        {/* Growth chart */}
+        <div className="rounded-xl border border-hairline bg-white p-6 lg:col-span-2">
+          <div className="mb-6 flex items-center justify-between">
             <div>
-              <h3 className="text-xl font-black text-near-black tracking-tight">
-                Platform Growth
+              <h3 className="text-base font-semibold text-ink">
+                Platform growth
               </h3>
-              <p className="text-sm text-gray-400 font-medium italic">
-                Monthly user registration & revenue
+              <p className="mt-0.5 text-[13px] text-muted-ink">
+                Monthly registrations &amp; revenue
               </p>
             </div>
-            <select className="bg-gray-50 border-none text-xs font-black p-2 rounded-lg focus:ring-0">
-              <option>Last 12 Months</option>
-              <option>Last 6 Months</option>
+            <select className="rounded-lg border border-hairline bg-white px-3 py-1.5 text-xs font-medium text-body focus:outline-none focus:ring-2 focus:ring-coral/20">
+              <option>Last 12 months</option>
+              <option>Last 6 months</option>
             </select>
           </div>
-
-          <div className="h-64 flex items-end justify-between gap-2 pt-4">
-            {[
-              { month: "Jan", height: 40 },
-              { month: "Feb", height: 60 },
-              { month: "Mar", height: 45 },
-              { month: "Apr", height: 90 },
-              { month: "May", height: 65 },
-              { month: "Jun", height: 85 },
-              { month: "Jul", height: 40 },
-              { month: "Aug", height: 75 },
-              { month: "Sep", height: 95 },
-              { month: "Oct", height: 60 },
-              { month: "Nov", height: 80 },
-              { month: "Dec", height: 70 },
-            ].map(({ month, height }, i) => (
+          <div className="flex h-60 items-end justify-between gap-2 pt-2">
+            {chart.map(({ month, height }, i) => (
               <div
                 key={month}
-                className="flex-1 flex flex-col items-center gap-3 group"
+                className="group flex flex-1 flex-col items-center gap-3"
               >
-                <div className="w-full relative">
+                <div className="flex h-full w-full items-end">
                   <motion.div
                     initial={{ height: 0 }}
                     animate={{ height: `${height}%` }}
-                    transition={{ duration: 1, delay: i * 0.05 }}
+                    transition={{
+                      duration: 0.7,
+                      delay: i * 0.04,
+                      ease: "easeOut",
+                    }}
                     className={cn(
-                      "w-full rounded-t-xl transition-all duration-300 group-hover:opacity-80",
-                      i % 3 === 0 ? "bg-wise-green" : "bg-near-black",
+                      "w-full rounded-t-md transition-colors",
+                      i % 3 === 0
+                        ? "bg-coral/80 group-hover:bg-coral"
+                        : "bg-surface-cream-strong group-hover:bg-navy/30",
                     )}
                   />
                 </div>
-                <span className="text-[10px] font-black text-gray-300 uppercase">
+                <span className="text-[11px] font-medium text-muted-soft">
                   {month}
                 </span>
               </div>
@@ -118,26 +155,18 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        {/* Recent Activity Section */}
-        <div className="p-8 bg-near-black rounded-3xl shadow-2xl shadow-near-black/20 text-white relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-wise-green/10 rounded-full blur-3xl" />
-          <h3 className="text-xl font-black mb-6 relative z-10">Live Feed</h3>
-          <div className="space-y-6 relative z-10">
-            {recentActivities.map((activity) => (
-              <div
-                key={activity.id}
-                className="flex gap-4 group cursor-pointer"
-              >
-                <div className="w-1.5 h-10 rounded-full bg-wise-green/20 group-hover:bg-wise-green transition-colors" />
+        {/* Live feed (navy) */}
+        <div className="overflow-hidden rounded-xl bg-navy p-6 text-on-dark">
+          <h3 className="text-base font-semibold">Live feed</h3>
+          <div className="mt-5 space-y-4">
+            {recentActivities.map((a) => (
+              <div key={a.id} className="group flex gap-3">
+                <span className="mt-0.5 h-8 w-0.5 shrink-0 rounded-full bg-coral/40 transition-colors group-hover:bg-coral" />
                 <div>
-                  <p className="text-sm font-bold text-white group-hover:text-wise-green transition-colors">
-                    {activity.user}
-                  </p>
-                  <p className="text-[11px] text-gray-400 font-medium mb-1">
-                    {activity.action}
-                  </p>
-                  <span className="text-[10px] font-black text-gray-500 uppercase tracking-widest">
-                    {activity.time}
+                  <p className="text-sm font-medium">{a.user}</p>
+                  <p className="text-[13px] text-on-dark-soft">{a.action}</p>
+                  <span className="text-[11px] text-on-dark-soft/60">
+                    {a.time}
                   </span>
                 </div>
               </div>
@@ -145,9 +174,9 @@ export default function AdminDashboard() {
           </div>
           <button
             type="button"
-            className="w-full mt-8 py-3 bg-white/5 hover:bg-white/10 rounded-xl text-xs font-black uppercase tracking-widest transition-all border border-white/10"
+            className="mt-6 w-full rounded-lg border border-white/10 bg-white/[0.05] py-2.5 text-[13px] font-medium text-on-dark transition-colors hover:bg-white/[0.1]"
           >
-            View All Activity
+            View all activity
           </button>
         </div>
       </div>

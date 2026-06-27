@@ -20,6 +20,15 @@ export enum ApiAuthRoutes {
   RECRUITER_RESET_PASSWORD = "/auth/recruiter/reset-password",
   RECRUITER_VERIFY_RESET_TOKEN = "/auth/recruiter/verify-reset-token",
   RECRUITER_OTP_VERIFY = "/auth/recruiter/otp-verify",
+
+  INTERVIEWER_LOGIN = "/auth/interviewer/login",
+  INTERVIEWER_LOGOUT = "/auth/interviewer/logout",
+}
+
+export enum ApiInterviewerRoutes {
+  PROFILE = "/interviewer/profile",
+  ROUNDS = "/interviewer/rounds",
+  FEEDBACK = "/interviewer/rounds",
 }
 
 export enum ApiUserRoutes {

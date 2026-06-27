@@ -1,28 +1,55 @@
 "use client";
 
 import { type CredentialResponse, GoogleLogin } from "@react-oauth/google";
-import { ArrowRight, Mail, ShieldCheck } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { ArrowRight } from "lucide-react";
+import { motion } from "motion/react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import type React from "react";
 import { Suspense, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/animate-ui/components/buttons/button";
-import { Logo } from "@/components/logo";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+  AUTH_PRIMARY_BTN,
+  AuthHeading,
+  AuthShell,
+  AuthSubtitle,
+} from "@/components/auth/auth-shell";
+import { DynamicFormFields } from "@/components/forms/dynamic-form-fields";
+import { useFormConfig } from "@/features/admin-forms/hooks/use-form-config";
+import { validateForm } from "@/features/admin-forms/lib/validate-form";
+import type { FormField } from "@/features/admin-forms/types/form.types";
 import { useAuthContext } from "@/features/auth/context/auth-context";
 import { useAuth } from "@/features/auth/hooks/use-auth";
 import { useAuthRedirect } from "@/features/auth/hooks/use-role-redirect";
+
+const BASE_LOGIN_KEYS = ["email", "password"];
+
+/** Used when the form config can't be fetched, so login never breaks. */
+const FALLBACK_LOGIN_FIELDS: FormField[] = [
+  {
+    key: "email",
+    label: "Email address",
+    type: "email",
+    placeholder: "you@example.com",
+    required: true,
+    enabled: true,
+    locked: true,
+    custom: false,
+    order: 0,
+  },
+  {
+    key: "password",
+    label: "Password",
+    type: "password",
+    placeholder: "••••••••",
+    required: true,
+    enabled: true,
+    locked: true,
+    custom: false,
+    order: 1,
+  },
+];
 
 function LoginContent() {
   const { login, googleAuth, isLoading: loginLoading, error } = useAuth();
@@ -31,20 +58,20 @@ function LoginContent() {
   const searchParams = useSearchParams();
   const urlError = searchParams.get("error");
 
-  const [step, setStep] = useState<"INITIAL" | "EMAIL">("INITIAL");
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const [customValues, setCustomValues] = useState<Record<string, string>>({});
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const { fields: configFields } = useFormConfig("auth.login");
+  const loginFields = configFields ?? FALLBACK_LOGIN_FIELDS;
 
   useEffect(() => {
     if (urlError === "blocked") {
-      toast.error(
-        "Your account has been blocked by an administrator. You do not have access.",
-        {
-          duration: 5000,
-        },
-      );
+      toast.error("This account is on hold. Contact support to get back in.", {
+        duration: 5000,
+      });
       // Optionally clean up the URL to prevent showing toast repeatedly on refresh
       const url = new URL(window.location.href);
       url.searchParams.delete("error");
@@ -57,8 +84,8 @@ function LoginContent() {
 
   if (authLoading || isAuthenticated) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center font-satoshi">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-wise-green"></div>
+      <div className="flex min-h-screen items-center justify-center bg-canvas font-satoshi">
+        <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-coral" />
       </div>
     );
   }
@@ -93,6 +120,13 @@ function LoginContent() {
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const allValues: Record<string, string> = { ...formData, ...customValues };
+    const errs = validateForm(loginFields, allValues);
+    if (Object.keys(errs).length > 0) {
+      setFieldErrors(errs);
+      return;
+    }
+    setFieldErrors({});
     try {
       const response = await login(formData.email, formData.password);
       setUser(response.user);
@@ -102,197 +136,118 @@ function LoginContent() {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+  const handleFieldChange = (key: string, value: string) => {
+    if (BASE_LOGIN_KEYS.includes(key)) {
+      setFormData((prev) => ({ ...prev, [key]: value }));
+    } else {
+      setCustomValues((prev) => ({ ...prev, [key]: value }));
+    }
+    setFieldErrors((prev) => {
+      if (!prev[key]) return prev;
+      const next = { ...prev };
+      delete next[key];
+      return next;
+    });
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4 font-satoshi selection:bg-wise-green selection:text-dark-green relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-wise-green/40 rounded-full blur-[100px] pointer-events-none translate-x-1/3 -translate-y-1/4" />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-wise-green/20 rounded-full blur-[100px] pointer-events-none -translate-x-1/3 translate-y-1/3" />
-      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 pointer-events-none mix-blend-overlay"></div>
+    <AuthShell
+      eyebrow="Candidate sign in"
+      headline={
+        <>
+          The job you
+          <br />
+          haven't told
+          <br />
+          anyone about <em>yet</em>.
+        </>
+      }
+      tagline="Pick up your applications, saved roles and messages right where you left them."
+      stats={[
+        { value: "2,400+", label: "open roles" },
+        { value: "180", label: "hiring teams" },
+      ]}
+    >
+      <AuthHeading>Welcome back</AuthHeading>
+      <AuthSubtitle>Sign in to your candidate account.</AuthSubtitle>
 
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        className="w-full max-w-md relative z-10"
-      >
-        <div className="flex justify-center mb-8">
-          <Logo size="lg" />
+      <div className="flex w-full justify-center [&>div]:w-full [&_iframe]:!w-full mb-6">
+        <GoogleLogin
+          onSuccess={handleGoogleSuccess}
+          onError={handleGoogleError}
+          theme="outline"
+          size="large"
+          shape="pill"
+          width="360"
+          text="continue_with"
+        />
+      </div>
+
+      <div className="mb-6 flex items-center gap-3 text-xs text-muted-soft">
+        <span className="h-px flex-1 bg-hairline" />
+        or continue with email
+        <span className="h-px flex-1 bg-hairline" />
+      </div>
+
+      <form onSubmit={handleEmailSubmit} className="space-y-5">
+        <DynamicFormFields
+          fields={loginFields}
+          values={{ ...formData, ...customValues }}
+          onChange={handleFieldChange}
+          errors={fieldErrors}
+          idPrefix="login"
+        />
+        <div className="flex justify-end">
+          <Link
+            href="/forgot-password"
+            className="text-[13px] font-semibold text-coral-active transition-colors hover:underline"
+          >
+            Forgot password?
+          </Link>
         </div>
+        <Button
+          type="submit"
+          className={`${AUTH_PRIMARY_BTN} group`}
+          disabled={loginLoading}
+        >
+          {loginLoading ? "Signing in…" : "Sign in"}
+          <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+        </Button>
+      </form>
 
-        <Card className="border-gray-200 shadow-2xl shadow-gray-200/50 rounded-[2rem] overflow-hidden bg-white/80 backdrop-blur-xl">
-          <CardHeader className="space-y-2 pb-8 pt-10 text-center relative">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={step}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.3 }}
-              >
-                <CardTitle className="text-3xl font-black leading-tight text-gray-900 tracking-tight">
-                  {step === "INITIAL" ? "Welcome Back" : "Sign In"}
-                </CardTitle>
-                <CardDescription className="text-base text-gray-500 font-medium mt-2">
-                  {step === "INITIAL"
-                    ? "Sign in to access your NextHire profile."
-                    : "Enter your credentials to proceed."}
-                </CardDescription>
-              </motion.div>
-            </AnimatePresence>
-          </CardHeader>
+      {error && (
+        <motion.p
+          initial={{ opacity: 0, y: 5 }}
+          animate={{ opacity: 1, y: 0 }}
+          role="alert"
+          className="mt-5 rounded-xl bg-red-50 p-3 text-center text-sm font-semibold text-destructive"
+        >
+          {error}
+        </motion.p>
+      )}
 
-          <CardContent className="space-y-6 pt-2 px-8">
-            <AnimatePresence mode="wait">
-              {step === "INITIAL" ? (
-                <motion.div
-                  key="initial"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 20 }}
-                  transition={{ duration: 0.3 }}
-                  className="space-y-6"
-                >
-                  <div className="flex flex-col items-center gap-4 w-full">
-                    <div className="w-full flex justify-center">
-                      <GoogleLogin
-                        onSuccess={handleGoogleSuccess}
-                        onError={handleGoogleError}
-                        theme="outline"
-                        size="large"
-                        shape="pill"
-                        text="continue_with"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="relative">
-                    <div className="absolute inset-0 flex items-center">
-                      <span className="w-full border-t border-gray-200" />
-                    </div>
-                    <div className="relative flex justify-center text-xs uppercase font-bold tracking-widest">
-                      <span className="bg-white px-4 text-gray-400 flex items-center gap-2">
-                        <ShieldCheck className="w-4 h-4" /> Secure & Encrypted
-                      </span>
-                    </div>
-                  </div>
-
-                  <Button
-                    variant="ghost"
-                    className="w-full h-12 text-gray-600 font-bold rounded-xl hover:bg-gray-50 gap-3 transition-all"
-                    onClick={() => setStep("EMAIL")}
-                  >
-                    <Mail className="w-5 h-5" />
-                    Continue with Email
-                  </Button>
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="email"
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <form onSubmit={handleEmailSubmit} className="space-y-5">
-                    <div className="space-y-2">
-                      <Label
-                        htmlFor="email"
-                        className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
-                      >
-                        <Mail className="w-4 h-4" /> Email Address
-                      </Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        placeholder="you@example.com"
-                        className="h-12 border-gray-200 rounded-xl focus:border-wise-green focus:ring-wise-green/20 bg-gray-50/50 text-base transition-all"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                        autoFocus
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <div className="flex justify-between items-center">
-                        <Label
-                          htmlFor="password"
-                          className="text-xs font-bold text-gray-500 uppercase tracking-widest"
-                        >
-                          Password
-                        </Label>
-                        <Link
-                          href="/forgot-password"
-                          className="text-xs text-gray-400 hover:text-wise-green transition-colors"
-                        >
-                          Forgot password?
-                        </Link>
-                      </div>
-                      <Input
-                        id="password"
-                        type="password"
-                        placeholder="••••••••"
-                        className="h-12 border-gray-200 rounded-xl focus:border-wise-green focus:ring-wise-green/20 bg-gray-50/50 text-base transition-all"
-                        value={formData.password}
-                        onChange={handleChange}
-                        required
-                      />
-                    </div>
-                    <div className="flex gap-3 mt-2 pt-2">
-                      <Button
-                        type="button"
-                        variant="outline"
-                        onClick={() => setStep("INITIAL")}
-                        className="h-12 border-gray-200 text-gray-600 rounded-xl flex-1 hover:bg-gray-50"
-                      >
-                        Back
-                      </Button>
-                      <Button
-                        type="submit"
-                        className="h-12 bg-wise-green text-dark-green font-black rounded-xl hover:bg-wise-green/90 transition-all text-lg shadow-lg shadow-wise-green/20 flex-[2] gap-2 group"
-                        disabled={loginLoading}
-                      >
-                        Sign In
-                        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                      </Button>
-                    </div>
-                  </form>
-                </motion.div>
-              )}
-            </AnimatePresence>
-            {error && (
-              <motion.p
-                initial={{ opacity: 0, y: 5 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-sm text-red-500 text-center font-bold bg-red-50 p-3 rounded-lg"
-              >
-                {error}
-              </motion.p>
-            )}
-          </CardContent>
-
-          <CardFooter className="flex flex-col space-y-4 pb-8 pt-4 px-8">
-            <p className="text-sm text-gray-600 text-center font-medium">
-              Don't have an account?{" "}
-              <Link
-                href="/signup"
-                className="text-dark-green font-black hover:text-wise-green transition-colors underline decoration-2 underline-offset-4"
-              >
-                Sign Up
-              </Link>
-            </p>
-          </CardFooter>
-        </Card>
-      </motion.div>
-    </div>
+      <div className="mt-6 border-t border-hairline pt-6 text-center text-[13.5px] text-muted-soft">
+        Don't have an account?{" "}
+        <Link
+          href="/signup"
+          className="font-semibold text-coral-active hover:underline"
+        >
+          Sign up
+        </Link>
+      </div>
+    </AuthShell>
   );
 }
 
 export default function UserLoginPage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center bg-canvas">
+          <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-coral" />
+        </div>
+      }
+    >
       <LoginContent />
     </Suspense>
   );

@@ -19,13 +19,39 @@ export const getRecruiterJobs = async (): Promise<JobResponse[]> => {
   return data;
 };
 
+/** Fetch only the total application count for a job without loading full data. */
+export const getJobApplicationCount = async (
+  jobId: string,
+): Promise<number> => {
+  const { data } = await apiClient.get<{ data: unknown[]; total: number }>(
+    `${ApiUserRoutes.JOBS}/${jobId}/applications?page=1&limit=1`,
+  );
+  return data?.total ?? 0;
+};
+
 export const getJobsForCandidate = async (
   params?: SearchJobsParams,
   headers?: Record<string, string>,
 ): Promise<PaginationResponse<JobWithMatchScore>> => {
+  // Drop empty values so the request URL only carries active filters.
+  const cleanParams: Record<string, unknown> = {};
+  if (params) {
+    for (const [key, value] of Object.entries(params)) {
+      if (
+        value === undefined ||
+        value === null ||
+        value === "" ||
+        value === false
+      )
+        continue;
+      if (Array.isArray(value) && value.length === 0) continue;
+      cleanParams[key] = value;
+    }
+  }
+
   const { data } = await apiClient.get<PaginationResponse<JobWithMatchScore>>(
     ApiUserRoutes.JOBS,
-    { params, headers },
+    { params: cleanParams, headers },
   );
   return data;
 };
@@ -50,7 +76,7 @@ export const applyToJob = async (jobId: string): Promise<unknown> => {
 
 export const updateJob = async (
   jobId: string,
-  updateData: Partial<JobFormData>,
+  updateData: Partial<JobFormData> & { is_published?: boolean },
 ): Promise<JobResponse> => {
   const { data } = await apiClient.patch(
     `${ApiRecruiterRoutes.JOBS}/${jobId}`,

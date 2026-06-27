@@ -18,9 +18,9 @@ const nextConfig: NextConfig = {
     const cspDirectives = [
       "default-src 'self'",
       "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://accounts.google.com/gsi/client https://maps.googleapis.com",
-      "style-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/style https://fonts.googleapis.com",
-      "img-src 'self' blob: data: https://i.pravatar.cc https://*.pravatar.cc https://lh3.googleusercontent.com https://*.googleusercontent.com https://maps.googleapis.com https://*.googleapis.com https://*.gstatic.com https://*.google.com https://*.ggpht.com https://*.amazonaws.com",
-      "font-src 'self' data: https://fonts.gstatic.com",
+      "style-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/style https://fonts.googleapis.com https://api.fontshare.com",
+      "img-src 'self' blob: data: https://images.unsplash.com https://i.pravatar.cc https://*.pravatar.cc https://lh3.googleusercontent.com https://*.googleusercontent.com https://maps.googleapis.com https://*.googleapis.com https://*.gstatic.com https://*.google.com https://*.ggpht.com https://*.amazonaws.com",
+      "font-src 'self' data: https://fonts.gstatic.com https://cdn.fontshare.com",
       `connect-src 'self' ${apiOrigin} ${wsOrigin} https://accounts.google.com/gsi/ https://maps.googleapis.com https://*.googleapis.com https://*.gstatic.com https://*.amazonaws.com`,
       "frame-src 'self' https://accounts.google.com/gsi/ https://accounts.google.com/o/oauth2/ https://*.google.com",
     ].join("; ");

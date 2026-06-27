@@ -10,23 +10,21 @@ export default function CandidateProfilePage() {
   const id = params.id as string;
 
   return (
-    <div className="max-w-[1400px] mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+    <div className="mx-auto max-w-[1400px] space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
       {/* Header Navigation */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between gap-4">
         <Link
           href="/admin/candidates"
-          className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-near-black/40 hover:text-near-black transition-colors"
+          className="inline-flex items-center gap-2 text-sm font-medium text-muted-ink transition-colors hover:text-ink"
         >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Candidates
-        </Link>
-        <div className="flex items-center gap-4">
-          <span className="text-[10px] font-black uppercase tracking-widest text-near-black/20">
-            System ID:{" "}
-            {id && id.length > 8 ? `${id.slice(0, 6)}...${id.slice(-4)}` : id}
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-hairline bg-white">
+            <ArrowLeft className="h-4 w-4" />
           </span>
-          <div className="w-2 h-2 rounded-full bg-wise-green shadow-[0_0_10px_rgba(159,232,112,0.8)]" />
-        </div>
+          Back to candidates
+        </Link>
+        <span className="text-[13px] text-muted-soft tabular-nums">
+          ID {id && id.length > 8 ? `${id.slice(0, 6)}…${id.slice(-4)}` : id}
+        </span>
       </div>
 
       <CandidateDetails id={id} />

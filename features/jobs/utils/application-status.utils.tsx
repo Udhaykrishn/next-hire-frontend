@@ -31,7 +31,7 @@ export const getStatusConfig = (status: string) => {
       return {
         color: "text-red-600 bg-red-50",
         icon: <XCircle className="w-4 h-4" />,
-        label: "Rejected",
+        label: "Not Shortlisted",
       };
     case "HIRED":
       return {

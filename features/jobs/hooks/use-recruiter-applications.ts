@@ -2,6 +2,17 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { ApiAdminRoutes, ApiUserRoutes } from "@/constants/api-routes";
 import { apiClient } from "@/lib/api-client";
+import { getJobApplicationCount } from "@/features/jobs/services/job.api";
+
+/** Lightweight hook — fetches only the total count for a given job. */
+export function useJobApplicationCountQuery(jobId: string) {
+  return useQuery({
+    queryKey: ["job-application-count", jobId],
+    queryFn: () => getJobApplicationCount(jobId),
+    enabled: !!jobId,
+    staleTime: 30_000,
+  });
+}
 
 export interface RecruiterJobApplication {
   id: string;

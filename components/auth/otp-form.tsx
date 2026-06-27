@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import type React from "react";
 import { useState } from "react";
 import { Button } from "@/components/animate-ui/components/buttons/button";
+import { AUTH_PRIMARY_BTN } from "@/components/auth/auth-shell";
 import {
   InputOTP,
   InputOTPGroup,
@@ -44,28 +45,28 @@ export function OtpForm({ id, role, onVerify }: OtpFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="flex justify-center">
+    <form onSubmit={handleSubmit} className="space-y-5">
+      <div className="flex justify-center py-2">
         <InputOTP maxLength={6} value={otp} onChange={(value) => setOtp(value)}>
-          <InputOTPGroup className="gap-2">
+          <InputOTPGroup className="gap-2.5">
             {[0, 1, 2, 3, 4, 5].map((index) => (
               <InputOTPSlot
                 key={index}
                 index={index}
-                className="w-12 h-14 text-lg font-black rounded-xl border-gray-200 data-[active=true]:border-wise-green data-[active=true]:ring-wise-green/30 transition-all bg-white shadow-sm"
+                className="h-14 w-[46px] rounded-xl border border-hairline bg-white text-[22px] font-semibold tabular-nums text-ink transition-all data-[active=true]:border-coral data-[active=true]:ring-coral/20"
               />
             ))}
           </InputOTPGroup>
         </InputOTP>
       </div>
 
-      <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+      <motion.div whileTap={{ scale: 0.98 }}>
         <Button
           type="submit"
-          className="w-full h-12 bg-wise-green text-dark-green font-black rounded-xl hover:bg-wise-green/90 transition-all text-lg shadow-[0_0_20px_rgba(159,232,112,0.2)] mt-2"
+          className={AUTH_PRIMARY_BTN}
           disabled={isLoading || otp.length !== 6}
         >
-          {isLoading ? "Verifying..." : "Verify OTP"}
+          {isLoading ? "Verifying…" : "Verify and continue"}
         </Button>
       </motion.div>
     </form>

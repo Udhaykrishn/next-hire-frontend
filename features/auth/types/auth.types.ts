@@ -1,4 +1,4 @@
-export type UserRole = "CANDIDATE" | "RECRUITER" | "ADMIN";
+export type UserRole = "CANDIDATE" | "RECRUITER" | "ADMIN" | "INTERVIEWER";
 
 export interface User {
   id: string;
@@ -7,6 +7,10 @@ export interface User {
   fullName?: string;
   phoneNumber?: string;
   avatarUrl?: string;
+  subscription?: {
+    is_subscribed: boolean;
+    current_plan?: string;
+  };
 }
 
 export interface AuthResponse {

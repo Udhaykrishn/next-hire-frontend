@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { Check, Trash2, Zap, Crown, Shield } from "lucide-react";
+import { Check, Crown, Shield, Trash2, Zap } from "lucide-react";
+import { cn } from "@/lib/utils";
 import type { PlanCardProps } from "../types/admin-plans.types";
 
 export function PlanCard({
@@ -9,109 +10,112 @@ export function PlanCard({
   onDelete,
   onEdit,
 }: PlanCardProps) {
-  const isHighTier = plan.iconType === "crown" || plan.iconType === "shield";
+  const isActive = plan.status === "Active";
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.95 }}
-      transition={{ duration: 0.4, delay: index * 0.1 }}
-      className={`relative group bg-white border ${
-        plan.highlight ? "border-wise-green" : "border-gray-200"
-      } rounded-[16px] p-6 hover:shadow-xl hover:scale-[1.01] transition-all duration-300 flex flex-col`}
+      exit={{ opacity: 0, scale: 0.97 }}
+      transition={{ duration: 0.25, delay: index * 0.05 }}
+      className={cn(
+        "group relative flex flex-col rounded-xl border bg-white p-5 transition-colors",
+        plan.highlight
+          ? "border-coral/40"
+          : "border-hairline hover:border-hairline-soft",
+      )}
     >
-      {/* Header row */}
-      <div className="flex justify-between items-start mb-4">
-        <div
-          className={`p-3 rounded-full ${isHighTier ? "bg-dark-green text-wise-green" : "bg-light-mint text-dark-green"}`}
-        >
-          {plan.iconType === "crown" ? (
-            <Crown className="w-6 h-6" />
-          ) : plan.iconType === "shield" ? (
-            <Shield className="w-6 h-6" />
-          ) : (
-            <Zap className="w-6 h-6" />
-          )}
-        </div>
+      {plan.highlight && (
+        <span className="absolute -top-2.5 left-5 rounded-md bg-coral px-2 py-0.5 text-[11px] font-semibold text-white">
+          Recommended
+        </span>
+      )}
 
-        <div className="flex flex-col items-end gap-2">
+      <div className="mb-4 flex items-start justify-between">
+        <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-surface-soft text-muted-ink">
+          {plan.iconType === "crown" ? (
+            <Crown className="h-5 w-5" />
+          ) : plan.iconType === "shield" ? (
+            <Shield className="h-5 w-5" />
+          ) : (
+            <Zap className="h-5 w-5" />
+          )}
+        </span>
+
+        <div className="flex flex-col items-end gap-1.5">
           <button
             type="button"
             onClick={() => onToggleStatus(plan.id, plan.status)}
-            className={`px-3 py-1 rounded-full text-[12px] font-semibold transition-colors ${
-              plan.status === "Active"
-                ? "bg-positive-green/10 text-positive-green hover:bg-positive-green/20"
-                : "bg-gray-100 text-gray-500 hover:bg-gray-200"
-            }`}
+            className={cn(
+              "rounded-md px-2 py-0.5 text-xs font-medium transition-colors",
+              isActive
+                ? "bg-success/10 text-[#2f6e44] hover:bg-success/15"
+                : "bg-surface-soft text-muted-ink hover:bg-surface-cream-strong",
+            )}
           >
             {plan.status}
           </button>
-          <p className="text-[12px] text-gray-400 font-medium">
-            {plan.subscribers} Subs
+          <p className="text-xs text-muted-soft tabular-nums">
+            {plan.subscribers} subscribers
           </p>
         </div>
       </div>
 
-      <div className="mb-6 flex-grow">
-        <h3 className="text-[20px] font-[900] text-near-black mb-1">
-          {plan.name}
-        </h3>
-        <p className="text-[14px] font-[500] text-gray-500 leading-[20px] min-h-[40px]">
+      <div className="mb-5 flex-grow">
+        <h3 className="text-base font-semibold text-ink">{plan.name}</h3>
+        <p className="mt-1 min-h-[40px] text-[13px] leading-relaxed text-muted-ink">
           {plan.description}
         </p>
 
         <div className="mt-4 flex items-baseline gap-1">
-          <span className="text-[32px] font-[800] text-near-black">
+          <span className="text-[28px] font-semibold tracking-tight text-ink tabular-nums">
             {plan.price === "0" ? "Free" : `₹${plan.price}`}
           </span>
           {plan.price !== "0" && (
-            <span className="text-[14px] font-[500] text-gray-500">
-              {plan.period}
-            </span>
+            <span className="text-[13px] text-muted-soft">{plan.period}</span>
           )}
         </div>
       </div>
 
-      <div className="space-y-3 mb-8">
+      <div className="mb-6 space-y-2.5">
         {plan.features.slice(0, 4).map((feature, i) => (
-          // biome-ignore lint/suspicious/noArrayIndexKey: Simple string array without unique IDs
-          <div key={`${feature}-${i}`} className="flex items-start gap-3">
-            <div className="mt-1 bg-light-mint p-1 rounded-full text-dark-green flex-shrink-0">
-              <Check className="w-3 h-3" strokeWidth={3} />
-            </div>
-            <span className="text-[14px] font-[500] text-near-black/80">
-              {feature}
-            </span>
+          // biome-ignore lint/suspicious/noArrayIndexKey: simple string array without unique IDs
+          <div key={`${feature}-${i}`} className="flex items-start gap-2.5">
+            <Check
+              className="mt-0.5 h-4 w-4 shrink-0 text-coral"
+              strokeWidth={2.5}
+            />
+            <span className="text-[13px] text-body">{feature}</span>
           </div>
         ))}
         {plan.features.length > 4 && (
-          <p className="text-[12px] font-[500] text-gray-400 pl-8">
-            + {plan.features.length - 4} more features
+          <p className="pl-6 text-xs text-muted-soft">
+            +{plan.features.length - 4} more features
           </p>
         )}
       </div>
 
-      <div className="mt-auto pt-6 border-t border-gray-100 flex items-center justify-between">
+      <div className="mt-auto flex items-center justify-between border-t border-hairline-soft pt-4">
         <button
           type="button"
           onClick={() => onDelete(plan.id)}
-          className="p-2 text-danger-red/70 hover:bg-danger-red/10 hover:text-danger-red rounded-full transition-colors"
-          title="Delete Plan"
+          className="rounded-lg p-2 text-muted-ink transition-colors hover:bg-destructive/10 hover:text-destructive"
+          title="Delete plan"
         >
-          <Trash2 className="w-5 h-5" />
+          <Trash2 className="h-[18px] w-[18px]" />
         </button>
 
         <button
           type="button"
           onClick={() => onEdit(plan.id)}
-          className={`px-6 py-2 rounded-full text-[14px] font-[600] transition-colors ${
+          className={cn(
+            "rounded-lg px-4 py-2 text-[13px] font-semibold transition-colors",
             plan.highlight
-              ? "bg-wise-green text-dark-green hover:bg-pastel-green"
-              : "bg-gray-100 text-near-black hover:bg-gray-200"
-          }`}
+              ? "bg-coral text-white hover:bg-coral-active"
+              : "border border-hairline text-ink hover:bg-surface-soft",
+          )}
         >
-          Edit Plan
+          Edit plan
         </button>
       </div>
     </motion.div>

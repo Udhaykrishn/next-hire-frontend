@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowLeft, Check, Plus, Sparkles, X } from "lucide-react";
+import { ArrowLeft, Check, Plus, X } from "lucide-react";
 import { useFieldArray, useForm } from "react-hook-form";
 import {
   CTA_OPTIONS,
@@ -59,27 +59,27 @@ export function PlanForm({
   };
 
   return (
-    <div className="min-h-screen bg-[#f8f8f6] font-satoshi">
+    <div className="min-h-screen bg-canvas font-satoshi">
       {/* Top Bar */}
-      <div className="sticky top-0 z-10 bg-white/80 backdrop-blur-md border-b border-gray-100">
-        <div className="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div className="sticky top-0 z-10 border-b border-hairline bg-canvas/85 backdrop-blur-md">
+        <div className="mx-auto flex max-w-3xl items-center justify-between px-6 py-3">
           <button
             type="button"
             onClick={cancel}
-            className="flex items-center gap-2 text-[14px] font-[600] text-gray-500 hover:text-near-black transition-colors group"
+            className="group flex items-center gap-2 text-sm font-medium text-muted-ink transition-colors hover:text-ink"
           >
-            <span className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center group-hover:bg-gray-200 transition-colors">
-              <ArrowLeft className="w-4 h-4" />
+            <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-hairline bg-white transition-colors group-hover:bg-surface-soft">
+              <ArrowLeft className="h-4 w-4" />
             </span>
-            Back to Plans
+            Back to plans
           </button>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <button
               type="button"
               onClick={cancel}
               disabled={isPending}
-              className="px-5 py-2.5 text-[14px] font-[600] text-gray-600 bg-white border border-gray-200 rounded-full hover:bg-gray-50 transition-colors"
+              className="rounded-lg border border-hairline bg-white px-4 py-2 text-sm font-medium text-body transition-colors hover:bg-surface-soft disabled:opacity-60"
             >
               Discard
             </button>
@@ -87,18 +87,15 @@ export function PlanForm({
               type="button"
               onClick={handleSubmit(handleFormSubmit)}
               disabled={isPending}
-              className="px-6 py-2.5 text-[14px] font-[700] text-dark-green bg-wise-green rounded-full hover:brightness-105 active:scale-[0.98] transition-all flex items-center gap-2 disabled:opacity-60"
+              className="inline-flex items-center gap-2 rounded-lg bg-coral px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-coral-active active:translate-y-px disabled:opacity-60"
             >
               {isPending ? (
                 <>
-                  <div className="w-4 h-4 border-2 border-dark-green/30 border-t-dark-green rounded-full animate-spin" />
-                  Saving...
+                  <div className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" />
+                  Saving
                 </>
               ) : (
-                <>
-                  <Sparkles className="w-4 h-4" />
-                  Save Plan
-                </>
+                "Save plan"
               )}
             </button>
           </div>
@@ -106,20 +103,18 @@ export function PlanForm({
       </div>
 
       {/* Main Content */}
-      <div className="max-w-3xl mx-auto px-6 py-12 space-y-10">
+      <div className="mx-auto max-w-3xl space-y-6 px-6 py-10">
         {/* Page Title */}
         <div>
-          <h1 className="text-[36px] font-[900] text-near-black leading-tight tracking-tight">
+          <h1 className="text-[24px] font-semibold leading-tight tracking-[-0.01em] text-ink">
             {title}
           </h1>
-          <p className="text-[15px] text-gray-400 mt-1 font-[500]">
-            {subtitle}
-          </p>
+          <p className="mt-1 text-sm text-muted-ink">{subtitle}</p>
         </div>
 
         {/* Section: Identity */}
-        <section className="bg-white rounded-2xl p-8 space-y-6 shadow-sm ring-1 ring-gray-100">
-          <SectionHeader step="01" label="Plan Identity" />
+        <section className="space-y-6 rounded-xl border border-hairline bg-white p-6">
+          <SectionHeader step="01" label="Plan identity" />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <Field label="Plan Name" error={errors.name?.message}>
@@ -163,20 +158,20 @@ export function PlanForm({
         </section>
 
         {/* Section: Pricing */}
-        <section className="bg-white rounded-2xl p-8 space-y-6 shadow-sm ring-1 ring-gray-100">
+        <section className="space-y-6 rounded-xl border border-hairline bg-white p-6">
           <SectionHeader step="02" label="Pricing" />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
             <Field label="Price (INR)" error={errors.price?.message}>
               <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-[15px] font-bold select-none">
+                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 select-none text-sm font-medium text-muted-soft">
                   ₹
                 </span>
                 <input
                   type="text"
                   {...register("price")}
                   placeholder="0.00"
-                  className={`${inputClass(!!errors.price)} pl-9`}
+                  className={`${inputClass(!!errors.price)} pl-8`}
                 />
               </div>
             </Field>
@@ -200,13 +195,15 @@ export function PlanForm({
             <motion.div
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
-              className="flex items-center gap-2 p-4 bg-[#f4faf0] rounded-xl border border-wise-green/30"
+              className="flex items-center gap-2 rounded-lg border border-hairline bg-surface-soft px-4 py-3"
             >
-              <div className="w-2 h-2 rounded-full bg-wise-green" />
-              <span className="text-[14px] font-[600] text-dark-green">
+              <span className="h-1.5 w-1.5 rounded-full bg-coral" />
+              <span className="text-sm font-medium text-body">
                 Preview:{" "}
-                <span className="text-[16px]">₹{formValues.price}</span>
-                <span className="text-gray-400 font-[400]">
+                <span className="font-semibold text-ink tabular-nums">
+                  ₹{formValues.price}
+                </span>
+                <span className="font-normal text-muted-soft">
                   {" "}
                   {formValues.period || "/month"}
                 </span>
@@ -216,73 +213,78 @@ export function PlanForm({
         </section>
 
         {/* Section: Icon Theme */}
-        <section className="bg-white rounded-2xl p-8 space-y-6 shadow-sm ring-1 ring-gray-100">
-          <SectionHeader step="03" label="Icon Theme" />
+        <section className="space-y-6 rounded-xl border border-hairline bg-white p-6">
+          <SectionHeader step="03" label="Icon theme" />
           <div className="grid grid-cols-3 gap-3">
-            {ICON_OPTIONS.map((opt) => (
-              <button
-                key={opt.value}
-                type="button"
-                onClick={() => setValue("iconType", opt.value)}
-                className={`relative p-4 rounded-xl border-2 text-left transition-all ${
-                  formValues.iconType === opt.value
-                    ? "border-wise-green bg-[#f4faf0]"
-                    : "border-gray-100 hover:border-gray-200 bg-white"
-                }`}
-              >
-                {formValues.iconType === opt.value && (
-                  <span className="absolute top-3 right-3 w-5 h-5 rounded-full bg-wise-green flex items-center justify-center">
-                    <Check className="w-3 h-3 text-dark-green" />
+            {ICON_OPTIONS.map((opt) => {
+              const selected = formValues.iconType === opt.value;
+              return (
+                <button
+                  key={opt.value}
+                  type="button"
+                  onClick={() => setValue("iconType", opt.value)}
+                  className={`relative rounded-lg border p-4 text-left transition-colors ${
+                    selected
+                      ? "border-coral/50 bg-coral/[0.04]"
+                      : "border-hairline bg-white hover:border-hairline-soft hover:bg-surface-soft/60"
+                  }`}
+                >
+                  {selected && (
+                    <span className="absolute right-3 top-3 flex h-5 w-5 items-center justify-center rounded-full bg-coral">
+                      <Check className="h-3 w-3 text-white" strokeWidth={3} />
+                    </span>
+                  )}
+                  <span className="mb-1 block text-[22px]">
+                    {opt.label.split("  ")[0]}
                   </span>
-                )}
-                <span className="text-[22px] block mb-1">
-                  {opt.label.split("  ")[0]}
-                </span>
-                <span className="text-[13px] font-[700] text-near-black block">
-                  {opt.label.split("  ")[1]}
-                </span>
-                <span className="text-[11px] text-gray-400">{opt.hint}</span>
-              </button>
-            ))}
+                  <span className="block text-[13px] font-semibold text-ink">
+                    {opt.label.split("  ")[1]}
+                  </span>
+                  <span className="text-[11px] text-muted-soft">
+                    {opt.hint}
+                  </span>
+                </button>
+              );
+            })}
           </div>
           {errors.iconType && (
-            <p className="text-sm text-red-500 mt-2">
+            <p className="mt-2 text-sm text-destructive">
               {errors.iconType.message}
             </p>
           )}
         </section>
 
         {/* Section: Features */}
-        <section className="bg-white rounded-2xl p-8 space-y-6 shadow-sm ring-1 ring-gray-100">
+        <section className="space-y-6 rounded-xl border border-hairline bg-white p-6">
           <div className="flex items-center justify-between">
             <SectionHeader step="04" label="Features" />
             <button
               type="button"
               onClick={() => append("")}
-              className="flex items-center gap-1.5 text-[13px] font-[600] text-dark-green bg-[#f4faf0] hover:bg-wise-green/20 px-3 py-1.5 rounded-full transition-colors"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-hairline px-3 py-1.5 text-[13px] font-medium text-body transition-colors hover:bg-surface-soft"
             >
-              <Plus className="w-3.5 h-3.5" />
+              <Plus className="h-3.5 w-3.5" />
               Add feature
             </button>
           </div>
 
           {errors.features && !Array.isArray(errors.features) && (
-            <p className="text-[12px] text-red-500 font-[500]">
+            <p className="text-xs font-medium text-destructive">
               {errors.features.message}
             </p>
           )}
 
           <AnimatePresence>
-            <div className="space-y-3">
+            <div className="space-y-2.5">
               {fields.map((field, i) => (
                 <motion.div
                   key={field.id}
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: 10, height: 0 }}
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-2.5"
                 >
-                  <span className="w-6 text-[12px] font-[700] text-gray-300 text-right flex-shrink-0">
+                  <span className="w-5 shrink-0 text-right text-xs font-medium text-muted-soft tabular-nums">
                     {i + 1}
                   </span>
                   <div className="flex-1">
@@ -290,10 +292,10 @@ export function PlanForm({
                       type="text"
                       {...register(`features.${i}` as const)}
                       placeholder={`Feature ${i + 1}`}
-                      className="w-full bg-[#f8f8f6] border border-transparent focus:border-wise-green/50 focus:bg-white rounded-full px-4 py-2.5 text-[14px] text-near-black outline-none transition-all"
+                      className="w-full rounded-lg border border-hairline bg-white px-3.5 py-2.5 text-sm text-ink outline-none transition-colors placeholder:text-muted-soft focus:border-coral/60 focus:ring-2 focus:ring-coral/15"
                     />
                     {Array.isArray(errors.features) && errors.features[i] && (
-                      <p className="text-[12px] text-red-500 font-[500] ml-4 mt-1">
+                      <p className="ml-1 mt-1 text-xs font-medium text-destructive">
                         {errors.features[i]?.message}
                       </p>
                     )}
@@ -302,9 +304,9 @@ export function PlanForm({
                     <button
                       type="button"
                       onClick={() => remove(i)}
-                      className="w-8 h-8 flex-shrink-0 rounded-full bg-gray-100 hover:bg-red-50 hover:text-red-500 flex items-center justify-center transition-colors text-gray-400"
+                      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-muted-ink transition-colors hover:bg-destructive/10 hover:text-destructive"
                     >
-                      <X className="w-3.5 h-3.5" />
+                      <X className="h-4 w-4" />
                     </button>
                   )}
                 </motion.div>
@@ -314,50 +316,50 @@ export function PlanForm({
         </section>
 
         {/* Section: Display Options */}
-        <section className="bg-white rounded-2xl p-8 shadow-sm ring-1 ring-gray-100">
-          <SectionHeader step="05" label="Display Options" />
+        <section className="rounded-xl border border-hairline bg-white p-6">
+          <SectionHeader step="05" label="Display options" />
           <div className="mt-6">
-            <label className="flex items-start gap-4 cursor-pointer group">
+            <label className="group flex cursor-pointer items-start gap-4">
               <input
                 type="checkbox"
                 {...register("highlight")}
                 className="sr-only"
               />
               <div
-                className={`mt-0.5 w-11 h-6 rounded-full flex-shrink-0 relative transition-colors duration-200 ${
-                  formValues.highlight ? "bg-wise-green" : "bg-gray-200"
+                className={`relative mt-0.5 h-6 w-11 shrink-0 rounded-full transition-colors duration-200 ${
+                  formValues.highlight ? "bg-coral" : "bg-surface-cream-strong"
                 }`}
               >
                 <span
-                  className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-all duration-200 ${
+                  className={`absolute top-1 h-4 w-4 rounded-full bg-white shadow-sm transition-all duration-200 ${
                     formValues.highlight ? "left-6" : "left-1"
                   }`}
                 />
               </div>
               <div>
-                <p className="text-[14px] font-[700] text-near-black group-hover:text-dark-green transition-colors">
-                  Highlight as Recommended
+                <p className="text-sm font-semibold text-ink">
+                  Highlight as recommended
                 </p>
-                <p className="text-[12px] text-gray-400 mt-0.5">
-                  Display this plan with a visual badge and elevated card style
-                  to draw user attention.
+                <p className="mt-0.5 text-[13px] text-muted-ink">
+                  Display this plan with a badge and an emphasized card to draw
+                  attention.
                 </p>
               </div>
             </label>
           </div>
         </section>
 
-        <div className="flex items-center justify-between pt-4 pb-8">
-          <p className="text-[13px] text-gray-400">
-            All fields marked with <span className="text-red-400">*</span> are
+        <div className="flex items-center justify-between pb-8 pt-2">
+          <p className="text-[13px] text-muted-soft">
+            Fields marked <span className="text-destructive">*</span> are
             required.
           </p>
-          <div className="flex gap-3">
+          <div className="flex gap-2">
             <button
               type="button"
               onClick={cancel}
               disabled={isPending}
-              className="px-5 py-2.5 text-[14px] font-[600] text-gray-600 bg-white border border-gray-200 rounded-full hover:bg-gray-50 transition-colors"
+              className="rounded-lg border border-hairline bg-white px-4 py-2 text-sm font-medium text-body transition-colors hover:bg-surface-soft disabled:opacity-60"
             >
               Discard
             </button>
@@ -365,18 +367,15 @@ export function PlanForm({
               type="button"
               onClick={handleSubmit(handleFormSubmit)}
               disabled={isPending}
-              className="px-8 py-2.5 text-[14px] font-[700] text-dark-green bg-wise-green rounded-full hover:brightness-105 active:scale-[0.98] transition-all flex items-center gap-2 shadow-md shadow-wise-green/30 disabled:opacity-60"
+              className="inline-flex items-center gap-2 rounded-lg bg-coral px-6 py-2 text-sm font-semibold text-white transition-colors hover:bg-coral-active active:translate-y-px disabled:opacity-60"
             >
               {isPending ? (
                 <>
-                  <div className="w-4 h-4 border-2 border-dark-green/30 border-t-dark-green rounded-full animate-spin" />
-                  Saving...
+                  <div className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" />
+                  Saving
                 </>
               ) : (
-                <>
-                  <Sparkles className="w-4 h-4" />
-                  Save Plan
-                </>
+                "Save plan"
               )}
             </button>
           </div>
@@ -387,9 +386,9 @@ export function PlanForm({
 }
 
 function inputClass(hasError: boolean) {
-  return `w-full bg-[#f8f8f6] border ${
+  return `w-full rounded-lg border bg-white ${
     hasError
-      ? "border-red-300 bg-red-50/30"
-      : "border-transparent focus:border-wise-green/50 focus:bg-white"
-  } rounded-xl px-4 py-3 text-[14px] text-near-black outline-none transition-all placeholder:text-gray-300`;
+      ? "border-destructive/40 focus:border-destructive focus:ring-destructive/15"
+      : "border-hairline focus:border-coral/60 focus:ring-coral/15"
+  } px-3.5 py-2.5 text-sm text-ink outline-none transition-colors focus:ring-2 placeholder:text-muted-soft`;
 }

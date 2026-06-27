@@ -11,10 +11,15 @@ import { CandidateHeader } from "@/features/jobs/components/candidate-profile/Ca
 import { CandidateLanguages } from "@/features/jobs/components/candidate-profile/CandidateLanguages";
 import { CandidateSkills } from "@/features/jobs/components/candidate-profile/CandidateSkills";
 import { useCandidateProfile } from "@/features/jobs/hooks/use-candidate-profile";
+import { useJobDetailsQuery } from "@/features/jobs/hooks/use-jobs-query";
+import { useParams } from "next/navigation";
+import { RecruiterInterviews } from "@/features/interview/components/recruiter-interviews";
 
 export default function CandidateProfilePage() {
+  const { applicationId } = useParams() as { applicationId: string };
   const {
     candidateId,
+    jobId,
     application,
     profile,
     education,
@@ -29,13 +34,18 @@ export default function CandidateProfilePage() {
     handleGoBack,
   } = useCandidateProfile();
 
+  const { data: job } = useJobDetailsQuery(jobId);
+
   if (!candidateId) {
     return (
       <div className="p-8 text-center text-[#d03238]">Invalid candidate.</div>
     );
   }
 
-  if (isLoading) {
+  const isProfileLoading = isLoading;
+  const _isProfileError = false;
+
+  if (isProfileLoading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
         <div className="w-10 h-10 border-4 border-[#e8ebe6] border-t-[#0e0f0c] rounded-full animate-spin" />
@@ -66,12 +76,20 @@ export default function CandidateProfilePage() {
     );
   }
 
+  const _handleGoToChat = () => {
+    // optional stub
+  };
+
+  const isChatEnabled = job?.is_chat_enabled ?? false;
+
   return (
     <div className="max-w-6xl mx-auto p-4 md:p-8 font-satoshi space-y-8 bg-[#f9faf9] min-h-screen">
       <CandidateHeader
         status={application.status}
+        candidateId={candidateId}
         onGoBack={handleGoBack}
         onUpdateStatus={handleUpdateStatus}
+        isChatEnabled={isChatEnabled}
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -100,6 +118,7 @@ export default function CandidateProfilePage() {
 
         {/* Right Column: Detailed Profile */}
         <div className="lg:col-span-8 space-y-6">
+          <RecruiterInterviews applicationId={applicationId} />
           <CandidateBio bio={profile.bio || profile.about} />
           <CandidateSkills skills={profile.skills} />
           <CandidateExperience experience={experience} />

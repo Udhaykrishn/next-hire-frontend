@@ -8,7 +8,7 @@ export default function CreatePlanPage() {
 
   return (
     <PlanForm
-      title="Create Plan"
+      title="Create plan"
       subtitle="Configure a new subscription tier for your platform."
       onSubmit={handleSubmit}
       isPending={isPending}

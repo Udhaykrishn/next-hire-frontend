@@ -1,16 +1,178 @@
 "use client";
 
-import { format } from "date-fns";
-import { Briefcase, Plus } from "lucide-react";
+import { addDays, format, isBefore } from "date-fns";
+import { Briefcase, Lock, Plus, Send } from "lucide-react";
 import Link from "next/link";
+import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 import { useRecruiterJobsQuery } from "@/features/jobs/hooks/use-jobs-query";
+import { useJobApplicationCountQuery } from "@/features/jobs/hooks/use-recruiter-applications";
+import { updateJob } from "@/features/jobs/services/job.api";
 import type { JobResponse } from "@/features/jobs/types/job.types";
+import { useState } from "react";
+
+const EXPIRY_DAYS = 15;
+
+function getExpiryLabel(createdAt: string): {
+  label: string;
+  expired: boolean;
+} {
+  const expiresAt = addDays(new Date(createdAt), EXPIRY_DAYS);
+  const expired = isBefore(expiresAt, new Date());
+  return {
+    label: `Expires ${format(expiresAt, "MMM d, yyyy")}`,
+    expired,
+  };
+}
+
+/** Per-card component so each card manages its own query + publish action. */
+function JobCard({ job }: { job: JobResponse }) {
+  const queryClient = useQueryClient();
+  const [publishing, setPublishing] = useState(false);
+
+  const { data: count, isLoading: countLoading } = useJobApplicationCountQuery(
+    job.id,
+  );
+
+  const expiry = job.created_at ? getExpiryLabel(job.created_at) : null;
+  const isPublished = job.is_published;
+
+  const handlePublish = async () => {
+    setPublishing(true);
+    try {
+      await updateJob(job.id, { is_published: true });
+      toast.success(`"${job.jobTitle}" is now live!`);
+      queryClient.invalidateQueries({ queryKey: ["recruiter", "jobs"] });
+    } catch {
+      toast.error("Failed to publish job. Please try again.");
+    } finally {
+      setPublishing(false);
+    }
+  };
+
+  return (
+    <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between group hover:border-wise-green/50 transition-colors">
+      <div className="flex items-start gap-4">
+        {/* Icon */}
+        <div className="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center shrink-0 border border-slate-100 group-hover:bg-wise-green/10 transition-colors">
+          <Briefcase className="w-6 h-6 text-slate-400 group-hover:text-wise-green transition-colors" />
+        </div>
+
+        <div>
+          {/* Title + badges */}
+          <div className="flex items-center gap-3 flex-wrap">
+            <h3 className="text-lg font-bold text-near-black">
+              {job.jobTitle}
+            </h3>
+
+            {/* Status badge (OPEN / CLOSED) */}
+            <span
+              className={`px-2.5 py-1 text-[10px] uppercase tracking-wider font-black rounded-full ${
+                job.status === "OPEN"
+                  ? "bg-green-100 text-green-700"
+                  : "bg-slate-100 text-slate-600"
+              }`}
+            >
+              {job.status}
+            </span>
+
+            {/* Draft badge — only when NOT published */}
+            {!isPublished && (
+              <span className="px-2.5 py-1 text-[10px] uppercase tracking-wider font-black rounded-full bg-yellow-100 text-yellow-700">
+                Draft
+              </span>
+            )}
+          </div>
+
+          {/* Subtitle */}
+          <p className="text-sm text-slate-500 font-medium mt-1">
+            {job.hiringCompany} • {job.jobType} • {job.locationType}
+          </p>
+
+          {/* Meta row */}
+          <div className="flex items-center gap-3 mt-3 text-xs text-slate-400 font-medium flex-wrap">
+            <span>
+              Posted{" "}
+              {job.created_at
+                ? format(new Date(job.created_at), "MMM d, yyyy")
+                : "Recently"}
+            </span>
+
+            {/* Expiry — only for published jobs */}
+            {isPublished && expiry && (
+              <>
+                <span>•</span>
+                <span
+                  className={`font-bold ${
+                    expiry.expired ? "text-red-500" : "text-slate-400"
+                  }`}
+                >
+                  {expiry.label}
+                </span>
+              </>
+            )}
+
+            <span>•</span>
+
+            {/* Application count */}
+            <span className="text-wise-green/80 font-bold">
+              {countLoading ? (
+                <span className="inline-block w-20 h-3 bg-slate-100 rounded animate-pulse" />
+              ) : (
+                `${count ?? 0} ${count === 1 ? "Application" : "Applications"}`
+              )}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Action buttons */}
+      <div className="flex items-center gap-3 shrink-0">
+        {isPublished ? (
+          /* Published — edit is locked, only view details */
+          <>
+            <span className="px-4 py-2 text-sm font-bold text-slate-300 flex items-center gap-1.5 cursor-not-allowed select-none">
+              <Lock className="w-3.5 h-3.5" />
+              Edit Locked
+            </span>
+            <Link
+              href={`/recruiter/jobs/${job.id}/applications`}
+              className="px-4 py-2 text-sm font-bold text-near-black bg-slate-50 hover:bg-slate-100 transition-colors rounded-full border border-slate-200"
+            >
+              View Details
+            </Link>
+          </>
+        ) : (
+          /* Draft — can edit + publish */
+          <>
+            <Link
+              href={`/recruiter/jobs/edit/${job.id}`}
+              className="px-4 py-2 text-sm font-bold text-slate-500 hover:text-near-black transition-colors rounded-full hover:bg-slate-50 border border-transparent hover:border-slate-200"
+            >
+              Edit Job
+            </Link>
+            <button
+              type="button"
+              onClick={handlePublish}
+              disabled={publishing}
+              className="px-4 py-2 text-sm font-bold text-white bg-wise-green hover:bg-wise-green/90 disabled:opacity-60 disabled:cursor-not-allowed transition-colors rounded-full flex items-center gap-1.5 shadow-sm"
+            >
+              <Send className="w-3.5 h-3.5" />
+              {publishing ? "Publishing..." : "Publish"}
+            </button>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
 
 export default function RecruiterJobsPage() {
   const { data: jobs, isLoading, error } = useRecruiterJobsQuery();
 
   return (
     <div className="p-8 max-w-7xl mx-auto space-y-8">
+      {/* Page header */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-black text-near-black tracking-tight">
@@ -29,9 +191,10 @@ export default function RecruiterJobsPage() {
         </Link>
       </div>
 
+      {/* Content */}
       {isLoading ? (
         <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-wise-green"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-wise-green" />
         </div>
       ) : error ? (
         <div className="bg-red-50 text-red-500 p-4 rounded-xl border border-red-100">
@@ -40,63 +203,7 @@ export default function RecruiterJobsPage() {
       ) : jobs && jobs.length > 0 ? (
         <div className="grid gap-4">
           {jobs.map((job: JobResponse) => (
-            <div
-              key={job.id}
-              className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between group hover:border-wise-green/50 transition-colors"
-            >
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center shrink-0 border border-slate-100 group-hover:bg-wise-green/10 transition-colors">
-                  <Briefcase className="w-6 h-6 text-slate-400 group-hover:text-wise-green transition-colors" />
-                </div>
-                <div>
-                  <div className="flex items-center gap-3">
-                    <h3 className="text-lg font-bold text-near-black">
-                      {job.jobTitle}
-                    </h3>
-                    <span
-                      className={`px-2.5 py-1 text-[10px] uppercase tracking-wider font-black rounded-full ${job.status === "OPEN" ? "bg-green-100 text-green-700" : "bg-slate-100 text-slate-600"}`}
-                    >
-                      {job.status}
-                    </span>
-                    {!job.is_published && (
-                      <span className="px-2.5 py-1 text-[10px] uppercase tracking-wider font-black rounded-full bg-yellow-100 text-yellow-700">
-                        Draft
-                      </span>
-                    )}
-                  </div>
-                  <p className="text-sm text-slate-500 font-medium mt-1">
-                    {job.hiringCompany} • {job.jobType} • {job.locationType}
-                  </p>
-                  <div className="flex items-center gap-4 mt-3 text-xs text-slate-400 font-medium">
-                    <span>
-                      Posted{" "}
-                      {job.created_at
-                        ? format(new Date(job.created_at), "MMM d, yyyy")
-                        : "Recently"}
-                    </span>
-                    <span>•</span>
-                    <span className="text-wise-green/80 font-bold">
-                      0 Applications
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <Link
-                  href={`/recruiter/jobs/edit/${job.id}`}
-                  className="px-4 py-2 text-sm font-bold text-slate-500 hover:text-near-black transition-colors rounded-full hover:bg-slate-50 border border-transparent hover:border-slate-200"
-                >
-                  Edit Job
-                </Link>
-                <button
-                  type="button"
-                  className="px-4 py-2 text-sm font-bold text-near-black bg-slate-50 hover:bg-slate-100 transition-colors rounded-full border border-slate-200"
-                >
-                  View Details
-                </button>
-              </div>
-            </div>
+            <JobCard key={job.id} job={job} />
           ))}
         </div>
       ) : (
@@ -108,8 +215,8 @@ export default function RecruiterJobsPage() {
             No jobs posted yet
           </h3>
           <p className="text-slate-500 mb-6 max-w-sm mx-auto">
-            You haven't created any job listings. Post your first job to start
-            receiving applications.
+            You haven&apos;t created any job listings. Post your first job to
+            start receiving applications.
           </p>
           <Link
             href="/recruiter/jobs/create/new"

@@ -427,6 +427,57 @@ export const Step3Logistics = ({
             </div>
             <FieldError name="whatsappAlerts" errors={errors} />
           </div>
+
+          <div className="space-y-4 pt-6 border-t border-gray-100">
+            <Label className="text-[14px] font-black text-near-black leading-snug">
+              Candidate Chatting Feature
+            </Label>
+            <p className="text-gray-400 text-[12px] font-medium leading-normal -mt-2">
+              Enable real-time messaging so shortlisted and hired candidates can
+              chat directly with you.
+            </p>
+            <div className="flex items-center gap-6 mt-2">
+              {[
+                { label: "Yes, enable chat (Recommended)", value: true },
+                { label: "No, disable candidate chat", value: false },
+              ].map((opt) => (
+                <button
+                  key={opt.label}
+                  type="button"
+                  onClick={() =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      is_chat_enabled: opt.value,
+                    }))
+                  }
+                  className="flex items-center gap-3 group cursor-pointer"
+                >
+                  <div
+                    className={cn(
+                      "w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all",
+                      (formData.is_chat_enabled !== false) === opt.value
+                        ? "border-wise-green bg-wise-green shadow-[0_0_0_4px_rgba(159,232,112,0.1)]"
+                        : "border-gray-200 group-hover:border-gray-300",
+                    )}
+                  >
+                    {(formData.is_chat_enabled !== false) === opt.value && (
+                      <div className="w-2.5 h-2.5 rounded-full bg-white" />
+                    )}
+                  </div>
+                  <span
+                    className={cn(
+                      "text-[14px] font-bold transition-colors",
+                      (formData.is_chat_enabled !== false) === opt.value
+                        ? "text-near-black"
+                        : "text-gray-500",
+                    )}
+                  >
+                    {opt.label}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </motion.div>

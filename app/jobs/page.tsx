@@ -9,12 +9,19 @@ export const dynamic = "force-dynamic";
 export default async function JobsPage() {
   const queryClient = getQueryClient();
 
+  // Must deep-equal the initial `params` produced by useJobList so the
+  // dehydrated cache matches the client's first query key (no refetch on mount).
   const initialParams = {
     search: "",
     location: "",
+    jobTypes: [],
+    locationTypes: [],
     experience: [],
     salary: [],
-    jobTypes: [],
+    jobCategories: [],
+    datePosted: "",
+    nightShift: false,
+    sort: "Relevance",
   };
 
   await queryClient.prefetchQuery({

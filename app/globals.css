@@ -4,6 +4,9 @@
 
 @theme {
   --font-satoshi: "Satoshi", "Satoshi Fallback", sans-serif;
+  /* Editorial slab-serif display (DESIGN.md). Self-hosted via next/font. */
+  --font-display:
+    var(--font-fraunces), "Fraunces", Georgia, "Times New Roman", serif;
 
   /* Typography Hierarchy (New Professional Sizes) */
   --text-display: 48px;
@@ -15,44 +18,75 @@
   --text-footer: 14px;
   --text-description: 14px;
 
-  /* Wise Color Palette (Restored) */
-  --color-near-black: #0e0f0c;
-  --color-wise-green: #9fe870;
-  --color-dark-green: #163300;
-  --color-light-mint: #e2f6d5;
-  --color-pastel-green: #cdffad;
+  /* ---------------------------------------------------------------
+     Palette (DESIGN.md): cream canvas + coral accent + navy surfaces.
+     The legacy "wise/green" token NAMES are kept so existing pages
+     that reference bg-wise-green / text-dark-green flip to the new
+     brand automatically. The VALUES below are the new palette.
+  ----------------------------------------------------------------*/
 
-  --color-positive-green: #054d28;
-  --color-danger-red: #d03238;
-  --color-warning-yellow: #ffd11a;
-  --color-background-cyan: rgba(56, 200, 255, 0.1);
-  --color-bright-orange: #ffc091;
+  /* Legacy names, re-pointed to the new brand */
+  --color-near-black: #141413; /* ink */
+  --color-wise-green: #cc785c; /* -> coral primary */
+  --color-dark-green: #181715; /* -> navy dark surface */
+  --color-light-mint: #efe9de; /* -> cream card */
+  --color-pastel-green: #f5f0e8; /* -> cream soft */
 
-  --color-warm-dark: #454745;
-  --color-gray: #868685;
-  --color-light-surface: #e8ebe6;
+  --color-positive-green: #2f6e44; /* success text */
+  --color-danger-red: #c64545;
+  --color-warning-yellow: #d4a017;
+  --color-background-cyan: rgba(93, 184, 166, 0.12);
+  --color-bright-orange: #e8a55a;
 
-  /* Shadcn Variables mapping to Wise Palette */
-  --color-background: white;
-  --color-foreground: #0e110e;
-  --color-card: white;
-  --color-card-foreground: #0e110e;
-  --color-popover: white;
-  --color-popover-foreground: #0e110e;
-  --color-primary: #9fe870;
-  --color-primary-foreground: #001a00;
-  --color-secondary: #f0f7eb;
-  --color-secondary-foreground: #001a00;
-  --color-muted: #f4f5f4;
-  --color-muted-foreground: #717571;
-  --color-accent: #9fe870;
-  --color-accent-foreground: #001a00;
-  --color-destructive: #ef4444;
-  --color-destructive-foreground: #f8fafc;
-  --color-border: #e2e8f0;
-  --color-input: #e2e8f0;
-  --color-ring: #9fe870;
-  --radius: 1rem;
+  --color-warm-dark: #3d3d3a; /* body */
+  --color-gray: #6c6a64; /* muted */
+  --color-light-surface: #efe9de;
+
+  /* New DESIGN.md tokens (preferred on the landing page) */
+  --color-canvas: #faf9f5;
+  --color-surface-soft: #f5f0e8;
+  --color-surface-card: #efe9de;
+  --color-surface-cream-strong: #e8e0d2;
+  --color-coral: #cc785c;
+  --color-coral-active: #a9583e;
+  --color-coral-disabled: #e6dfd8;
+  --color-navy: #181715;
+  --color-navy-soft: #1f1e1b;
+  --color-navy-elevated: #252320;
+  --color-ink: #141413;
+  --color-body: #3d3d3a;
+  --color-body-strong: #252523;
+  --color-muted-ink: #6c6a64;
+  --color-muted-soft: #8e8b82;
+  --color-hairline: #e6dfd8;
+  --color-hairline-soft: #ebe6df;
+  --color-on-dark: #faf9f5;
+  --color-on-dark-soft: #a09d96;
+  --color-teal: #5db8a6;
+  --color-amber: #e8a55a;
+  --color-success: #5db872;
+
+  /* Shadcn / semantic variables mapped to the new palette */
+  --color-background: #faf9f5;
+  --color-foreground: #141413;
+  --color-card: #ffffff;
+  --color-card-foreground: #141413;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #141413;
+  --color-primary: #cc785c;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #efe9de;
+  --color-secondary-foreground: #181715;
+  --color-muted: #f5f0e8;
+  --color-muted-foreground: #6c6a64;
+  --color-accent: #cc785c;
+  --color-accent-foreground: #ffffff;
+  --color-destructive: #c64545;
+  --color-destructive-foreground: #faf9f5;
+  --color-border: #e6dfd8;
+  --color-input: #e6dfd8;
+  --color-ring: #cc785c;
+  --radius: 0.75rem;
 }
 
 @layer base {
@@ -89,7 +123,7 @@
 }
 
 .ProseMirror blockquote {
-  border-left: 4px solid #9fe870;
+  border-left: 4px solid var(--color-coral);
   padding-left: 1rem;
   font-style: italic;
   margin: 1.5rem 0;
@@ -106,8 +140,8 @@
 @layer base {
   body {
     font-family: var(--font-satoshi);
-    color: var(--color-near-black);
-    background-color: white;
+    color: var(--color-ink);
+    background-color: var(--color-canvas);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }

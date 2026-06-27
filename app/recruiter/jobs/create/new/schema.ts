@@ -154,6 +154,7 @@ export const jobStep3Schema = z
     otherRecruiterEmail: z.string().default(""),
     canCandidateContact: z.enum(["Yes", "No"]).default("No"),
     whatsappAlerts: z.string().min(1, "Notification preference is required"),
+    is_chat_enabled: z.boolean().default(true),
   })
   .superRefine((data, ctx) => {
     if (data.isWalkIn) {

@@ -1,14 +1,16 @@
 "use client";
 
-import { Lock } from "lucide-react";
 import { motion } from "motion/react";
 import { useRouter } from "next/navigation";
 import type React from "react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/animate-ui/components/buttons/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { AUTH_PRIMARY_BTN } from "@/components/auth/auth-shell";
+import { DynamicFormFields } from "@/components/forms/dynamic-form-fields";
+import { useFormConfig } from "@/features/admin-forms/hooks/use-form-config";
+import { validateForm } from "@/features/admin-forms/lib/validate-form";
+import type { FormField } from "@/features/admin-forms/types/form.types";
 import { useAuth } from "@/features/auth/hooks/use-auth";
 
 interface ResetPasswordFormProps {
@@ -16,26 +18,65 @@ interface ResetPasswordFormProps {
   role: "recruiter" | "user";
 }
 
+const FALLBACK_FIELDS: FormField[] = [
+  {
+    key: "password",
+    label: "New password",
+    type: "password",
+    placeholder: "••••••••",
+    required: true,
+    enabled: true,
+    locked: true,
+    custom: false,
+    order: 0,
+    minLength: 6,
+  },
+  {
+    key: "confirmPassword",
+    label: "Confirm password",
+    type: "password",
+    placeholder: "••••••••",
+    required: true,
+    enabled: true,
+    locked: true,
+    custom: false,
+    order: 1,
+    minLength: 6,
+  },
+];
+
 export function ResetPasswordForm({ token, role }: ResetPasswordFormProps) {
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [localError, setLocalError] = useState("");
+  const [values, setValues] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const { resetPassword, isLoading, error: authError } = useAuth();
   const router = useRouter();
+  const { fields: configFields } = useFormConfig("auth.reset-password");
+  const fields = configFields ?? FALLBACK_FIELDS;
+
+  const handleChange = (key: string, value: string) => {
+    setValues((prev) => ({ ...prev, [key]: value }));
+    setErrors((prev) => {
+      if (!prev[key]) return prev;
+      const next = { ...prev };
+      delete next[key];
+      return next;
+    });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
-      setLocalError("Passwords do not match");
+    const errs = validateForm(fields, values);
+    if (Object.keys(errs).length > 0) {
+      setErrors(errs);
       return;
     }
-    setLocalError("");
+    setErrors({});
     try {
       await resetPassword(
         {
           token,
-          password,
-          confirmPassword,
+          password: values.password,
+          confirmPassword: values.confirmPassword,
         },
         role,
       );
@@ -48,71 +89,30 @@ export function ResetPasswordForm({ token, role }: ResetPasswordFormProps) {
     }
   };
 
-  const displayError = localError || authError;
-
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
-      <div className="space-y-4">
-        <div className="space-y-2">
-          <Label
-            htmlFor="password"
-            className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
-          >
-            <Lock className="w-4 h-4 text-wise-green" /> New Password
-          </Label>
-          <Input
-            id="password"
-            type="password"
-            placeholder="••••••••"
-            className="h-12 bg-white border-gray-200 text-gray-900 rounded-xl focus:border-wise-green focus:ring-1 focus:ring-wise-green/30 transition-all shadow-sm placeholder:text-gray-400"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            minLength={6}
-          />
-        </div>
+      <DynamicFormFields
+        fields={fields}
+        values={values}
+        onChange={handleChange}
+        errors={errors}
+        idPrefix="reset"
+      />
 
-        <div className="space-y-2">
-          <Label
-            htmlFor="confirmPassword"
-            className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2"
-          >
-            <Lock className="w-4 h-4 text-wise-green" /> Confirm Password
-          </Label>
-          <Input
-            id="confirmPassword"
-            type="password"
-            placeholder="••••••••"
-            className="h-12 bg-white border-gray-200 text-gray-900 rounded-xl focus:border-wise-green focus:ring-1 focus:ring-wise-green/30 transition-all shadow-sm placeholder:text-gray-400"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-            minLength={6}
-          />
-        </div>
-      </div>
-
-      <motion.div
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-        className="pt-2"
-      >
-        <Button
-          type="submit"
-          className="w-full h-12 bg-wise-green text-dark-green font-black rounded-xl hover:bg-wise-green/90 transition-all text-lg shadow-[0_0_20px_rgba(159,232,112,0.2)] mt-2"
-          disabled={isLoading}
-        >
-          {isLoading ? "Resetting..." : "Reset Password"}
+      <motion.div whileTap={{ scale: 0.98 }} className="pt-2">
+        <Button type="submit" className={AUTH_PRIMARY_BTN} disabled={isLoading}>
+          {isLoading ? "Updating…" : "Update password"}
         </Button>
       </motion.div>
 
-      {displayError && (
+      {authError && (
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="text-sm text-red-600 text-center font-bold bg-red-50 border border-red-200 p-3 rounded-lg mt-4"
+          role="alert"
+          className="mt-4 rounded-xl bg-red-50 p-3 text-center text-sm font-semibold text-destructive"
         >
-          {displayError}
+          {authError}
         </motion.p>
       )}
     </form>

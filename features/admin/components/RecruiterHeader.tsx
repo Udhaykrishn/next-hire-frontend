@@ -1,6 +1,7 @@
 "use client";
 
 import { Ban, Mail, Phone, ShieldX, Unlock } from "lucide-react";
+import { StatusBadge } from "@/components/admin/ui";
 import { Button } from "@/components/animate-ui/components/buttons/button";
 import { ConfirmationModal } from "@/components/shared/confirmation-modal";
 import {
@@ -24,6 +25,15 @@ const REVOCATION_REASONS = [
   "False or misleading information submitted during verification",
   "Company failed re-verification after suspension",
 ] as const;
+
+type BadgeTone = "success" | "warning" | "danger" | "coral" | "neutral";
+
+const statusTone = (status: string): BadgeTone => {
+  if (status === "Active") return "success";
+  if (status === "Pending") return "warning";
+  if (status === "Blocked") return "danger";
+  return "neutral";
+};
 
 interface RecruiterHeaderProps {
   recruiter: RecruiterDetail;
@@ -50,66 +60,54 @@ export const RecruiterHeader = ({ recruiter, id }: RecruiterHeaderProps) => {
 
   return (
     <>
-      <div className="p-8 bg-gray-50/50 border-b border-gray-100 flex flex-col md:flex-row md:items-center justify-between gap-6">
-        <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
-          <div className="relative group shrink-0">
-            <div className="w-24 h-24 rounded-[2rem] bg-near-black flex items-center justify-center text-4xl font-black text-wise-green shadow-xl shadow-near-black/20 group-hover:rotate-6 transition-transform">
-              {recruiter.name.charAt(0)}
-            </div>
-            <div className="absolute -bottom-1 -right-1 w-8 h-8 bg-white rounded-xl shadow-lg flex items-center justify-center border border-gray-50">
-              <div className="w-2.5 h-2.5 rounded-full bg-wise-green shadow-[0_0_10px_rgba(159,232,112,0.8)]" />
-            </div>
+      <div className="flex flex-col justify-between gap-6 border-b border-hairline-soft bg-surface-soft/40 p-6 md:flex-row md:items-center">
+        <div className="flex flex-col items-center gap-5 md:flex-row md:items-start">
+          <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-navy text-2xl font-semibold text-on-dark">
+            {recruiter.name.charAt(0)}
           </div>
-          <div className="flex-1 space-y-3 text-center md:text-left">
-            <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
-              <h1 className="text-3xl font-black text-near-black tracking-tight uppercase">
+          <div className="flex-1 space-y-2 text-center md:text-left">
+            <div className="flex flex-wrap items-center justify-center gap-2.5 md:justify-start">
+              <h1 className="text-[24px] font-semibold leading-tight tracking-[-0.01em] text-ink">
                 {recruiter.name}
               </h1>
-              <span
-                className={cn(
-                  "px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm",
-                  recruiter.status === "Active"
-                    ? "bg-green-100 text-green-700 border border-green-200"
-                    : "bg-red-100 text-red-700 border border-red-200",
-                )}
-              >
+              <StatusBadge tone={statusTone(recruiter.status)}>
                 {recruiter.status}
-              </span>
+              </StatusBadge>
             </div>
-            <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 text-sm font-bold text-gray-500">
-              <span className="text-near-black">{recruiter.company}</span>
-              <span className="w-1 h-1 rounded-full bg-gray-300" />
-              Joined {recruiter.joined}
+            <div className="flex flex-wrap items-center justify-center gap-2 text-[13px] text-muted-ink md:justify-start">
+              <span className="font-medium text-ink">{recruiter.company}</span>
+              <span className="h-1 w-1 rounded-full bg-hairline" />
+              <span className="tabular-nums">Joined {recruiter.joined}</span>
             </div>
-            <div className="pt-1 flex flex-wrap justify-center md:justify-start gap-3">
+            <div className="flex flex-wrap justify-center gap-2 pt-1 md:justify-start">
               <a
                 href={`mailto:${recruiter.email}`}
-                className="h-10 px-4 bg-white hover:bg-gray-50 rounded-xl flex items-center gap-2 text-xs font-bold text-gray-600 transition-all border border-gray-200 shadow-sm"
+                className="inline-flex h-9 items-center gap-2 rounded-lg border border-hairline bg-white px-3 text-[13px] font-medium text-body transition-colors hover:bg-surface-soft"
               >
-                <Mail className="w-3.5 h-3.5 text-gray-400" />
+                <Mail className="h-3.5 w-3.5 text-muted-soft" />
                 {recruiter.email}
               </a>
               <a
                 href={`tel:${recruiter.phone}`}
-                className="h-10 px-4 bg-white hover:bg-gray-50 rounded-xl flex items-center gap-2 text-xs font-bold text-gray-600 transition-all border border-gray-200 shadow-sm"
+                className="inline-flex h-9 items-center gap-2 rounded-lg border border-hairline bg-white px-3 text-[13px] font-medium text-body transition-colors hover:bg-surface-soft"
               >
-                <Phone className="w-3.5 h-3.5 text-gray-400" />
+                <Phone className="h-3.5 w-3.5 text-muted-soft" />
                 {recruiter.phone}
               </a>
             </div>
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <button
             type="button"
             onClick={() => setIsBlocking(true)}
             disabled={isRestricting}
             className={cn(
-              "p-4 rounded-2xl transition-all outline-none border shadow-sm",
+              "inline-flex h-10 items-center gap-2 rounded-lg border px-4 text-sm font-medium transition-colors disabled:opacity-50",
               recruiter.status === "Blocked"
-                ? "bg-green-50 text-green-600 hover:bg-green-100 border-green-100"
-                : "bg-red-50 text-red-600 hover:bg-red-100 border-red-100",
+                ? "border-hairline bg-white text-body hover:bg-surface-soft"
+                : "border-transparent bg-destructive/10 text-destructive hover:bg-destructive/15",
             )}
             title={
               recruiter.status === "Blocked"
@@ -118,9 +116,15 @@ export const RecruiterHeader = ({ recruiter, id }: RecruiterHeaderProps) => {
             }
           >
             {recruiter.status === "Blocked" ? (
-              <Unlock className="w-6 h-6" />
+              <>
+                <Unlock className="h-4 w-4" />
+                Restore access
+              </>
             ) : (
-              <Ban className="w-6 h-6" />
+              <>
+                <Ban className="h-4 w-4" />
+                Restrict access
+              </>
             )}
           </button>
 
@@ -129,10 +133,11 @@ export const RecruiterHeader = ({ recruiter, id }: RecruiterHeaderProps) => {
               type="button"
               onClick={() => setIsRevokingModal(true)}
               disabled={isRevoking}
-              className="p-4 rounded-2xl transition-all outline-none border shadow-sm bg-orange-50 text-orange-600 hover:bg-orange-100 border-orange-100"
+              className="inline-flex h-10 items-center gap-2 rounded-lg border border-hairline bg-white px-4 text-sm font-medium text-body transition-colors hover:bg-surface-soft disabled:opacity-50"
               title="Revoke Company Verification"
             >
-              <ShieldX className="w-6 h-6" />
+              <ShieldX className="h-4 w-4 text-muted-ink" />
+              Revoke verification
             </button>
           )}
         </div>
@@ -163,29 +168,29 @@ export const RecruiterHeader = ({ recruiter, id }: RecruiterHeaderProps) => {
 
       {/* Revoke Verification Modal */}
       {isRevokingModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-          <div className="bg-white rounded-[2rem] p-8 shadow-2xl w-full max-w-md mx-4 space-y-6">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/40 backdrop-blur-sm">
+          <div className="mx-4 w-full max-w-md space-y-6 rounded-xl border border-hairline bg-white p-6 shadow-xl">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-orange-50 flex items-center justify-center">
-                <ShieldX className="w-6 h-6 text-orange-500" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-surface-soft text-muted-ink">
+                <ShieldX className="h-5 w-5" />
               </div>
               <div>
-                <h2 className="text-lg font-black text-near-black">
-                  Revoke Company Verification
+                <h2 className="text-base font-semibold text-ink">
+                  Revoke company verification
                 </h2>
-                <p className="text-xs text-gray-400 font-bold">
+                <p className="text-[13px] text-muted-soft">
                   This action cannot be undone without recruiter
                   re-verification.
                 </p>
               </div>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-2.5">
               <label
                 htmlFor="revoke-preset"
-                className="text-[10px] font-black text-gray-500 uppercase tracking-widest"
+                className="text-[13px] font-medium text-muted-soft"
               >
-                Reason for Revocation
+                Reason for revocation
               </label>
 
               {/* shadcn Select */}
@@ -197,7 +202,7 @@ export const RecruiterHeader = ({ recruiter, id }: RecruiterHeaderProps) => {
                   setRevokeReason(safe);
                 }}
               >
-                <SelectTrigger className="w-full h-11 rounded-2xl border border-gray-200 bg-gray-50 px-4 text-sm font-medium text-near-black focus:border-orange-300 focus:ring-0">
+                <SelectTrigger className="h-10 w-full rounded-lg border border-hairline bg-white px-3 text-sm font-medium text-ink focus:border-coral/60 focus:ring-2 focus:ring-coral/15">
                   <SelectValue placeholder="Select a reason..." />
                 </SelectTrigger>
                 <SelectContent>
@@ -217,11 +222,11 @@ export const RecruiterHeader = ({ recruiter, id }: RecruiterHeaderProps) => {
                   onChange={(e) => setRevokeReason(e.target.value)}
                   placeholder="Describe the reason in detail..."
                   rows={3}
-                  className="w-full resize-none rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm font-medium text-near-black placeholder:text-gray-300 focus:border-orange-300 focus:bg-white focus:outline-none transition-colors"
+                  className="w-full resize-none rounded-lg border border-hairline bg-white px-3 py-2.5 text-sm text-ink transition-colors placeholder:text-muted-soft focus:border-coral/60 focus:outline-none focus:ring-2 focus:ring-coral/15"
                 />
               )}
 
-              <p className="text-[10px] text-gray-400 font-bold">
+              <p className="text-[13px] text-muted-soft">
                 This reason will be visible to the recruiter.
               </p>
             </div>
@@ -234,16 +239,16 @@ export const RecruiterHeader = ({ recruiter, id }: RecruiterHeaderProps) => {
                   setRevokeReason("");
                   setSelectedPreset("");
                 }}
-                className="flex-1 h-11 rounded-xl text-xs font-black uppercase tracking-widest"
+                className="h-10 flex-1 rounded-lg border-hairline text-sm font-medium text-body"
               >
                 Cancel
               </Button>
               <Button
                 onClick={handleConfirmRevoke}
                 disabled={isRevoking || !revokeReason.trim()}
-                className="flex-1 h-11 rounded-xl text-xs font-black uppercase tracking-widest bg-orange-500 hover:bg-orange-600 text-white border-0"
+                className="h-10 flex-1 rounded-lg border-0 bg-coral text-sm font-semibold text-white hover:bg-coral-active"
               >
-                {isRevoking ? "Revoking..." : "Confirm Revoke"}
+                {isRevoking ? "Revoking..." : "Confirm revoke"}
               </Button>
             </div>
           </div>

@@ -6,10 +6,10 @@ interface SectionHeaderProps {
 export function SectionHeader({ step, label }: SectionHeaderProps) {
   return (
     <div className="flex items-center gap-3">
-      <span className="text-[11px] font-[800] tracking-widest text-wise-green bg-dark-green px-2.5 py-1 rounded-full">
+      <span className="flex h-6 w-6 items-center justify-center rounded-md bg-surface-soft text-[11px] font-semibold text-muted-ink tabular-nums">
         {step}
       </span>
-      <h2 className="text-[16px] font-[800] text-near-black">{label}</h2>
+      <h2 className="text-[15px] font-semibold text-ink">{label}</h2>
     </div>
   );
 }

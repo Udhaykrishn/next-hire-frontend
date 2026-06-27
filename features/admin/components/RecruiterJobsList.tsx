@@ -1,8 +1,8 @@
 "use client";
 
-import { Eye } from "lucide-react";
+import { Briefcase, Eye } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { cn } from "@/lib/utils";
+import { StatusBadge } from "@/components/admin/ui";
 import { useRecruiterJobs } from "../hooks/use-recruiter-jobs";
 
 interface RecruiterJobsListProps {
@@ -14,67 +14,60 @@ export const RecruiterJobsList = ({ id }: RecruiterJobsListProps) => {
   const { data: jobs = [], isLoading: isJobsLoading } = useRecruiterJobs(id);
 
   return (
-    <section className="bg-white border border-gray-100 rounded-[2.5rem] p-8 shadow-sm">
-      <div className="flex items-center justify-between mb-8">
-        <div className="text-[10px] font-black text-near-black uppercase tracking-[0.4em] flex items-center gap-3">
-          <div className="w-2 h-2 rounded-full bg-wise-green shadow-[0_0_10px_rgba(159,232,112,0.8)]" />
-          Jobs Created
-        </div>
-        <span className="text-xs font-bold text-gray-400 bg-gray-50 px-3 py-1 rounded-full border border-gray-100">
-          {isJobsLoading ? "..." : jobs.length} Postings
+    <section className="rounded-xl border border-hairline bg-white p-6">
+      <div className="mb-5 flex items-center justify-between">
+        <h3 className="text-[15px] font-semibold text-ink">Jobs created</h3>
+        <span className="rounded-md bg-surface-soft px-2 py-0.5 text-xs font-medium text-muted-ink tabular-nums">
+          {isJobsLoading ? "…" : jobs.length} postings
         </span>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-2.5">
         {isJobsLoading ? (
-          <div className="p-6 text-center text-gray-400 text-sm font-bold">
-            Loading jobs...
+          <div className="p-6 text-center text-sm text-muted-soft">
+            Loading jobs…
           </div>
         ) : jobs.length === 0 ? (
-          <div className="p-6 text-center text-gray-400 text-sm font-bold">
-            No jobs created yet.
+          <div className="flex flex-col items-center rounded-lg border border-dashed border-hairline py-10 text-center">
+            <span className="mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-surface-soft text-muted-soft">
+              <Briefcase className="h-5 w-5" />
+            </span>
+            <p className="text-sm text-muted-ink">No jobs created yet.</p>
           </div>
         ) : (
           jobs.map((job) => (
             <div
               key={job.id}
-              className="p-6 bg-white border border-gray-100 rounded-2xl flex items-center justify-between group hover:border-wise-green/30 transition-all hover:shadow-sm"
+              className="flex items-center justify-between gap-4 rounded-lg border border-hairline bg-white p-4 transition-colors hover:bg-surface-soft/50"
             >
-              <div>
-                <h4 className="text-sm font-bold text-near-black mb-1">
-                  {job.jobTitle}
-                </h4>
-                <div className="flex items-center gap-3 text-[11px] font-bold text-gray-400">
-                  <span className="uppercase tracking-widest">
-                    {job.jobType}
-                  </span>
-                  <span className="w-1 h-1 rounded-full bg-gray-200" />
-                  <span className="uppercase tracking-widest">
-                    {job.locationType}
-                  </span>
+              <div className="min-w-0">
+                <h4 className="text-sm font-medium text-ink">{job.jobTitle}</h4>
+                <div className="mt-0.5 flex items-center gap-2 text-[13px] text-muted-soft">
+                  <span>{job.jobType}</span>
+                  <span className="h-1 w-1 rounded-full bg-muted-soft/50" />
+                  <span>{job.locationType}</span>
                 </div>
               </div>
-              <div className="flex items-center gap-4">
-                <span className="text-xs font-black text-gray-300 uppercase tracking-widest">
+              <div className="flex shrink-0 items-center gap-3">
+                <span className="hidden text-[13px] text-muted-soft tabular-nums sm:inline">
                   {job.posted}
                 </span>
-                <span
-                  className={cn(
-                    "px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest",
+                <StatusBadge
+                  tone={
                     job.status === "OPEN" || job.status === "PUBLISHED"
-                      ? "bg-green-50 text-green-600"
-                      : "bg-gray-100 text-gray-500",
-                  )}
+                      ? "success"
+                      : "neutral"
+                  }
                 >
                   {job.status}
-                </span>
+                </StatusBadge>
                 <button
                   type="button"
                   onClick={() => router.push(`/admin/jobs/${job.id}`)}
-                  className="p-2 ml-2 text-gray-400 hover:text-wise-green hover:bg-wise-green/10 rounded-xl transition-all outline-none"
-                  title="View Job Details"
+                  className="rounded-lg p-1.5 text-muted-ink outline-none transition-colors hover:bg-surface-soft hover:text-ink"
+                  title="View job details"
                 >
-                  <Eye className="w-4 h-4" />
+                  <Eye className="h-4 w-4" />
                 </button>
               </div>
             </div>

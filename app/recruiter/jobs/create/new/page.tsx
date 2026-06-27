@@ -72,6 +72,7 @@ const INITIAL_DATA: JobFormData = {
   otherRecruiterEmail: "",
   canCandidateContact: "No",
   selectedPlan: "",
+  is_chat_enabled: true,
 };
 
 export function JobWizard({
@@ -105,13 +106,27 @@ export function JobWizard({
     useRecruiterProfile();
 
   useEffect(() => {
-    if (!isProfileLoading && !recruiterProfile?.is_verified_company) {
+    if (isProfileLoading) return;
+
+    if (!recruiterProfile?.is_verified_company) {
       toast.error(
         `Please verify your company with a CIN number to ${jobId ? "edit" : "post"} jobs.`,
       );
       router.push("/recruiter/profile");
+      return;
     }
-  }, [recruiterProfile?.is_verified_company, isProfileLoading, router, jobId]);
+
+    if (!recruiterProfile?.subscription?.is_subscribed) {
+      toast.error("Please subscribe to a plan to post jobs.");
+      router.push("/recruiter/plan");
+    }
+  }, [
+    recruiterProfile?.is_verified_company,
+    recruiterProfile?.subscription?.is_subscribed,
+    isProfileLoading,
+    router,
+    jobId,
+  ]);
 
   if (isProfileLoading) {
     return (

@@ -8,23 +8,23 @@ import {
 import { apiClient } from "./api-client";
 
 describe("apiClient interceptors", () => {
-  let originalDocument: unknown;
+  let originalDocument: Document | undefined;
 
   beforeEach(() => {
     originalDocument = global.document;
 
     global.document = {
       cookie: "XSRF-TOKEN=test-token-123",
-    } as unknown;
+    } as unknown as Document;
   });
 
   afterEach(() => {
-    global.document = originalDocument;
+    global.document = originalDocument as Document;
   });
 
   describe("request interceptor", () => {
     it("adds CSRF token for POST requests", async () => {
-      let interceptedConfig: unknown;
+      let interceptedConfig: InternalAxiosRequestConfig | undefined;
       const adapter = async (config: InternalAxiosRequestConfig) => {
         interceptedConfig = config;
         return {
@@ -37,11 +37,11 @@ describe("apiClient interceptors", () => {
       };
 
       await apiClient.post("/test", {}, { adapter });
-      expect(interceptedConfig.headers["X-XSRF-TOKEN"]).toBe("test-token-123");
+      expect(interceptedConfig?.headers["X-XSRF-TOKEN"]).toBe("test-token-123");
     });
 
     it("adds CSRF token for PUT requests", async () => {
-      let interceptedConfig: unknown;
+      let interceptedConfig: InternalAxiosRequestConfig | undefined;
       const adapter = async (config: InternalAxiosRequestConfig) => {
         interceptedConfig = config;
         return {
@@ -54,11 +54,11 @@ describe("apiClient interceptors", () => {
       };
 
       await apiClient.put("/test", {}, { adapter });
-      expect(interceptedConfig.headers["X-XSRF-TOKEN"]).toBe("test-token-123");
+      expect(interceptedConfig?.headers["X-XSRF-TOKEN"]).toBe("test-token-123");
     });
 
     it("adds CSRF token for DELETE requests", async () => {
-      let interceptedConfig: unknown;
+      let interceptedConfig: InternalAxiosRequestConfig | undefined;
       const adapter = async (config: InternalAxiosRequestConfig) => {
         interceptedConfig = config;
         return {
@@ -71,11 +71,11 @@ describe("apiClient interceptors", () => {
       };
 
       await apiClient.delete("/test", { adapter });
-      expect(interceptedConfig.headers["X-XSRF-TOKEN"]).toBe("test-token-123");
+      expect(interceptedConfig?.headers["X-XSRF-TOKEN"]).toBe("test-token-123");
     });
 
     it("does not add CSRF token for GET requests", async () => {
-      let interceptedConfig: unknown;
+      let interceptedConfig: InternalAxiosRequestConfig | undefined;
       const adapter = async (config: InternalAxiosRequestConfig) => {
         interceptedConfig = config;
         return {
@@ -88,11 +88,11 @@ describe("apiClient interceptors", () => {
       };
 
       await apiClient.get("/test", { adapter });
-      expect(interceptedConfig.headers["X-XSRF-TOKEN"]).toBeUndefined();
+      expect(interceptedConfig?.headers["X-XSRF-TOKEN"]).toBeUndefined();
     });
 
     it("does not add CSRF token for HEAD requests", async () => {
-      let interceptedConfig: unknown;
+      let interceptedConfig: InternalAxiosRequestConfig | undefined;
       const adapter = async (config: InternalAxiosRequestConfig) => {
         interceptedConfig = config;
         return {
@@ -105,11 +105,11 @@ describe("apiClient interceptors", () => {
       };
 
       await apiClient.head("/test", { adapter });
-      expect(interceptedConfig.headers["X-XSRF-TOKEN"]).toBeUndefined();
+      expect(interceptedConfig?.headers["X-XSRF-TOKEN"]).toBeUndefined();
     });
 
     it("does not add CSRF token for OPTIONS requests", async () => {
-      let interceptedConfig: unknown;
+      let interceptedConfig: InternalAxiosRequestConfig | undefined;
       const adapter = async (config: InternalAxiosRequestConfig) => {
         interceptedConfig = config;
         return {
@@ -122,7 +122,7 @@ describe("apiClient interceptors", () => {
       };
 
       await apiClient.options("/test", { adapter });
-      expect(interceptedConfig.headers["X-XSRF-TOKEN"]).toBeUndefined();
+      expect(interceptedConfig?.headers["X-XSRF-TOKEN"]).toBeUndefined();
     });
   });
 

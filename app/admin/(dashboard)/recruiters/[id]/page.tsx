@@ -11,30 +11,29 @@ export default function RecruiterDetailPage() {
   const id = params.id as string;
 
   return (
-    <div className="max-w-[1400px] mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+    <div className="mx-auto max-w-[1400px] space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-500">
       {/* Header Navigation */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between">
         <Link
           href="/admin/recruiters"
-          className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-near-black/40 hover:text-near-black transition-colors"
+          className="flex items-center gap-2 text-sm font-medium text-muted-ink transition-colors hover:text-ink"
         >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Partners
-        </Link>
-        <div className="flex items-center gap-4">
-          <span className="text-[10px] font-black uppercase tracking-widest text-near-black/20">
-            Recruiter ID: {id}
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-hairline bg-white">
+            <ArrowLeft className="h-4 w-4" />
           </span>
-          <div className="w-2 h-2 rounded-full bg-wise-green shadow-[0_0_10px_rgba(159,232,112,0.8)]" />
-        </div>
+          Back to partners
+        </Link>
+        <span className="text-[13px] text-muted-soft tabular-nums">
+          Recruiter ID: {id}
+        </span>
       </div>
 
       <Suspense
         fallback={
-          <div className="min-h-[60vh] flex flex-col items-center justify-center space-y-4">
-            <div className="w-12 h-12 border-4 border-wise-green border-t-transparent rounded-full animate-spin" />
-            <p className="text-xs font-black uppercase tracking-widest text-gray-400">
-              Retrieving Partner Data...
+          <div className="flex min-h-[60vh] flex-col items-center justify-center space-y-4">
+            <div className="h-10 w-10 animate-spin rounded-full border-2 border-hairline border-t-coral" />
+            <p className="text-[13px] font-medium text-muted-soft">
+              Retrieving partner data...
             </p>
           </div>
         }

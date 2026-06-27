@@ -40,7 +40,11 @@ export const useAuth = () => {
   const loginMutation = useMutation<
     AuthResponse,
     Error,
-    { email: string; password?: string; role?: "admin" | "recruiter" | "user" }
+    {
+      email: string;
+      password?: string;
+      role?: "admin" | "recruiter" | "user" | "interviewer";
+    }
   >({
     mutationFn: ({ email, password = "", role = "user" }) =>
       authService.login(email, password, role),
@@ -57,7 +61,7 @@ export const useAuth = () => {
   const logoutMutation = useMutation<
     void,
     Error,
-    { role?: "admin" | "recruiter" | "user" }
+    { role?: "admin" | "recruiter" | "user" | "interviewer" }
   >({
     mutationFn: ({ role = "user" }) => authService.logout(role),
   });
@@ -105,7 +109,7 @@ export const useAuth = () => {
   const login = async (
     email: string,
     password: string,
-    role: "admin" | "recruiter" | "user" = "user",
+    role: "admin" | "recruiter" | "user" | "interviewer" = "user",
   ) => {
     return loginMutation.mutateAsync({ email, password, role });
   };
@@ -118,7 +122,9 @@ export const useAuth = () => {
     return googleAuthMutation.mutateAsync(idToken);
   };
 
-  const logout = async (role: "admin" | "recruiter" | "user" = "user") => {
+  const logout = async (
+    role: "admin" | "recruiter" | "user" | "interviewer" = "user",
+  ) => {
     await logoutMutation.mutateAsync({ role });
   };
 

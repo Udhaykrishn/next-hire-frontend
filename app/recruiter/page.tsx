@@ -31,7 +31,7 @@ export default function RecruiterLandingPage() {
       {/* Background Effects */}
       <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-wise-green/30 rounded-full blur-[120px] pointer-events-none translate-x-1/3 -translate-y-1/4" />
       <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-wise-green/10 rounded-full blur-[100px] pointer-events-none -translate-x-1/3 translate-y-1/3" />
-      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 brightness-100 contrast-150 pointer-events-none mix-blend-overlay z-0"></div>
+      <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-10 brightness-100 contrast-150 pointer-events-none mix-blend-overlay z-0"></div>
 
       {/* Recruiter Navbar */}
       <header className="relative z-50 py-5">

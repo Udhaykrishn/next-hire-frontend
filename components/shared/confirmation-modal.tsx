@@ -39,29 +39,24 @@ export const ConfirmationModal = ({
 }: ConfirmationModalProps) => {
   const variants = {
     destructive: {
-      icon: <AlertTriangle className="w-8 h-8 text-red-600" />,
-      bg: "bg-red-50",
-      button: "bg-red-600 hover:bg-red-700 text-white shadow-red-200",
-      titleColor: "text-red-900",
+      icon: <AlertTriangle className="h-6 w-6 text-destructive" />,
+      bg: "bg-destructive/10",
+      button: "bg-destructive text-white hover:bg-destructive/90",
     },
     danger: {
-      icon: <AlertTriangle className="w-8 h-8 text-red-600" />,
-      bg: "bg-red-50",
-      button: "bg-red-600 hover:bg-red-700 text-white shadow-red-200",
-      titleColor: "text-red-900",
+      icon: <AlertTriangle className="h-6 w-6 text-destructive" />,
+      bg: "bg-destructive/10",
+      button: "bg-destructive text-white hover:bg-destructive/90",
     },
     success: {
-      icon: <CheckCircle2 className="w-8 h-8 text-wise-green" />,
-      bg: "bg-wise-green/10",
-      button:
-        "bg-wise-green text-dark-green hover:bg-wise-green/90 shadow-wise-green/20",
-      titleColor: "text-near-black",
+      icon: <CheckCircle2 className="h-6 w-6 text-[#2f6e44]" />,
+      bg: "bg-success/10",
+      button: "bg-coral text-white hover:bg-coral-active",
     },
     info: {
-      icon: <Info className="w-8 h-8 text-blue-600" />,
-      bg: "bg-blue-50",
-      button: "bg-blue-600 hover:bg-blue-700 text-white shadow-blue-200",
-      titleColor: "text-blue-900",
+      icon: <Info className="h-6 w-6 text-coral" />,
+      bg: "bg-coral/10",
+      button: "bg-coral text-white hover:bg-coral-active",
     },
   };
 
@@ -70,38 +65,33 @@ export const ConfirmationModal = ({
   return (
     <Dialog open={isOpen} onClose={onClose}>
       <DialogPanel className="max-w-md">
-        <div className="flex flex-col items-center text-center space-y-6">
+        <div className="flex flex-col items-center space-y-5 text-center">
           <div
             className={cn(
-              "w-20 h-20 rounded-3xl flex items-center justify-center",
+              "flex h-12 w-12 items-center justify-center rounded-xl",
               currentVariant.bg,
             )}
           >
             {currentVariant.icon}
           </div>
 
-          <DialogHeader className="space-y-2">
-            <DialogTitle
-              className={cn(
-                "text-2xl font-black tracking-tight",
-                currentVariant.titleColor,
-              )}
-            >
+          <DialogHeader className="space-y-1.5">
+            <DialogTitle className="text-lg font-semibold tracking-tight text-ink">
               {title}
             </DialogTitle>
-            <DialogDescription className="text-gray-500 font-medium italic leading-relaxed">
+            <DialogDescription className="text-sm leading-relaxed text-muted-ink">
               {description}
             </DialogDescription>
             {children && (
-              <div className="pt-4 text-left w-full">{children}</div>
+              <div className="w-full pt-3 text-left">{children}</div>
             )}
           </DialogHeader>
 
-          <DialogFooter className="w-full flex flex-col-reverse sm:flex-row gap-3 pt-4">
+          <DialogFooter className="flex w-full flex-col-reverse gap-2.5 pt-3 sm:flex-row">
             <Button
               variant="ghost"
               onClick={onClose}
-              className="flex-1 h-14 rounded-2xl text-gray-500 font-black uppercase tracking-wider hover:bg-gray-100"
+              className="h-11 flex-1 rounded-lg border border-hairline bg-white text-sm font-medium text-body hover:bg-surface-soft"
               disabled={isLoading}
             >
               {cancelText}
@@ -109,12 +99,12 @@ export const ConfirmationModal = ({
             <Button
               onClick={onConfirm}
               className={cn(
-                "flex-1 h-14 rounded-2xl font-black uppercase tracking-wider shadow-lg transition-all active:scale-95",
+                "h-11 flex-1 rounded-lg text-sm font-semibold transition-colors active:translate-y-px",
                 currentVariant.button,
               )}
               disabled={isLoading}
             >
-              {isLoading ? "Processing..." : confirmText}
+              {isLoading ? "Processing…" : confirmText}
             </Button>
           </DialogFooter>
         </div>

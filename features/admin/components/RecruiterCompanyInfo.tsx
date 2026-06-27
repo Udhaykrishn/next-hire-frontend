@@ -15,12 +15,40 @@ import {
   UserCog,
 } from "lucide-react";
 import { useState } from "react";
+import { StatusBadge } from "@/components/admin/ui";
 import { cn } from "@/lib/utils";
 import type { RecruiterDetail } from "../types/admin.types";
 
 interface RecruiterCompanyInfoProps {
   recruiter: RecruiterDetail;
 }
+
+const InfoCell = ({
+  icon,
+  label,
+  children,
+  className,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  children: React.ReactNode;
+  className?: string;
+}) => (
+  <div
+    className={cn(
+      "rounded-lg border border-hairline bg-surface-soft/40 p-4",
+      className,
+    )}
+  >
+    <div className="flex items-center gap-2">
+      <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-white text-muted-ink">
+        {icon}
+      </span>
+      <p className="text-[13px] font-medium text-muted-soft">{label}</p>
+    </div>
+    <div className="mt-2 text-sm font-medium text-ink">{children}</div>
+  </div>
+);
 
 export const RecruiterCompanyInfo = ({
   recruiter,
@@ -30,216 +58,136 @@ export const RecruiterCompanyInfo = ({
   const wasRevoked = !isVerified && !!recruiter.verification_revoked_reason;
 
   return (
-    <section className="space-y-6">
-      <div className="flex items-center gap-3 border-b border-gray-200/60 pb-4">
-        <div className="w-8 h-8 bg-wise-green/20 rounded-xl flex items-center justify-center">
-          <Briefcase className="w-4 h-4 text-wise-green" />
-        </div>
-        <h4 className="font-black text-sm text-near-black uppercase tracking-widest">
-          Company Details
-        </h4>
+    <section className="rounded-xl border border-hairline bg-white p-6">
+      <div className="mb-5 flex items-center gap-2.5 border-b border-hairline-soft pb-4">
+        <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-surface-soft text-muted-ink">
+          <Briefcase className="h-4 w-4" />
+        </span>
+        <h4 className="text-[15px] font-semibold text-ink">Company details</h4>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="bg-gray-50/50 p-5 rounded-3xl border border-gray-100 flex flex-col items-center justify-center text-center transition-transform hover:scale-[1.02]">
-          <div className="w-10 h-10 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center mb-3">
-            <UserCheck className="w-5 h-5 text-gray-400" />
-          </div>
-          <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">
-            Company Role
-          </p>
-          <p className="text-sm font-bold text-near-black">
-            {recruiter.company_role || "N/A"}
-          </p>
-        </div>
-        <div className="bg-gray-50/50 p-5 rounded-3xl border border-gray-100 flex flex-col items-center justify-center text-center transition-transform hover:scale-[1.02]">
-          <div className="w-10 h-10 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center mb-3">
-            <LayoutGrid className="w-5 h-5 text-gray-400" />
-          </div>
-          <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">
-            Category
-          </p>
-          <p className="text-sm font-bold text-near-black">
-            {recruiter.category || "N/A"}
-          </p>
-        </div>
-        <div className="bg-gray-50/50 p-5 rounded-3xl border border-gray-100 flex flex-col items-center justify-center text-center transition-transform hover:scale-[1.02]">
-          <div className="w-10 h-10 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center mb-3">
-            <FileDigit className="w-5 h-5 text-gray-400" />
-          </div>
-          <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">
-            GSTIN
-          </p>
-          <p className="text-sm font-bold text-near-black">
-            {recruiter.GSTIN || "N/A"}
-          </p>
-        </div>
-        <div className="bg-gray-50/50 p-5 rounded-3xl border border-gray-100 flex flex-col items-center justify-center text-center transition-transform hover:scale-[1.02]">
-          <div className="w-10 h-10 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center mb-3">
-            <Building2 className="w-5 h-5 text-gray-400" />
-          </div>
-          <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">
-            CIN
-          </p>
-          <p className="text-sm font-bold text-near-black">
-            {recruiter.CIN || "N/A"}
-          </p>
-        </div>
-        <div className="bg-gray-50/50 p-5 rounded-3xl border border-gray-100 flex flex-col items-center justify-center text-center transition-transform hover:scale-[1.02] md:col-span-2">
-          <div className="w-10 h-10 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center mb-3">
-            <Globe className="w-5 h-5 text-gray-400" />
-          </div>
-          <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">
-            Website
-          </p>
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+        <InfoCell icon={<UserCheck className="h-4 w-4" />} label="Company role">
+          {recruiter.company_role || "N/A"}
+        </InfoCell>
+        <InfoCell icon={<LayoutGrid className="h-4 w-4" />} label="Category">
+          {recruiter.category || "N/A"}
+        </InfoCell>
+        <InfoCell icon={<FileDigit className="h-4 w-4" />} label="GSTIN">
+          <span className="tabular-nums">{recruiter.GSTIN || "N/A"}</span>
+        </InfoCell>
+        <InfoCell icon={<Building2 className="h-4 w-4" />} label="CIN">
+          <span className="tabular-nums">{recruiter.CIN || "N/A"}</span>
+        </InfoCell>
+        <InfoCell
+          icon={<Globe className="h-4 w-4" />}
+          label="Website"
+          className="md:col-span-2"
+        >
           {recruiter.website_link ? (
             <a
               href={recruiter.website_link}
               target="_blank"
               rel="noreferrer"
-              className="text-sm font-bold text-wise-green hover:underline"
+              className="text-ink transition-colors hover:text-coral"
             >
               {recruiter.website_link}
             </a>
           ) : (
-            <p className="text-sm font-bold text-near-black">N/A</p>
+            "N/A"
           )}
-        </div>
+        </InfoCell>
 
         {/* Company Verification */}
-        <div className="p-6 bg-white border border-gray-200 rounded-3xl md:col-span-2 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="flex flex-col justify-between gap-4 rounded-lg border border-hairline bg-white p-5 md:col-span-2 md:flex-row md:items-center">
           <div>
-            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">
-              Company Verification
+            <p className="mb-0.5 text-[13px] font-medium text-muted-soft">
+              Company verification
             </p>
-            <p className="text-xs text-gray-400 font-bold mb-2">
+            <p className="mb-2 text-[13px] text-muted-soft">
               Recruiter self-verified via CIN + OTP flow
             </p>
             <div className="flex items-center gap-2">
               {isVerified ? (
-                <ShieldCheck className="w-4 h-4 text-wise-green" />
+                <ShieldCheck className="h-4 w-4 text-muted-ink" />
               ) : wasRevoked ? (
-                <ShieldX className="w-4 h-4 text-red-500" />
+                <ShieldX className="h-4 w-4 text-muted-ink" />
               ) : (
-                <ShieldOff className="w-4 h-4 text-gray-400" />
+                <ShieldOff className="h-4 w-4 text-muted-ink" />
               )}
-              <span
-                className={cn(
-                  "text-sm font-black uppercase tracking-widest",
-                  isVerified
-                    ? "text-wise-green"
-                    : wasRevoked
-                      ? "text-red-500"
-                      : "text-gray-400",
-                )}
+              <StatusBadge
+                tone={
+                  isVerified ? "success" : wasRevoked ? "danger" : "neutral"
+                }
               >
                 {isVerified
                   ? "Verified"
                   : wasRevoked
                     ? "Revoked"
-                    : "Not Verified"}
-              </span>
+                    : "Not verified"}
+              </StatusBadge>
             </div>
           </div>
 
-          <div className="hidden md:block w-px h-16 bg-gray-100" />
+          <div className="hidden h-16 w-px bg-hairline-soft md:block" />
 
           <div>
-            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">
-              Admin Approval
+            <p className="mb-0.5 text-[13px] font-medium text-muted-soft">
+              Admin approval
             </p>
-            <p className="text-xs text-gray-400 font-bold mb-2">
+            <p className="mb-2 text-[13px] text-muted-soft">
               Manual review and approval by platform admin
             </p>
             <div className="flex items-center gap-2">
-              <UserCog
-                className={cn(
-                  "w-4 h-4",
-                  recruiter.admin_approved
-                    ? "text-wise-green"
-                    : "text-gray-400",
-                )}
-              />
-              <span
-                className={cn(
-                  "text-sm font-black uppercase tracking-widest",
-                  recruiter.admin_approved
-                    ? "text-wise-green"
-                    : "text-gray-400",
-                )}
+              <UserCog className="h-4 w-4 text-muted-ink" />
+              <StatusBadge
+                tone={recruiter.admin_approved ? "success" : "neutral"}
               >
-                {recruiter.admin_approved ? "Approved" : "Pending Approval"}
-              </span>
+                {recruiter.admin_approved ? "Approved" : "Pending approval"}
+              </StatusBadge>
             </div>
           </div>
         </div>
 
-        <div className="bg-gray-50/50 p-5 rounded-3xl border border-gray-100 flex flex-col items-center justify-center text-center transition-transform hover:scale-[1.02] md:col-span-2">
-          <div className="w-10 h-10 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center mb-3">
-            <CreditCard className="w-5 h-5 text-wise-green" />
-          </div>
-          <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5">
-            Subscription Plan
-          </p>
-          <p className="text-sm font-bold text-near-black">
-            {recruiter.subscription?.current_plan || "Free"}{" "}
-            <span
-              className={
-                recruiter.subscription?.is_subscribed
-                  ? "text-wise-green"
-                  : "text-gray-400"
-              }
-            >
-              ({recruiter.subscription?.is_subscribed ? "Active" : "Inactive"})
-            </span>
-          </p>
-        </div>
+        <InfoCell
+          icon={<CreditCard className="h-4 w-4" />}
+          label="Subscription plan"
+          className="md:col-span-2"
+        >
+          {recruiter.subscription?.current_plan || "Free"}{" "}
+          <span className="text-muted-soft">
+            ({recruiter.subscription?.is_subscribed ? "Active" : "Inactive"})
+          </span>
+        </InfoCell>
       </div>
 
       {/* Company Verification — collapsible dropdown */}
       {(isVerified || wasRevoked) && (
-        <div
-          className={cn(
-            "border rounded-[2.5rem] overflow-hidden transition-all",
-            isVerified ? "border-green-100" : "border-red-100",
-          )}
-        >
+        <div className="mt-3 overflow-hidden rounded-lg border border-hairline">
           {/* Accordion Header */}
           <button
             type="button"
             onClick={() => setIsVerifOpen((v) => !v)}
-            className={cn(
-              "w-full flex items-center justify-between px-8 py-5 transition-colors",
-              isVerified
-                ? "bg-green-50/60 hover:bg-green-50"
-                : "bg-red-50/60 hover:bg-red-50",
-            )}
+            className="flex w-full items-center justify-between bg-surface-soft/40 px-5 py-4 transition-colors hover:bg-surface-soft/70"
           >
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5">
               {isVerified ? (
-                <ShieldCheck className="w-5 h-5 text-wise-green" />
+                <ShieldCheck className="h-4 w-4 text-muted-ink" />
               ) : (
-                <ShieldX className="w-5 h-5 text-red-500" />
+                <ShieldX className="h-4 w-4 text-muted-ink" />
               )}
-              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-near-black">
+              <span className="text-[13px] font-medium text-ink">
                 {isVerified
-                  ? "Company Verification Details"
-                  : "Revocation Details"}
+                  ? "Company verification details"
+                  : "Revocation details"}
               </span>
-              <span
-                className={cn(
-                  "px-2.5 py-0.5 rounded-full text-[9px] font-black uppercase tracking-widest",
-                  isVerified
-                    ? "bg-green-100 text-green-700"
-                    : "bg-red-100 text-red-600",
-                )}
-              >
+              <StatusBadge tone={isVerified ? "success" : "danger"}>
                 {isVerified ? "Active" : "Revoked"}
-              </span>
+              </StatusBadge>
             </div>
             <ChevronDown
               className={cn(
-                "w-4 h-4 text-gray-400 transition-transform duration-200",
+                "h-4 w-4 text-muted-soft transition-transform duration-200",
                 isVerifOpen && "rotate-180",
               )}
             />
@@ -247,39 +195,29 @@ export const RecruiterCompanyInfo = ({
 
           {/* Accordion Body */}
           {isVerifOpen && (
-            <div
-              className={cn(
-                "px-8 pb-8 pt-6 grid grid-cols-1 md:grid-cols-2 gap-4",
-                isVerified ? "bg-green-50/30" : "bg-red-50/30",
-              )}
-            >
-              <div className="p-4 bg-white/80 rounded-2xl">
-                <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">
-                  CIN Verified
+            <div className="grid grid-cols-1 gap-3 border-t border-hairline-soft px-5 pb-5 pt-4 md:grid-cols-2">
+              <div className="rounded-lg border border-hairline bg-surface-soft/40 p-4">
+                <p className="mb-1 text-[13px] font-medium text-muted-soft">
+                  CIN verified
                 </p>
-                <p className="text-sm font-bold text-near-black">
+                <p className="text-sm font-medium text-ink tabular-nums">
                   {recruiter.CIN || "N/A"}
                 </p>
               </div>
-              <div className="p-4 bg-white/80 rounded-2xl">
-                <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">
-                  Verification State
+              <div className="rounded-lg border border-hairline bg-surface-soft/40 p-4">
+                <p className="mb-1 text-[13px] font-medium text-muted-soft">
+                  Verification state
                 </p>
-                <p
-                  className={cn(
-                    "text-sm font-black uppercase tracking-widest",
-                    isVerified ? "text-wise-green" : "text-red-500",
-                  )}
-                >
+                <p className="text-sm font-medium text-ink">
                   {isVerified ? "Active" : "Revoked"}
                 </p>
               </div>
               {wasRevoked && recruiter.verification_revoked_reason && (
-                <div className="p-4 bg-white/80 rounded-2xl md:col-span-2">
-                  <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">
-                    Revocation Reason
+                <div className="rounded-lg border border-hairline bg-surface-soft/40 p-4 md:col-span-2">
+                  <p className="mb-1 text-[13px] font-medium text-muted-soft">
+                    Revocation reason
                   </p>
-                  <p className="text-sm font-bold text-red-600">
+                  <p className="text-sm font-medium text-destructive">
                     {recruiter.verification_revoked_reason}
                   </p>
                 </div>

@@ -18,6 +18,11 @@ export const apiClient = axios.create({
     "Content-Type": "application/json",
   },
   withCredentials: true,
+  // Serialize array params as repeated keys (`jobTypes=a&jobTypes=b`) instead of
+  // the default bracket form (`jobTypes[]=a`). NestJS `@Query("jobTypes")` only
+  // binds the repeated form — the bracket form arrives as the key `jobTypes[]`
+  // and is silently dropped, which made every multi-select job filter a no-op.
+  paramsSerializer: { indexes: null },
 });
 
 apiClient.interceptors.request.use((config) => {
@@ -89,6 +94,7 @@ apiClient.interceptors.response.use(
         const pathname = window.location.pathname;
         if (pathname.startsWith("/admin")) role = "admin";
         else if (pathname.startsWith("/recruiter")) role = "recruiter";
+        else if (pathname.startsWith("/interviewer")) role = "interviewer";
 
         // Use fetch() with a root-relative path so the request always hits the
         // Next.js API route at /api/auth/refresh — NOT the backend via apiClient's
@@ -123,6 +129,8 @@ apiClient.interceptors.response.use(
             if (pathname.startsWith("/admin")) targetPath = "/admin/login";
             else if (pathname.startsWith("/recruiter"))
               targetPath = "/recruiter/login";
+            else if (pathname.startsWith("/interviewer"))
+              targetPath = "/interviewer/login";
 
             if (pathname !== targetPath) {
               let redirectUrl = targetPath;

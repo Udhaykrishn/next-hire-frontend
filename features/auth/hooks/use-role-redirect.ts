@@ -26,6 +26,8 @@ export const useAuthRedirect = () => {
         router.push("/admin/dashboard");
       } else if (user.role === "RECRUITER") {
         router.push("/recruiter/dashboard");
+      } else if (user.role === "INTERVIEWER") {
+        router.push("/interviewer/dashboard");
       } else {
         router.push("/profile");
       }

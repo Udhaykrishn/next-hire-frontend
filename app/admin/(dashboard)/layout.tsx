@@ -25,8 +25,8 @@ export default function AdminLayout({
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center font-satoshi">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-wise-green"></div>
+      <div className="flex min-h-screen items-center justify-center bg-canvas font-satoshi">
+        <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-coral" />
       </div>
     );
   }
@@ -36,13 +36,15 @@ export default function AdminLayout({
   }
 
   return (
-    <div className="min-h-screen bg-[#fcfdfd] font-satoshi flex">
+    <div className="flex min-h-screen bg-canvas font-satoshi">
       <AdminSidebar />
 
-      <main className="flex-1 ml-64 min-h-screen flex flex-col">
+      <main className="ml-64 flex min-h-screen flex-1 flex-col">
         <AdminHeader />
 
-        <div className="flex-1 p-8">{children}</div>
+        <div className="mx-auto w-full max-w-[1320px] flex-1 px-8 py-8">
+          {children}
+        </div>
       </main>
     </div>
   );

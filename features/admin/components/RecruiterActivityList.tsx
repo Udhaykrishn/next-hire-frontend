@@ -6,15 +6,15 @@ import type { RecruiterDetail } from "../types/admin.types";
 const ActivityIcon = ({ type }: { type: string }) => {
   switch (type) {
     case "job_created":
-      return <PlusCircle className="w-4 h-4 text-wise-green" />;
+      return <PlusCircle className="h-4 w-4 text-muted-ink" />;
     case "view_details":
-      return <Eye className="w-4 h-4 text-wise-green" />;
+      return <Eye className="h-4 w-4 text-muted-ink" />;
     case "settings_update":
-      return <Settings className="w-4 h-4 text-gray-400" />;
+      return <Settings className="h-4 w-4 text-muted-ink" />;
     case "job_status":
-      return <Briefcase className="w-4 h-4 text-orange-500" />;
+      return <Briefcase className="h-4 w-4 text-muted-ink" />;
     default:
-      return <Clock className="w-4 h-4 text-gray-300" />;
+      return <Clock className="h-4 w-4 text-muted-soft" />;
   }
 };
 
@@ -26,25 +26,22 @@ export const RecruiterActivityList = ({
   activity,
 }: RecruiterActivityListProps) => {
   return (
-    <section className="bg-white border border-gray-100 rounded-[2.5rem] p-8 shadow-sm">
-      <div className="text-xs font-black text-near-black uppercase tracking-[0.2em] mb-8 flex items-center gap-2">
-        <div className="w-1.5 h-1.5 rounded-full bg-wise-green" />
-        User Activity
-      </div>
-      <div className="space-y-8">
+    <section className="rounded-xl border border-hairline bg-white p-6">
+      <h4 className="mb-6 text-[15px] font-semibold text-ink">User activity</h4>
+      <div className="space-y-6">
         {activity.map((act, idx) => (
           <div
             key={`${act.type}-${act.date}-${idx}`}
-            className="relative pl-8 border-l-2 border-gray-50 last:border-0 pb-2"
+            className="relative border-l border-hairline-soft pb-1 pl-7 last:border-0"
           >
-            <div className="absolute top-0 -left-[11px] w-5 h-5 bg-white border-2 border-gray-100 rounded-full flex items-center justify-center shadow-sm">
+            <div className="absolute -left-[11px] top-0 flex h-5 w-5 items-center justify-center rounded-full border border-hairline bg-white">
               <ActivityIcon type={act.type} />
             </div>
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-              <p className="text-[15px] font-bold text-near-black leading-tight">
+            <div className="flex flex-col justify-between gap-1 sm:flex-row sm:items-center">
+              <p className="text-sm font-medium leading-tight text-ink">
                 {act.description}
               </p>
-              <span className="text-[10px] font-black text-gray-300 uppercase tracking-widest whitespace-nowrap">
+              <span className="whitespace-nowrap text-[13px] text-muted-soft tabular-nums">
                 {act.date}
               </span>
             </div>

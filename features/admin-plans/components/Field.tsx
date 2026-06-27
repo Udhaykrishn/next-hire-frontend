@@ -10,15 +10,13 @@ interface FieldProps {
 export function Field({ label, error, children }: FieldProps) {
   return (
     <div className="space-y-1.5">
-      <div className="block text-[12px] font-[700] uppercase tracking-wider text-gray-400">
-        {label}
-      </div>
+      <div className="block text-[13px] font-medium text-body">{label}</div>
       {children}
       {error && (
         <motion.p
           initial={{ opacity: 0, y: -4 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-[11px] text-red-500 font-[500]"
+          className="text-xs font-medium text-destructive"
         >
           {error}
         </motion.p>

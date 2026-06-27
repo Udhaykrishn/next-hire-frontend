@@ -4,6 +4,7 @@ import {
   ChevronDown,
   LayoutDashboard,
   LogOut,
+  MessageSquare,
   Search,
   User as UserIcon,
 } from "lucide-react";
@@ -15,6 +16,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/animate-ui/components/buttons/button";
 import { Logo } from "@/components/logo";
 import { useAuthContext } from "@/features/auth/context/auth-context";
+import { NotificationCenter } from "@/features/chat/components/NotificationCenter";
 
 export function LandingNavbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -142,50 +144,64 @@ export function LandingNavbar() {
 
             <div className="flex items-center gap-4 border-l border-gray-100 pl-8">
               {isAuthenticated ? (
-                <div className="relative group">
-                  <button
-                    type="button"
-                    className="flex items-center gap-3 pl-2 pr-1 py-1 rounded-full bg-gray-50 border border-gray-100 hover:border-wise-green transition-all"
-                  >
-                    <div className="w-8 h-8 rounded-full bg-wise-green flex items-center justify-center text-dark-green font-black text-xs">
-                      {user?.fullName?.charAt(0) ||
-                        user?.email.charAt(0).toUpperCase()}
-                    </div>
-                    <ChevronDown className="w-4 h-4 text-gray-400 mr-2 group-hover:rotate-180 transition-transform" />
-                  </button>
-                  <div className="absolute top-[120%] right-0 w-56 bg-white border border-gray-100 rounded-2xl shadow-xl shadow-gray-200/50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2 z-50">
-                    <div className="px-5 py-3 border-b border-gray-50">
-                      <p className="text-xs font-black text-gray-900 truncate">
-                        {user?.fullName || "User"}
-                      </p>
-                      <p className="text-[10px] font-bold text-gray-400 truncate">
-                        {user?.email}
-                      </p>
-                    </div>
-                    <Link
-                      href={getDashboardLink()}
-                      className="flex items-center gap-3 px-5 py-3 text-xs font-bold text-gray-600 hover:text-wise-green hover:bg-gray-50/80 transition-colors"
-                    >
-                      <LayoutDashboard className="w-4 h-4" />
-                      Dashboard
-                    </Link>
-                    <Link
-                      href="/profile"
-                      className="flex items-center gap-3 px-5 py-3 text-xs font-bold text-gray-600 hover:text-wise-green hover:bg-gray-50/80 transition-colors"
-                    >
-                      <UserIcon className="w-4 h-4" />
-                      My Profile
-                    </Link>
+                <>
+                  {user?.role === "CANDIDATE" && (
+                    <NotificationCenter userRole="CANDIDATE" />
+                  )}
+                  <div className="relative group">
                     <button
                       type="button"
-                      onClick={() => logout()}
-                      className="w-full flex items-center gap-3 px-5 py-3 text-xs font-bold text-red-500 hover:bg-red-50 transition-colors"
+                      className="flex items-center gap-3 pl-2 pr-1 py-1 rounded-full bg-gray-50 border border-gray-100 hover:border-wise-green transition-all"
                     >
-                      <LogOut className="w-4 h-4" />
-                      Sign Out
+                      <div className="w-8 h-8 rounded-full bg-wise-green flex items-center justify-center text-dark-green font-black text-xs">
+                        {user?.fullName?.charAt(0) ||
+                          user?.email.charAt(0).toUpperCase()}
+                      </div>
+                      <ChevronDown className="w-4 h-4 text-gray-400 mr-2 group-hover:rotate-180 transition-transform" />
                     </button>
+                    <div className="absolute top-[120%] right-0 w-56 bg-white border border-gray-100 rounded-2xl shadow-xl shadow-gray-200/50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2 z-50">
+                      <div className="px-5 py-3 border-b border-gray-50">
+                        <p className="text-xs font-black text-gray-900 truncate">
+                          {user?.fullName || "User"}
+                        </p>
+                        <p className="text-[10px] font-bold text-gray-400 truncate">
+                          {user?.email}
+                        </p>
+                      </div>
+                      <Link
+                        href={getDashboardLink()}
+                        className="flex items-center gap-3 px-5 py-3 text-xs font-bold text-gray-600 hover:text-wise-green hover:bg-gray-50/80 transition-colors"
+                      >
+                        <LayoutDashboard className="w-4 h-4" />
+                        Dashboard
+                      </Link>
+                      {user?.role === "CANDIDATE" && (
+                        <Link
+                          href="/chat"
+                          className="flex items-center gap-3 px-5 py-3 text-xs font-bold text-gray-600 hover:text-wise-green hover:bg-gray-50/80 transition-colors"
+                        >
+                          <MessageSquare className="w-4 h-4" />
+                          Messages
+                        </Link>
+                      )}
+                      <Link
+                        href="/profile"
+                        className="flex items-center gap-3 px-5 py-3 text-xs font-bold text-gray-600 hover:text-wise-green hover:bg-gray-50/80 transition-colors"
+                      >
+                        <UserIcon className="w-4 h-4" />
+                        My Profile
+                      </Link>
+                      <button
+                        type="button"
+                        onClick={() => logout()}
+                        className="w-full flex items-center gap-3 px-5 py-3 text-xs font-bold text-red-500 hover:bg-red-50 transition-colors"
+                      >
+                        <LogOut className="w-4 h-4" />
+                        Sign Out
+                      </button>
+                    </div>
                   </div>
-                </div>
+                </>
               ) : (
                 <>
                   <Link

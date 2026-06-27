@@ -15,6 +15,8 @@ export async function GET(request: Request) {
   let endpoint = "/user/profile";
   if (role === "recruiter") {
     endpoint = "/recruiter/profile";
+  } else if (role === "interviewer") {
+    endpoint = "/interviewer/profile";
   } else if (role === "admin") {
     // Admins are never blocked in this system, skip profile fetch
     return NextResponse.json({ blocked: false });

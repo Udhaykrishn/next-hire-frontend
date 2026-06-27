@@ -11,8 +11,10 @@ import {
   Zap,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { useRecruiterProfile } from "@/features/recruiter/hooks/use-recruiter-profile";
 import { cn } from "@/lib/utils";
 
 interface MethodologyCardProps {
@@ -100,6 +102,36 @@ const MethodologyCard = ({
 
 export default function CreateJobPage() {
   const router = useRouter();
+  const { recruiterProfile, isLoading: isProfileLoading } =
+    useRecruiterProfile();
+
+  useEffect(() => {
+    if (isProfileLoading) return;
+
+    if (!recruiterProfile?.is_verified_company) {
+      toast.error("Please verify your company with a CIN number to post jobs.");
+      router.push("/recruiter/profile");
+      return;
+    }
+
+    if (!recruiterProfile?.subscription?.is_subscribed) {
+      toast.error("Please subscribe to a plan to post jobs.");
+      router.push("/recruiter/plan");
+    }
+  }, [
+    recruiterProfile?.is_verified_company,
+    recruiterProfile?.subscription?.is_subscribed,
+    isProfileLoading,
+    router,
+  ]);
+
+  if (isProfileLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-wise-green border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-5xl mx-auto space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">

@@ -13,11 +13,17 @@ export async function proxy(request: NextRequest) {
   if (pathname === "/recruiter") {
     return NextResponse.redirect(new URL("/recruiter/dashboard", request.url));
   }
+  if (pathname === "/interviewer") {
+    return NextResponse.redirect(
+      new URL("/interviewer/dashboard", request.url),
+    );
+  }
 
   const prefixMap: Record<string, string> = {
     "/profile": "user",
     "/admin": "admin",
     "/recruiter": "recruiter",
+    "/interviewer": "interviewer",
   };
 
   let inferredPrefix: string | null = null;
@@ -41,6 +47,8 @@ export async function proxy(request: NextRequest) {
     if (prefix === "/admin") return new URL("/admin/dashboard", request.url);
     if (prefix === "/recruiter")
       return new URL("/recruiter/dashboard", request.url);
+    if (prefix === "/interviewer")
+      return new URL("/interviewer/dashboard", request.url);
     return new URL("/profile", request.url);
   };
 
@@ -48,6 +56,8 @@ export async function proxy(request: NextRequest) {
     if (prefix === "/admin") return new URL("/admin/login", request.url);
     if (prefix === "/recruiter")
       return new URL("/recruiter/login", request.url);
+    if (prefix === "/interviewer")
+      return new URL("/interviewer/login", request.url);
     return new URL("/login", request.url);
   };
 
@@ -219,6 +229,7 @@ export const config = {
   matcher: [
     "/admin/:path*",
     "/recruiter/:path*",
+    "/interviewer/:path*",
     "/profile/:path*",
     "/login",
     "/signup",

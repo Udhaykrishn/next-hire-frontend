@@ -46,7 +46,7 @@ export function JobSuccessModal({ show, onClose }: JobSuccessModalProps) {
               Track the status of this job in your dashboard
             </p>
             <Link
-              href="/applications"
+              href="/jobs/status"
               className="flex w-full h-12 rounded-xl text-[14px] font-bold text-dark-green bg-white border border-gray-200 hover:bg-gray-50 items-center justify-center transition-colors shadow-sm"
             >
               View My Applications

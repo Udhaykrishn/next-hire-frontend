@@ -76,6 +76,7 @@ export default function EditJobPage() {
     canCandidateContact:
       (job.canCandidateContact as JobFormData["canCandidateContact"]) || "No",
     selectedPlan: job.selectedPlan || "",
+    is_chat_enabled: job.is_chat_enabled !== false,
   };
 
   return <JobWizard initialData={initialData} jobId={jobId} />;

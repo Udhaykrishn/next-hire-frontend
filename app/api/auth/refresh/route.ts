@@ -12,6 +12,7 @@ export async function POST(request: Request) {
   let endpoint = "";
   if (role === "admin") endpoint = "/auth/admin/refresh";
   else if (role === "recruiter") endpoint = "/auth/recruiter/refresh";
+  else if (role === "interviewer") endpoint = "/auth/interviewer/refresh";
   else endpoint = "/auth/user/refresh";
 
   try {

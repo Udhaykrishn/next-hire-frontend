@@ -1,11 +1,13 @@
 "use client";
 
 import { AnimatePresence } from "framer-motion";
+import { CreditCard, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { Plus } from "lucide-react";
+import { AdminPageHeader, AdminPrimaryButton } from "@/components/admin/ui";
+import { GlobalLoader } from "@/components/shared/global-loader";
+import { cn } from "@/lib/utils";
 import { usePlansAdmin } from "../hooks/use-plans-admin";
 import { PlanCard } from "./PlanCard";
-import { GlobalLoader } from "@/components/shared/global-loader";
 
 export function AdminPlansView() {
   const router = useRouter();
@@ -20,64 +22,52 @@ export function AdminPlansView() {
 
   if (isLoading) {
     return (
-      <div className="min-h-[60vh] flex flex-col items-center justify-center font-satoshi">
+      <div className="flex min-h-[60vh] flex-col items-center justify-center">
         <GlobalLoader fullScreen={false} />
       </div>
     );
   }
 
   const filteredPlans = plans.filter((plan) => plan.type === activeTab);
+  const tabs = [
+    { key: "candidate" as const, label: "Candidate plans" },
+    { key: "recruiter" as const, label: "Recruiter plans" },
+  ];
 
   return (
-    <div className="space-y-8 font-satoshi animate-in fade-in slide-in-from-bottom-4 duration-700 pb-12">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-[32px] font-[800] leading-[40px] text-near-black">
-            Plan Ecosystem
-          </h1>
-          <p className="text-[15px] font-[400] text-gray-500 mt-1">
-            Manage your candidate and recruiter subscription tiers.
-          </p>
-        </div>
-        <button
-          type="button"
-          onClick={() => router.push("/admin/plans/create")}
-          className="flex items-center gap-2 bg-wise-green text-dark-green font-semibold px-6 py-3 rounded-full hover:scale-105 transition-transform active:scale-95 shadow-sm"
-        >
-          <Plus className="w-4 h-4" />
-          Create New Plan
-        </button>
+    <div className="space-y-6 pb-12">
+      <AdminPageHeader
+        title="Plans"
+        description="Manage candidate and recruiter subscription tiers."
+        actions={
+          <AdminPrimaryButton
+            onClick={() => router.push("/admin/plans/create")}
+          >
+            <Plus className="h-4 w-4" />
+            New plan
+          </AdminPrimaryButton>
+        }
+      />
+
+      <div className="inline-flex items-center gap-1 rounded-lg border border-hairline bg-white p-1">
+        {tabs.map((tab) => (
+          <button
+            key={tab.key}
+            type="button"
+            onClick={() => setActiveTab(tab.key)}
+            className={cn(
+              "rounded-md px-4 py-1.5 text-sm font-medium transition-colors",
+              activeTab === tab.key
+                ? "bg-surface-soft text-ink"
+                : "text-muted-ink hover:text-ink",
+            )}
+          >
+            {tab.label}
+          </button>
+        ))}
       </div>
 
-      {/* Tabs */}
-      <div className="flex items-center gap-2 p-1 bg-light-surface rounded-full w-max border border-gray-200">
-        <button
-          type="button"
-          onClick={() => setActiveTab("candidate")}
-          className={`px-6 py-2 rounded-full text-sm font-bold transition-all ${
-            activeTab === "candidate"
-              ? "bg-white text-near-black shadow-sm"
-              : "text-gray-500 hover:text-near-black"
-          }`}
-        >
-          Candidate Plans
-        </button>
-        <button
-          type="button"
-          onClick={() => setActiveTab("recruiter")}
-          className={`px-6 py-2 rounded-full text-sm font-bold transition-all ${
-            activeTab === "recruiter"
-              ? "bg-white text-near-black shadow-sm"
-              : "text-gray-500 hover:text-near-black"
-          }`}
-        >
-          Recruiter Plans
-        </button>
-      </div>
-
-      {/* Plans Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
         <AnimatePresence>
           {filteredPlans.map((plan, i) => (
             <PlanCard
@@ -92,17 +82,20 @@ export function AdminPlansView() {
         </AnimatePresence>
 
         {filteredPlans.length === 0 && (
-          <div className="col-span-full py-16 text-center border-2 border-dashed border-gray-200 rounded-2xl">
-            <p className="text-gray-400 text-[15px]">
-              No {activeTab} plans yet.{" "}
-              <button
-                type="button"
-                onClick={() => router.push("/admin/plans/create")}
-                className="text-dark-green font-semibold hover:underline"
-              >
-                Create one →
-              </button>
+          <div className="col-span-full flex flex-col items-center rounded-xl border border-dashed border-hairline bg-white py-16 text-center">
+            <span className="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-surface-soft text-muted-soft">
+              <CreditCard className="h-5 w-5" />
+            </span>
+            <p className="text-sm font-semibold text-ink">
+              No {activeTab} plans yet
             </p>
+            <button
+              type="button"
+              onClick={() => router.push("/admin/plans/create")}
+              className="mt-1 text-[13px] font-medium text-coral transition-colors hover:text-coral-active"
+            >
+              Create your first plan →
+            </button>
           </div>
         )}
       </div>

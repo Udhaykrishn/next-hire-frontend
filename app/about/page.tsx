@@ -83,7 +83,7 @@ export default function AboutPage() {
         {/* Our Mission */}
         <section className="px-4 mb-32">
           <div className="max-w-6xl mx-auto bg-gray-900 rounded-[3rem] p-12 md:p-20 relative overflow-hidden">
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
+            <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-20 mix-blend-overlay"></div>
             <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[400px] h-[400px] bg-wise-green/20 rounded-full blur-[100px] pointer-events-none" />
 
             <div className="grid md:grid-cols-2 gap-12 relative z-10 items-center">

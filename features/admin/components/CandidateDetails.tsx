@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  BadgeCheck,
   Ban,
   Briefcase,
   Clock,
@@ -13,7 +12,7 @@ import {
   Phone,
 } from "lucide-react";
 import { useState } from "react";
-import { Button } from "@/components/animate-ui/components/buttons/button";
+import { StatusBadge } from "@/components/admin/ui";
 import { cn } from "@/lib/utils";
 import { useCandidateDetails } from "../hooks/use-candidate-details";
 import { BlockStatusModal } from "./BlockStatusModal";
@@ -44,10 +43,10 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
 
   if (isPending) {
     return (
-      <div className="min-h-[60vh] flex flex-col items-center justify-center space-y-4">
-        <div className="w-12 h-12 border-4 border-wise-green border-t-transparent rounded-full animate-spin" />
-        <p className="text-xs font-black uppercase tracking-widest text-gray-400">
-          Analyzing Profile Data...
+      <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4">
+        <div className="h-10 w-10 animate-spin rounded-full border-2 border-hairline border-t-coral" />
+        <p className="text-[13px] font-medium text-muted-soft">
+          Loading profile…
         </p>
       </div>
     );
@@ -56,69 +55,65 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
   if (!candidate) return null;
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       {isBlocked && (
-        <div className="bg-red-50/70 border border-red-100 rounded-[2rem] p-6 flex items-start gap-4 animate-in fade-in slide-in-from-top-4 duration-500">
-          <div className="w-12 h-12 rounded-2xl bg-red-500 flex items-center justify-center text-white shadow-lg shadow-red-500/20 shrink-0">
-            <Ban className="w-6 h-6" />
+        <div className="flex items-start gap-4 rounded-xl border border-destructive/20 bg-destructive/10 p-5 animate-in fade-in slide-in-from-top-2 duration-300">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-surface-soft text-destructive">
+            <Ban className="h-5 w-5" />
           </div>
           <div className="space-y-1">
-            <h4 className="text-sm font-black text-red-600 uppercase tracking-widest">
-              Profile Restricted
+            <h4 className="text-sm font-semibold text-ink">
+              Profile restricted
             </h4>
-            <p className="text-xs font-bold text-gray-500">
+            <p className="text-[13px] text-muted-ink">
               This candidate account has been blocked by administrators.
             </p>
             {candidate.block_description && (
-              <p className="text-xs font-medium text-red-500/80 bg-red-100/30 px-3 py-1.5 rounded-lg border border-red-500/10 mt-2 inline-block">
+              <p className="mt-2 inline-block rounded-md bg-white px-2.5 py-1 text-[13px] text-destructive">
                 Reason: {candidate.block_description}
               </p>
             )}
           </div>
         </div>
       )}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         {/* Left Column: Profile Card */}
-        <div className="space-y-8">
-          <section className="bg-white border border-gray-100 rounded-[3rem] p-10 shadow-sm overflow-hidden relative group">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-wise-green/10 rounded-full blur-3xl -mr-10 -mt-10 group-hover:bg-wise-green/20 transition-all" />
-
-            <div className="relative z-10 space-y-6">
-              <div className="w-32 h-32 rounded-[2.5rem] bg-wise-green flex items-center justify-center text-4xl font-black text-near-black shadow-2xl">
+        <div className="space-y-6">
+          <section className="rounded-xl border border-hairline bg-white p-6">
+            <div className="space-y-5">
+              <div className="flex h-16 w-16 items-center justify-center rounded-xl bg-navy text-2xl font-semibold text-on-dark">
                 {candidate.name.charAt(0)}
               </div>
 
               <div>
-                <h1 className="text-3xl font-black tracking-tight uppercase text-near-black">
+                <h1 className="text-[24px] font-semibold leading-tight tracking-[-0.01em] text-ink">
                   {candidate.name}
                 </h1>
-                <p className="text-positive-green font-bold text-sm mt-1">
-                  {candidate.role}
-                </p>
+                <p className="mt-1 text-sm text-muted-ink">{candidate.role}</p>
               </div>
 
-              <div className="space-y-4 pt-4 border-t border-gray-100">
+              <div className="space-y-3 border-t border-hairline-soft pt-5">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-xl bg-gray-50 flex items-center justify-center">
-                    <Mail className="w-4 h-4 text-wise-green" />
-                  </div>
-                  <span className="text-sm font-medium text-slate-600 truncate max-w-[200px]">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-surface-soft text-muted-ink">
+                    <Mail className="h-4 w-4" />
+                  </span>
+                  <span className="truncate text-sm text-body">
                     {candidate.email}
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-xl bg-gray-50 flex items-center justify-center">
-                    <Phone className="w-4 h-4 text-wise-green" />
-                  </div>
-                  <span className="text-sm font-medium text-slate-600">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-surface-soft text-muted-ink">
+                    <Phone className="h-4 w-4" />
+                  </span>
+                  <span className="text-sm text-body tabular-nums">
                     {candidate.phone}
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-xl bg-gray-50 flex items-center justify-center">
-                    <MapPin className="w-4 h-4 text-wise-green" />
-                  </div>
-                  <span className="text-sm font-medium text-slate-600">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-surface-soft text-muted-ink">
+                    <MapPin className="h-4 w-4" />
+                  </span>
+                  <span className="text-sm text-body">
                     {candidate.location}
                   </span>
                 </div>
@@ -126,23 +121,22 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
             </div>
           </section>
 
-          <section className="bg-white border border-gray-100 rounded-[2.5rem] p-8 shadow-sm">
-            <h3 className="text-sm font-extrabold text-slate-800 uppercase tracking-wider mb-6 flex items-center gap-2 border-b border-gray-50 pb-3">
-              <BadgeCheck className="w-5 h-5 text-wise-green" />
-              Core Competencies
+          <section className="rounded-xl border border-hairline bg-white p-6">
+            <h3 className="mb-4 text-[15px] font-semibold text-ink">
+              Core competencies
             </h3>
             <div className="flex flex-wrap gap-2">
               {candidate.skills && candidate.skills.length > 0 ? (
                 candidate.skills.map((skill: string) => (
                   <span
                     key={skill}
-                    className="px-4 py-2 bg-gray-50 text-near-black text-xs font-black uppercase tracking-widest rounded-xl border border-gray-100 hover:border-wise-green/30 hover:bg-white transition-all cursor-default"
+                    className="rounded-md border border-hairline bg-surface-soft px-2.5 py-1 text-[13px] font-medium text-body"
                   >
                     {skill}
                   </span>
                 ))
               ) : (
-                <span className="text-xs text-gray-400 font-bold italic">
+                <span className="text-[13px] text-muted-soft">
                   No skills listed
                 </span>
               )}
@@ -151,49 +145,44 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
         </div>
 
         {/* Right Column: Details & Experience */}
-        <div className="lg:col-span-2 space-y-10">
-          <section className="bg-white border border-gray-100 rounded-[2.5rem] p-8 shadow-sm space-y-6">
-            <div className="flex items-center gap-3">
-              <div className="w-1.5 h-6 bg-wise-green rounded-full" />
-              <h2 className="text-lg font-extrabold text-slate-800 uppercase tracking-wider">
-                Professional Narrative
-              </h2>
-            </div>
-            <p className="text-base font-bold text-slate-600 leading-relaxed italic">
-              "{candidate.about || "No professional narrative provided yet."}"
+        <div className="space-y-6 lg:col-span-2">
+          <section className="rounded-xl border border-hairline bg-white p-6">
+            <h2 className="mb-3 text-[15px] font-semibold text-ink">About</h2>
+            <p className="text-sm leading-relaxed text-body">
+              {candidate.about || "No professional narrative provided yet."}
             </p>
           </section>
 
           {/* Education & Experience Dynamic Sections */}
-          <div className="grid grid-cols-1 gap-8">
-            <section className="bg-white border border-gray-100 rounded-[2.5rem] p-8 shadow-sm">
-              <h3 className="text-sm font-extrabold text-slate-800 uppercase tracking-wider mb-6 flex items-center gap-2 border-b border-gray-50 pb-3">
-                <Briefcase className="w-5 h-5 text-wise-green" />
-                Work History & Experience
+          <div className="grid grid-cols-1 gap-6">
+            <section className="rounded-xl border border-hairline bg-white p-6">
+              <h3 className="mb-5 flex items-center gap-2 border-b border-hairline-soft pb-3 text-[15px] font-semibold text-ink">
+                <Briefcase className="h-4 w-4 text-muted-ink" />
+                Work history & experience
               </h3>
-              <div className="space-y-8">
+              <div className="space-y-6">
                 {experience && experience.length > 0 ? (
                   experience.map((exp) => (
                     <div
                       key={exp.id}
-                      className="relative pl-8 border-l-2 border-slate-100 pb-6 last:pb-0"
+                      className="relative border-l border-hairline pb-6 pl-6 last:pb-0"
                     >
-                      <div className="absolute top-1 -left-[6px] w-2.5 h-2.5 rounded-full bg-wise-green border-2 border-white shadow-sm" />
-                      <p className="text-base font-extrabold text-slate-800">
+                      <div className="absolute -left-[4px] top-1.5 h-2 w-2 rounded-full border-2 border-white bg-muted-soft" />
+                      <p className="text-sm font-semibold text-ink">
                         {exp.projectName}
                       </p>
-                      <div className="flex flex-wrap items-center gap-2 text-xs font-bold text-slate-500 mt-1">
-                        <span className="text-slate-800 font-black">
+                      <div className="mt-1 flex flex-wrap items-center gap-2 text-[13px] text-muted-ink">
+                        <span className="font-medium text-body">
                           {exp.company || "Independent"}
                         </span>
-                        <span>•</span>
+                        <span className="text-muted-soft">•</span>
                         <span>{exp.role || "Developer"}</span>
-                        <span>•</span>
-                        <span className="text-slate-400">
+                        <span className="text-muted-soft">•</span>
+                        <span className="text-muted-soft">
                           {exp.location || "Remote"}
                         </span>
                       </div>
-                      <p className="text-[11px] font-bold text-slate-400 mt-1">
+                      <p className="mt-1 text-[13px] text-muted-soft tabular-nums">
                         {exp.employmentType || "Full-time"} |{" "}
                         {new Date(exp.startDate).toLocaleDateString("en-US", {
                           month: "short",
@@ -207,15 +196,15 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
                               year: "numeric",
                             })}
                       </p>
-                      <p className="text-xs text-slate-600 mt-3 font-bold bg-slate-50/50 p-4 rounded-2xl border border-slate-100/50 leading-relaxed whitespace-pre-wrap">
+                      <p className="mt-3 whitespace-pre-wrap rounded-lg border border-hairline-soft bg-surface-soft p-4 text-[13px] leading-relaxed text-body">
                         {exp.description}
                       </p>
                       {exp.skillsLearned && exp.skillsLearned.length > 0 && (
-                        <div className="flex flex-wrap gap-1.5 mt-3">
+                        <div className="mt-3 flex flex-wrap gap-1.5">
                           {exp.skillsLearned.map((s) => (
                             <span
                               key={s}
-                              className="text-[10px] font-black uppercase tracking-wider text-slate-600 bg-slate-100 px-2.5 py-1 rounded-lg"
+                              className="rounded-md border border-hairline bg-surface-soft px-2 py-0.5 text-[13px] font-medium text-body"
                             >
                               {s}
                             </span>
@@ -225,35 +214,33 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
                     </div>
                   ))
                 ) : (
-                  <div className="flex items-center gap-3 text-slate-400 italic py-4">
-                    <p className="text-sm font-bold">
-                      No work history or experiences added yet.
-                    </p>
-                  </div>
+                  <p className="py-2 text-[13px] text-muted-soft">
+                    No work history or experiences added yet.
+                  </p>
                 )}
               </div>
             </section>
 
-            <section className="bg-white border border-gray-100 rounded-[2.5rem] p-8 shadow-sm">
-              <h3 className="text-sm font-extrabold text-slate-800 uppercase tracking-wider mb-6 flex items-center gap-2 border-b border-gray-50 pb-3">
-                <GraduationCap className="w-5 h-5 text-wise-green" />
-                Educational Background
+            <section className="rounded-xl border border-hairline bg-white p-6">
+              <h3 className="mb-5 flex items-center gap-2 border-b border-hairline-soft pb-3 text-[15px] font-semibold text-ink">
+                <GraduationCap className="h-4 w-4 text-muted-ink" />
+                Educational background
               </h3>
-              <div className="space-y-6">
+              <div className="space-y-5">
                 {education && education.length > 0 ? (
                   education.map((edu) => (
                     <div
                       key={edu.id}
-                      className="relative pl-8 border-l-2 border-slate-100 pb-6 last:pb-0"
+                      className="relative border-l border-hairline pb-6 pl-6 last:pb-0"
                     >
-                      <div className="absolute top-1 -left-[6px] w-2.5 h-2.5 rounded-full bg-wise-green border-2 border-white shadow-sm" />
-                      <p className="text-base font-extrabold text-slate-800">
+                      <div className="absolute -left-[4px] top-1.5 h-2 w-2 rounded-full border-2 border-white bg-muted-soft" />
+                      <p className="text-sm font-semibold text-ink">
                         {edu.degree} in {edu.fieldOfStudy}
                       </p>
-                      <p className="text-xs font-extrabold text-slate-700 mt-0.5">
+                      <p className="mt-0.5 text-[13px] font-medium text-body">
                         {edu.institutionName}
                       </p>
-                      <div className="flex flex-wrap items-center gap-2 text-xs font-bold text-slate-400 mt-1">
+                      <div className="mt-1 flex flex-wrap items-center gap-2 text-[13px] text-muted-soft tabular-nums">
                         <span>
                           {new Date(edu.startDate).toLocaleDateString("en-US", {
                             month: "short",
@@ -270,7 +257,7 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
                         {edu.gpa && (
                           <>
                             <span>•</span>
-                            <span className="text-wise-green font-black bg-wise-green/5 px-2 py-0.5 rounded-lg border border-wise-green/10">
+                            <span className="rounded-md bg-surface-soft px-2 py-0.5 font-medium text-body">
                               GPA: {edu.gpa}
                             </span>
                           </>
@@ -279,39 +266,37 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
                     </div>
                   ))
                 ) : (
-                  <div className="flex items-center gap-3 text-slate-400 italic py-4">
-                    <p className="text-sm font-bold">
-                      No educational credentials added yet.
-                    </p>
-                  </div>
+                  <p className="py-2 text-[13px] text-muted-soft">
+                    No educational credentials added yet.
+                  </p>
                 )}
               </div>
             </section>
           </div>
 
           {/* Certifications Dynamic Section */}
-          <section className="bg-white border border-gray-100 rounded-[2.5rem] p-8 shadow-sm">
-            <h3 className="text-sm font-extrabold text-slate-800 uppercase tracking-wider mb-6 border-b border-gray-50 pb-3">
-              Professional Certifications & Awards
+          <section className="rounded-xl border border-hairline bg-white p-6">
+            <h3 className="mb-5 border-b border-hairline-soft pb-3 text-[15px] font-semibold text-ink">
+              Certifications & awards
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
               {certificates && certificates.length > 0 ? (
                 certificates.map((cert) => (
                   <div
                     key={cert.id}
-                    className="flex items-center gap-4 p-5 bg-slate-50/50 hover:bg-slate-50 rounded-3xl border border-slate-100/50 transition-all hover:shadow-sm"
+                    className="flex items-center gap-3 rounded-lg border border-hairline-soft bg-surface-soft p-4 transition-colors hover:border-hairline"
                   >
-                    <div className="w-12 h-12 rounded-2xl bg-wise-green/10 text-wise-green flex items-center justify-center font-black text-lg shrink-0">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white text-sm font-semibold text-muted-ink">
                       {cert.certificateName.charAt(0).toUpperCase()}
                     </div>
                     <div>
-                      <p className="text-sm font-extrabold text-slate-800 leading-tight">
+                      <p className="text-sm font-medium leading-tight text-ink">
                         {cert.certificateName}
                       </p>
-                      <p className="text-xs font-bold text-slate-500 mt-0.5">
+                      <p className="mt-0.5 text-[13px] text-muted-ink">
                         {cert.issuingOrganization}
                       </p>
-                      <p className="text-[10px] font-bold text-slate-400 mt-1">
+                      <p className="mt-1 text-[13px] text-muted-soft tabular-nums">
                         Earned:{" "}
                         {new Date(cert.issueDate).toLocaleDateString("en-US", {
                           month: "short",
@@ -322,73 +307,68 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
                   </div>
                 ))
               ) : (
-                <div className="md:col-span-2 text-slate-400 italic py-4 text-sm font-bold">
+                <p className="py-2 text-[13px] text-muted-soft md:col-span-2">
                   No certifications listed yet.
-                </div>
+                </p>
               )}
             </div>
           </section>
 
           {/* Active Applications Section */}
-          <section className="bg-white border border-gray-100 rounded-[2.5rem] p-8 shadow-sm">
-            <div className="flex items-center justify-between mb-8">
-              <h3 className="text-sm font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-2">
-                <Clock className="w-5 h-5 text-wise-green" />
-                Active Job Applications
+          <section className="rounded-xl border border-hairline bg-white p-6">
+            <div className="mb-5 flex items-center justify-between border-b border-hairline-soft pb-3">
+              <h3 className="flex items-center gap-2 text-[15px] font-semibold text-ink">
+                <Clock className="h-4 w-4 text-muted-ink" />
+                Active job applications
               </h3>
-              <span className="text-[10px] font-black text-wise-green uppercase tracking-widest bg-wise-green/5 px-4 py-2 rounded-xl">
-                {candidate.applications?.length || 0} Ongoing
+              <span className="text-[13px] text-muted-soft tabular-nums">
+                {candidate.applications?.length || 0} ongoing
               </span>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-3">
               {candidate.applications && candidate.applications.length > 0 ? (
                 candidate.applications.map((app) => (
                   <div
                     key={`${app.company}-${app.jobTitle}`}
-                    className="p-6 bg-gray-50 hover:bg-white hover:shadow-xl hover:shadow-gray-200/50 rounded-3xl border border-transparent hover:border-gray-100 transition-all"
+                    className="flex items-center justify-between rounded-lg border border-hairline-soft bg-surface-soft p-4 transition-colors hover:border-hairline"
                   >
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-sm font-black text-near-black uppercase tracking-tight">
-                          {app.jobTitle}
-                        </p>
-                        <p className="text-xs font-bold text-gray-400 mt-1">
-                          {app.company}
-                        </p>
-                      </div>
-                      <div className="text-right">
-                        <span
-                          className={cn(
-                            "px-4 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest",
-                            app.status === "Interviewing"
-                              ? "bg-green-50 text-green-600"
-                              : "bg-blue-50 text-blue-500",
-                          )}
-                        >
-                          {app.status}
-                        </span>
-                        <p className="text-[9px] font-black text-gray-300 uppercase tracking-widest mt-2">
-                          {app.date}
-                        </p>
-                      </div>
+                    <div>
+                      <p className="text-sm font-medium text-ink">
+                        {app.jobTitle}
+                      </p>
+                      <p className="mt-0.5 text-[13px] text-muted-ink">
+                        {app.company}
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <StatusBadge
+                        tone={
+                          app.status === "Interviewing" ? "success" : "neutral"
+                        }
+                      >
+                        {app.status}
+                      </StatusBadge>
+                      <p className="mt-1.5 text-[13px] text-muted-soft tabular-nums">
+                        {app.date}
+                      </p>
                     </div>
                   </div>
                 ))
               ) : (
-                <div className="text-slate-400 italic text-sm font-bold">
+                <p className="text-[13px] text-muted-soft">
                   No active job applications.
-                </div>
+                </p>
               )}
             </div>
           </section>
 
           {/* Documents Section */}
-          <section className="bg-gray-50 border border-gray-100 rounded-[2.5rem] p-8">
-            <h3 className="text-sm font-extrabold text-slate-800 uppercase tracking-wider mb-6 flex items-center gap-2">
-              <FileText className="w-5 h-5 text-wise-green" />
-              Credential Dossier & Attachments
+          <section className="rounded-xl border border-hairline bg-white p-6">
+            <h3 className="mb-5 flex items-center gap-2 border-b border-hairline-soft pb-3 text-[15px] font-semibold text-ink">
+              <FileText className="h-4 w-4 text-muted-ink" />
+              Documents & attachments
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
               {candidate.documents && candidate.documents.length > 0 ? (
                 candidate.documents.map((doc) => (
                   <a
@@ -396,46 +376,46 @@ export const CandidateDetails = ({ id }: CandidateDetailsProps) => {
                     href={doc.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-100 group hover:border-wise-green transition-all cursor-pointer"
+                    className="group flex items-center justify-between rounded-lg border border-hairline-soft bg-surface-soft p-4 transition-colors hover:border-hairline"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center group-hover:bg-wise-green/10 transition-colors">
-                        <FileText className="w-5 h-5 text-near-black" />
-                      </div>
+                      <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-white text-muted-ink">
+                        <FileText className="h-4 w-4" />
+                      </span>
                       <div>
-                        <p className="text-[11px] font-black text-near-black truncate max-w-[120px] uppercase tracking-tight">
+                        <p className="max-w-[140px] truncate text-sm font-medium text-ink">
                           {doc.name}
                         </p>
-                        <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">
-                          {doc.type} File
+                        <p className="text-[13px] text-muted-soft">
+                          {doc.type} file
                         </p>
                       </div>
                     </div>
-                    <Download className="w-4 h-4 text-gray-300 group-hover:text-wise-green transition-colors" />
+                    <Download className="h-4 w-4 text-muted-soft transition-colors group-hover:text-ink" />
                   </a>
                 ))
               ) : (
-                <div className="text-slate-400 italic text-sm font-bold md:col-span-2">
+                <p className="py-2 text-[13px] text-muted-soft md:col-span-2">
                   No documents attached yet.
-                </div>
+                </p>
               )}
             </div>
           </section>
 
           {/* Action Row */}
-          <div className="pt-8 border-t border-gray-100 flex justify-end gap-4">
-            <Button
-              variant="outline"
+          <div className="flex justify-end gap-3 border-t border-hairline pt-6">
+            <button
+              type="button"
               onClick={() => setIsBlockingModalOpen(true)}
               className={cn(
-                "h-12 px-8 rounded-xl text-xs font-black uppercase tracking-widest transition-all",
+                "inline-flex h-10 items-center gap-2 rounded-lg px-4 text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-coral/30 active:translate-y-px",
                 isBlocked
-                  ? "border-green-100 text-green-600 hover:bg-green-50 hover:border-green-200"
-                  : "border-red-100 text-red-500 hover:bg-red-50 hover:border-red-200",
+                  ? "border border-hairline bg-white text-body hover:bg-surface-soft"
+                  : "border border-transparent bg-destructive text-white hover:bg-destructive/90",
               )}
             >
-              {isBlocked ? "Restore Access" : "Restrict Access"}
-            </Button>
+              {isBlocked ? "Restore access" : "Restrict access"}
+            </button>
           </div>
         </div>
       </div>

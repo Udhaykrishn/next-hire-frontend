@@ -1,4 +1,10 @@
-import { AlertTriangle, ArrowRight, Loader2, ShieldCheck } from "lucide-react";
+import {
+  AlertTriangle,
+  ArrowRight,
+  Loader2,
+  ShieldCheck,
+  MessageSquare,
+} from "lucide-react";
 import { motion } from "motion/react";
 import Link from "next/link";
 import { Button } from "@/components/animate-ui/components/buttons/button";
@@ -57,7 +63,7 @@ export function JobSidebar({
                   {applicationStatus === "HIRED"
                     ? "Hired"
                     : applicationStatus === "REJECTED"
-                      ? "Rejected"
+                      ? "Not Shortlisted"
                       : applicationStatus === "SHORTLISTED"
                         ? "Shortlisted"
                         : applicationStatus === "INTERVIEWING"
@@ -68,15 +74,34 @@ export function JobSidebar({
                 </span>
               </div>
               <p className="text-[14px] text-gray-500 font-medium pb-6 border-b border-gray-100 leading-relaxed">
-                You submitted your application{" "}
-                <strong className="text-gray-900 font-bold">
-                  {formatDaysAgo(existingApplication?.application?.createdAt)}
-                </strong>
-                . We will notify you when the employer updates your status.
+                {applicationStatus === "REJECTED" ? (
+                  "Unfortunately, you were not shortlisted for this job role."
+                ) : (
+                  <>
+                    You submitted your application{" "}
+                    <strong className="text-gray-900 font-bold">
+                      {formatDaysAgo(
+                        existingApplication?.application?.createdAt,
+                      )}
+                    </strong>
+                    . We will notify you when the employer updates your status.
+                  </>
+                )}
               </p>
 
+              {applicationStatus === "SHORTLISTED" &&
+                job.is_chat_enabled !== false && (
+                  <Link
+                    href={`/chat?userId=${job.posted_by || job.belongingCompany}&name=${encodeURIComponent(job.hiringCompany || "Recruiter")}`}
+                    className="w-full h-14 rounded-2xl text-[15px] font-black transition-all flex items-center justify-center gap-2 bg-[#258265] text-white hover:bg-[#258265]/90 shadow-md shadow-wise-green/10"
+                  >
+                    <MessageSquare className="w-4.5 h-4.5" />
+                    Chat with Recruiter
+                  </Link>
+                )}
+
               <Link
-                href="/applications"
+                href="/jobs/status"
                 className="w-full h-14 rounded-2xl text-[15px] font-black transition-all flex items-center justify-center gap-2 bg-gray-50 text-gray-700 hover:bg-gray-100 border border-gray-200 shadow-sm"
               >
                 View All Applications

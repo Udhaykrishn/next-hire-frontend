@@ -1,52 +1,60 @@
 "use client";
 
 import { Bell, Server, Shield } from "lucide-react";
+import { useState } from "react";
+import { AdminPageHeader, AdminPrimaryButton } from "@/components/admin/ui";
 import { cn } from "@/lib/utils";
 
-const settingGroups = [
+type Setting = { name: string; desc: string; enabled: boolean };
+
+const settingGroups: {
+  title: string;
+  icon: typeof Shield;
+  settings: Setting[];
+}[] = [
   {
-    title: "Platform Security",
+    title: "Platform security",
     icon: Shield,
     settings: [
       {
-        name: "Two-Factor Authentication",
+        name: "Two-factor authentication",
         desc: "Add an extra layer of security to admin accounts.",
         enabled: true,
       },
       {
-        name: "IP Whitelisting",
+        name: "IP whitelisting",
         desc: "Restrict admin access to specific IP addresses.",
         enabled: false,
       },
     ],
   },
   {
-    title: "Email & Notifications",
+    title: "Email & notifications",
     icon: Bell,
     settings: [
       {
-        name: "New Recruiter Alert",
+        name: "New recruiter alert",
         desc: "Notify admins when a new company registers.",
         enabled: true,
       },
       {
-        name: "Subscription Renewals",
+        name: "Subscription renewals",
         desc: "Send automated reports for upcoming renewals.",
         enabled: true,
       },
     ],
   },
   {
-    title: "System Configuration",
+    title: "System configuration",
     icon: Server,
     settings: [
       {
-        name: "Maintenance Mode",
+        name: "Maintenance mode",
         desc: "Put the platform in read-only mode for updates.",
         enabled: false,
       },
       {
-        name: "Verbose Logging",
+        name: "Verbose logging",
         desc: "Enable detailed system logs for troubleshooting.",
         enabled: true,
       },
@@ -54,62 +62,65 @@ const settingGroups = [
   },
 ];
 
+function Toggle({ defaultOn }: { defaultOn: boolean }) {
+  const [on, setOn] = useState(defaultOn);
+  return (
+    <button
+      type="button"
+      aria-pressed={on}
+      onClick={() => setOn((v) => !v)}
+      className={cn(
+        "relative h-6 w-11 shrink-0 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-coral/30",
+        on ? "bg-coral" : "bg-surface-cream-strong",
+      )}
+    >
+      <span
+        className={cn(
+          "absolute top-1 h-4 w-4 rounded-full bg-white shadow-sm transition-all",
+          on ? "left-6" : "left-1",
+        )}
+      />
+    </button>
+  );
+}
+
 export default function AdminSettings() {
   return (
-    <div className="max-w-4xl space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
-      <div>
-        <h1 className="text-3xl font-black text-near-black tracking-tight">
-          System Settings
-        </h1>
-        <p className="text-gray-500 font-medium">
-          Manage global platform configurations and security protocols.
-        </p>
-      </div>
+    <div className="max-w-3xl space-y-6">
+      <AdminPageHeader
+        title="Settings"
+        description="Manage global platform configuration, security, and notification rules."
+      />
 
-      <div className="space-y-8">
+      <div className="space-y-5">
         {settingGroups.map((group) => (
           <div
             key={group.title}
-            className="bg-white rounded-[32px] border border-gray-50 shadow-sm overflow-hidden"
+            className="overflow-hidden rounded-xl border border-hairline bg-white"
           >
-            <div className="px-8 py-6 border-b border-gray-50 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center">
-                <group.icon className="w-5 h-5 text-gray-400" />
-              </div>
-              <h2 className="text-lg font-black text-near-black tracking-tight">
+            <div className="flex items-center gap-3 border-b border-hairline px-5 py-4">
+              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-surface-soft text-muted-ink">
+                <group.icon className="h-[18px] w-[18px]" />
+              </span>
+              <h2 className="text-[15px] font-semibold text-ink">
                 {group.title}
               </h2>
             </div>
-            <div className="divide-y divide-gray-50">
+            <div className="divide-y divide-hairline-soft">
               {group.settings.map((setting) => (
                 <div
                   key={setting.name}
-                  className="px-8 py-6 flex items-center justify-between hover:bg-gray-50/50 transition-colors"
+                  className="flex items-center justify-between gap-6 px-5 py-4"
                 >
                   <div>
-                    <h3 className="text-sm font-black text-near-black mb-1">
+                    <h3 className="text-sm font-medium text-ink">
                       {setting.name}
                     </h3>
-                    <p className="text-xs text-gray-400 font-medium">
+                    <p className="mt-0.5 text-[13px] text-muted-ink">
                       {setting.desc}
                     </p>
                   </div>
-                  <button
-                    type="button"
-                    className={cn(
-                      "w-12 h-6 rounded-full relative transition-all duration-300 focus:outline-none",
-                      setting.enabled
-                        ? "bg-wise-green shadow-inner"
-                        : "bg-gray-200",
-                    )}
-                  >
-                    <div
-                      className={cn(
-                        "absolute top-1 w-4 h-4 rounded-full bg-white transition-all duration-300 shadow-sm",
-                        setting.enabled ? "right-1" : "left-1",
-                      )}
-                    />
-                  </button>
+                  <Toggle defaultOn={setting.enabled} />
                 </div>
               ))}
             </div>
@@ -117,19 +128,14 @@ export default function AdminSettings() {
         ))}
       </div>
 
-      <div className="flex items-center justify-end gap-4">
+      <div className="flex items-center justify-end gap-2">
         <button
           type="button"
-          className="px-6 py-3 text-sm font-black text-gray-400 hover:text-near-black transition-colors"
+          className="rounded-lg border border-hairline bg-white px-4 py-2 text-sm font-medium text-body transition-colors hover:bg-surface-soft"
         >
-          Discard Changes
+          Discard changes
         </button>
-        <button
-          type="button"
-          className="px-8 py-3 bg-near-black text-white rounded-2xl text-sm font-black hover:bg-wise-green hover:text-near-black transition-all shadow-xl shadow-near-black/10"
-        >
-          Save Configurations
-        </button>
+        <AdminPrimaryButton>Save configuration</AdminPrimaryButton>
       </div>
     </div>
   );

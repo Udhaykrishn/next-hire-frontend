@@ -43,15 +43,20 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, [refetch]);
 
   const logout = async (redirectTo?: string) => {
+    let role: "admin" | "recruiter" | "user" | "interviewer" = "user";
+    if (user?.role === "ADMIN") role = "admin";
+    else if (user?.role === "RECRUITER") role = "recruiter";
+    else if (user?.role === "INTERVIEWER") role = "interviewer";
+
     try {
-      let role: "admin" | "recruiter" | "user" = "user";
-      if (user?.role === "ADMIN") role = "admin";
-      else if (user?.role === "RECRUITER") role = "recruiter";
       await authService.logout(role);
-      setUserState(null);
-      router.push(redirectTo || "/login");
     } catch (error) {
-      console.error("Logout failed:", error);
+      // Even if the server call fails, still sign the user out locally.
+      console.error("Logout request failed:", error);
+    } finally {
+      setUserState(null);
+      queryClient.removeQueries({ queryKey: ["current-user"] });
+      router.replace(redirectTo || "/login");
     }
   };
 
