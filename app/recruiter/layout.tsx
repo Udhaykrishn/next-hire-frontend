@@ -84,7 +84,6 @@ export default function RecruiterLayout({
   const isCreatingOrEditingJob =
     pathname.startsWith("/recruiter/jobs/create/new") ||
     pathname.startsWith("/recruiter/jobs/edit");
-  const isPlanPage = pathname.startsWith("/recruiter/plan");
   const isAuthRoute =
     pathname === "/recruiter" ||
     pathname.startsWith("/recruiter/login") ||
@@ -92,8 +91,7 @@ export default function RecruiterLayout({
     pathname.startsWith("/recruiter/onboarding") ||
     pathname.startsWith("/recruiter/forgot-password") ||
     pathname.startsWith("/recruiter/reset-password");
-  const hideSidebarAndHeader =
-    isCreatingOrEditingJob || isPlanPage || isAuthRoute;
+  const hideSidebarAndHeader = isCreatingOrEditingJob || isAuthRoute;
 
   const isActive = (href: string) =>
     pathname === href || pathname.startsWith(`${href}/`);

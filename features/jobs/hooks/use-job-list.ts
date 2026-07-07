@@ -51,6 +51,8 @@ export function useJobList() {
   const [sort, setSort] = useState<string>(DEFAULT_SORT);
   const [_isPending, startTransition] = useTransition();
 
+  const [page, setPage] = useState(1);
+
   const { isLoading: isAuthLoading } = useAuthContext();
 
   const [debouncedQuery] = useDebouncedValue(query, { wait: 400 });
@@ -64,6 +66,7 @@ export function useJobList() {
             ? prev.filter((item) => item !== value)
             : [...prev, value],
         );
+        setPage(1); // Reset page on filter change
       });
     };
 
@@ -76,15 +79,29 @@ export function useJobList() {
   const selectDatePosted = (value: string) => {
     startTransition(() => {
       setDatePosted((prev) => (prev === value ? "" : value));
+      setPage(1);
     });
   };
 
   const toggleNightShift = () => {
-    startTransition(() => setNightShiftOnly((prev) => !prev));
+    startTransition(() => {
+      setNightShiftOnly((prev) => !prev);
+      setPage(1);
+    });
   };
 
   const changeSort = (value: string) => {
-    startTransition(() => setSort(value));
+    startTransition(() => {
+      setSort(value);
+      setPage(1);
+    });
+  };
+
+  const changePage = (newPage: number) => {
+    startTransition(() => {
+      setPage(newPage);
+    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const resetFilters = () => {
@@ -99,6 +116,7 @@ export function useJobList() {
       setSort(DEFAULT_SORT);
       setQuery("");
       setLocation("");
+      setPage(1);
     });
   };
 
@@ -115,9 +133,15 @@ export function useJobList() {
       case "category":
         return toggleCategory(value);
       case "datePosted":
-        return startTransition(() => setDatePosted(""));
+        return startTransition(() => {
+          setDatePosted("");
+          setPage(1);
+        });
       case "nightShift":
-        return startTransition(() => setNightShiftOnly(false));
+        return startTransition(() => {
+          setNightShiftOnly(false);
+          setPage(1);
+        });
     }
   };
 
@@ -191,6 +215,8 @@ export function useJobList() {
       datePosted,
       nightShift: nightShiftOnly,
       sort,
+      page,
+      limit: 10,
     }),
     [
       debouncedQuery,
@@ -203,6 +229,7 @@ export function useJobList() {
       datePosted,
       nightShiftOnly,
       sort,
+      page,
     ],
   );
 
@@ -219,6 +246,7 @@ export function useJobList() {
     datePosted,
     nightShiftOnly,
     sort,
+    page,
     toggleJobType,
     toggleWorkType,
     toggleExperience,
@@ -227,6 +255,7 @@ export function useJobList() {
     selectDatePosted,
     toggleNightShift,
     changeSort,
+    changePage,
     resetFilters,
     removeChip,
     activeChips,

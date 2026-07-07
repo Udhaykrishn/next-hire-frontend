@@ -1,7 +1,7 @@
 import { Building, Clock, Target } from "lucide-react";
-import Image from "next/image";
 import { RichTextViewer } from "@/components/ui/rich-text-viewer";
 import type { JobWithMatchScore } from "@/features/jobs/types/job.types";
+import { JobLogo } from "../JobLogo";
 
 interface JobDescriptionCardProps {
   job: JobWithMatchScore;
@@ -121,21 +121,12 @@ export function JobDescriptionCard({ job }: JobDescriptionCardProps) {
           About company
         </h2>
         <div className="flex items-start gap-4">
-          <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center border-2 border-wise-green/20 shadow-md shadow-wise-green/5 shrink-0 overflow-hidden">
-            {job.companyLogo ? (
-              <Image
-                src={job.companyLogo}
-                alt={job.hiringCompany || "Company Logo"}
-                width={64}
-                height={64}
-                className="w-full h-full object-cover"
-                unoptimized
-              />
-            ) : (
-              <span className="text-2xl font-black text-dark-green">
-                {job.hiringCompany?.[0] || "C"}
-              </span>
-            )}
+          <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center border-2 border-wise-green/20 shadow-md shadow-wise-green/5 shrink-0 overflow-hidden relative">
+            <JobLogo
+              logoUrl={job.companyLogo}
+              companyName={job.hiringCompany || ""}
+              fallbackClassName="text-2xl font-black text-dark-green"
+            />
           </div>
           <div className="space-y-3">
             <div>

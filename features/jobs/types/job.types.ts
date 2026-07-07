@@ -61,6 +61,10 @@ export interface JobResponse {
   posted_by?: string;
   is_published: boolean;
   is_chat_enabled: boolean;
+  stats?: {
+    total: number;
+    [key: string]: unknown;
+  };
 }
 
 export interface SearchJobsParams {

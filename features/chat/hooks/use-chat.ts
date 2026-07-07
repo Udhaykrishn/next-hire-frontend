@@ -89,11 +89,19 @@ export const useSendMessageMutation = (otherUserId: string) => {
         ["chat-history", otherUserId],
         (old) => {
           if (!old) return [data];
-          return old.map((msg) =>
-            msg.id.startsWith("temp-") && msg.message === data.message
-              ? data
-              : msg,
+          if (old.some((m) => m.id === data.id)) return old;
+
+          const tempIndex = old.findIndex(
+            (msg) => msg.id.startsWith("temp-") && msg.message === data.message,
           );
+
+          if (tempIndex !== -1) {
+            const newHistory = [...old];
+            newHistory[tempIndex] = data;
+            return newHistory;
+          }
+
+          return [...old, data];
         },
       );
       // Invalidate inbox to refresh latest message
@@ -199,6 +207,17 @@ export const useSocketSync = (
             if (!old) return [message];
             // Avoid duplicates if optimistically added
             if (old.some((m) => m.id === message.id)) return old;
+
+            const tempIndex = old.findIndex(
+              (m) => m.id.startsWith("temp-") && m.message === message.message,
+            );
+
+            if (tempIndex !== -1) {
+              const newHistory = [...old];
+              newHistory[tempIndex] = message;
+              return newHistory;
+            }
+
             return [...old, message];
           },
         );

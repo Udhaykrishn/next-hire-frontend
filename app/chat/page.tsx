@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, Suspense } from "react";
+import { useEffect, Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { LandingNavbar } from "@/components/landing-navbar";
 import { LandingFooter } from "@/components/landing-footer";
@@ -12,16 +12,43 @@ function ChatPageContent() {
   const { user, isAuthenticated, isLoading } = useAuthContext();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const userId = searchParams.get("userId");
-  const name = searchParams.get("name");
+
+  const [userId, setUserId] = useState<string | null>(
+    searchParams.get("userId"),
+  );
+  const [name, setName] = useState<string | null>(searchParams.get("name"));
+  const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
-    if (!isLoading && (!isAuthenticated || user?.role !== "CANDIDATE")) {
+    // Attempt to load from session storage (secure redirect)
+    const storedUserId = sessionStorage.getItem("pendingChatUserId");
+    const storedName = sessionStorage.getItem("pendingChatUserName");
+
+    if (storedUserId) {
+      setUserId(storedUserId);
+      setName(storedName);
+      sessionStorage.removeItem("pendingChatUserId");
+      sessionStorage.removeItem("pendingChatUserName");
+    }
+    setIsInitialized(true);
+  }, []);
+
+  useEffect(() => {
+    if (
+      isInitialized &&
+      !isLoading &&
+      (!isAuthenticated || user?.role !== "CANDIDATE")
+    ) {
       router.replace("/login");
     }
-  }, [isLoading, isAuthenticated, user, router]);
+  }, [isInitialized, isLoading, isAuthenticated, user, router]);
 
-  if (isLoading || !isAuthenticated || user?.role !== "CANDIDATE") {
+  if (
+    !isInitialized ||
+    isLoading ||
+    !isAuthenticated ||
+    user?.role !== "CANDIDATE"
+  ) {
     return (
       <div className="flex min-h-[60vh] items-center justify-center">
         <Loader2 className="h-10 w-10 animate-spin text-wise-green" />

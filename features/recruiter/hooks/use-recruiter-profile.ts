@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useAuthContext } from "@/features/auth/context/auth-context";
-import type { UpdateRecruiterProfileDto } from "../types/recruiter.types";
+import type {
+  RecruiterProfile,
+  UpdateRecruiterProfileDto,
+} from "../types/recruiter.types";
 import {
   useDeleteRecruiterAvatarMutation,
-  useRecruiterProfileQuery,
   useUpdateRecruiterProfileMutation,
   useUploadRecruiterAvatarMutation,
 } from "./use-recruiter-query";
@@ -23,16 +25,12 @@ export interface RecruiterFormValues {
 export type EditSection = "basic" | "company" | "tax" | null;
 
 export function useRecruiterProfile() {
-  const { user } = useAuthContext();
-  const { data: profileResponse, isLoading } = useRecruiterProfileQuery();
+  const { user, isLoading } = useAuthContext();
   const updateMutation = useUpdateRecruiterProfileMutation();
   const uploadAvatarMutation = useUploadRecruiterAvatarMutation();
   const deleteAvatarMutation = useDeleteRecruiterAvatarMutation();
 
-  const recruiterProfile =
-    profileResponse?.success && profileResponse.data
-      ? profileResponse.data
-      : null;
+  const recruiterProfile = user as unknown as RecruiterProfile | null;
 
   const [editSection, setEditSection] = useState<EditSection>(null);
   const [formData, setFormData] = useState<RecruiterFormValues>({

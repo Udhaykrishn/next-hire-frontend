@@ -124,6 +124,8 @@ export default function JobList() {
               onSortChange={changeSort}
               activeFilterCount={activeFilterCount}
               onResetFilters={resetFilters}
+              page={filters.page}
+              onPageChange={filters.changePage}
             />
           </Suspense>
 

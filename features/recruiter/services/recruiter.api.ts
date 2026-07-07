@@ -121,3 +121,8 @@ export const deleteRecruiterProfileImage = async (): Promise<{
 }> => {
   return await apiClient.delete(ApiRecruiterRoutes.UPLOAD_IMAGE);
 };
+
+export const getRecruiterSubscriptionHistory = async (): Promise<unknown[]> => {
+  const { data } = await apiClient.get(`/recruiter/subscription-history`);
+  return data;
+};

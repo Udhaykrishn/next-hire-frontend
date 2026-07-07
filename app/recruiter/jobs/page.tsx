@@ -6,9 +6,9 @@ import Link from "next/link";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useRecruiterJobsQuery } from "@/features/jobs/hooks/use-jobs-query";
-import { useJobApplicationCountQuery } from "@/features/jobs/hooks/use-recruiter-applications";
 import { updateJob } from "@/features/jobs/services/job.api";
 import type { JobResponse } from "@/features/jobs/types/job.types";
+import { ConfirmationModal } from "@/components/shared/confirmation-modal";
 import { useState } from "react";
 
 const EXPIRY_DAYS = 15;
@@ -25,14 +25,13 @@ function getExpiryLabel(createdAt: string): {
   };
 }
 
-/** Per-card component so each card manages its own query + publish action. */
 function JobCard({ job }: { job: JobResponse }) {
   const queryClient = useQueryClient();
   const [publishing, setPublishing] = useState(false);
+  const [confirming, setConfirming] = useState(false);
 
-  const { data: count, isLoading: countLoading } = useJobApplicationCountQuery(
-    job.id,
-  );
+  const count = job.stats?.total ?? 0;
+  const countLoading = false;
 
   const expiry = job.created_at ? getExpiryLabel(job.created_at) : null;
   const isPublished = job.is_published;
@@ -47,6 +46,7 @@ function JobCard({ job }: { job: JobResponse }) {
       toast.error("Failed to publish job. Please try again.");
     } finally {
       setPublishing(false);
+      setConfirming(false);
     }
   };
 
@@ -153,7 +153,7 @@ function JobCard({ job }: { job: JobResponse }) {
             </Link>
             <button
               type="button"
-              onClick={handlePublish}
+              onClick={() => setConfirming(true)}
               disabled={publishing}
               className="px-4 py-2 text-sm font-bold text-white bg-wise-green hover:bg-wise-green/90 disabled:opacity-60 disabled:cursor-not-allowed transition-colors rounded-full flex items-center gap-1.5 shadow-sm"
             >
@@ -163,6 +163,17 @@ function JobCard({ job }: { job: JobResponse }) {
           </>
         )}
       </div>
+
+      <ConfirmationModal
+        isOpen={confirming}
+        onClose={() => setConfirming(false)}
+        title="Publish Job"
+        description="Are you sure you want to publish this job? Once published, candidates will be able to view and apply for this position."
+        onConfirm={handlePublish}
+        confirmText="Publish"
+        cancelText="Cancel"
+        variant="success"
+      />
     </div>
   );
 }

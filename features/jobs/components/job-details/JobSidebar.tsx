@@ -13,6 +13,8 @@ import type {
   JobWithMatchScore,
 } from "@/features/jobs/types/job.types";
 import { formatDaysAgo, getStatusColor } from "../../utils/job-status.utils";
+import { Suspense } from "react";
+import { RecommendedJobsWidget } from "./RecommendedJobsWidget";
 
 interface JobSidebarProps {
   job: JobWithMatchScore;
@@ -91,13 +93,24 @@ export function JobSidebar({
 
               {applicationStatus === "SHORTLISTED" &&
                 job.is_chat_enabled !== false && (
-                  <Link
-                    href={`/chat?userId=${job.posted_by || job.belongingCompany}&name=${encodeURIComponent(job.hiringCompany || "Recruiter")}`}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      sessionStorage.setItem(
+                        "pendingChatUserId",
+                        job.posted_by || job.belongingCompany,
+                      );
+                      sessionStorage.setItem(
+                        "pendingChatUserName",
+                        job.hiringCompany || "Recruiter",
+                      );
+                      window.location.href = "/chat";
+                    }}
                     className="w-full h-14 rounded-2xl text-[15px] font-black transition-all flex items-center justify-center gap-2 bg-[#258265] text-white hover:bg-[#258265]/90 shadow-md shadow-wise-green/10"
                   >
                     <MessageSquare className="w-4.5 h-4.5" />
                     Chat with Recruiter
-                  </Link>
+                  </button>
                 )}
 
               <Link
@@ -199,6 +212,19 @@ export function JobSidebar({
           </p>
         </div>
       </div>
+
+      {/* Recommended Jobs Widget */}
+      {isCandidate && (
+        <Suspense
+          fallback={
+            <div className="bg-white rounded-[2.5rem] p-8 border border-gray-100 shadow-sm flex justify-center mt-8">
+              <Loader2 className="w-6 h-6 animate-spin text-wise-green" />
+            </div>
+          }
+        >
+          <RecommendedJobsWidget currentJob={job} />
+        </Suspense>
+      )}
     </aside>
   );
 }

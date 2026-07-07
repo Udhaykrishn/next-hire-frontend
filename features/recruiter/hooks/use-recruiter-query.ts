@@ -12,6 +12,7 @@ import {
   uploadRecruiterProfileImage,
   verifyCompanyOtp,
   verifyRecruiterCompany,
+  getRecruiterSubscriptionHistory,
 } from "../services/recruiter.api";
 import type {
   ChangePasswordData,
@@ -57,6 +58,7 @@ export const useUpdateRecruiterProfileMutation = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["recruiter", "profile"] });
+      queryClient.invalidateQueries({ queryKey: ["current-user"] });
       toast.success("Profile updated successfully");
     },
     onError: (error: unknown) => {
@@ -74,6 +76,7 @@ export const useUploadRecruiterAvatarMutation = () => {
       uploadRecruiterProfileImage(userId, file),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["recruiter", "profile"] });
+      queryClient.invalidateQueries({ queryKey: ["current-user"] });
       toast.success("Profile photo updated");
     },
     onError: (error: unknown) => {
@@ -90,6 +93,7 @@ export const useDeleteRecruiterAvatarMutation = () => {
     mutationFn: deleteRecruiterProfileImage,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["recruiter", "profile"] });
+      queryClient.invalidateQueries({ queryKey: ["current-user"] });
       toast.success("Profile photo deleted");
     },
     onError: (error: unknown) => {
@@ -112,6 +116,7 @@ export const useVerifyCompanyOtpMutation = () => {
     mutationFn: verifyCompanyOtp,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["recruiter", "profile"] });
+      queryClient.invalidateQueries({ queryKey: ["current-user"] });
       queryClient.invalidateQueries({
         queryKey: ["recruiter", "verification-session"],
       });
@@ -136,5 +141,12 @@ export const useDeleteCompanyVerificationSessionMutation = () => {
         queryKey: ["recruiter", "verification-session"],
       });
     },
+  });
+};
+
+export const useRecruiterSubscriptionHistoryQuery = () => {
+  return useQuery({
+    queryKey: ["recruiter", "subscription-history"],
+    queryFn: getRecruiterSubscriptionHistory,
   });
 };
