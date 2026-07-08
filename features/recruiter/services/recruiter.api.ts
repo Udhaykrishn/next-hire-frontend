@@ -1,30 +1,36 @@
 import { formatDistanceToNow, parseISO } from "date-fns";
 import { getRecruiterJobs } from "@/features/jobs/services/job.api";
-import type { JobResponse, PaginationResponse } from "@/features/jobs/types/job.types";
+import type {
+  JobResponse,
+  PaginationResponse,
+} from "@/features/jobs/types/job.types";
 import type { JobListing } from "../types/recruiter.types";
 
-export const getRecruiterJobListings = async (page: number = 1, limit: number = 5): Promise<PaginationResponse<JobListing>> => {
+export const getRecruiterJobListings = async (
+  page: number = 1,
+  limit: number = 5,
+): Promise<PaginationResponse<JobListing>> => {
   const response = await getRecruiterJobs(page, limit);
   return {
     ...response,
     data: response.data.map((job: JobResponse) => ({
-    id: job.id,
-    title: job.jobTitle || "",
-    applicants: 0,
-    posted: job.created_at
-      ? formatDistanceToNow(parseISO(job.created_at), { addSuffix: true })
-      : "",
-    status: job.is_published
-      ? job.status === "OPEN"
-        ? "Active"
-        : "Closed"
-      : "Draft",
-    location: job.jobCity || job.officeAddress || "",
-    postedBy: job.posted_by || "",
-    isPublished: job.is_published ?? false,
-    expiresIn: "",
-    stats: job.stats as { total: number; interviews: number } | undefined,
-  }))
+      id: job.id,
+      title: job.jobTitle || "",
+      applicants: 0,
+      posted: job.created_at
+        ? formatDistanceToNow(parseISO(job.created_at), { addSuffix: true })
+        : "",
+      status: job.is_published
+        ? job.status === "OPEN"
+          ? "Active"
+          : "Closed"
+        : "Draft",
+      location: job.jobCity || job.officeAddress || "",
+      postedBy: job.posted_by || "",
+      isPublished: job.is_published ?? false,
+      expiresIn: "",
+      stats: job.stats as { total: number; interviews: number } | undefined,
+    })),
   };
 };
 
@@ -127,7 +133,9 @@ export const deleteRecruiterProfileImage = async (): Promise<{
   return await apiClient.delete(ApiRecruiterRoutes.UPLOAD_IMAGE);
 };
 
-export const getRecruiterSubscriptionHistory = async (): Promise<SubscriptionHistory[]> => {
+export const getRecruiterSubscriptionHistory = async (): Promise<
+  SubscriptionHistory[]
+> => {
   const { data } = await apiClient.get(`/recruiter/subscription-history`);
   return data;
 };

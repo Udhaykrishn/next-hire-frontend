@@ -6,7 +6,10 @@ interface DashboardHeaderProps {
   setTimeFilter: (tf: string) => void;
 }
 
-export function DashboardHeader({ timeFilter, setTimeFilter }: DashboardHeaderProps) {
+export function DashboardHeader({
+  timeFilter,
+  setTimeFilter,
+}: DashboardHeaderProps) {
   return (
     <header className="flex flex-col md:flex-row md:items-end justify-between border-b border-hairline pb-6 mb-8 gap-6">
       <div>
@@ -26,6 +29,7 @@ export function DashboardHeader({ timeFilter, setTimeFilter }: DashboardHeaderPr
           {["Today", "Week", "Month", "Year"].map((tf) => (
             <button
               key={tf}
+              type="button"
               onClick={() => setTimeFilter(tf)}
               className={`px-3 py-1.5 text-[13px] font-medium rounded-md transition-colors ${
                 timeFilter === tf
@@ -36,7 +40,10 @@ export function DashboardHeader({ timeFilter, setTimeFilter }: DashboardHeaderPr
               {tf}
             </button>
           ))}
-          <button className="px-3 py-1.5 text-[13px] font-medium text-muted-ink hover:text-ink flex items-center gap-1.5 border-l border-hairline ml-1 pl-4">
+          <button
+            type="button"
+            className="px-3 py-1.5 text-[13px] font-medium text-muted-ink hover:text-ink flex items-center gap-1.5 border-l border-hairline ml-1 pl-4"
+          >
             <Calendar className="w-4 h-4" /> Custom
           </button>
         </div>

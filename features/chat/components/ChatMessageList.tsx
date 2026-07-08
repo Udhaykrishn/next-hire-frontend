@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import type { ChatMessage } from "../types/chat.types";
 import { formatTime, formatFileSize } from "../utils/format";
+import Image from "next/image";
 
 interface ChatMessageListProps {
   messages: ChatMessage[];
@@ -69,7 +70,7 @@ export function ChatMessageList({
                   {/* Rendering Attachments */}
                   {message.message_type === "image" && message.file_url && (
                     <div className="mb-2 max-w-sm overflow-hidden rounded-lg border border-black/5 bg-gray-50/20">
-                      <img
+                      <Image
                         src={message.file_url}
                         alt="Chat upload"
                         className="max-h-60 w-full object-cover"

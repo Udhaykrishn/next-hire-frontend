@@ -31,11 +31,16 @@ export interface DashboardMetrics {
   };
 }
 
-export const getDashboardMetrics = async (range: string = "Month"): Promise<DashboardMetrics> => {
-  const response = await apiClient.get<DashboardMetrics>(`/stats/overview?range=${range}`);
+export const getDashboardMetrics = async (
+  range: string = "Month",
+): Promise<DashboardMetrics> => {
+  const response = await apiClient.get<DashboardMetrics>(
+    `/stats/overview?range=${range}`,
+  );
   // Assuming the API returns { data: DashboardMetrics, success: boolean, ... }
   // Our apiClient usually extracts the response object depending on interceptors,
   // If your apiClient returns the raw axios response, it would be `response.data.data`
   // Here we use type coercion to match whatever unwrapping apiClient does natively.
-  return (response as any).data || response;
+  return ((response as unknown as { data?: DashboardMetrics }).data ??
+    response) as DashboardMetrics;
 };

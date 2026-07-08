@@ -41,7 +41,11 @@ export function ChartsSection({
                   <stop offset="95%" stopColor="#163300" stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
+              <CartesianGrid
+                strokeDasharray="3 3"
+                vertical={false}
+                stroke="#E5E7EB"
+              />
               <XAxis
                 dataKey="name"
                 axisLine={false}
@@ -89,8 +93,16 @@ export function ChartsSection({
         </div>
         <div className="h-64 w-full">
           <ResponsiveContainer width="100%" height="100%" minWidth={0}>
-            <BarChart data={hiringFunnelData} layout="vertical" margin={{ left: 40 }}>
-              <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#E5E7EB" />
+            <BarChart
+              data={hiringFunnelData}
+              layout="vertical"
+              margin={{ left: 40 }}
+            >
+              <CartesianGrid
+                strokeDasharray="3 3"
+                horizontal={false}
+                stroke="#E5E7EB"
+              />
               <XAxis
                 type="number"
                 axisLine={false}

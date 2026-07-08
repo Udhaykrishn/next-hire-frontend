@@ -3,21 +3,61 @@ import type { DashboardMetrics } from "../services/dashboard.api";
 
 export function KPIGrid({ kpis }: { kpis: DashboardMetrics["kpis"] }) {
   const kpiData = [
-    { label: "Active Jobs", value: kpis.activeJobs, trend: `+${kpis.activeJobsTrend}`, isUp: true },
-    { label: "Total Applicants", value: kpis.totalApplicants, trend: `+${kpis.totalApplicantsTrend}`, isUp: true },
-    { label: "New Applicants Today", value: kpis.newApplicantsToday, trend: `${kpis.newApplicantsTrend}`, isUp: false },
-    { label: "Candidates to Review", value: kpis.candidatesToReview, trend: "Urgent", isUp: null },
-    { label: "Interviews Today", value: kpis.interviewsToday, trend: "On track", isUp: true },
-    { label: "Offers Pending", value: kpis.offersPending, trend: "+1", isUp: true },
-    { label: "Hired This Month", value: kpis.hiredThisMonth, trend: "+4", isUp: true },
-    { label: "Avg Time to Hire", value: `${kpis.avgTimeToHireDays}d`, trend: "-2d", isUp: true },
+    {
+      label: "Active Jobs",
+      value: kpis.activeJobs,
+      trend: `+${kpis.activeJobsTrend}`,
+      isUp: true,
+    },
+    {
+      label: "Total Applicants",
+      value: kpis.totalApplicants,
+      trend: `+${kpis.totalApplicantsTrend}`,
+      isUp: true,
+    },
+    {
+      label: "New Applicants Today",
+      value: kpis.newApplicantsToday,
+      trend: `${kpis.newApplicantsTrend}`,
+      isUp: false,
+    },
+    {
+      label: "Candidates to Review",
+      value: kpis.candidatesToReview,
+      trend: "Urgent",
+      isUp: null,
+    },
+    {
+      label: "Interviews Today",
+      value: kpis.interviewsToday,
+      trend: "On track",
+      isUp: true,
+    },
+    {
+      label: "Offers Pending",
+      value: kpis.offersPending,
+      trend: "+1",
+      isUp: true,
+    },
+    {
+      label: "Hired This Month",
+      value: kpis.hiredThisMonth,
+      trend: "+4",
+      isUp: true,
+    },
+    {
+      label: "Avg Time to Hire",
+      value: `${kpis.avgTimeToHireDays}d`,
+      trend: "-2d",
+      isUp: true,
+    },
   ];
 
   return (
     <section className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-      {kpiData.map((kpi, i) => (
+      {kpiData.map((kpi) => (
         <div
-          key={i}
+          key={kpi.label}
           className="bg-white p-5 rounded-xl border border-hairline flex flex-col justify-between h-32 shadow-sm transition-shadow hover:shadow-md"
         >
           <div className="flex justify-between items-start">
@@ -37,9 +77,7 @@ export function KPIGrid({ kpis }: { kpis: DashboardMetrics["kpis"] }) {
               </div>
             )}
           </div>
-          <div className="text-3xl font-bold text-ink mt-2">
-            {kpi.value}
-          </div>
+          <div className="text-3xl font-bold text-ink mt-2">{kpi.value}</div>
         </div>
       ))}
     </section>

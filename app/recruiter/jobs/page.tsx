@@ -190,9 +190,18 @@ function JobCard({ job }: { job: JobResponse }) {
 export default function RecruiterJobsPage() {
   const [page, setPage] = useState(1);
   const limit = 10;
-  const { data: jobsResponse, isLoading, error } = useRecruiterJobsQuery(page, limit);
+  const {
+    data: jobsResponse,
+    isLoading,
+    error,
+  } = useRecruiterJobsQuery(page, limit);
   const jobs = jobsResponse?.data || [];
-  const pagination = jobsResponse || { totalPages: 1, total: 0, page: 1, limit: 10 };
+  const pagination = jobsResponse || {
+    totalPages: 1,
+    total: 0,
+    page: 1,
+    limit: 10,
+  };
 
   return (
     <div className="p-8 max-w-7xl mx-auto space-y-8">
@@ -238,11 +247,18 @@ export default function RecruiterJobsPage() {
                   <PaginationItem>
                     <PaginationPrevious
                       onClick={() => setPage(Math.max(1, page - 1))}
-                      className={page === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                      className={
+                        page === 1
+                          ? "pointer-events-none opacity-50"
+                          : "cursor-pointer"
+                      }
                     />
                   </PaginationItem>
 
-                  {Array.from({ length: pagination.totalPages }, (_, i) => i + 1).map((p) => {
+                  {Array.from(
+                    { length: pagination.totalPages },
+                    (_, i) => i + 1,
+                  ).map((p) => {
                     if (
                       p === 1 ||
                       p === pagination.totalPages ||
@@ -272,8 +288,14 @@ export default function RecruiterJobsPage() {
 
                   <PaginationItem>
                     <PaginationNext
-                      onClick={() => setPage(Math.min(pagination.totalPages, page + 1))}
-                      className={page === pagination.totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                      onClick={() =>
+                        setPage(Math.min(pagination.totalPages, page + 1))
+                      }
+                      className={
+                        page === pagination.totalPages
+                          ? "pointer-events-none opacity-50"
+                          : "cursor-pointer"
+                      }
                     />
                   </PaginationItem>
                 </PaginationContent>

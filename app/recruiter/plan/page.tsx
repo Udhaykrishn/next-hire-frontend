@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  ChevronLeft,
   CreditCard,
   CheckCircle2,
   Zap,
@@ -9,7 +8,6 @@ import {
   Download,
   Sparkles,
 } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { Suspense, useState } from "react";
 import { format } from "date-fns";
 import { PricingContent } from "@/app/pricing/page";
@@ -18,7 +16,6 @@ import { useRecruiterProfile } from "@/features/recruiter/hooks/use-recruiter-pr
 import { useRecruiterSubscriptionHistoryQuery } from "@/features/recruiter/hooks/use-recruiter-query";
 
 export default function RecruiterPlanPage() {
-  const router = useRouter();
   const { recruiterProfile, isLoading } = useRecruiterProfile();
   const { data: subscriptionHistory, isLoading: isLoadingHistory } =
     useRecruiterSubscriptionHistoryQuery();

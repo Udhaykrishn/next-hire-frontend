@@ -14,8 +14,13 @@ export const createJob = async (jobData: JobFormData) => {
   return data;
 };
 
-export const getRecruiterJobs = async (page: number = 1, limit: number = 5): Promise<PaginationResponse<JobResponse>> => {
-  const { data } = await apiClient.get(ApiRecruiterRoutes.JOBS_RECRUITER, { params: { page, limit } });
+export const getRecruiterJobs = async (
+  page: number = 1,
+  limit: number = 5,
+): Promise<PaginationResponse<JobResponse>> => {
+  const { data } = await apiClient.get(ApiRecruiterRoutes.JOBS_RECRUITER, {
+    params: { page, limit },
+  });
   return data;
 };
 

@@ -166,12 +166,12 @@ export async function proxy(request: NextRequest) {
             typeof refreshResponse.headers.getSetCookie === "function"
               ? refreshResponse.headers.getSetCookie()
               : (refreshResponse.headers.get("set-cookie") ?? "")
-                .split(/,(?=[^;])/)
-                .reduce<string[]>((acc, s) => {
-                  const trimmed = s.trim();
-                  if (trimmed) acc.push(trimmed);
-                  return acc;
-                }, []);
+                  .split(/,(?=[^;])/)
+                  .reduce<string[]>((acc, s) => {
+                    const trimmed = s.trim();
+                    if (trimmed) acc.push(trimmed);
+                    return acc;
+                  }, []);
 
           for (const cookieStr of setCookieHeaders) {
             response.headers.append("Set-Cookie", cookieStr);
