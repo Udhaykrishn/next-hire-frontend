@@ -55,6 +55,29 @@ export const useConfirmRoundMutation = () => {
   });
 };
 
+export const useRequestRescheduleMutation = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({
+      roundId,
+      newScheduledAt,
+      reason,
+    }: {
+      roundId: string;
+      newScheduledAt: string;
+      reason?: string;
+    }) => interviewApi.requestReschedule(roundId, newScheduledAt, reason),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["candidate-interview-rounds"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["interview-rounds"],
+      });
+    },
+  });
+};
+
 export const useCandidateRoundsQuery = (enabled = true) => {
   return useQuery({
     queryKey: ["candidate-interview-rounds"],

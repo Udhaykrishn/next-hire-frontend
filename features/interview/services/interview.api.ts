@@ -135,6 +135,30 @@ export const interviewApi = {
     );
   },
 
+  requestReschedule: async (
+    roundId: string,
+    newScheduledAt: string,
+    reason?: string,
+  ): Promise<InterviewRound> => {
+    return unwrap(
+      await apiClient.patch(
+        `/candidate/interview-rounds/${roundId}/reschedule`,
+        {
+          newScheduledAt,
+          reason,
+        },
+      ),
+    );
+  },
+
+  approveReschedule: async (roundId: string): Promise<InterviewRound> => {
+    return unwrap(
+      await apiClient.patch(
+        `/recruiter/interview-rounds/${roundId}/approve-reschedule`,
+      ),
+    );
+  },
+
   // Interviewer API calls
   submitFeedback: async (
     roundId: string,

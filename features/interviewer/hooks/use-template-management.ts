@@ -19,6 +19,8 @@ export const useTemplateManagement = () => {
     "Problem Solving",
   ]);
   const [newCriterion, setNewCriterion] = useState("");
+  const [defaultType, setDefaultType] = useState("VIDEO");
+  const [defaultInstructions, setDefaultInstructions] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const addCriterion = (e: React.MouseEvent) => {
@@ -54,11 +56,15 @@ export const useTemplateManagement = () => {
         description: description || undefined,
         duration: Number(duration),
         rubric,
+        defaultType,
+        defaultInstructions: defaultInstructions || undefined,
       });
       toast.success("Interview template created successfully!");
       setName("");
       setDescription("");
       setDuration(45);
+      setDefaultType("VIDEO");
+      setDefaultInstructions("");
       setRubric(["Technical Skills", "Problem Solving"]);
     } catch (error: unknown) {
       console.error(error);
@@ -91,6 +97,10 @@ export const useTemplateManagement = () => {
     duration,
     setDuration,
     rubric,
+    defaultType,
+    setDefaultType,
+    defaultInstructions,
+    setDefaultInstructions,
     newCriterion,
     setNewCriterion,
     addCriterion,

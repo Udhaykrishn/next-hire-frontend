@@ -4,6 +4,8 @@ import { useState } from "react";
 import { Calendar, Video, Plus, Loader2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRoundsForApplicationQuery } from "../hooks/use-interview";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { interviewApi } from "../services/interview.api";
 import { ScheduleInterviewModal } from "./schedule-interview-modal";
 import Link from "next/link";
 
@@ -17,6 +19,16 @@ export function RecruiterInterviews({
   const { data: rounds = [], isLoading } =
     useRoundsForApplicationQuery(applicationId);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const queryClient = useQueryClient();
+  const approveRescheduleMutation = useMutation({
+    mutationFn: (roundId: string) => interviewApi.approveReschedule(roundId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["interview-rounds", applicationId],
+      });
+    },
+  });
 
   const formatDate = (dateStr: string) => {
     const d = new Date(dateStr);
@@ -40,6 +52,9 @@ export function RecruiterInterviews({
     if (status === "CANCELLED" || confirmation === "DECLINED") {
       return "bg-red-50 text-red-700 border-red-200";
     }
+    if (status === "RESCHEDULED") {
+      return "bg-purple-50 text-purple-700 border-purple-200";
+    }
     if (status === "COMPLETED") {
       return "bg-green-50 text-green-700 border-green-200";
     }
@@ -52,6 +67,9 @@ export function RecruiterInterviews({
   const getStatusLabel = (status: string, confirmation: string) => {
     if (status === "CANCELLED" || confirmation === "DECLINED") {
       return "Cancelled / Declined";
+    }
+    if (status === "RESCHEDULED") {
+      return "Reschedule Requested";
     }
     if (status === "COMPLETED") {
       return "Completed";
@@ -85,6 +103,7 @@ export function RecruiterInterviews({
           {rounds.map((round) => {
             const isConfirmed = round.candidateConfirmation === "CONFIRMED";
             const isCompleted = round.status === "COMPLETED";
+            const isRescheduled = round.status === "RESCHEDULED";
             const isCancelled =
               round.status === "CANCELLED" ||
               round.candidateConfirmation === "DECLINED";
@@ -97,12 +116,16 @@ export function RecruiterInterviews({
                 <div className="flex justify-between items-start">
                   <div>
                     <h4 className="font-bold text-sm text-ink leading-tight">
-                      {round.templateId && typeof round.templateId === "object"
-                        ? round.templateId.name
-                        : "Interview Evaluation"}
+                      {round.title ||
+                        (round.templateId &&
+                        typeof round.templateId === "object"
+                          ? round.templateId.name
+                          : "Interview Evaluation")}
                     </h4>
-                    <p className="text-[11px] text-muted-ink font-semibold uppercase tracking-wider mt-0.5">
-                      {round.duration} min · {round.roundType || "General"}
+                    <p className="text-[11px] text-muted-ink font-semibold uppercase tracking-wider mt-0.5 flex gap-2 items-center">
+                      <span>{round.duration} min</span>
+                      <span>·</span>
+                      <span>{round.type || "VIDEO"}</span>
                     </p>
                   </div>
 
@@ -129,16 +152,43 @@ export function RecruiterInterviews({
                   </div>
                   <div>
                     <span className="text-muted-ink block text-[10px] uppercase font-bold tracking-wider">
-                      Interviewer
+                      Interviewers
                     </span>
                     <span className="truncate block max-w-full">
-                      {round.interviewerId &&
-                      typeof round.interviewerId === "object"
-                        ? round.interviewerId.email
-                        : "Assigned Collaborator"}
+                      {round.interviewerIds && round.interviewerIds.length > 0
+                        ? round.interviewerIds
+                            .map((id) =>
+                              typeof id === "object"
+                                ? (id as { email: string }).email
+                                : id,
+                            )
+                            .join(", ")
+                        : "No interviewers assigned"}
                     </span>
                   </div>
                 </div>
+
+                {/* Instructions & Notes */}
+                {(round.instructions || round.internalNotes) && (
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    {round.instructions && (
+                      <div className="bg-surface-soft p-2 rounded-lg">
+                        <span className="text-muted-ink block text-[10px] uppercase font-bold tracking-wider mb-1">
+                          Candidate Instructions
+                        </span>
+                        <p className="text-ink/80">{round.instructions}</p>
+                      </div>
+                    )}
+                    {round.internalNotes && (
+                      <div className="bg-surface-soft p-2 rounded-lg">
+                        <span className="text-muted-ink block text-[10px] uppercase font-bold tracking-wider mb-1">
+                          Internal Notes
+                        </span>
+                        <p className="text-ink/80">{round.internalNotes}</p>
+                      </div>
+                    )}
+                  </div>
+                )}
 
                 {/* Completed Feedback details */}
                 {isCompleted && (
@@ -158,17 +208,42 @@ export function RecruiterInterviews({
                   </div>
                 )}
 
-                {/* Join meeting button */}
-                {!isCompleted && !isCancelled && isConfirmed && (
-                  <div className="flex justify-end pt-2 border-t border-hairline/60">
-                    <Link
-                      href={`/interview/room/${round.meetingCode}`}
-                      className="inline-flex h-9 px-4 rounded-lg bg-coral hover:bg-coral-active text-white hover:text-white font-bold text-xs items-center justify-center gap-1.5 transition-all shadow-sm"
+                {/* Reschedule actions */}
+                {isRescheduled && (
+                  <div className="mt-2 p-3 bg-purple-50/50 border border-purple-100 rounded-lg flex items-center justify-between">
+                    <div className="text-xs text-purple-900 font-medium">
+                      Candidate requested to reschedule to: <br />
+                      <strong className="font-bold">
+                        {formatDate(round.scheduledAt)} @{" "}
+                        {formatTime(round.scheduledAt)}
+                      </strong>
+                    </div>
+                    <Button
+                      onClick={() => approveRescheduleMutation.mutate(round.id)}
+                      disabled={approveRescheduleMutation.isPending}
+                      className="h-8 px-3 text-xs bg-purple-600 text-white hover:bg-purple-700 rounded-lg font-bold"
                     >
-                      <Video className="w-3.5 h-3.5" /> Enter Room
-                    </Link>
+                      {approveRescheduleMutation.isPending
+                        ? "Approving..."
+                        : "Approve New Time"}
+                    </Button>
                   </div>
                 )}
+
+                {/* Join meeting button */}
+                {!isCompleted &&
+                  !isCancelled &&
+                  isConfirmed &&
+                  !isRescheduled && (
+                    <div className="flex justify-end pt-2 border-t border-hairline/60">
+                      <Link
+                        href={`/interview/room/${round.meetingCode}`}
+                        className="inline-flex h-9 px-4 rounded-lg bg-coral hover:bg-coral-active text-white hover:text-white font-bold text-xs items-center justify-center gap-1.5 transition-all shadow-sm"
+                      >
+                        <Video className="w-3.5 h-3.5" /> Enter Room
+                      </Link>
+                    </div>
+                  )}
               </div>
             );
           })}

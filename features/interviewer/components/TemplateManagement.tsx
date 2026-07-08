@@ -24,6 +24,10 @@ export default function TemplateManagement() {
     duration,
     setDuration,
     rubric,
+    defaultType,
+    setDefaultType,
+    defaultInstructions,
+    setDefaultInstructions,
     newCriterion,
     setNewCriterion,
     addCriterion,
@@ -112,6 +116,43 @@ export default function TemplateManagement() {
                   className="bg-white border-hairline focus:border-coral focus:ring-1 focus:ring-coral/20 rounded-xl"
                   min={5}
                   required
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1.5">
+                  <Label
+                    htmlFor="defaultType"
+                    className="text-xs font-bold text-muted-soft uppercase tracking-wider"
+                  >
+                    Default Format
+                  </Label>
+                  <select
+                    id="defaultType"
+                    value={defaultType}
+                    onChange={(e) => setDefaultType(e.target.value)}
+                    className="w-full h-11 px-3 bg-white border border-hairline rounded-xl text-sm font-medium text-ink focus:outline-none focus:ring-2 focus:ring-coral/40 focus:border-coral transition-colors"
+                  >
+                    <option value="VIDEO">Video Call</option>
+                    <option value="PHONE">Phone Call</option>
+                    <option value="IN_PERSON">In Person</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="space-y-1.5">
+                <Label
+                  htmlFor="defaultInstructions"
+                  className="text-xs font-bold text-muted-soft uppercase tracking-wider"
+                >
+                  Default Instructions
+                </Label>
+                <Textarea
+                  id="defaultInstructions"
+                  placeholder="Instructions for the candidate"
+                  value={defaultInstructions}
+                  onChange={(e) => setDefaultInstructions(e.target.value)}
+                  className="bg-white border-hairline focus:border-coral focus:ring-1 focus:ring-coral/20 rounded-xl min-h-[80px]"
                 />
               </div>
 

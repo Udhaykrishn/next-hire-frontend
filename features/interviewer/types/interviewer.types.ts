@@ -12,6 +12,8 @@ export interface InterviewerTemplate {
   description?: string;
   duration: number;
   rubric: string[];
+  defaultType?: string;
+  defaultInstructions?: string;
   createdAt?: string;
 }
 

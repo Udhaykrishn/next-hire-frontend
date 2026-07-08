@@ -18,6 +18,10 @@ const normalizeTemplate = (raw: unknown): InterviewerTemplate => {
     description: (t.description ?? t._description) as string | undefined,
     duration: (t.duration ?? t._duration ?? 0) as number,
     rubric: (t.rubric ?? t._rubric ?? []) as string[],
+    defaultType: (t.defaultType ?? t._defaultType) as string | undefined,
+    defaultInstructions: (t.defaultInstructions ?? t._defaultInstructions) as
+      | string
+      | undefined,
   };
 };
 
@@ -54,6 +58,8 @@ export const interviewerApi = {
     description?: string;
     duration: number;
     rubric: string[];
+    defaultType?: string;
+    defaultInstructions?: string;
   }): Promise<InterviewerTemplate> => {
     const res = (await apiClient.post(
       "/recruiter/templates",

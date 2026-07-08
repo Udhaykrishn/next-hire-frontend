@@ -35,8 +35,15 @@ export function ScheduleInterviewModal({
     useCompanyInterviewersQuery();
   const scheduleMutation = useScheduleRoundMutation(applicationId);
 
-  const [interviewerId, setInterviewerId] = useState("");
+  const [interviewerIds, setInterviewerIds] = useState<string[]>([]);
   const [templateId, setTemplateId] = useState("");
+  const [title, setTitle] = useState("");
+  const [type, setType] = useState("VIDEO");
+  const [timeZone, _setTimeZone] = useState(
+    Intl.DateTimeFormat().resolvedOptions().timeZone,
+  );
+  const [instructions, setInstructions] = useState("");
+  const [internalNotes, setInternalNotes] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [duration, setDuration] = useState(45);
@@ -46,12 +53,16 @@ export function ScheduleInterviewModal({
     e.preventDefault();
     setError("");
 
-    if (!interviewerId) {
-      setError("Please select an interviewer.");
+    if (interviewerIds.length === 0) {
+      setError("Please select at least one interviewer.");
       return;
     }
     if (!templateId) {
       setError("Please select an assessment template.");
+      return;
+    }
+    if (!title.trim()) {
+      setError("Please provide an interview title.");
       return;
     }
     if (!date || !time) {
@@ -74,15 +85,24 @@ export function ScheduleInterviewModal({
     try {
       await scheduleMutation.mutateAsync({
         applicationId,
-        interviewerId,
+        interviewerIds,
         templateId,
+        title,
+        type,
+        timeZone,
+        instructions,
+        internalNotes,
         scheduledAt: scheduledAt.toISOString(),
         duration,
       });
       onClose();
       // Clear fields
-      setInterviewerId("");
+      setInterviewerIds([]);
       setTemplateId("");
+      setTitle("");
+      setType("VIDEO");
+      setInstructions("");
+      setInternalNotes("");
       setDate("");
       setTime("");
       setDuration(45);
@@ -128,25 +148,70 @@ export function ScheduleInterviewModal({
               {/* Select Interviewer */}
               <div className="space-y-2">
                 <Label
-                  htmlFor="interviewer"
+                  htmlFor="interviewers"
                   className="text-xs font-bold uppercase tracking-wider text-muted-ink flex items-center gap-1.5"
                 >
                   <User className="w-3.5 h-3.5 text-coral/60" /> Assigned
-                  Interviewer
+                  Interviewers
                 </Label>
                 <select
-                  id="interviewer"
-                  value={interviewerId}
-                  onChange={(e) => setInterviewerId(e.target.value)}
-                  className="w-full h-11 px-3 bg-white border border-hairline rounded-xl text-sm font-medium text-ink focus:outline-none focus:ring-2 focus:ring-coral/40 focus:border-coral transition-colors"
+                  id="interviewers"
+                  multiple
+                  value={interviewerIds}
+                  onChange={(e) => {
+                    const options = Array.from(e.target.options);
+                    setInterviewerIds(
+                      options.filter((o) => o.selected).map((o) => o.value),
+                    );
+                  }}
+                  className="w-full min-h-[80px] p-2 bg-white border border-hairline rounded-xl text-sm font-medium text-ink focus:outline-none focus:ring-2 focus:ring-coral/40 focus:border-coral transition-colors"
                 >
-                  <option value="">Select Interviewer</option>
                   {interviewers.map((int) => (
-                    <option key={int._id} value={int._id}>
+                    <option key={int._id} value={int._id} className="p-1">
                       {int.email} ({int.department} - {int.role})
                     </option>
                   ))}
                 </select>
+                <p className="text-[10px] text-muted-ink">
+                  Hold Cmd/Ctrl to select multiple
+                </p>
+              </div>
+
+              {/* Title & Type */}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label
+                    htmlFor="title"
+                    className="text-xs font-bold uppercase tracking-wider text-muted-ink"
+                  >
+                    Interview Title
+                  </Label>
+                  <Input
+                    id="title"
+                    placeholder="e.g. Technical Round 1"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    className="bg-white border-hairline h-11 rounded-xl focus-visible:ring-coral"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label
+                    htmlFor="type"
+                    className="text-xs font-bold uppercase tracking-wider text-muted-ink"
+                  >
+                    Format
+                  </Label>
+                  <select
+                    id="type"
+                    value={type}
+                    onChange={(e) => setType(e.target.value)}
+                    className="w-full h-11 px-3 bg-white border border-hairline rounded-xl text-sm font-medium text-ink focus:outline-none focus:ring-2 focus:ring-coral/40 focus:border-coral transition-colors"
+                  >
+                    <option value="VIDEO">Video Call</option>
+                    <option value="PHONE">Phone Call</option>
+                    <option value="IN_PERSON">In Person</option>
+                  </select>
+                </div>
               </div>
 
               {/* Select Template */}
@@ -161,12 +226,48 @@ export function ScheduleInterviewModal({
                 <select
                   id="template"
                   value={templateId}
-                  onChange={(e) => setTemplateId(e.target.value)}
+                  onChange={(e) => {
+                    const id = e.target.value;
+                    setTemplateId(id);
+                    const selected = templates.find(
+                      (t) =>
+                        t._id === id ||
+                        (t as unknown as { id: string }).id === id,
+                    );
+                    if (selected) {
+                      setDuration(selected.duration);
+                      if (
+                        (selected as unknown as { defaultType?: string })
+                          .defaultType
+                      )
+                        setType(
+                          (selected as unknown as { defaultType: string })
+                            .defaultType,
+                        );
+                      if (
+                        (
+                          selected as unknown as {
+                            defaultInstructions?: string;
+                          }
+                        ).defaultInstructions
+                      )
+                        setInstructions(
+                          (
+                            selected as unknown as {
+                              defaultInstructions: string;
+                            }
+                          ).defaultInstructions,
+                        );
+                    }
+                  }}
                   className="w-full h-11 px-3 bg-white border border-hairline rounded-xl text-sm font-medium text-ink focus:outline-none focus:ring-2 focus:ring-coral/40 focus:border-coral transition-colors"
                 >
                   <option value="">Select Template</option>
                   {templates.map((tpl) => (
-                    <option key={tpl._id} value={tpl._id}>
+                    <option
+                      key={tpl._id || (tpl as unknown as { id: string }).id}
+                      value={tpl._id || (tpl as unknown as { id: string }).id}
+                    >
                       {tpl.name} ({tpl.duration} min)
                     </option>
                   ))}
@@ -224,6 +325,38 @@ export function ScheduleInterviewModal({
                   value={duration}
                   onChange={(e) => setDuration(Number(e.target.value))}
                   className="bg-white border-hairline h-11 rounded-xl focus-visible:ring-coral"
+                />
+              </div>
+
+              {/* Instructions & Notes */}
+              <div className="space-y-2">
+                <Label
+                  htmlFor="instructions"
+                  className="text-xs font-bold uppercase tracking-wider text-muted-ink"
+                >
+                  Candidate Instructions
+                </Label>
+                <textarea
+                  id="instructions"
+                  placeholder="Instructions visible to the candidate"
+                  value={instructions}
+                  onChange={(e) => setInstructions(e.target.value)}
+                  className="w-full h-20 p-3 bg-white border border-hairline rounded-xl text-sm font-medium text-ink focus:outline-none focus:ring-2 focus:ring-coral/40 focus:border-coral transition-colors resize-none"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label
+                  htmlFor="internalNotes"
+                  className="text-xs font-bold uppercase tracking-wider text-muted-ink"
+                >
+                  Internal Notes
+                </Label>
+                <textarea
+                  id="internalNotes"
+                  placeholder="Private notes for interviewers"
+                  value={internalNotes}
+                  onChange={(e) => setInternalNotes(e.target.value)}
+                  className="w-full h-20 p-3 bg-white border border-hairline rounded-xl text-sm font-medium text-ink focus:outline-none focus:ring-2 focus:ring-coral/40 focus:border-coral transition-colors resize-none"
                 />
               </div>
 

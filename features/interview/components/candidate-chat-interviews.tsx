@@ -2,10 +2,21 @@
 
 import { Calendar, Clock, Video } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 import {
   useCandidateRoundsQuery,
   useConfirmRoundMutation,
+  useRequestRescheduleMutation,
 } from "../hooks/use-interview";
 
 // Compact interview-round panel shown inside the candidate's chat thread.
@@ -14,6 +25,14 @@ import {
 export function CandidateChatInterviews() {
   const { data: rounds = [], isLoading } = useCandidateRoundsQuery();
   const confirmMutation = useConfirmRoundMutation();
+  const requestRescheduleMutation = useRequestRescheduleMutation();
+
+  const [rescheduleModalOpen, setRescheduleModalOpen] = useState(false);
+  const [selectedRoundId, setSelectedRoundId] = useState<string | null>(null);
+  const [newDate, setNewDate] = useState("");
+  const [newTime, setNewTime] = useState("");
+  const [rescheduleReason, setRescheduleReason] = useState("");
+  const [error, setError] = useState("");
 
   if (isLoading) return null;
 
@@ -78,6 +97,17 @@ export function CandidateChatInterviews() {
                   Decline
                 </Button>
                 <Button
+                  onClick={() => {
+                    setSelectedRoundId(round.id);
+                    setRescheduleModalOpen(true);
+                  }}
+                  disabled={confirmMutation.isPending}
+                  variant="outline"
+                  className="h-8 px-3 rounded-lg border-hairline hover:bg-surface-soft font-bold text-[11px]"
+                >
+                  Reschedule
+                </Button>
+                <Button
                   onClick={() =>
                     confirmMutation.mutate({
                       roundId: round.id,
@@ -101,6 +131,115 @@ export function CandidateChatInterviews() {
           </div>
         );
       })}
+
+      {/* Reschedule Modal */}
+      <Dialog open={rescheduleModalOpen} onOpenChange={setRescheduleModalOpen}>
+        <DialogContent className="max-w-md bg-canvas border border-hairline rounded-2xl shadow-xl p-6 font-satoshi text-ink">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-display font-black tracking-tight">
+              Request Reschedule
+            </DialogTitle>
+            <DialogDescription>
+              Suggest a new date and time for your interview.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 mt-4">
+            {error && (
+              <div className="p-3 bg-red-50 border border-red-100 text-red-600 rounded-xl text-xs font-semibold">
+                {error}
+              </div>
+            )}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label
+                  htmlFor="reschedule-date"
+                  className="text-xs font-bold uppercase tracking-wider text-muted-ink"
+                >
+                  Date
+                </Label>
+                <Input
+                  id="reschedule-date"
+                  type="date"
+                  value={newDate}
+                  onChange={(e) => setNewDate(e.target.value)}
+                  className="bg-white border-hairline h-11 rounded-xl"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label
+                  htmlFor="reschedule-time"
+                  className="text-xs font-bold uppercase tracking-wider text-muted-ink"
+                >
+                  Time
+                </Label>
+                <Input
+                  id="reschedule-time"
+                  type="time"
+                  value={newTime}
+                  onChange={(e) => setNewTime(e.target.value)}
+                  className="bg-white border-hairline h-11 rounded-xl"
+                />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <Label
+                htmlFor="reschedule-reason"
+                className="text-xs font-bold uppercase tracking-wider text-muted-ink"
+              >
+                Reason (optional)
+              </Label>
+              <textarea
+                id="reschedule-reason"
+                value={rescheduleReason}
+                onChange={(e) => setRescheduleReason(e.target.value)}
+                className="w-full h-20 p-3 bg-white border border-hairline rounded-xl text-sm font-medium text-ink resize-none focus:outline-none focus:ring-2 focus:ring-coral/40 focus:border-coral"
+                placeholder="Let the recruiter know why you need to reschedule"
+              />
+            </div>
+            <div className="flex gap-3 pt-2">
+              <Button
+                variant="outline"
+                onClick={() => setRescheduleModalOpen(false)}
+                className="flex-1 h-11 rounded-xl border-hairline"
+              >
+                Cancel
+              </Button>
+              <Button
+                disabled={requestRescheduleMutation.isPending}
+                onClick={async () => {
+                  setError("");
+                  if (!newDate || !newTime || !selectedRoundId) {
+                    setError("Please select a date and time.");
+                    return;
+                  }
+                  const scheduledAt = new Date(`${newDate}T${newTime}`);
+                  if (Number.isNaN(scheduledAt.getTime())) {
+                    setError("Invalid date/time.");
+                    return;
+                  }
+                  if (scheduledAt < new Date()) {
+                    setError("Cannot reschedule to the past.");
+                    return;
+                  }
+                  try {
+                    await requestRescheduleMutation.mutateAsync({
+                      roundId: selectedRoundId,
+                      newScheduledAt: scheduledAt.toISOString(),
+                      reason: rescheduleReason,
+                    });
+                    setRescheduleModalOpen(false);
+                  } catch (_e) {
+                    setError("Failed to request reschedule.");
+                  }
+                }}
+                className="flex-1 h-11 rounded-xl bg-coral hover:bg-coral-active text-white"
+              >
+                Send Request
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

@@ -1,4 +1,10 @@
-export type InterviewStatus = "PENDING" | "COMPLETED" | "CANCELLED";
+export type InterviewStatus =
+  | "SCHEDULED"
+  | "RESCHEDULED"
+  | "PENDING"
+  | "COMPLETED"
+  | "CANCELLED"
+  | "NO_SHOW";
 export type ConfirmationStatus = "PENDING" | "CONFIRMED" | "DECLINED";
 export type CandidateRoundStatus = "PENDING" | "PASS" | "REJECTED";
 
@@ -21,8 +27,13 @@ export interface CompanyInterviewer {
 export interface InterviewRound {
   id: string;
   applicationId: string;
-  interviewerId: string | CompanyInterviewer;
+  interviewerIds: string[];
   templateId: string | InterviewerTemplate;
+  title: string;
+  type: string;
+  timeZone: string;
+  instructions?: string;
+  internalNotes?: string;
   scheduledAt: string;
   status: InterviewStatus;
   meetingCode: string;
@@ -41,8 +52,13 @@ export interface InterviewRound {
 
 export interface ScheduleRoundDto {
   applicationId: string;
-  interviewerId: string;
+  interviewerIds: string[];
   templateId: string;
+  title: string;
+  type: string;
+  timeZone: string;
+  instructions?: string;
+  internalNotes?: string;
   scheduledAt: string;
   duration?: number;
 }
