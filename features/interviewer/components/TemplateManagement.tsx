@@ -139,7 +139,7 @@ export default function TemplateManagement() {
                 </div>
 
                 <div className="flex flex-wrap gap-1.5 mt-2">
-                  {rubric.map((criterion) => (
+                  {rubric.map((criterion, idx) => (
                     <span
                       key={criterion}
                       className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-coral/10 text-coral"

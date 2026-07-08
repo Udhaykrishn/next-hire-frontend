@@ -1,11 +1,13 @@
 import { formatDistanceToNow, parseISO } from "date-fns";
 import { getRecruiterJobs } from "@/features/jobs/services/job.api";
-import type { JobResponse } from "@/features/jobs/types/job.types";
+import type { JobResponse, PaginationResponse } from "@/features/jobs/types/job.types";
 import type { JobListing } from "../types/recruiter.types";
 
-export const getRecruiterJobListings = async (): Promise<JobListing[]> => {
-  const jobs = await getRecruiterJobs();
-  return jobs.map((job: JobResponse) => ({
+export const getRecruiterJobListings = async (page: number = 1, limit: number = 5): Promise<PaginationResponse<JobListing>> => {
+  const response = await getRecruiterJobs(page, limit);
+  return {
+    ...response,
+    data: response.data.map((job: JobResponse) => ({
     id: job.id,
     title: job.jobTitle || "",
     applicants: 0,
@@ -21,7 +23,9 @@ export const getRecruiterJobListings = async (): Promise<JobListing[]> => {
     postedBy: job.posted_by || "",
     isPublished: job.is_published ?? false,
     expiresIn: "",
-  }));
+    stats: job.stats as { total: number; interviews: number } | undefined,
+  }))
+  };
 };
 
 import { ApiAdminRoutes, ApiRecruiterRoutes } from "@/constants/api-routes";
@@ -31,6 +35,7 @@ import type {
   ChangePasswordData,
   RecruiterProfile,
   UpdateRecruiterProfileDto,
+  SubscriptionHistory,
 } from "../types/recruiter.types";
 
 export const changeRecruiterPassword = async (
@@ -122,7 +127,7 @@ export const deleteRecruiterProfileImage = async (): Promise<{
   return await apiClient.delete(ApiRecruiterRoutes.UPLOAD_IMAGE);
 };
 
-export const getRecruiterSubscriptionHistory = async (): Promise<unknown[]> => {
+export const getRecruiterSubscriptionHistory = async (): Promise<SubscriptionHistory[]> => {
   const { data } = await apiClient.get(`/recruiter/subscription-history`);
   return data;
 };

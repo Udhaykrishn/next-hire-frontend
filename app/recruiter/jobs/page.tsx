@@ -10,6 +10,15 @@ import { updateJob } from "@/features/jobs/services/job.api";
 import type { JobResponse } from "@/features/jobs/types/job.types";
 import { ConfirmationModal } from "@/components/shared/confirmation-modal";
 import { useState } from "react";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
 const EXPIRY_DAYS = 15;
 
@@ -179,7 +188,11 @@ function JobCard({ job }: { job: JobResponse }) {
 }
 
 export default function RecruiterJobsPage() {
-  const { data: jobs, isLoading, error } = useRecruiterJobsQuery();
+  const [page, setPage] = useState(1);
+  const limit = 10;
+  const { data: jobsResponse, isLoading, error } = useRecruiterJobsQuery(page, limit);
+  const jobs = jobsResponse?.data || [];
+  const pagination = jobsResponse || { totalPages: 1, total: 0, page: 1, limit: 10 };
 
   return (
     <div className="p-8 max-w-7xl mx-auto space-y-8">
@@ -216,6 +229,57 @@ export default function RecruiterJobsPage() {
           {jobs.map((job: JobResponse) => (
             <JobCard key={job.id} job={job} />
           ))}
+
+          {/* Pagination */}
+          {pagination.totalPages > 1 && (
+            <div className="mt-10 pb-6">
+              <Pagination>
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious
+                      onClick={() => setPage(Math.max(1, page - 1))}
+                      className={page === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                    />
+                  </PaginationItem>
+
+                  {Array.from({ length: pagination.totalPages }, (_, i) => i + 1).map((p) => {
+                    if (
+                      p === 1 ||
+                      p === pagination.totalPages ||
+                      (p >= page - 1 && p <= page + 1)
+                    ) {
+                      return (
+                        <PaginationItem key={p}>
+                          <PaginationLink
+                            isActive={page === p}
+                            onClick={() => setPage(p)}
+                            className="cursor-pointer"
+                          >
+                            {p}
+                          </PaginationLink>
+                        </PaginationItem>
+                      );
+                    }
+                    if (p === page - 2 || p === page + 2) {
+                      return (
+                        <PaginationItem key={p}>
+                          <PaginationEllipsis />
+                        </PaginationItem>
+                      );
+                    }
+                    return null;
+                  })}
+
+                  <PaginationItem>
+                    <PaginationNext
+                      onClick={() => setPage(Math.min(pagination.totalPages, page + 1))}
+                      className={page === pagination.totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            </div>
+          )}
         </div>
       ) : (
         <div className="text-center py-24 bg-slate-50 rounded-3xl border border-dashed border-slate-200">

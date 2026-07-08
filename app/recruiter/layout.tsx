@@ -53,13 +53,13 @@ function NavLink({ item, active }: { item: NavItem; active: boolean }) {
         "group flex items-center gap-3 rounded-xl px-3 py-2.5 text-[14px] font-semibold transition-colors",
         active
           ? "bg-coral text-white shadow-sm shadow-coral/30"
-          : "text-on-dark-soft hover:bg-white/[0.06] hover:text-on-dark",
+          : "text-muted-ink hover:bg-surface-soft hover:text-ink",
       )}
     >
       <item.icon
         className={cn(
           "h-[18px] w-[18px] shrink-0 transition-transform duration-300 group-hover:scale-110",
-          active ? "text-white" : "text-on-dark-soft group-hover:text-coral",
+          active ? "text-white" : "text-muted-soft group-hover:text-coral",
         )}
         strokeWidth={2}
       />
@@ -121,21 +121,21 @@ export default function RecruiterLayout({
   return (
     <div className="flex min-h-screen bg-canvas font-satoshi">
       {/* ----------------------------- Sidebar ----------------------------- */}
-      <aside className="fixed inset-y-0 left-0 z-50 flex w-64 flex-col bg-navy text-on-dark">
-        <div className="flex h-16 items-center gap-2 border-b border-white/[0.07] px-6">
+      <aside className="fixed inset-y-0 left-0 z-50 flex w-64 flex-col bg-canvas border-r border-hairline text-ink">
+        <div className="flex h-16 items-center gap-2 border-b border-hairline px-6">
           <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-coral">
             <Sparkles className="h-4 w-4 text-white" />
           </span>
-          <span className="font-display text-[19px] leading-none text-on-dark">
+          <span className="font-display text-[19px] leading-none text-ink">
             next<span className="italic text-coral">Hire</span>
           </span>
-          <span className="ml-1 rounded-full bg-white/[0.08] px-2 py-0.5 text-[9px] font-bold uppercase tracking-[0.14em] text-on-dark-soft">
+          <span className="ml-1 rounded-full bg-surface-soft px-2 py-0.5 text-[9px] font-bold uppercase tracking-[0.14em] text-muted-ink">
             Recruiter
           </span>
         </div>
 
         <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-5">
-          <p className="px-3 pb-2 text-[10px] font-bold uppercase tracking-[0.18em] text-on-dark-soft/70">
+          <p className="px-3 pb-2 text-[10px] font-bold uppercase tracking-[0.18em] text-muted-soft">
             Workspace
           </p>
           {NAV.map((item) => (
@@ -143,10 +143,10 @@ export default function RecruiterLayout({
           ))}
         </nav>
 
-        <div className="space-y-1 border-t border-white/[0.07] p-3">
+        <div className="space-y-1 border-t border-hairline p-3">
           <Link
             href="/contact"
-            className="group flex items-center gap-3 rounded-xl px-3 py-2.5 text-[14px] font-semibold text-on-dark-soft transition-colors hover:bg-white/[0.06] hover:text-on-dark"
+            className="group flex items-center gap-3 rounded-xl px-3 py-2.5 text-[14px] font-semibold text-muted-ink transition-colors hover:bg-surface-soft hover:text-ink"
           >
             <HelpCircle className="h-[18px] w-[18px] group-hover:text-coral" />
             Help & support
@@ -154,7 +154,7 @@ export default function RecruiterLayout({
           <button
             type="button"
             onClick={handleLogout}
-            className="group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-[14px] font-semibold text-on-dark-soft transition-colors hover:bg-coral/15 hover:text-coral"
+            className="group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-[14px] font-semibold text-muted-ink transition-colors hover:bg-coral/15 hover:text-coral"
           >
             <LogOut className="h-[18px] w-[18px] transition-transform group-hover:-translate-x-0.5" />
             Sign out
@@ -162,39 +162,39 @@ export default function RecruiterLayout({
 
           {/* Subscription card */}
           {user?.subscription?.is_subscribed ? (
-            <div className="mt-3 rounded-2xl border border-white/[0.08] bg-navy-elevated p-4">
+            <div className="mt-3 rounded-2xl border border-hairline bg-white p-4">
               <div className="flex items-center gap-2">
-                <span className="flex h-5 w-5 items-center justify-center rounded-md bg-wise-green">
+                <span className="flex h-5 w-5 items-center justify-center rounded-md bg-positive-green/10">
                   <Sparkles
-                    className="h-3 w-3 text-dark-green"
+                    className="h-3 w-3 text-positive-green"
                     strokeWidth={3}
                   />
                 </span>
-                <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-wise-green">
+                <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-positive-green">
                   Active Plan
                 </span>
               </div>
-              <p className="mt-2 text-[13px] font-semibold leading-snug text-on-dark capitalize">
+              <p className="mt-2 text-[13px] font-semibold leading-snug text-ink capitalize">
                 Plan: {user.subscription.current_plan || "Premium"}
               </p>
               <Link
                 href="/recruiter/plan"
-                className="mt-3 flex h-9 w-full items-center justify-center rounded-lg bg-white/10 text-[12px] font-bold text-white transition-colors hover:bg-white/15"
+                className="mt-3 flex h-9 w-full items-center justify-center rounded-lg border border-hairline bg-canvas text-[12px] font-bold text-ink transition-colors hover:bg-surface-soft"
               >
                 Manage plan
               </Link>
             </div>
           ) : (
-            <div className="mt-3 rounded-2xl border border-white/[0.08] bg-navy-elevated p-4">
+            <div className="mt-3 rounded-2xl border border-hairline bg-white p-4">
               <div className="flex items-center gap-2">
-                <span className="flex h-5 w-5 items-center justify-center rounded-md bg-coral">
-                  <Sparkles className="h-3 w-3 text-white" />
+                <span className="flex h-5 w-5 items-center justify-center rounded-md bg-coral/10">
+                  <Sparkles className="h-3 w-3 text-coral" />
                 </span>
                 <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-coral">
                   Growth deal
                 </span>
               </div>
-              <p className="mt-2 text-[13px] font-semibold leading-snug text-on-dark">
+              <p className="mt-2 text-[13px] font-semibold leading-snug text-ink">
                 Scale your team with 50% more credits.
               </p>
               <Link

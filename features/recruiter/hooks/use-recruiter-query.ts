@@ -19,10 +19,10 @@ import type {
   UpdateRecruiterProfileDto,
 } from "../types/recruiter.types";
 
-export const useRecruiterJobsQuery = () => {
+export const useRecruiterJobsQuery = (page: number = 1, limit: number = 5) => {
   return useQuery({
-    queryKey: ["recruiter", "jobs"],
-    queryFn: getRecruiterJobListings,
+    queryKey: ["recruiter", "jobs", page, limit],
+    queryFn: () => getRecruiterJobListings(page, limit),
   });
 };
 

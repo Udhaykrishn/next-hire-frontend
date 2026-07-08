@@ -19,6 +19,10 @@ export interface JobListing {
   postedBy: string;
   isPublished?: boolean;
   expiresIn?: string;
+  stats?: {
+    total: number;
+    interviews: number;
+  };
 }
 
 export interface ChangePasswordData {
@@ -69,4 +73,10 @@ export interface UpdateRecruiterProfileDto {
   description?: string;
   category?: string;
   company_role?: string;
+}
+
+export interface SubscriptionHistory {
+  id: string;
+  status: string;
+  created_at: string;
 }

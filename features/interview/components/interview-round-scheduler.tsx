@@ -9,10 +9,11 @@ import { Label } from "@/components/ui/label";
 import { RecruiterInterviews } from "./recruiter-interviews";
 
 export function InterviewRoundScheduler() {
-  const { data: jobs = [], isLoading: isJobsLoading } = useQuery({
-    queryKey: ["recruiter", "jobs"],
-    queryFn: getRecruiterJobs,
+  const { data: jobsResponse, isLoading: isJobsLoading } = useQuery({
+    queryKey: ["recruiter", "jobs", 1, 100],
+    queryFn: () => getRecruiterJobs(1, 100),
   });
+  const jobs = jobsResponse?.data || [];
 
   const [jobId, setJobId] = useState("");
   const [applicationId, setApplicationId] = useState("");

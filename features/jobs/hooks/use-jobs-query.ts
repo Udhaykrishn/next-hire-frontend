@@ -16,10 +16,10 @@ import {
 } from "../services/job.api";
 import type { SearchJobsParams } from "../types/job.types";
 
-export const useRecruiterJobsQuery = () => {
+export const useRecruiterJobsQuery = (page: number = 1, limit: number = 10) => {
   return useSuspenseQuery({
-    queryKey: ["recruiter", "jobs"],
-    queryFn: getRecruiterJobs,
+    queryKey: ["recruiter", "jobs", page, limit],
+    queryFn: () => getRecruiterJobs(page, limit),
   });
 };
 

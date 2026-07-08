@@ -28,6 +28,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${fraunces.variable} antialiased scroll-smooth`}
+      data-scroll-behavior="smooth"
     >
       <body className="min-h-screen bg-canvas text-ink">
         <Providers>{children}</Providers>
