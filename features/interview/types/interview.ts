@@ -28,6 +28,8 @@ export interface InterviewRound {
   id: string;
   applicationId: string;
   interviewerIds: string[];
+  /** Populated interviewer details returned by the list endpoint. */
+  interviewers?: { id: string; email: string; department: string }[];
   templateId: string | InterviewerTemplate;
   title: string;
   type: string;

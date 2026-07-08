@@ -25,6 +25,17 @@ const normalizeTemplate = (raw: unknown): InterviewerTemplate => {
   };
 };
 
+const normalizeInterviewer = (raw: unknown): Interviewer => {
+  const i = (raw ?? {}) as Record<string, unknown>;
+  return {
+    id: (i.id ?? i._id ?? "") as string,
+    email: (i.email ?? i._email ?? "") as string,
+    department: (i.department ?? i._department ?? "") as string,
+    createdBy: (i.createdBy ?? i._createdBy ?? "") as string,
+    createdAt: (i.createdAt ?? i._createdAt ?? "") as string,
+  };
+};
+
 export const interviewerApi = {
   // Recruiter actions
   createInterviewer: async (data: {
@@ -36,14 +47,14 @@ export const interviewerApi = {
       "/recruiter/interviewers",
       data,
     )) as ApiResponse<Interviewer>;
-    return res.data;
+    return normalizeInterviewer(res.data);
   },
 
   listInterviewers: async (): Promise<Interviewer[]> => {
     const res = (await apiClient.get("/recruiter/interviewers")) as ApiResponse<
       Interviewer[]
     >;
-    return res.data || [];
+    return (res.data || []).map(normalizeInterviewer);
   },
 
   deleteInterviewer: async (id: string): Promise<{ success: boolean }> => {

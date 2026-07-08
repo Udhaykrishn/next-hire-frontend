@@ -1,24 +1,30 @@
 "use client";
 
-import { useState } from "react";
 import { Calendar, Video, Plus, Loader2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRoundsForApplicationQuery } from "../hooks/use-interview";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { interviewApi } from "../services/interview.api";
-import { ScheduleInterviewModal } from "./schedule-interview-modal";
 import Link from "next/link";
 
 interface RecruiterInterviewsProps {
   applicationId: string;
+  jobId?: string;
+  candidateName?: string;
 }
 
 export function RecruiterInterviews({
   applicationId,
+  jobId,
+  candidateName,
 }: RecruiterInterviewsProps) {
   const { data: rounds = [], isLoading } =
     useRoundsForApplicationQuery(applicationId);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const scheduleParams = new URLSearchParams({ applicationId });
+  if (jobId) scheduleParams.set("jobId", jobId);
+  if (candidateName) scheduleParams.set("candidate", candidateName);
+  const scheduleHref = `/recruiter/interview-rounds/schedule?${scheduleParams.toString()}`;
 
   const queryClient = useQueryClient();
   const approveRescheduleMutation = useMutation({
@@ -86,12 +92,12 @@ export function RecruiterInterviews({
         <h3 className="text-[16px] font-[700] text-[#0e0f0c] leading-none flex items-center gap-2">
           <Calendar className="w-5 h-5 text-coral" /> Interview Rounds
         </h3>
-        <Button
-          onClick={() => setIsModalOpen(true)}
+        <Link
+          href={scheduleHref}
           className="h-8 px-3 text-xs bg-coral text-white hover:bg-coral-active hover:text-white rounded-lg font-black transition-all flex items-center gap-1.5"
         >
           <Plus className="w-3.5 h-3.5" /> Schedule
-        </Button>
+        </Link>
       </div>
 
       {isLoading ? (
@@ -155,14 +161,8 @@ export function RecruiterInterviews({
                       Interviewers
                     </span>
                     <span className="truncate block max-w-full">
-                      {round.interviewerIds && round.interviewerIds.length > 0
-                        ? round.interviewerIds
-                            .map((id) =>
-                              typeof id === "object"
-                                ? (id as { email: string }).email
-                                : id,
-                            )
-                            .join(", ")
+                      {round.interviewers && round.interviewers.length > 0
+                        ? round.interviewers.map((i) => i.email).join(", ")
                         : "No interviewers assigned"}
                     </span>
                   </div>
@@ -259,12 +259,6 @@ export function RecruiterInterviews({
           </p>
         </div>
       )}
-
-      <ScheduleInterviewModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        applicationId={applicationId}
-      />
     </div>
   );
 }

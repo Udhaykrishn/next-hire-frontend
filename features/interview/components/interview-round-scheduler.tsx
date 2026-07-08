@@ -1,12 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { Briefcase, CalendarClock, Loader2, User } from "lucide-react";
 import { getRecruiterJobs } from "@/features/jobs/services/job.api";
 import { useRecruiterJobApplicationsQuery } from "@/features/jobs/hooks/use-recruiter-applications";
 import { Label } from "@/components/ui/label";
 import { RecruiterInterviews } from "./recruiter-interviews";
+import { SearchableCombobox, type ComboboxOption } from "./searchable-combobox";
 
 export function InterviewRoundScheduler() {
   const { data: jobsResponse, isLoading: isJobsLoading } = useQuery({
@@ -15,8 +17,12 @@ export function InterviewRoundScheduler() {
   });
   const jobs = jobsResponse?.data || [];
 
-  const [jobId, setJobId] = useState("");
-  const [applicationId, setApplicationId] = useState("");
+  // Restore the prior selection when returning from the schedule page.
+  const searchParams = useSearchParams();
+  const [jobId, setJobId] = useState(() => searchParams.get("jobId") ?? "");
+  const [applicationId, setApplicationId] = useState(
+    () => searchParams.get("applicationId") ?? "",
+  );
 
   // Applications (candidates) for the selected job.
   // Only shortlisted candidates are eligible to schedule interview rounds.
@@ -25,6 +31,30 @@ export function InterviewRoundScheduler() {
   const candidates = (applicationsData?.data ?? []).filter(
     (app) => app.status === "SHORTLISTED",
   );
+
+  // Company + type + location on each row so identically-titled jobs
+  // (e.g. two "Software developer" postings) can be told apart and searched.
+  const jobOptions: ComboboxOption[] = jobs.map((job) => ({
+    value: job.id,
+    label: job.jobTitle,
+    description: [job.hiringCompany, job.jobType, job.locationType]
+      .filter(Boolean)
+      .join(" · "),
+    avatarFallback: job.hiringCompany?.charAt(0) ?? job.jobTitle.charAt(0),
+    keywords: [job.hiringCompany, job.jobCity].filter(Boolean),
+  }));
+
+  const candidateOptions: ComboboxOption[] = candidates.map((app) => ({
+    value: app.id,
+    label: app.candidate.name,
+    description: app.candidate.email,
+    avatarFallback: app.candidate.name?.charAt(0),
+    keywords: [app.candidate.email],
+  }));
+
+  const selectedCandidateName = candidates.find(
+    (app) => app.id === applicationId,
+  )?.candidate.name;
 
   return (
     <div className="font-satoshi space-y-6">
@@ -44,57 +74,51 @@ export function InterviewRoundScheduler() {
           <Label className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-muted-soft">
             <Briefcase className="h-3.5 w-3.5 text-coral/60" /> Job
           </Label>
-          <select
+          <SearchableCombobox
+            options={jobOptions}
             value={jobId}
-            onChange={(e) => {
-              setJobId(e.target.value);
+            onValueChange={(next) => {
+              setJobId(next);
               setApplicationId("");
             }}
+            placeholder="Select job"
+            searchPlaceholder="Search by title or company…"
+            emptyText="No matching jobs."
+            loading={isJobsLoading}
             disabled={isJobsLoading}
-            className="h-11 w-full rounded-xl border border-hairline bg-white px-3 text-sm font-medium text-ink transition-colors focus:border-coral focus:outline-none focus:ring-2 focus:ring-coral/40"
-          >
-            <option value="">
-              {isJobsLoading ? "Loading jobs..." : "Select job"}
-            </option>
-            {jobs.map((job) => (
-              <option key={job.id} value={job.id}>
-                {job.jobTitle}
-              </option>
-            ))}
-          </select>
+          />
         </div>
 
         <div className="space-y-2">
           <Label className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-muted-soft">
             <User className="h-3.5 w-3.5 text-coral/60" /> Candidate
           </Label>
-          <select
+          <SearchableCombobox
+            options={candidateOptions}
             value={applicationId}
-            onChange={(e) => setApplicationId(e.target.value)}
-            disabled={!jobId || isAppsLoading}
-            className="h-11 w-full rounded-xl border border-hairline bg-white px-3 text-sm font-medium text-ink transition-colors focus:border-coral focus:outline-none focus:ring-2 focus:ring-coral/40 disabled:opacity-50"
-          >
-            <option value="">
-              {!jobId
+            onValueChange={setApplicationId}
+            placeholder={
+              !jobId
                 ? "Select a job first"
-                : isAppsLoading
-                  ? "Loading candidates..."
-                  : candidates.length === 0
-                    ? "No shortlisted candidates"
-                    : "Select candidate"}
-            </option>
-            {candidates.map((app) => (
-              <option key={app.id} value={app.id}>
-                {app.candidate.name} — {app.candidate.email}
-              </option>
-            ))}
-          </select>
+                : candidates.length === 0
+                  ? "No shortlisted candidates"
+                  : "Select candidate"
+            }
+            searchPlaceholder="Search by name or email…"
+            emptyText="No shortlisted candidates."
+            loading={Boolean(jobId) && isAppsLoading}
+            disabled={!jobId || isAppsLoading || candidates.length === 0}
+          />
         </div>
       </div>
 
       {/* Rounds panel for the chosen candidate (schedule + list) */}
       {applicationId ? (
-        <RecruiterInterviews applicationId={applicationId} />
+        <RecruiterInterviews
+          applicationId={applicationId}
+          jobId={jobId}
+          candidateName={selectedCandidateName}
+        />
       ) : (
         <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-hairline bg-canvas py-16 text-center">
           {isJobsLoading ? (
