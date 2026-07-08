@@ -14,9 +14,14 @@ import {
   CheckCircle2,
   User,
   ChevronRight,
+  Video,
   X,
 } from "lucide-react";
 import { format } from "date-fns";
+import Link from "next/link";
+
+const formatType = (t?: string) =>
+  t === "PHONE" ? "Phone call" : t === "IN_PERSON" ? "In person" : "Video call";
 
 export default function InterviewerDashboard() {
   const {
@@ -34,7 +39,11 @@ export default function InterviewerDashboard() {
     handleSubmit,
   } = useInterviewerDashboard();
 
-  const pendingRounds = assignedRounds.filter((r) => r.status === "PENDING");
+  // Backend status vocab is SCHEDULED/RESCHEDULED/COMPLETED/CANCELLED/NO_SHOW.
+  // Anything not finished or cancelled is an upcoming round to action.
+  const pendingRounds = assignedRounds.filter(
+    (r) => !["COMPLETED", "CANCELLED", "NO_SHOW"].includes(r.status),
+  );
   const completedRounds = assignedRounds.filter(
     (r) => r.status === "COMPLETED",
   );
@@ -120,6 +129,11 @@ export default function InterviewerDashboard() {
                         <span className="text-[10px] font-bold uppercase tracking-wider text-coral bg-coral/10 px-2 py-0.5 rounded">
                           {round.template.name}
                         </span>
+                        {round.title ? (
+                          <p className="text-sm font-bold text-ink mt-1.5">
+                            {round.title}
+                          </p>
+                        ) : null}
                         <h3 className="font-bold text-ink text-lg mt-2">
                           {round.candidate.name}
                         </h3>
@@ -130,7 +144,9 @@ export default function InterviewerDashboard() {
 
                       <div className="flex items-center gap-1 text-xs text-muted-soft font-semibold bg-canvas px-2.5 py-1 rounded-lg">
                         <Clock className="h-3.5 w-3.5 text-coral" />
-                        <span>{round.template.duration}m</span>
+                        <span>
+                          {round.duration ?? round.template.duration}m
+                        </span>
                       </div>
                     </div>
 
@@ -153,6 +169,15 @@ export default function InterviewerDashboard() {
                           </strong>
                         </span>
                       </div>
+                      <div className="flex items-center gap-2 text-xs text-muted-soft">
+                        <Video className="h-3.5 w-3.5" />
+                        <span>
+                          Format:{" "}
+                          <strong className="text-ink/80">
+                            {formatType(round.type)}
+                          </strong>
+                        </span>
+                      </div>
                     </div>
 
                     <div className="pt-2">
@@ -172,10 +197,19 @@ export default function InterviewerDashboard() {
                     </div>
                   </div>
 
-                  <div className="border-t border-hairline bg-canvas p-4">
+                  <div className="border-t border-hairline bg-canvas p-4 flex gap-2">
+                    {round.meetingCode ? (
+                      <Link
+                        href={`/interview/room/${round.meetingCode}`}
+                        className="flex-1 inline-flex h-10 items-center justify-center gap-1.5 rounded-xl border border-hairline bg-white font-bold text-ink hover:border-coral/40 transition-colors"
+                      >
+                        <Video className="h-4 w-4 text-coral" />
+                        <span>Join Room</span>
+                      </Link>
+                    ) : null}
                     <Button
                       onClick={() => startEvaluation(round)}
-                      className="w-full bg-coral hover:bg-coral/95 text-white font-bold h-10 rounded-xl flex items-center justify-center gap-1.5 shadow-sm"
+                      className="flex-1 bg-coral hover:bg-coral/95 text-white font-bold h-10 rounded-xl flex items-center justify-center gap-1.5 shadow-sm"
                     >
                       <span>Submit Evaluation</span>
                       <ChevronRight className="h-4 w-4" />

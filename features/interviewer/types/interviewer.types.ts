@@ -42,8 +42,17 @@ export interface PopulateInterviewRound {
 
 export interface AssignedInterviewRound {
   id: string;
+  title?: string;
+  type?: string;
+  duration?: number;
   scheduledAt: string;
-  status: "PENDING" | "COMPLETED" | "CANCELLED";
+  status:
+    | "SCHEDULED"
+    | "RESCHEDULED"
+    | "PENDING"
+    | "COMPLETED"
+    | "CANCELLED"
+    | "NO_SHOW";
   meetingCode?: string;
   candidateConfirmation?: "PENDING" | "CONFIRMED" | "DECLINED";
   candidateJoined?: boolean;

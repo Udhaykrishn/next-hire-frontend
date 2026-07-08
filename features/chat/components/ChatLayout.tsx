@@ -158,6 +158,10 @@ export function ChatLayout({
       <div
         className={`flex flex-1 flex-col min-w-0 ${!selectedUserId ? "hidden lg:flex" : "flex"}`}
       >
+        {/* Scheduled interviews — always visible to candidates, even before a
+            chat is opened, so they never miss a scheduled round. */}
+        {_currentUserRole === "CANDIDATE" && <CandidateChatInterviews />}
+
         {selectedUserId && activeChat ? (
           <>
             {/* Header Component */}
@@ -169,9 +173,6 @@ export function ChatLayout({
                 />
               </div>
             </div>
-
-            {/* Inline Interviews Component */}
-            {_currentUserRole === "CANDIDATE" && <CandidateChatInterviews />}
 
             {/* Messages List Component */}
             <ChatMessageList
